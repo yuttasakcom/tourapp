@@ -1,8 +1,11 @@
 const app = require('express')()
 const cors = require('cors')
 const logger = require('morgan')
+const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const router = require('./routes/routes')
+
+mongoose.Promise = global.Promise
 
 app.use(cors())
 app.use(bodyParser.json())
