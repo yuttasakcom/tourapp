@@ -2,7 +2,7 @@ const expect = require('chai').expect
 const request = require('supertest')
 const app = require('../../app')
 const mongoose = require('mongoose')
-const Company = mongoose.model('company')
+const Company = mongoose.model('Company')
 
 describe('company authentication', () => {
 
