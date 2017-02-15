@@ -10,7 +10,11 @@ describe('company authentication', () => {
     Company.count().then(count => {
       request(app)
         .post('/companies/signup')
-        .send({ email: 'company1@test.com' })
+        .send({
+          email: 'company1@test.com',
+          password: '1234'
+        })
+        .expect(201)
         .end((err, res) => {
           if (err) return done(err)
 
