@@ -6,10 +6,19 @@ module.exports = {
     Company.findOne({ email: companyProps.email })
       .then(existingUser => {
         if (existingUser) {
-          return res.status(422).send({ error: 'Email is in use' })
+          let err = new Error('Email is in use')
+          err.status = 422
+          next(err)
         }
-        Company.create(companyProps)
-          .then(company => res.status(201).send(company))
+        const company = new Company(companyProps)
+        const validationErr = company.validateSync()
+        if (validationErr) {
+          let err = new Error('Must provide email or password')
+          err.status = 422
+          next(err)
+        }
+        company.save()
+          .then(company => res.status(201).send({ token: 'mock' }))
           .catch(next)
       })
       .catch(next)
