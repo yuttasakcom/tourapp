@@ -152,7 +152,7 @@ describe('company authentication', () => {
     })
   })
 
-  describe.only('auth with jwt', done => {
+  describe('auth with jwt', done => {
 
     it('signup token can get secret route', done => {
       request(app)
@@ -166,6 +166,24 @@ describe('company authentication', () => {
             .get('/companies/profile')
             .set('authorization', token)
             .expect(200, done)
+        })
+    })
+
+    it('signin token can get secret route', done => {
+      Company.create(companyProps)
+        .then(company => {
+          request(app)
+            .post('/companies/signin')
+            .send(companyProps)
+            .end((err, res) => {
+              if (err) return  done(err)
+
+              const token = res.body.token
+              request(app)
+                .get('/companies/profile')
+                .set('authorization', token)
+                .expect(200, done)
+            })
         })
     })
 
