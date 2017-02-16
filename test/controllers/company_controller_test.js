@@ -163,7 +163,7 @@ describe('company authentication', () => {
 
           const token = res.body.token
           request(app)
-            .get('/companies')
+            .get('/companies/profile')
             .set('Authorization', token)
             .expect(200, done)
         })
