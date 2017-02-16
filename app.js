@@ -1,6 +1,7 @@
 const app = require('express')()
 const cors = require('cors')
 const logger = require('morgan')
+const mongoose = require('./models/mongoose')
 const bodyParser = require('body-parser')
 const router = require('./routes/routes')
 
@@ -18,8 +19,7 @@ app.use((req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-  console.error(err.stack)
-  res.status(500).send({ error: err.message })
+  res.status(err.status || 500).send({ error: err.message })
 })
 
 module.exports = app
