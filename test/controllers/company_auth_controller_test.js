@@ -77,6 +77,23 @@ describe('company authentication', () => {
       })
     })
 
+    it('password must be hash', done => {
+      request(app)
+        .post('/companies/signup')
+        .send(companyProps)
+        .expect(201)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          Company.findOne({ email: companyProps.email })
+            .then(company => {
+              expect(company.password).to.not.equal(companyProps.password)
+              done()
+            })
+            .catch(done)
+        })
+    })
+
     it('return token in body', done => {
       request(app)
         .post('/companies/signup')

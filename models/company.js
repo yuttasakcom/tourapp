@@ -1,5 +1,6 @@
 const mongoose = require('./mongoose')
 const Schema = mongoose.Schema
+const bcrypt = require('bcrypt-nodejs')
 
 const companySchema = new Schema({
   email: {
@@ -16,6 +17,7 @@ const companySchema = new Schema({
 
 companySchema.pre('save', function(next) {
   const Company = mongoose.model('Company')
+  const self = this
   Company.findOne({ email: this.email })
     .then(existingCompany => {
       if (existingCompany) {
@@ -23,7 +25,16 @@ companySchema.pre('save', function(next) {
         err.status = 422
         next(err)
       } else {
-      	next()
+        bcrypt.genSalt(10, function(err, salt) {
+        	if (err) return next(err)
+
+        	bcrypt.hash(self.password, salt, null, function(err, hash) {
+        		if (err) return next(err)
+
+        		self.password = hash
+        		next()
+        	})
+        })
       }
     })
     .catch(next)

@@ -12,7 +12,7 @@ module.exports = {
     }
 
     company.save()
-      .then(company => res.status(201).send({ token: 'mock' }))
+      .then(() => res.status(201).send({ token: 'mock' }))
       .catch(next)
   }
 }
