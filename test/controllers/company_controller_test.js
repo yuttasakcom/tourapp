@@ -108,7 +108,7 @@ describe('company authentication', () => {
     })
   })
 
-  describe.only('signin', () => {
+  describe('signin', () => {
 
     let testCompany
 
