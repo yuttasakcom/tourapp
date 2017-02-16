@@ -1,4 +1,14 @@
 const Company = require('../models/company')
+const jwt = require('jwt-simple')
+const config = require('../config')
+
+const tokenForCompany = (company) => {
+  const timestamp = new Date().getTime()
+  return jwt.encode({
+    sub: company.email,
+    iat: timestamp
+  }, config.secret)
+}
 
 module.exports = {
   signup(req, res, next) {
@@ -12,7 +22,7 @@ module.exports = {
     }
 
     company.save()
-      .then(() => res.status(201).send({ token: 'mock' }))
+      .then(company => res.status(201).send({ token: tokenForCompany(company) }))
       .catch(next)
   }
 }
