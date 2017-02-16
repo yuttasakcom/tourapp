@@ -1,5 +1,5 @@
-const companyAuthRoute = require('./company_auth_route')
+const companyRoute = require('./company_route')
 
 module.exports = (app) => {
-	app.use('/companies', companyAuthRoute)
+	app.use('/companies', companyRoute)
 }
