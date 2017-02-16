@@ -24,5 +24,9 @@ module.exports = {
     company.save()
       .then(company => res.status(201).send({ token: tokenForCompany(company) }))
       .catch(next)
+  },
+
+  signin(req, res, next) {
+    res.send({ token: 'mock' })
   }
 }
