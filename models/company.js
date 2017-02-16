@@ -19,7 +19,6 @@ companySchema.pre('save', function(next) {
   Company.findOne({ email: this.email })
     .then(existingCompany => {
       if (existingCompany) {
-        this.invalidate('email', 'Email is in use')
         let err = new Error('Email is in use')
         err.status = 422
         next(err)
