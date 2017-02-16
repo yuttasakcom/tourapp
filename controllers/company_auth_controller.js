@@ -27,6 +27,6 @@ module.exports = {
   },
 
   signin(req, res, next) {
-    res.send({ token: 'mock' })
+    res.send({ token: tokenForCompany(req.user) })
   }
 }
