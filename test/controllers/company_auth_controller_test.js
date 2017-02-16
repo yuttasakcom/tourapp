@@ -138,5 +138,17 @@ describe('company authentication', () => {
         .catch(done)
     })
 
+    it('return token in body', done => {
+      request(app)
+        .post('/companies/signin')
+        .send(companyProps)
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          expect(res.body.token).to.be.exist
+          done()
+        })
+    })
   })
 })
