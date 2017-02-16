@@ -107,4 +107,48 @@ describe('company authentication', () => {
         })
     })
   })
+
+  describe.only('signin', () => {
+
+    let testCompany
+
+    beforeEach(done => {
+      Company.create(companyProps)
+        .then(company => {
+          testCompany = company
+          done()
+        })
+    })
+
+    it('comparePassword must be valid', done => {
+      testCompany.comparePassword(companyProps.password)
+        .then(isMatch => {
+          expect(isMatch).to.be.true
+          done()
+        })
+        .catch(done)
+    })
+
+    it('comparePassword must be invalid', done => {
+      testCompany.comparePassword('4321')
+        .then(isMatch => {
+          expect(isMatch).to.be.false
+          done()
+        })
+        .catch(done)
+    })
+
+    it('return token in body', done => {
+      request(app)
+        .post('/companies/signin')
+        .send(companyProps)
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          expect(res.body.token).to.be.exist
+          done()
+        })
+    })
+  })
 })

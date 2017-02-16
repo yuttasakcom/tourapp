@@ -26,19 +26,29 @@ companySchema.pre('save', function(next) {
         next(err)
       } else {
         bcrypt.genSalt(10, function(err, salt) {
-        	if (err) return next(err)
+          if (err) return next(err)
 
-        	bcrypt.hash(self.password, salt, null, function(err, hash) {
-        		if (err) return next(err)
+          bcrypt.hash(self.password, salt, null, function(err, hash) {
+            if (err) return next(err)
 
-        		self.password = hash
-        		next()
-        	})
+            self.password = hash
+            next()
+          })
         })
       }
     })
     .catch(next)
 })
+
+companySchema.methods.comparePassword = function(candidatePassword) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+      if (err) return reject(err)
+
+      resolve(isMatch)
+    })
+  })
+}
 
 const Company = mongoose.model('Company', companySchema)
 
