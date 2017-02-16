@@ -129,5 +129,14 @@ describe('company authentication', () => {
         .catch(done)
     })
 
+    it('comparePassword must be invalid', done => {
+      testCompany.comparePassword('4321')
+        .then(isMatch => {
+          expect(isMatch).to.be.false
+          done()
+        })
+        .catch(done)
+    })
+
   })
 })
