@@ -107,4 +107,27 @@ describe('company authentication', () => {
         })
     })
   })
+
+  describe.only('signin', () => {
+
+    let testCompany
+
+    beforeEach(done => {
+      Company.create(companyProps)
+        .then(company => {
+          testCompany = company
+          done()
+        })
+    })
+
+    it('comparePassword must be valid', done => {
+      testCompany.comparePassword(companyProps.password)
+        .then(isMatch => {
+          expect(isMatch).to.be.true
+          done()
+        })
+        .catch(done)
+    })
+
+  })
 })
