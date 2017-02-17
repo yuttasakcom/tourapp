@@ -6,12 +6,12 @@ const Agent = mongoose.model('Agent')
 
 describe('agent authentication', () => {
 
-  describe('signup', () => {
-
-    const agentProps = {
+	const agentProps = {
       email: 'agent1@test.com',
       password: '1234'
     }
+
+  describe.only('signup', () => {
 
     it('create a new agent', done => {
       Agent.count().then(count => {
@@ -28,6 +28,36 @@ describe('agent authentication', () => {
             })
           })
       })
+    })
+
+    it('must provide email and password', done => {
+      const agentWithoutEmail = {
+        email: undefined,
+        password: '1234'
+      }
+      const agentWithoutPassword = {
+        email: 'agent1@test.com',
+        password: undefined
+      }
+      request(app)
+        .post('/agents/signup')
+        .send(agentWithoutEmail)
+        .expect(422)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          expect(res.body.error).to.equal('Must provide email or password')
+          request(app)
+            .post('/agents/signup')
+            .send(agentWithoutPassword)
+            .expect(422)
+            .end((err, res) => {
+              if (err) return done(err)
+
+              expect(res.body.error).to.equal('Must provide email or password')
+              done()
+            })
+        })
     })
   })
 
