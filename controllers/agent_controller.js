@@ -13,5 +13,9 @@ module.exports = {
     agent.save()
       .then(agent => res.status(201).send({ token: 'wat?' }))
       .catch(next)
+  },
+
+  signin(req, res, next) {
+    res.send({ token: 'wat?' })
   }
 }
