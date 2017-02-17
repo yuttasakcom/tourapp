@@ -154,7 +154,7 @@ describe('agent authentication', () => {
     })
   })
 
-  describe.only('auth with jwt', done => {
+  describe('auth with jwt', done => {
 
     it('signup token can get secret route', done => {
       request(app)
