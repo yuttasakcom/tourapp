@@ -76,6 +76,23 @@ describe('agent authentication', () => {
           })
       })
     })
+
+    it('password must be hash', done => {
+      request(app)
+        .post('/agents/signup')
+        .send(agentProps)
+        .expect(201)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          Agent.findOne({ email: agentProps.email })
+            .then(agent => {
+              expect(agent.password).to.not.equal(agentProps.password)
+              done()
+            })
+            .catch(done)
+        })
+    })
   })
 
 })
