@@ -204,18 +204,18 @@ describe('company authentication', () => {
       }
 
       request(app)
-          .post('/agents/signup')
-          .send(agentProps)
-          .expect(201)
-          .end((err, res) => {
-            if (err) return done(err)
+        .post('/agents/signup')
+        .send(agentProps)
+        .expect(201)
+        .end((err, res) => {
+          if (err) return done(err)
 
-            const agentToken = res.body.token
-            request(app)
-              .get('/companies/profile')
-              .set('authorization', agentToken)
-              .expect(401, done)
-          })
+          const agentToken = res.body.token
+          request(app)
+            .get('/companies/profile')
+            .set('authorization', agentToken)
+            .expect(401, done)
+        })
     })
 
   })
