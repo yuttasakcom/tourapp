@@ -189,6 +189,14 @@ describe('agent authentication', () => {
         })
     })
 
+    it('fake token can not get secret route', done => {
+    	const token = 'fake token'
+    	request(app)
+    		.get('/agents/profile')
+    		.set('authorization', token)
+    		.expect(401, done)
+    })
+
   })
 
 })
