@@ -2,7 +2,7 @@ const mongoose = require('./mongoose')
 const Schema = mongoose.Schema
 const bcrypt = require('bcrypt-nodejs')
 
-const companySchema = new Schema({
+const agentSchema = new Schema({
   email: {
     type: String,
     unique: true,
@@ -15,12 +15,12 @@ const companySchema = new Schema({
   }
 })
 
-companySchema.pre('save', function(next) {
-  const Company = mongoose.model('Company')
+agentSchema.pre('save', function(next) {
+  const Agent = mongoose.model('Agent')
   const self = this
-  Company.findOne({ email: self.email })
-    .then(existingCompany => {
-      if (existingCompany) {
+  Agent.findOne({ email: self.email })
+    .then(existingAgent => {
+      if (existingAgent) {
         let err = new Error('Email is in use')
         err.status = 422
         next(err)
@@ -40,16 +40,6 @@ companySchema.pre('save', function(next) {
     .catch(next)
 })
 
-companySchema.methods.comparePassword = function(candidatePassword) {
-  return new Promise((resolve, reject) => {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-      if (err) return reject(err)
+const Agent = mongoose.model('Agent', agentSchema)
 
-      resolve(isMatch)
-    })
-  })
-}
-
-const Company = mongoose.model('Company', companySchema)
-
-module.exports = Company
+module.exports = Agent

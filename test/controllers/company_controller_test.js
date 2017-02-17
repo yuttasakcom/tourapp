@@ -46,7 +46,7 @@ describe('company authentication', () => {
         .end((err, res) => {
           if (err) return done(err)
 
-          expect(res.body.error).to.equal('Must provide email or password')
+          expect(res.body.error).to.equal('Must provide email and password')
           request(app)
             .post('/companies/signup')
             .send(companyWithoutPassword)
@@ -54,7 +54,7 @@ describe('company authentication', () => {
             .end((err, res) => {
               if (err) return done(err)
 
-              expect(res.body.error).to.equal('Must provide email or password')
+              expect(res.body.error).to.equal('Must provide email and password')
               done()
             })
         })
@@ -176,7 +176,7 @@ describe('company authentication', () => {
             .post('/companies/signin')
             .send(companyProps)
             .end((err, res) => {
-              if (err) return  done(err)
+              if (err) return done(err)
 
               const token = res.body.token
               request(app)
