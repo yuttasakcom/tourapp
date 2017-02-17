@@ -2,11 +2,11 @@ const {
   signup,
   signin
 } = require('../controllers/agent_controller')
-const agentPassport = require('../services/agent_passport')
-const requireAgentSignin = agentPassport.authenticate('local', { session: false })
+const passport = require('../services/passport')
+const requireSignin = passport.authenticate('local', { session: false })
 const router = require('express').Router()
 
 router.post('/signup', signup)
-router.post('/signin', requireAgentSignin, signin)
+router.post('/signin', requireSignin, signin)
 
 module.exports = router
