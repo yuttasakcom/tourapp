@@ -93,6 +93,19 @@ describe('agent authentication', () => {
             .catch(done)
         })
     })
+
+    it('return token in body', done => {
+      request(app)
+        .post('/agents/signup')
+        .send(agentProps)
+        .expect(201)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          expect(res.body.token).to.be.exist
+          done()
+        })
+    })
   })
 
 })
