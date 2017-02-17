@@ -189,5 +189,34 @@ describe('company authentication', () => {
         })
     })
 
+    it('fake token can not get secret route', done => {
+      const token = 'fake token'
+      request(app)
+        .get('/companies/profile')
+        .set('authorization', token)
+        .expect(401, done)
+    })
+
+    it('agent token can not get secret route', done => {
+      const agentProps = {
+        email: 'agent1@test.com',
+        password: '1234'
+      }
+
+      request(app)
+        .post('/agents/signup')
+        .send(agentProps)
+        .expect(201)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          const agentToken = res.body.token
+          request(app)
+            .get('/companies/profile')
+            .set('authorization', agentToken)
+            .expect(401, done)
+        })
+    })
+
   })
 })

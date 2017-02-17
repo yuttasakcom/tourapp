@@ -6,6 +6,7 @@ const tokenForAgent = (agent) => {
   const timestamp = new Date().getTime()
   return jwt.encode({
     sub: agent.email,
+    role: 'agent',
     iat: timestamp
   }, config.secret)
 }

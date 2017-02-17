@@ -154,7 +154,7 @@ describe('agent authentication', () => {
     })
   })
 
-  describe.only('auth with jwt', done => {
+  describe('auth with jwt', done => {
 
     it('signup token can get secret route', done => {
       request(app)
@@ -186,6 +186,35 @@ describe('agent authentication', () => {
                 .set('authorization', token)
                 .expect(200, done)
             })
+        })
+    })
+
+    it('fake token can not get secret route', done => {
+      const token = 'fake token'
+      request(app)
+        .get('/agents/profile')
+        .set('authorization', token)
+        .expect(401, done)
+    })
+
+    it('company token can not get secret route', done => {
+      const companyProps = {
+        email: 'company1@test.com',
+        password: '1234'
+      }
+
+      request(app)
+        .post('/companies/signup')
+        .send(companyProps)
+        .expect(201)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          const companyToken = res.body.token
+          request(app)
+            .get('/agents/profile')
+            .set('authorization', companyToken)
+            .expect(401, done)
         })
     })
 
