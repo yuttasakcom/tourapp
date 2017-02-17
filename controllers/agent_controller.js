@@ -1,4 +1,15 @@
 const Agent = require('../models/agent')
+const jwt = require('jwt-simple')
+const config = require('../config')
+
+const tokenForAgent = (agent) => {
+  const timestamp = new Date().getTime()
+  return jwt.encode({
+    sub: agent.email,
+    iat: timestamp
+  }, config.secret)
+}
+
 
 module.exports = {
   signup(req, res, next) {
@@ -11,7 +22,11 @@ module.exports = {
       return next(err)
     }
     agent.save()
-      .then(agent => res.status(201).send({ token: 'wat?' }))
+      .then(agent => res.status(201).send({ token: tokenForAgent(agent) }))
       .catch(next)
+  },
+
+  signin(req, res, next) {
+    res.send({ token: tokenForAgent(req.user) })
   }
 }

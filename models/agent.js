@@ -40,6 +40,16 @@ agentSchema.pre('save', function(next) {
     .catch(next)
 })
 
+agentSchema.methods.comparePassword = function(candidatePassword) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+      if (err) return reject(err)
+
+      resolve(isMatch)
+    })
+  })
+}
+
 const Agent = mongoose.model('Agent', agentSchema)
 
 module.exports = Agent

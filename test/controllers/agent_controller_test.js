@@ -6,10 +6,10 @@ const Agent = mongoose.model('Agent')
 
 describe('agent authentication', () => {
 
-	const agentProps = {
-      email: 'agent1@test.com',
-      password: '1234'
-    }
+  const agentProps = {
+    email: 'agent1@test.com',
+    password: '1234'
+  }
 
   describe('signup', () => {
 
@@ -105,6 +105,50 @@ describe('agent authentication', () => {
           expect(res.body.token).to.be.exist
           done()
         })
+    })
+  })
+
+  describe('signin', () => {
+
+    let testAgent
+
+    beforeEach(done => {
+      Agent.create(agentProps)
+        .then(agent => {
+          testAgent = agent
+          done()
+        })
+    })
+
+    it('comparePassword must be valid', done => {
+      testAgent.comparePassword(agentProps.password)
+        .then(isMatch => {
+          expect(isMatch).to.be.true
+          done()
+        })
+        .catch(done)
+    })
+
+    it('comparePassword must be invalid', done => {
+      testAgent.comparePassword('4321')
+        .then(isMatch => {
+          expect(isMatch).to.be.false
+          done()
+        })
+        .catch(done)
+    })
+
+    it.only('return token in body', done => {
+    	request(app)
+    		.post('/agents/signin')
+    		.send(agentProps)
+    		.expect(200)
+    		.end((err, res) => {
+    			if (err) return done(err)
+
+    			expect(res.body.token).to.be.exist
+    			done()
+    		})
     })
   })
 
