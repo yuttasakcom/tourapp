@@ -18,7 +18,7 @@ const companySchema = new Schema({
 companySchema.pre('save', function(next) {
   const Company = mongoose.model('Company')
   const self = this
-  Company.findOne({ email: this.email })
+  Company.findOne({ email: self.email })
     .then(existingCompany => {
       if (existingCompany) {
         let err = new Error('Email is in use')
