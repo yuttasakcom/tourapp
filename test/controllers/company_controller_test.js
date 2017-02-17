@@ -176,7 +176,7 @@ describe('company authentication', () => {
             .post('/companies/signin')
             .send(companyProps)
             .end((err, res) => {
-              if (err) return  done(err)
+              if (err) return done(err)
 
               const token = res.body.token
               request(app)
