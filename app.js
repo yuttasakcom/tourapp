@@ -4,6 +4,10 @@ const logger = require('morgan')
 const mongoose = require('./models/mongoose')
 const bodyParser = require('body-parser')
 const router = require('./routes/routes')
+const {
+  handleNotFound,
+  handleAnotherError
+} = require('./middlewares')
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -15,13 +19,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 router(app)
 
-app.use((req, res, next) => {
-  res.status(404).send("Sorry can't find that!")
-})
-
-app.use((err, req, res, next) => {
-	console.warn(err.message)
-  res.status(err.status || 500).send({ error: err.message })
-})
+app.use(handleNotFound)
+app.use(handleAnotherError)
 
 module.exports = app
