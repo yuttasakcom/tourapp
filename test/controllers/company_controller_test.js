@@ -138,10 +138,11 @@ describe('company authentication', () => {
         .catch(done)
     })
 
-    it('return token in body', done => {
+    it.only('return token in body', done => {
+      const companySigninProps = Object.assign({}, companyProps, { role: 'company' })
       request(app)
         .post('/companies/signin')
-        .send(companyProps)
+        .send(companySigninProps)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err)
