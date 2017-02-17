@@ -59,6 +59,23 @@ describe('agent authentication', () => {
             })
         })
     })
+
+    it('can not be use a duplicate email', done => {
+      const agent = new Agent(agentProps)
+
+      agent.save().then(() => {
+        request(app)
+          .post('/agents/signup')
+          .send(agentProps)
+          .expect(422)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            expect(res.body.error).to.equal('Email is in use')
+            done()
+          })
+      })
+    })
   })
 
 })
