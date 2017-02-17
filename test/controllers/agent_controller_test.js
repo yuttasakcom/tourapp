@@ -141,17 +141,54 @@ describe('agent authentication', () => {
     })
 
     it('return token in body', done => {
-    	request(app)
-    		.post('/agents/signin')
-    		.send(agentSigninProps)
-    		.expect(200)
-    		.end((err, res) => {
-    			if (err) return done(err)
+      request(app)
+        .post('/agents/signin')
+        .send(agentSigninProps)
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err)
 
-    			expect(res.body.token).to.be.exist
-    			done()
-    		})
+          expect(res.body.token).to.be.exist
+          done()
+        })
     })
+  })
+
+  describe.only('auth with jwt', done => {
+
+    it('signup token can get secret route', done => {
+      request(app)
+        .post('/agents/signup')
+        .send(agentProps)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          const token = res.body.token
+          request(app)
+            .get('/agents/profile')
+            .set('authorization', token)
+            .expect(200, done)
+        })
+    })
+
+    it('signin token can get secret route', done => {
+      Agent.create(agentProps)
+        .then(agent => {
+          request(app)
+            .post('/agents/signin')
+            .send(agentSigninProps)
+            .end((err, res) => {
+              if (err) return done(err)
+
+              const token = res.body.token
+              request(app)
+                .get('/agents/profile')
+                .set('authorization', token)
+                .expect(200, done)
+            })
+        })
+    })
+
   })
 
 })
