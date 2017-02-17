@@ -28,5 +28,9 @@ module.exports = {
 
   signin(req, res, next) {
     res.send({ token: tokenForAgent(req.user) })
+  },
+
+  profile(req, res, next) {
+    res.send({ message: 'realy secret' })
   }
 }
