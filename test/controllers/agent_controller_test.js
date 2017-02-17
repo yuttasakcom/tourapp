@@ -139,9 +139,10 @@ describe('agent authentication', () => {
     })
 
     it.only('return token in body', done => {
+    	const agentSigninProps = Object.assign({}, agentProps, { role: 'agent' })
     	request(app)
     		.post('/agents/signin')
-    		.send(agentProps)
+    		.send(agentSigninProps)
     		.expect(200)
     		.end((err, res) => {
     			if (err) return done(err)
