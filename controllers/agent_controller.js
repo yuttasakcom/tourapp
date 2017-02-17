@@ -27,6 +27,6 @@ module.exports = {
   },
 
   signin(req, res, next) {
-    res.send({ token: 'wat?' })
+    res.send({ token: tokenForAgent(req.user) })
   }
 }
