@@ -8,8 +8,7 @@ before(done => {
 })
 
 beforeEach(done => {
-	const { companies } = mongoose.connection.collections
-	companies.drop()
+	mongoose.connection.db.dropDatabase()
 		.then(() => done())
 		.catch(() => done())
 })
