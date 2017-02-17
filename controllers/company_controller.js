@@ -16,7 +16,7 @@ module.exports = {
     const company = new Company(companyProps)
     const validationErr = company.validateSync()
     if (validationErr) {
-      let err = new Error('Must provide email or password')
+      let err = new Error('Must provide email and password')
       err.status = 422
       return next(err)
     }

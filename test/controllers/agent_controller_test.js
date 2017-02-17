@@ -11,7 +11,7 @@ describe('agent authentication', () => {
       password: '1234'
     }
 
-  describe.only('signup', () => {
+  describe('signup', () => {
 
     it('create a new agent', done => {
       Agent.count().then(count => {
@@ -46,7 +46,7 @@ describe('agent authentication', () => {
         .end((err, res) => {
           if (err) return done(err)
 
-          expect(res.body.error).to.equal('Must provide email or password')
+          expect(res.body.error).to.equal('Must provide email and password')
           request(app)
             .post('/agents/signup')
             .send(agentWithoutPassword)
@@ -54,7 +54,7 @@ describe('agent authentication', () => {
             .end((err, res) => {
               if (err) return done(err)
 
-              expect(res.body.error).to.equal('Must provide email or password')
+              expect(res.body.error).to.equal('Must provide email and password')
               done()
             })
         })

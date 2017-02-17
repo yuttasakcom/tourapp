@@ -6,7 +6,7 @@ module.exports = {
     const agent = new Agent(agentProps)
     const validationErr = agent.validateSync()
     if (validationErr) {
-      let err = new Error('Must provide email or password')
+      let err = new Error('Must provide email and password')
       err.status = 422
       return next(err)
     }
