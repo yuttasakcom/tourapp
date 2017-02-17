@@ -11,6 +11,8 @@ describe('agent authentication', () => {
     password: '1234'
   }
 
+  const agentSigninProps = Object.assign({}, agentProps, { role: 'agent' })
+
   describe('signup', () => {
 
     it('create a new agent', done => {
@@ -138,10 +140,10 @@ describe('agent authentication', () => {
         .catch(done)
     })
 
-    it.only('return token in body', done => {
+    it('return token in body', done => {
     	request(app)
     		.post('/agents/signin')
-    		.send(agentProps)
+    		.send(agentSigninProps)
     		.expect(200)
     		.end((err, res) => {
     			if (err) return done(err)

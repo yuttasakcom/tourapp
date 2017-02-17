@@ -11,6 +11,8 @@ describe('company authentication', () => {
     password: '1234'
   }
 
+  const companySigninProps = Object.assign({}, companyProps, { role: 'company' })
+
   describe('signup', () => {
 
     it('create a new company', done => {
@@ -141,7 +143,7 @@ describe('company authentication', () => {
     it('return token in body', done => {
       request(app)
         .post('/companies/signin')
-        .send(companyProps)
+        .send(companySigninProps)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err)
@@ -174,7 +176,7 @@ describe('company authentication', () => {
         .then(company => {
           request(app)
             .post('/companies/signin')
-            .send(companyProps)
+            .send(companySigninProps)
             .end((err, res) => {
               if (err) return done(err)
 
