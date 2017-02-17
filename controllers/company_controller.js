@@ -6,6 +6,7 @@ const tokenForCompany = (company) => {
   const timestamp = new Date().getTime()
   return jwt.encode({
     sub: company.email,
+    role: 'company',
     iat: timestamp
   }, config.secret)
 }
