@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe.only('Company add relation', () => {
+describe('Company add relation', () => {
 
   let company1, agent1, agent2, company1Token
 
