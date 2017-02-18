@@ -28,12 +28,35 @@ describe.only('Company model', () => {
         $push: { 'agents': agent1._id }
       }, { new: true })
       .then(() => {
-      	Company.findById(company1._id)
-      		.populate('agents')
-      		.then(company => {
-      			expect(company.agents[0].email).to.equal(agent1.email)
-      			done()
-      		})
+        Company.findById(company1._id)
+          .populate('agents')
+          .then(company => {
+            expect(company.agents[0].email).to.equal(agent1.email)
+            done()
+          })
+      })
+  })
+
+  it.only('add agent to an existing company, and agent can list company too', done => {
+    const pushAgentToCompany = Company.findByIdAndUpdate(company1._id, {
+      $push: { 'agents': agent1._id }
+    }, { new: true })
+
+    const pushCompanyToAgent = Agent.findByIdAndUpdate(agent1._id, {
+      $push: { 'companies': company1._id }
+    }, { new: true })
+
+    Promise.all([
+        pushAgentToCompany,
+        pushCompanyToAgent
+      ])
+      .then((result) => {
+        Agent.findById(agent1._id)
+          .populate('companies')
+          .then(agent => {
+          	expect(agent.companies[0].email).to.equal(company1.email)
+            done()
+          })
       })
   })
 
