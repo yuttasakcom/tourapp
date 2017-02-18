@@ -12,26 +12,32 @@ const companySchema = new Schema({
   password: {
     type: String,
     required: [true, 'Password is required']
-  }
+  },
+  agents: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Agent'
+  }]
 })
 
 companySchema.pre('save', function(next) {
-  helper.checkEmailExist('Company', this.email)
-    .then(exist => {
-      if (exist) {
-        let err = new Error('Email is in use')
-        err.status = 422
-        next(err)
-      } else {
-        helper.hashPassword(this.password)
-          .then(hash => {
-            this.password = hash
-            next()
-          })
-          .catch(next)
-      }
-    })
-    .catch(next)
+  if (this.isNew) {
+    helper.checkEmailExist('Company', this.email)
+      .then(exist => {
+        if (exist) {
+          let err = new Error('Email is in use')
+          err.status = 422
+          next(err)
+        } else {
+          helper.hashPassword(this.password)
+            .then(hash => {
+              this.password = hash
+              next()
+            })
+            .catch(next)
+        }
+      })
+      .catch(next)
+  }
 })
 
 companySchema.methods.comparePassword = helper.comparePassword

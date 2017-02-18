@@ -1,10 +1,12 @@
 const Company = require('../models/company')
+const Agent = require('../models/agent')
 const jwt = require('jwt-simple')
 const config = require('../config')
 
 const tokenForCompany = (company) => {
   const timestamp = new Date().getTime()
   return jwt.encode({
+    _id: company._id,
     sub: company.email,
     role: 'company',
     iat: timestamp
@@ -33,5 +35,27 @@ module.exports = {
 
   profile(req, res, next) {
     res.send({ message: 'realy secret' })
+  },
+
+  addRelationship(req, res, next) {
+    const agentId = req.body._id
+    const companyId = req.user._id
+
+    const pushAgentToCompany = Company.findByIdAndUpdate(companyId, {
+      $addToSet: { 'agents': agentId }
+    }, { new: true })
+
+    const pushCompanyToAgent = Agent.findByIdAndUpdate(agentId, {
+      $addToSet: { 'companies': companyId }
+    }, { new: true })
+
+    Promise.all([
+        pushAgentToCompany,
+        pushCompanyToAgent
+      ])
+      .then(() => {
+        res.send({ message: 'Add relationshop completed' })
+      })
+      .catch(next)
   }
 }

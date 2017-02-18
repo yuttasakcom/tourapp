@@ -5,6 +5,7 @@ const config = require('../config')
 const tokenForAgent = (agent) => {
   const timestamp = new Date().getTime()
   return jwt.encode({
+    _id: agent._id,
     sub: agent.email,
     role: 'agent',
     iat: timestamp

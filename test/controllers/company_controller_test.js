@@ -1,222 +1,141 @@
-const expect = require('chai').expect
-const request = require('supertest')
 const app = require('../../app')
+const request = require('supertest')
+const expect = require('chai').expect
 const mongoose = require('mongoose')
+const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe('company authentication', () => {
+describe.only('Company add relation', () => {
 
-  const companyProps = {
+  let company1, agent1, agent2, company1Token
+
+  const company1Props = {
     email: 'company1@test.com',
     password: '1234'
   }
 
-  const companySigninProps = Object.assign({}, companyProps, { role: 'company' })
+  const agent1Props = {
+    email: 'agent1@test.com',
+    password: '1234'
+  }
 
-  describe('signup', () => {
+  const agent2Props = {
+    email: 'agent2@test.com',
+    password: '1234'
+  }
 
-    it('create a new company', done => {
-      Company.count().then(count => {
+  const company1SigninProps = Object.assign({}, company1Props, { role: 'company' })
+  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
+  const agent2SigninProps = Object.assign({}, agent2Props, { role: 'agent' })
+
+  beforeEach(done => {
+    company1 = new Company(company1Props)
+    agent1 = new Agent(agent1Props)
+    agent2 = new Agent(agent2Props)
+
+    Promise.all([
+        company1.save(),
+        agent1.save(),
+        agent2.save()
+      ])
+      .then(() => {
         request(app)
-          .post('/companies/signup')
-          .send(companyProps)
-          .expect(201)
+          .post('/companies/signin')
+          .send(company1SigninProps)
           .end((err, res) => {
-            if (err) return done(err)
+            company1Token = res.body.token
 
-            Company.count().then(newCount => {
-              expect(count + 1).to.equal(newCount)
-              done()
-            })
-          })
-      })
-    })
-
-    it('must provide email and password', done => {
-      const companyWithoutEmail = {
-        email: undefined,
-        password: '1234'
-      }
-      const companyWithoutPassword = {
-        email: 'company1@test.com',
-        password: undefined
-      }
-      request(app)
-        .post('/companies/signup')
-        .send(companyWithoutEmail)
-        .expect(422)
-        .end((err, res) => {
-          if (err) return done(err)
-
-          expect(res.body.error).to.equal('Must provide email and password')
-          request(app)
-            .post('/companies/signup')
-            .send(companyWithoutPassword)
-            .expect(422)
-            .end((err, res) => {
-              if (err) return done(err)
-
-              expect(res.body.error).to.equal('Must provide email and password')
-              done()
-            })
-        })
-    })
-
-    it('can not be use a duplicate email', done => {
-      const company = new Company(companyProps)
-
-      company.save().then(() => {
-        request(app)
-          .post('/companies/signup')
-          .send(companyProps)
-          .expect(422)
-          .end((err, res) => {
-            if (err) return done(err)
-
-            expect(res.body.error).to.equal('Email is in use')
             done()
           })
       })
-    })
-
-    it('password must be hash', done => {
-      request(app)
-        .post('/companies/signup')
-        .send(companyProps)
-        .expect(201)
-        .end((err, res) => {
-          if (err) return done(err)
-
-          Company.findOne({ email: companyProps.email })
-            .then(company => {
-              expect(company.password).to.not.equal(companyProps.password)
-              done()
-            })
-            .catch(done)
-        })
-    })
-
-    it('return token in body', done => {
-      request(app)
-        .post('/companies/signup')
-        .send(companyProps)
-        .expect(201)
-        .end((err, res) => {
-          if (err) return done(err)
-
-          expect(res.body.token).to.be.exist
-          done()
-        })
-    })
   })
 
-  describe('signin', () => {
+  it('one agent', done => {
+    request(app)
+      .post('/companies/agents')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
 
-    let testCompany
-
-    beforeEach(done => {
-      Company.create(companyProps)
-        .then(company => {
-          testCompany = company
-          done()
-        })
-    })
-
-    it('comparePassword must be valid', done => {
-      testCompany.comparePassword(companyProps.password)
-        .then(isMatch => {
-          expect(isMatch).to.be.true
-          done()
-        })
-        .catch(done)
-    })
-
-    it('comparePassword must be invalid', done => {
-      testCompany.comparePassword('4321')
-        .then(isMatch => {
-          expect(isMatch).to.be.false
-          done()
-        })
-        .catch(done)
-    })
-
-    it('return token in body', done => {
-      request(app)
-        .post('/companies/signin')
-        .send(companySigninProps)
-        .expect(200)
-        .end((err, res) => {
-          if (err) return done(err)
-
-          expect(res.body.token).to.be.exist
-          done()
-        })
-    })
+        Promise.all([
+            Company.findById(company1._id),
+            Agent.findById(agent1._id)
+          ])
+          .then(result => {
+            expect(result[0].agents.length).to.equal(1)
+            expect(result[1].companies.length).to.equal(1)
+            done()
+          })
+          .catch(done)
+      })
   })
 
-  describe('auth with jwt', done => {
+  it('two agent', done => {
+    request(app)
+      .post('/companies/agents')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
 
-    it('signup token can get secret route', done => {
-      request(app)
-        .post('/companies/signup')
-        .send(companyProps)
-        .end((err, res) => {
-          if (err) return done(err)
+        request(app)
+          .post('/companies/agents')
+          .send({ _id: agent2._id })
+          .set('authorization', company1Token)
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err)
 
-          const token = res.body.token
-          request(app)
-            .get('/companies/profile')
-            .set('authorization', token)
-            .expect(200, done)
-        })
-    })
-
-    it('signin token can get secret route', done => {
-      Company.create(companyProps)
-        .then(company => {
-          request(app)
-            .post('/companies/signin')
-            .send(companySigninProps)
-            .end((err, res) => {
-              if (err) return done(err)
-
-              const token = res.body.token
-              request(app)
-                .get('/companies/profile')
-                .set('authorization', token)
-                .expect(200, done)
-            })
-        })
-    })
-
-    it('fake token can not get secret route', done => {
-      const token = 'fake token'
-      request(app)
-        .get('/companies/profile')
-        .set('authorization', token)
-        .expect(401, done)
-    })
-
-    it('agent token can not get secret route', done => {
-      const agentProps = {
-        email: 'agent1@test.com',
-        password: '1234'
-      }
-
-      request(app)
-        .post('/agents/signup')
-        .send(agentProps)
-        .expect(201)
-        .end((err, res) => {
-          if (err) return done(err)
-
-          const agentToken = res.body.token
-          request(app)
-            .get('/companies/profile')
-            .set('authorization', agentToken)
-            .expect(401, done)
-        })
-    })
-
+            Promise.all([
+                Company.findById(company1._id),
+                Agent.findById(agent1._id),
+                Agent.findById(agent2._id)
+              ])
+              .then(result => {
+                expect(result[0].agents.length).to.equal(2)
+                expect(result[1].companies.length).to.equal(1)
+                expect(result[2].companies.length).to.equal(1)
+                done()
+              })
+              .catch(done)
+          })
+      })
   })
+
+  it('duplicate agent must not insert', done => {
+    request(app)
+      .post('/companies/agents')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        request(app)
+          .post('/companies/agents')
+          .send({ _id: agent1._id })
+          .set('authorization', company1Token)
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            Promise.all([
+                Company.findById(company1._id),
+                Agent.findById(agent1._id),
+                Agent.findById(agent2._id)
+              ])
+              .then(result => {
+                expect(result[0].agents.length).to.equal(1)
+                expect(result[1].companies.length).to.equal(1)
+                expect(result[2].companies.length).to.equal(0)
+                done()
+              })
+              .catch(done)
+          })
+      })
+  })
+
 })
