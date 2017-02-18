@@ -5,6 +5,7 @@ const config = require('../config')
 const tokenForCompany = (company) => {
   const timestamp = new Date().getTime()
   return jwt.encode({
+    _id: company._id,
     sub: company.email,
     role: 'company',
     iat: timestamp
@@ -33,5 +34,12 @@ module.exports = {
 
   profile(req, res, next) {
     res.send({ message: 'realy secret' })
+  },
+
+  addRelationship(req, res, next) {
+    const agentId = req.body._id
+    console.log(req.user)
+
+    res.send({ message: 'completed' })
   }
 }
