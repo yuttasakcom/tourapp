@@ -40,11 +40,6 @@ companySchema.pre('save', function(next) {
   }
 })
 
-companySchema.pre('findOneAndUpdate', function(next) {
-  console.log('post update')
-  next()
-})
-
 companySchema.methods.comparePassword = helper.comparePassword
 
 const Company = mongoose.model('Company', companySchema)
