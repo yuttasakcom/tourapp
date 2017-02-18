@@ -12,7 +12,11 @@ const agentSchema = new Schema({
   password: {
     type: String,
     required: [true, 'Password is required']
-  }
+  },
+  companies: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Company'
+  }]
 })
 
 agentSchema.pre('save', function(next) {
