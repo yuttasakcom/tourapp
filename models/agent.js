@@ -1,6 +1,7 @@
 const mongoose = require('./mongoose')
 const Schema = mongoose.Schema
 const bcrypt = require('bcrypt-nodejs')
+const utils = require('./utils')
 
 const agentSchema = new Schema({
   email: {
@@ -40,15 +41,7 @@ agentSchema.pre('save', function(next) {
     .catch(next)
 })
 
-agentSchema.methods.comparePassword = function(candidatePassword) {
-  return new Promise((resolve, reject) => {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-      if (err) return reject(err)
-
-      resolve(isMatch)
-    })
-  })
-}
+agentSchema.methods.comparePassword = utils.comparePassword
 
 const Agent = mongoose.model('Agent', agentSchema)
 
