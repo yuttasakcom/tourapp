@@ -1,7 +1,7 @@
 const mongoose = require('./mongoose')
 const Schema = mongoose.Schema
 const bcrypt = require('bcrypt-nodejs')
-const utils = require('./utils')
+const helper = require('./helpers/authentication')
 
 const companySchema = new Schema({
   email: {
@@ -41,7 +41,7 @@ companySchema.pre('save', function(next) {
     .catch(next)
 })
 
-companySchema.methods.comparePassword = utils.comparePassword
+companySchema.methods.comparePassword = helper.comparePassword
 
 const Company = mongoose.model('Company', companySchema)
 
