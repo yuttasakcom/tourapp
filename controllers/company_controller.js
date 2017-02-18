@@ -42,11 +42,11 @@ module.exports = {
     const companyId = req.user._id
 
     const pushAgentToCompany = Company.findByIdAndUpdate(companyId, {
-      $push: { 'agents': agentId }
+      $addToSet: { 'agents': agentId }
     }, { new: true })
 
     const pushCompanyToAgent = Agent.findByIdAndUpdate(agentId, {
-      $push: { 'companies': companyId }
+      $addToSet: { 'companies': companyId }
     }, { new: true })
 
     Promise.all([

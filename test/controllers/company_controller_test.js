@@ -105,4 +105,37 @@ describe.only('Company add relation', () => {
       })
   })
 
+  it('duplicate agent must not insert', done => {
+    request(app)
+      .post('/companies/agents')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        request(app)
+          .post('/companies/agents')
+          .send({ _id: agent1._id })
+          .set('authorization', company1Token)
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            Promise.all([
+                Company.findById(company1._id),
+                Agent.findById(agent1._id),
+                Agent.findById(agent2._id)
+              ])
+              .then(result => {
+                expect(result[0].agents.length).to.equal(1)
+                expect(result[1].companies.length).to.equal(1)
+                expect(result[2].companies.length).to.equal(0)
+                done()
+              })
+              .catch(done)
+          })
+      })
+  })
+
 })
