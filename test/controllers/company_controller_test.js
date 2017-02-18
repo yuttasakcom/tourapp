@@ -7,7 +7,7 @@ const Company = mongoose.model('Company')
 
 describe.only('Company add relation', () => {
 
-  let company1, agent1, company1Token, agent1Token
+  let company1, agent1, agent2, company1Token
 
   const company1Props = {
     email: 'company1@test.com',
@@ -19,16 +19,24 @@ describe.only('Company add relation', () => {
     password: '1234'
   }
 
+  const agent2Props = {
+    email: 'agent2@test.com',
+    password: '1234'
+  }
+
   const company1SigninProps = Object.assign({}, company1Props, { role: 'company' })
   const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
+  const agent2SigninProps = Object.assign({}, agent2Props, { role: 'agent' })
 
   beforeEach(done => {
-    agent1 = new Agent(agent1Props)
     company1 = new Company(company1Props)
+    agent1 = new Agent(agent1Props)
+    agent2 = new Agent(agent2Props)
 
     Promise.all([
+        company1.save(),
         agent1.save(),
-        company1.save()
+        agent2.save()
       ])
       .then(() => {
         request(app)
@@ -37,14 +45,7 @@ describe.only('Company add relation', () => {
           .end((err, res) => {
             company1Token = res.body.token
 
-            request(app)
-              .post('/agents/signin')
-              .send(agent1SigninProps)
-              .end((err, res) => {
-                agent1Token = res.body.token
-
-                done()
-              })
+            done()
           })
       })
   })
@@ -68,6 +69,39 @@ describe.only('Company add relation', () => {
             done()
           })
           .catch(done)
+      })
+  })
+
+  it('two agent', done => {
+    request(app)
+      .post('/companies/agents')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        request(app)
+          .post('/companies/agents')
+          .send({ _id: agent2._id })
+          .set('authorization', company1Token)
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            Promise.all([
+                Company.findById(company1._id),
+                Agent.findById(agent1._id),
+                Agent.findById(agent2._id)
+              ])
+              .then(result => {
+                expect(result[0].agents.length).to.equal(2)
+                expect(result[1].companies.length).to.equal(1)
+                expect(result[2].companies.length).to.equal(1)
+                done()
+              })
+              .catch(done)
+          })
       })
   })
 
