@@ -2,7 +2,7 @@ const Company = require('../../models/company')
 const Agent = require('../../models/agent')
 const expect = require('chai').expect
 
-describe.only('Company model', () => {
+describe('Company model', () => {
 
   let agent1, company1
 
@@ -37,7 +37,7 @@ describe.only('Company model', () => {
       })
   })
 
-  it.only('add agent to an existing company, and agent can list company too', done => {
+  it('add agent to an existing company, and agent can list company too', done => {
     const pushAgentToCompany = Company.findByIdAndUpdate(company1._id, {
       $push: { 'agents': agent1._id }
     }, { new: true })

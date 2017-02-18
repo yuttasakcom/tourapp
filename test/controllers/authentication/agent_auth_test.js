@@ -1,30 +1,30 @@
-const expect = require('chai').expect
+const app = require('../../../app')
 const request = require('supertest')
-const app = require('../../app')
+const expect = require('chai').expect
 const mongoose = require('mongoose')
-const Company = mongoose.model('Company')
+const Agent = mongoose.model('Agent')
 
-describe('company authentication', () => {
+describe('agent authentication', () => {
 
-  const companyProps = {
-    email: 'company1@test.com',
+  const agentProps = {
+    email: 'agent1@test.com',
     password: '1234'
   }
 
-  const companySigninProps = Object.assign({}, companyProps, { role: 'company' })
+  const agentSigninProps = Object.assign({}, agentProps, { role: 'agent' })
 
   describe('signup', () => {
 
-    it('create a new company', done => {
-      Company.count().then(count => {
+    it('create a new agent', done => {
+      Agent.count().then(count => {
         request(app)
-          .post('/companies/signup')
-          .send(companyProps)
+          .post('/agents/signup')
+          .send(agentProps)
           .expect(201)
           .end((err, res) => {
             if (err) return done(err)
 
-            Company.count().then(newCount => {
+            Agent.count().then(newCount => {
               expect(count + 1).to.equal(newCount)
               done()
             })
@@ -33,25 +33,25 @@ describe('company authentication', () => {
     })
 
     it('must provide email and password', done => {
-      const companyWithoutEmail = {
+      const agentWithoutEmail = {
         email: undefined,
         password: '1234'
       }
-      const companyWithoutPassword = {
-        email: 'company1@test.com',
+      const agentWithoutPassword = {
+        email: 'agent1@test.com',
         password: undefined
       }
       request(app)
-        .post('/companies/signup')
-        .send(companyWithoutEmail)
+        .post('/agents/signup')
+        .send(agentWithoutEmail)
         .expect(422)
         .end((err, res) => {
           if (err) return done(err)
 
           expect(res.body.error).to.equal('Must provide email and password')
           request(app)
-            .post('/companies/signup')
-            .send(companyWithoutPassword)
+            .post('/agents/signup')
+            .send(agentWithoutPassword)
             .expect(422)
             .end((err, res) => {
               if (err) return done(err)
@@ -63,12 +63,12 @@ describe('company authentication', () => {
     })
 
     it('can not be use a duplicate email', done => {
-      const company = new Company(companyProps)
+      const agent = new Agent(agentProps)
 
-      company.save().then(() => {
+      agent.save().then(() => {
         request(app)
-          .post('/companies/signup')
-          .send(companyProps)
+          .post('/agents/signup')
+          .send(agentProps)
           .expect(422)
           .end((err, res) => {
             if (err) return done(err)
@@ -81,15 +81,15 @@ describe('company authentication', () => {
 
     it('password must be hash', done => {
       request(app)
-        .post('/companies/signup')
-        .send(companyProps)
+        .post('/agents/signup')
+        .send(agentProps)
         .expect(201)
         .end((err, res) => {
           if (err) return done(err)
 
-          Company.findOne({ email: companyProps.email })
-            .then(company => {
-              expect(company.password).to.not.equal(companyProps.password)
+          Agent.findOne({ email: agentProps.email })
+            .then(agent => {
+              expect(agent.password).to.not.equal(agentProps.password)
               done()
             })
             .catch(done)
@@ -98,8 +98,8 @@ describe('company authentication', () => {
 
     it('return token in body', done => {
       request(app)
-        .post('/companies/signup')
-        .send(companyProps)
+        .post('/agents/signup')
+        .send(agentProps)
         .expect(201)
         .end((err, res) => {
           if (err) return done(err)
@@ -112,18 +112,18 @@ describe('company authentication', () => {
 
   describe('signin', () => {
 
-    let testCompany
+    let testAgent
 
     beforeEach(done => {
-      Company.create(companyProps)
-        .then(company => {
-          testCompany = company
+      Agent.create(agentProps)
+        .then(agent => {
+          testAgent = agent
           done()
         })
     })
 
     it('comparePassword must be valid', done => {
-      testCompany.comparePassword(companyProps.password)
+      testAgent.comparePassword(agentProps.password)
         .then(isMatch => {
           expect(isMatch).to.be.true
           done()
@@ -132,7 +132,7 @@ describe('company authentication', () => {
     })
 
     it('comparePassword must be invalid', done => {
-      testCompany.comparePassword('4321')
+      testAgent.comparePassword('4321')
         .then(isMatch => {
           expect(isMatch).to.be.false
           done()
@@ -142,8 +142,8 @@ describe('company authentication', () => {
 
     it('return token in body', done => {
       request(app)
-        .post('/companies/signin')
-        .send(companySigninProps)
+        .post('/agents/signin')
+        .send(agentSigninProps)
         .expect(200)
         .end((err, res) => {
           if (err) return done(err)
@@ -158,31 +158,31 @@ describe('company authentication', () => {
 
     it('signup token can get secret route', done => {
       request(app)
-        .post('/companies/signup')
-        .send(companyProps)
+        .post('/agents/signup')
+        .send(agentProps)
         .end((err, res) => {
           if (err) return done(err)
 
           const token = res.body.token
           request(app)
-            .get('/companies/profile')
+            .get('/agents/profile')
             .set('authorization', token)
             .expect(200, done)
         })
     })
 
     it('signin token can get secret route', done => {
-      Company.create(companyProps)
-        .then(company => {
+      Agent.create(agentProps)
+        .then(agent => {
           request(app)
-            .post('/companies/signin')
-            .send(companySigninProps)
+            .post('/agents/signin')
+            .send(agentSigninProps)
             .end((err, res) => {
               if (err) return done(err)
 
               const token = res.body.token
               request(app)
-                .get('/companies/profile')
+                .get('/agents/profile')
                 .set('authorization', token)
                 .expect(200, done)
             })
@@ -192,31 +192,32 @@ describe('company authentication', () => {
     it('fake token can not get secret route', done => {
       const token = 'fake token'
       request(app)
-        .get('/companies/profile')
+        .get('/agents/profile')
         .set('authorization', token)
         .expect(401, done)
     })
 
-    it('agent token can not get secret route', done => {
-      const agentProps = {
-        email: 'agent1@test.com',
+    it('company token can not get secret route', done => {
+      const companyProps = {
+        email: 'company1@test.com',
         password: '1234'
       }
 
       request(app)
-        .post('/agents/signup')
-        .send(agentProps)
+        .post('/companies/signup')
+        .send(companyProps)
         .expect(201)
         .end((err, res) => {
           if (err) return done(err)
 
-          const agentToken = res.body.token
+          const companyToken = res.body.token
           request(app)
-            .get('/companies/profile')
-            .set('authorization', agentToken)
+            .get('/agents/profile')
+            .set('authorization', companyToken)
             .expect(401, done)
         })
     })
 
   })
+
 })
