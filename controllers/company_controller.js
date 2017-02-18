@@ -1,4 +1,5 @@
 const Company = require('../models/company')
+const Agent = require('../models/agent')
 const jwt = require('jwt-simple')
 const config = require('../config')
 
@@ -38,8 +39,23 @@ module.exports = {
 
   addRelationship(req, res, next) {
     const agentId = req.body._id
-    console.log(req.user)
+    const companyId = req.user._id
 
-    res.send({ message: 'completed' })
+    const pushAgentToCompany = Company.findByIdAndUpdate(companyId, {
+      $push: { 'agents': agentId }
+    }, { new: true })
+
+    const pushCompanyToAgent = Agent.findByIdAndUpdate(agentId, {
+      $push: { 'companies': companyId }
+    }, { new: true })
+
+    Promise.all([
+        pushAgentToCompany,
+        pushCompanyToAgent
+      ])
+      .then(() => {
+        res.send({ message: 'Add relationshop completed' })
+      })
+      .catch(next)
   }
 }
