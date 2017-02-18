@@ -1,6 +1,6 @@
-const expect = require('chai').expect
-const request = require('supertest')
 const app = require('../../../app')
+const request = require('supertest')
+const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Company = mongoose.model('Company')
 

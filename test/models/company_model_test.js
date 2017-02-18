@@ -1,6 +1,7 @@
-const Company = require('../../models/company')
-const Agent = require('../../models/agent')
 const expect = require('chai').expect
+const mongoose = require('mongoose')
+const Agent = mongoose.model('Agent')
+const Company = mongoose.model('Company')
 
 describe('Company model', () => {
 
@@ -54,7 +55,7 @@ describe('Company model', () => {
         Agent.findById(agent1._id)
           .populate('companies')
           .then(agent => {
-          	expect(agent.companies[0].email).to.equal(company1.email)
+            expect(agent.companies[0].email).to.equal(company1.email)
             done()
           })
       })
