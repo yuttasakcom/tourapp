@@ -16,7 +16,7 @@ const companySchema = new Schema({
 })
 
 companySchema.pre('save', function(next) {
-  helper.emailExist('Company', this.email)
+  helper.checkEmailExist('Company', this.email)
     .then(exist => {
       if (exist) {
         let err = new Error('Email is in use')

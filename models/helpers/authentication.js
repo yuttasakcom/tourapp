@@ -12,7 +12,7 @@ module.exports = {
     })
   },
 
-  emailExist(modelName, email) {
+  checkEmailExist(modelName, email) {
     return new Promise((resolve, reject) => {
       const User = mongoose.model(modelName)
       User.findOne({ email: email })

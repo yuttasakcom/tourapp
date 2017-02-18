@@ -16,7 +16,7 @@ const agentSchema = new Schema({
 })
 
 agentSchema.pre('save', function(next) {
-  helper.emailExist('Agent', this.email)
+  helper.checkEmailExist('Agent', this.email)
     .then(exist => {
       if (exist) {
         let err = new Error('Email is in use')
