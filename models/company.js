@@ -1,6 +1,6 @@
 const mongoose = require('./mongoose')
 const Schema = mongoose.Schema
-const bcrypt = require('bcrypt-nodejs')
+const helper = require('./helpers/authentication')
 
 const companySchema = new Schema({
   email: {
@@ -16,39 +16,25 @@ const companySchema = new Schema({
 })
 
 companySchema.pre('save', function(next) {
-  const Company = mongoose.model('Company')
-  const self = this
-  Company.findOne({ email: self.email })
-    .then(existingCompany => {
-      if (existingCompany) {
+  helper.checkEmailExist('Company', this.email)
+    .then(exist => {
+      if (exist) {
         let err = new Error('Email is in use')
         err.status = 422
         next(err)
       } else {
-        bcrypt.genSalt(10, function(err, salt) {
-          if (err) return next(err)
-
-          bcrypt.hash(self.password, salt, null, function(err, hash) {
-            if (err) return next(err)
-
-            self.password = hash
+        helper.hashPassword(this.password)
+          .then(hash => {
+            this.password = hash
             next()
           })
-        })
+          .catch(next)
       }
     })
     .catch(next)
 })
 
-companySchema.methods.comparePassword = function(candidatePassword) {
-  return new Promise((resolve, reject) => {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-      if (err) return reject(err)
-
-      resolve(isMatch)
-    })
-  })
-}
+companySchema.methods.comparePassword = helper.comparePassword
 
 const Company = mongoose.model('Company', companySchema)
 
