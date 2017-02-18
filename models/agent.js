@@ -16,22 +16,24 @@ const agentSchema = new Schema({
 })
 
 agentSchema.pre('save', function(next) {
-  helper.checkEmailExist('Agent', this.email)
-    .then(exist => {
-      if (exist) {
-        let err = new Error('Email is in use')
-        err.status = 422
-        next(err)
-      } else {
-        helper.hashPassword(this.password)
-          .then(hash => {
-            this.password = hash
-            next()
-          })
-          .catch(next)
-      }
-    })
-    .catch(next)
+  if (this.isNew) {
+    helper.checkEmailExist('Agent', this.email)
+      .then(exist => {
+        if (exist) {
+          let err = new Error('Email is in use')
+          err.status = 422
+          next(err)
+        } else {
+          helper.hashPassword(this.password)
+            .then(hash => {
+              this.password = hash
+              next()
+            })
+            .catch(next)
+        }
+      })
+      .catch(next)
+  }
 })
 
 agentSchema.methods.comparePassword = helper.comparePassword
