@@ -105,7 +105,7 @@ describe('Company add relation', () => {
       })
   })
 
-  it('duplicate agent must not insert', done => {
+  it('duplicate agent must return status 422 and not insert', done => {
     request(app)
       .post('/companies/agents')
       .send({ _id: agent1._id })
@@ -118,7 +118,7 @@ describe('Company add relation', () => {
           .post('/companies/agents')
           .send({ _id: agent1._id })
           .set('authorization', company1Token)
-          .expect(200)
+          .expect(422)
           .end((err, res) => {
             if (err) return done(err)
 

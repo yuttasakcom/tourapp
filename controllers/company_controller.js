@@ -41,21 +41,21 @@ module.exports = {
     const agentId = req.body._id
     const companyId = req.user._id
 
-    const pushAgentToCompany = Company.findByIdAndUpdate(companyId, {
-      $addToSet: { 'agents': agentId }
-    }, { new: true })
-
-    const pushCompanyToAgent = Agent.findByIdAndUpdate(agentId, {
-      $addToSet: { 'companies': companyId }
-    }, { new: true })
-
-    Promise.all([
-        pushAgentToCompany,
-        pushCompanyToAgent
-      ])
-      .then(() => {
-        res.send({ message: 'Add relationshop completed' })
+    Company.update({ _id: companyId }, {
+        $addToSet: { 'agents': agentId }
       })
-      .catch(next)
+      .then(({ nModified }) => {
+        if (nModified) {
+          Agent.update({ _id: agentId }, {
+              $addToSet: { 'companies': companyId }
+            })
+            .then(() => res.send({ message: 'Add relationshop completed' }))
+            .catch(next)
+        } else {
+          let err = new Error('This agent is already member')
+          err.status = 422
+          return next(err)
+        }
+      })
   }
 }
