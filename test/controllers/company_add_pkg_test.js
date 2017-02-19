@@ -31,7 +31,7 @@ describe('Company add pkg', () => {
       })
   })
 
-  it.only('one pkg', done => {
+  it('one pkg', done => {
     request(app)
       .post('/companies/pkgs')
       .send({

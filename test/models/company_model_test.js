@@ -65,7 +65,7 @@ describe('Company model', () => {
 
   })
 
-  it.only('add pkgs to an existing company', done => {
+  it('add pkgs to an existing company', done => {
     const company1 = new Company({
       email: 'company1@test.com',
       password: '1234',
