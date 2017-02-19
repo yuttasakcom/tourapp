@@ -37,6 +37,17 @@ module.exports = {
     res.send({ message: 'realy secret' })
   },
 
+  addPkg(req, res, next) {
+    const companyId = req.user._id
+    const pkgProp = req.body
+    Company.update({ _id: companyId }, {
+        $push: { pkgs: pkgProp }
+      })
+      .then(() => {
+        res.status(201).send({ message: 'Create package completed' })
+      })
+  },
+
   addRelationship(req, res, next) {
     const agentId = req.body._id
     const companyId = req.user._id
