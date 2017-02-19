@@ -37,6 +37,10 @@ module.exports = {
     res.send({ message: 'realy secret' })
   },
 
+  addPackage(req, res, next) {
+    res.status(201).send({ ha: 'waha' })
+  },
+
   addRelationship(req, res, next) {
     const agentId = req.body._id
     const companyId = req.user._id
