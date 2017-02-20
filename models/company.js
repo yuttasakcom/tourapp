@@ -22,6 +22,10 @@ const companySchema = new Schema({
   requestPendings: [{
     type: Schema.Types.ObjectId,
     ref: 'Agent'
+  }],
+  acceptPendings: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Agent'
   }]
 })
 
