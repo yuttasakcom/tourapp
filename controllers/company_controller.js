@@ -68,6 +68,7 @@ module.exports = {
           return next(err)
         }
       })
+      .catch(next)
   },
 
   addRelationship(req, res, next) {
@@ -90,5 +91,6 @@ module.exports = {
           return next(err)
         }
       })
+      .catch(next)
   }
 }
