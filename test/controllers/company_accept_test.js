@@ -77,8 +77,26 @@ describe.only('Company accept', () => {
         if (err) return done(err)
 
         Company.findById(company1._id)
-      		.then(company => {
-      			expect(company.acceptPendings.length).to.equal(0)
+          .then(company => {
+            expect(company.acceptPendings.length).to.equal(0)
+            done()
+          })
+          .catch(done)
+      })
+  })
+
+  it('accept must remove agent request pendings', done => {
+    request(app)
+      .post('/companies/accept')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+      	if (err) return done(err)
+
+      	Agent.findById(agent1._id)
+      		.then(agent => {
+      			expect(agent.requestPendings.length).to.equal(0)
       			done()
       		})
       		.catch(done)

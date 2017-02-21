@@ -79,7 +79,10 @@ module.exports = {
         $pull: { 'acceptPendings': agentId }
       })
       .then(() => {
-        res.send({ message: 'Accept request completed' })
+        Agent.update({ _id: agentId }, {
+            $pull: { 'requestPendings': companyId }
+          })
+          .then(() => res.send({ message: 'Accept request completed' }))
       })
   },
 
