@@ -25,6 +25,6 @@ router.post('/request', requireAuth, hasRole('company'), request)
 router.post('/accept', requireAuth, hasRole('company'), accept)
 router.get('/request-pendings', requireAuth, hasRole('company'), getRequestPendingsList)
 router.get('/accept-pendings', requireAuth, hasRole('company'), getAcceptPendingsList)
-router.post('/cancel-request', requireAuth, hasRole('company'), cancelRequest)
+router.delete('/cancel-request', requireAuth, hasRole('company'), cancelRequest)
 
 module.exports = router
