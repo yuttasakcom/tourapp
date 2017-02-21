@@ -48,6 +48,29 @@ module.exports = {
       })
   },
 
+  request(req, res, next) {
+    const agentId = req.body._id
+    const companyId = req.user._id
+
+    Company.update({ _id: companyId }, {
+        $addToSet: { 'requestPendings': agentId }
+      })
+      .then(({ nModified }) => {
+        if (nModified) {
+          Agent.update({ _id: agentId }, {
+              $addToSet: { 'acceptPendings': companyId }
+            })
+            .then(() => res.send({ message: 'Send request completed' }))
+            .catch(next)
+        } else {
+          let err = new Error('This agent is already request')
+          err.status = 422
+          return next(err)
+        }
+      })
+      .catch(next)
+  },
+
   addRelationship(req, res, next) {
     const agentId = req.body._id
     const companyId = req.user._id
@@ -68,5 +91,6 @@ module.exports = {
           return next(err)
         }
       })
+      .catch(next)
   }
 }

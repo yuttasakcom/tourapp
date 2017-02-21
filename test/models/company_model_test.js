@@ -53,7 +53,7 @@ describe('Company model', () => {
           pushAgentToCompany,
           pushCompanyToAgent
         ])
-        .then((result) => {
+        .then(result => {
           Agent.findById(agent1._id)
             .populate('companies')
             .then(agent => {
@@ -61,6 +61,28 @@ describe('Company model', () => {
               done()
             })
         })
+    })
+
+    it('add agent id to requestPendings', done => {
+      Company.findByIdAndUpdate(company1._id, {
+          $addToSet: { 'requestPendings': agent1._id }
+        }, { new: true })
+        .then(company => {
+          expect(company.requestPendings.length).to.be.equal(1)
+          done()
+        })
+        .catch(done)
+    })
+
+    it('add agent id to acceptPendings', done => {
+      Company.findByIdAndUpdate(company1._id, {
+          $addToSet: { 'acceptPendings': agent1._id }
+        }, { new: true })
+        .then(company => {
+          expect(company.acceptPendings.length).to.be.equal(1)
+          done()
+        })
+        .catch(done)
     })
 
   })

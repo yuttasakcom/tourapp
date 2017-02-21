@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe('Company add relation', () => {
+describe('Company request', () => {
 
   let company1, agent1, agent2, company1Token
 
@@ -48,31 +48,49 @@ describe('Company add relation', () => {
       })
   })
 
-  it('one agent', done => {
+  it('must be appear on company request pendings', done => {
     request(app)
-      .post('/companies/agents')
+      .post('/companies/request')
       .send({ _id: agent1._id })
       .set('authorization', company1Token)
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
 
-        Promise.all([
-            Company.findById(company1._id),
-            Agent.findById(agent1._id)
-          ])
-          .then(result => {
-            expect(result[0].agents.length).to.equal(1)
-            expect(result[1].companies.length).to.equal(1)
+        Company.findById(company1._id)
+          .then(company => {
+
+            expect(company.requestPendings.length).to.equal(1)
+            expect(company.requestPendings[0].toString()).to.equal(agent1._id.toString())
             done()
           })
           .catch(done)
       })
   })
 
-  it('two agent', done => {
+  it('must be appear on agent accept pendings', done => {
     request(app)
-      .post('/companies/agents')
+      .post('/companies/request')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        Agent.findById(agent1._id)
+          .then(agent => {
+
+            expect(agent.acceptPendings.length).to.equal(1)
+            expect(agent.acceptPendings[0].toString()).to.equal(company1._id.toString())
+            done()
+          })
+          .catch(done)
+      })
+  })
+
+  it('duplicate agent must return status 422 and not insert', done => {
+    request(app)
+      .post('/companies/request')
       .send({ _id: agent1._id })
       .set('authorization', company1Token)
       .expect(200)
@@ -80,7 +98,38 @@ describe('Company add relation', () => {
         if (err) return done(err)
 
         request(app)
-          .post('/companies/agents')
+          .post('/companies/request')
+          .send({ _id: agent1._id })
+          .set('authorization', company1Token)
+          .expect(422)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            Promise.all([
+                Company.findById(company1._id),
+                Agent.findById(agent1._id)
+              ])
+              .then(result => {
+                expect(result[0].requestPendings.length).to.equal(1)
+                expect(result[1].acceptPendings.length).to.equal(1)
+                done()
+              })
+              .catch(done)
+          })
+      })
+  })
+
+  it('two agent', done => {
+    request(app)
+      .post('/companies/request')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        request(app)
+          .post('/companies/request')
           .send({ _id: agent2._id })
           .set('authorization', company1Token)
           .expect(200)
@@ -93,45 +142,13 @@ describe('Company add relation', () => {
                 Agent.findById(agent2._id)
               ])
               .then(result => {
-                expect(result[0].agents.length).to.equal(2)
-                expect(result[1].companies.length).to.equal(1)
-                expect(result[2].companies.length).to.equal(1)
+                expect(result[0].requestPendings.length).to.equal(2)
+                expect(result[1].acceptPendings.length).to.equal(1)
+                expect(result[2].acceptPendings.length).to.equal(1)
                 done()
               })
               .catch(done)
           })
       })
   })
-
-  it('duplicate agent must return status 422 and not insert', done => {
-    request(app)
-      .post('/companies/agents')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
-      .expect(200)
-      .end((err, res) => {
-        if (err) return done(err)
-
-        request(app)
-          .post('/companies/agents')
-          .send({ _id: agent1._id })
-          .set('authorization', company1Token)
-          .expect(422)
-          .end((err, res) => {
-            if (err) return done(err)
-
-            Promise.all([
-                Company.findById(company1._id),
-                Agent.findById(agent1._id)
-              ])
-              .then(result => {
-                expect(result[0].agents.length).to.equal(1)
-                expect(result[1].companies.length).to.equal(1)
-                done()
-              })
-              .catch(done)
-          })
-      })
-  })
-
 })
