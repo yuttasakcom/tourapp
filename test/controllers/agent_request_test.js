@@ -194,4 +194,35 @@ describe('Agent request', () => {
           })
       })
   })
+
+  it.only('two company must appear on GET /agents/request-pendings', done => {
+    request(app)
+      .post('/agents/request')
+      .send({ _id: company1._id })
+      .set('authorization', agent1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        request(app)
+          .post('/agents/request')
+          .send({ _id: company2._id })
+          .set('authorization', agent1Token)
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            request(app)
+              .get('/agents/request-pendings')
+              .set('authorization', agent1Token)
+              .expect(200)
+              .end((err, res) => {
+                if (err) return done(err)
+
+                expect(res.body.requestPendings.length).to.equal(2)
+                done()
+              })
+          })
+      })
+  })
 })
