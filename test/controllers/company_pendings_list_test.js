@@ -30,6 +30,8 @@ describe.only('Company pendings list', () => {
     company1 = new Company(company1Props)
     company1.requestPendings.push(agent1Stub)
     company1.requestPendings.push(agent2Stub)
+    company1.acceptPendings.push(agent1Stub)
+    company1.acceptPendings.push(agent2Stub)
     company1.save()
       .then(() => {
         request(app)
@@ -53,6 +55,19 @@ describe.only('Company pendings list', () => {
         if (err) return done(err)
 
         expect(res.body.requestPendings.length).to.equal(2)
+        done()
+      })
+  })
+
+  it('two agent must appear on GET /companies/accept-pendings', done => {
+    request(app)
+      .get('/companies/accept-pendings')
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        expect(res.body.acceptPendings.length).to.equal(2)
         done()
       })
   })
