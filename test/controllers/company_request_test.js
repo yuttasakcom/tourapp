@@ -79,7 +79,7 @@ describe('Company request', () => {
         if (err) return done(err)
 
         request(app)
-          .post('/companies/cancel-request')
+          .delete('/companies/cancel-request')
           .send({ _id: agent1._id })
           .set('authorization', company1Token)
           .expect(200)
