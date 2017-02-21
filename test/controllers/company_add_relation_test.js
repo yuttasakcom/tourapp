@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe('Company add relation', () => {
+describe.only('Company add relation', () => {
 
   let company1, agent1, agent2, company1Token
 
@@ -25,8 +25,6 @@ describe('Company add relation', () => {
   }
 
   const company1SigninProps = Object.assign({}, company1Props, { role: 'company' })
-  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
-  const agent2SigninProps = Object.assign({}, agent2Props, { role: 'agent' })
 
   beforeEach(done => {
     company1 = new Company(company1Props)
@@ -137,7 +135,5 @@ describe('Company add relation', () => {
           })
       })
   })
-
-  // TODO: Add pending feature
 
 })
