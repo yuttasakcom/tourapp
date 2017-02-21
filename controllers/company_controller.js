@@ -146,5 +146,21 @@ module.exports = {
     ]).then(() => {
       res.send({ message: 'Cancel request completed' })
     })
+  },
+
+  rejectRequest(req, res, next) {
+    const agentId = req.body._id
+    const companyId = req.user._id
+
+    Promise.all([
+      Company.update({ _id: companyId }, {
+        $pull: { acceptPendings: agentId }
+      }),
+      Agent.update({ _id: agentId }, {
+        $pull: { requestPendings: companyId }
+      })
+    ]).then(() => {
+      res.send({ message: 'Reject request completed' })
+    })
   }
 }
