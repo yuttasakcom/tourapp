@@ -4,7 +4,8 @@ const {
   profile,
   addRelationship,
   addPkg,
-  request
+  request,
+  accept
 } = require('../controllers/company_controller')
 const passport = require('../services/passport')
 const requireSignin = passport.authenticate('local', { session: false })
@@ -18,5 +19,6 @@ router.get('/profile', requireAuth, hasRole('company'), profile)
 router.post('/agents', requireAuth, hasRole('company'), addRelationship)
 router.post('/pkgs', requireAuth, hasRole('company'), addPkg)
 router.post('/request', requireAuth, hasRole('company'), request)
+router.post('/accept', requireAuth, hasRole('company'), accept)
 
 module.exports = router

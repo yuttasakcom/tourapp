@@ -71,6 +71,39 @@ module.exports = {
       .catch(next)
   },
 
+  accept(req, res, next) {
+    const agentId = req.body._id
+    const companyId = req.user._id
+
+    Company.update({ _id: companyId }, {
+        $pull: { 'acceptPendings': agentId }
+      })
+      .then(({ nModified }) => {
+        if (nModified) {
+          Agent.update({ _id: agentId }, {
+              $pull: { 'requestPendings': companyId }
+            })
+            .then(() => {
+              Promise.all([
+                  Company.update({ _id: companyId }, {
+                    $addToSet: { 'agents': agentId }
+                  }),
+                  Agent.update({ _id: agentId }, {
+                    $addToSet: { 'companies': companyId }
+                  })
+                ])
+                .then(() => {
+                  res.send({ message: 'Accept request completed' })
+                })
+            })
+        } else {
+          let err = new Error('Request not found')
+          err.status = 422
+          next(err)
+        }
+      })
+  },
+
   addRelationship(req, res, next) {
     const agentId = req.body._id
     const companyId = req.user._id
