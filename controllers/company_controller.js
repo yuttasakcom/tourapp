@@ -88,7 +88,13 @@ module.exports = {
                   $addToSet: { 'agents': agentId }
                 })
                 .then(() => {
-                  res.send({ message: 'Accept request completed' })
+
+                  Agent.update({ _id: agentId }, {
+                      $addToSet: { 'companies': companyId }
+                    })
+                    .then(() => {
+                      res.send({ message: 'Accept request completed' })
+                    })
                 })
             })
         } else {

@@ -142,4 +142,22 @@ describe.only('Company accept', () => {
           .catch(done)
       })
   })
+
+  it('completed company must appear in agent.companies', done => {
+  	request(app)
+      .post('/companies/accept')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        Agent.findById(agent1._id)
+          .then(agent => {
+            expect(agent.companies.length).to.equal(1)
+            done()
+          })
+          .catch(done)
+      })
+  })
 })
