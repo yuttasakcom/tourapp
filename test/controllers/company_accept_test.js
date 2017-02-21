@@ -92,14 +92,36 @@ describe.only('Company accept', () => {
       .set('authorization', company1Token)
       .expect(200)
       .end((err, res) => {
-      	if (err) return done(err)
+        if (err) return done(err)
 
-      	Agent.findById(agent1._id)
-      		.then(agent => {
-      			expect(agent.requestPendings.length).to.equal(0)
-      			done()
-      		})
-      		.catch(done)
+        Agent.findById(agent1._id)
+          .then(agent => {
+            expect(agent.requestPendings.length).to.equal(0)
+            done()
+          })
+          .catch(done)
+      })
+  })
+
+  it('duplicate accept must return status 422', done => {
+    request(app)
+      .post('/companies/accept')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        request(app)
+          .post('/companies/accept')
+          .send({ _id: agent1._id })
+          .set('authorization', company1Token)
+          .expect(422)
+          .end((err, res) => {
+          	if (err) return done(err)
+
+          	done()
+          })
       })
   })
 })

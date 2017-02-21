@@ -78,11 +78,17 @@ module.exports = {
     Company.update({ _id: companyId }, {
         $pull: { 'acceptPendings': agentId }
       })
-      .then(() => {
-        Agent.update({ _id: agentId }, {
-            $pull: { 'requestPendings': companyId }
-          })
-          .then(() => res.send({ message: 'Accept request completed' }))
+      .then(({ nModified }) => {
+        if (nModified) {
+          Agent.update({ _id: agentId }, {
+              $pull: { 'requestPendings': companyId }
+            })
+            .then(() => res.send({ message: 'Accept request completed' }))
+        } else {
+          let err = new Error('Request not found')
+          err.status = 422
+          next(err)
+        }
       })
   },
 
