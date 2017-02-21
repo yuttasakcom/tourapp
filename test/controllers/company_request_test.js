@@ -99,6 +99,45 @@ describe('Company request', () => {
       })
   })
 
+  it('reject request must remove company acceptPendings and agent requestPendings', done => {
+    request(app)
+      .post('/agents/signin')
+      .send(agent1SigninProps)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        const agent1Token = res.body.token
+        request(app)
+          .post('/agents/request')
+          .send({ _id: company1._id })
+          .set('authorization', agent1Token)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            request(app)
+              .delete('/companies/reject-request')
+              .send({ _id: agent1._id })
+              .set('authorization', company1Token)
+              .expect(200)
+              .end((err, res) => {
+                if (err) return done(err)
+
+                Promise.all([
+                    Company.findById(company1._id),
+                    Agent.findById(agent1._id)
+                  ])
+                  .then(results => {
+                    expect(results[0].acceptPendings.length).to.equal(0)
+                    expect(results[1].requestPendings.length).to.equal(0)
+                    done()
+                  }).catch(err => {
+                    done(err)
+                  })
+              })
+          })
+      })
+  })
+
   it('must be appear on agent accept pendings', done => {
     request(app)
       .post('/companies/request')
