@@ -114,6 +114,15 @@ module.exports = {
       })
   },
 
+  getRequestPendingsList(req, res, next) {
+    const companyId = req.user._id
+
+    Company.findById(companyId, { _id: 0, requestPendings: 1 })
+      .then(requestPendings => {
+        res.send(requestPendings)
+      })
+  },
+
   addRelationship(req, res, next) {
     const agentId = req.body._id
     const companyId = req.user._id
