@@ -49,7 +49,21 @@ module.exports = {
   },
 
   request(req, res, next) {
-    res.send({ message: 'mock' })
+    const agentId = req.body._id
+    const companyId = req.user._id
+
+    Company.update({ _id: companyId }, {
+        $addToSet: { 'requestPendings': agentId }
+      })
+      .then(({ nModified }) => {
+        if (nModified) {
+          res.send({ message: 'Send request completed' })
+        } else {
+          let err = new Error('This agent is already request')
+          err.status = 422
+          return next(err)
+        }
+      })
   },
 
   addRelationship(req, res, next) {
