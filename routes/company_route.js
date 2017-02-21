@@ -2,7 +2,6 @@ const {
   signup,
   signin,
   profile,
-  addRelationship,
   addPkg,
   request,
   accept,
@@ -19,7 +18,6 @@ const { hasRole } = require('../middlewares')
 router.post('/signup', signup)
 router.post('/signin', requireSignin, signin)
 router.get('/profile', requireAuth, hasRole('company'), profile)
-router.post('/agents', requireAuth, hasRole('company'), addRelationship)
 router.post('/pkgs', requireAuth, hasRole('company'), addPkg)
 router.post('/request', requireAuth, hasRole('company'), request)
 router.post('/accept', requireAuth, hasRole('company'), accept)

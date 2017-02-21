@@ -132,29 +132,6 @@ module.exports = {
       })
   },
 
-  addRelationship(req, res, next) {
-    const agentId = req.body._id
-    const companyId = req.user._id
-
-    Company.update({ _id: companyId }, {
-        $addToSet: { agents: agentId }
-      })
-      .then(({ nModified }) => {
-        if (nModified) {
-          Agent.update({ _id: agentId }, {
-              $addToSet: { companies: companyId }
-            })
-            .then(() => res.send({ message: 'Add relationshop completed' }))
-            .catch(next)
-        } else {
-          let err = new Error('This agent is already member')
-          err.status = 422
-          return next(err)
-        }
-      })
-      .catch(next)
-  },
-
   cancelRequest(req, res, next) {
     const agentId = req.body._id
     const companyId = req.user._id
