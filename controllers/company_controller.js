@@ -83,7 +83,14 @@ module.exports = {
           Agent.update({ _id: agentId }, {
               $pull: { 'requestPendings': companyId }
             })
-            .then(() => res.send({ message: 'Accept request completed' }))
+            .then(() => {
+              Company.update({ _id: companyId }, {
+                  $addToSet: { 'agents': agentId }
+                })
+                .then(() => {
+                  res.send({ message: 'Accept request completed' })
+                })
+            })
         } else {
           let err = new Error('Request not found')
           err.status = 422
