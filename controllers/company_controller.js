@@ -61,12 +61,12 @@ module.exports = {
         }
 
         Company.update({ _id: companyId }, {
-            $addToSet: { 'requestPendings': agentId }
+            $addToSet: { requestPendings: agentId }
           })
           .then(({ nModified }) => {
             if (nModified) {
               Agent.update({ _id: agentId }, {
-                  $addToSet: { 'acceptPendings': companyId }
+                  $addToSet: { acceptPendings: companyId }
                 })
                 .then(() => res.send({ message: 'Send request completed' }))
                 .catch(next)
@@ -86,20 +86,20 @@ module.exports = {
     const companyId = req.user._id
 
     Company.update({ _id: companyId }, {
-        $pull: { 'acceptPendings': agentId }
+        $pull: { acceptPendings: agentId }
       })
       .then(({ nModified }) => {
         if (nModified) {
           Agent.update({ _id: agentId }, {
-              $pull: { 'requestPendings': companyId }
+              $pull: { requestPendings: companyId }
             })
             .then(() => {
               Promise.all([
                   Company.update({ _id: companyId }, {
-                    $addToSet: { 'agents': agentId }
+                    $addToSet: { agents: agentId }
                   }),
                   Agent.update({ _id: agentId }, {
-                    $addToSet: { 'companies': companyId }
+                    $addToSet: { companies: companyId }
                   })
                 ])
                 .then(() => {
@@ -119,12 +119,12 @@ module.exports = {
     const companyId = req.user._id
 
     Company.update({ _id: companyId }, {
-        $addToSet: { 'agents': agentId }
+        $addToSet: { agents: agentId }
       })
       .then(({ nModified }) => {
         if (nModified) {
           Agent.update({ _id: agentId }, {
-              $addToSet: { 'companies': companyId }
+              $addToSet: { companies: companyId }
             })
             .then(() => res.send({ message: 'Add relationshop completed' }))
             .catch(next)

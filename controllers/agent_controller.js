@@ -50,12 +50,12 @@ module.exports = {
         }
 
         Agent.update({ _id: agentId }, {
-            $addToSet: { 'requestPendings': companyId }
+            $addToSet: { requestPendings: companyId }
           })
           .then(({ nModified }) => {
             if (nModified) {
               Company.update({ _id: companyId }, {
-                  $addToSet: { 'acceptPendings': agentId }
+                  $addToSet: { acceptPendings: agentId }
                 })
                 .then(() => res.send({ message: 'Send request completed' }))
                 .catch(next)
@@ -75,20 +75,20 @@ module.exports = {
     const agentId = req.user._id
 
     Agent.update({ _id: agentId }, {
-        $pull: { 'acceptPendings': companyId }
+        $pull: { acceptPendings: companyId }
       })
       .then(({ nModified }) => {
         if (nModified) {
           Company.update({ _id: companyId }, {
-              $pull: { 'requestPendings': agentId }
+              $pull: { requestPendings: agentId }
             })
             .then(() => {
               Promise.all([
                   Company.update({ _id: companyId }, {
-                    $addToSet: { 'agents': agentId }
+                    $addToSet: { agents: agentId }
                   }),
                   Agent.update({ _id: agentId }, {
-                    $addToSet: { 'companies': companyId }
+                    $addToSet: { companies: companyId }
                   })
                 ])
                 .then(() => {

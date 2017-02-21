@@ -154,7 +154,7 @@ describe('Agent request', () => {
       })
   })
 
-  it.only('already member must return status 422', done => {
+  it('already member must return status 422', done => {
     request(app)
       .post('/agents/request')
       .send({ _id: company1._id })
