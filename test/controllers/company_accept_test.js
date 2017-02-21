@@ -1,7 +1,7 @@
 const app = require('../../app')
 const request = require('supertest')
 const expect = require('chai').expect
-const series = require('async/series')
+const parallel = require('async/parallel')
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
@@ -32,7 +32,7 @@ describe.only('Company accept', () => {
         agent1.save()
       ])
       .then(() => {
-        series([
+        parallel([
             (cb) => {
               request(app)
                 .post('/companies/signin')
