@@ -48,6 +48,10 @@ module.exports = {
       })
   },
 
+  request(req, res, next) {
+    res.send({ message: 'mock' })
+  },
+
   addRelationship(req, res, next) {
     const agentId = req.body._id
     const companyId = req.user._id
