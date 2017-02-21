@@ -6,7 +6,8 @@ const {
   accept,
   getRequestPendingsList,
   getAcceptPendingsList,
-  cancelRequest
+  cancelRequest,
+  rejectRequest
 } = require('../controllers/agent_controller')
 const passport = require('../services/passport')
 const requireSignin = passport.authenticate('local', { session: false })
@@ -22,5 +23,6 @@ router.post('/accept', requireAuth, hasRole('agent'), accept)
 router.get('/request-pendings', requireAuth, hasRole('agent'), getRequestPendingsList)
 router.get('/accept-pendings', requireAuth, hasRole('agent'), getAcceptPendingsList)
 router.delete('/cancel-request', requireAuth, hasRole('agent'), cancelRequest)
+router.delete('/reject-request', requireAuth, hasRole('agent'), rejectRequest)
 
 module.exports = router
