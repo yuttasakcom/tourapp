@@ -1,6 +1,7 @@
 const app = require('../../app')
 const request = require('supertest')
 const expect = require('chai').expect
+const series = require('async/series')
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
@@ -31,26 +32,36 @@ describe.only('Company accept', () => {
         agent1.save()
       ])
       .then(() => {
-        request(app)
-          .post('/companies/signin')
-          .send(company1SigninProps)
-          .end((err, res) => {
-            company1Token = res.body.token
-
-            request(app)
-              .post('/agents/signin')
-              .send(agent1SigninProps)
-              .end((err, res) => {
-                agent1Token = res.body.token
-                done()
-              })
+        series([
+            (cb) => {
+              request(app)
+                .post('/companies/signin')
+                .send(company1SigninProps)
+                .end((err, res) => {
+                  cb(err, res.body.token)
+                })
+            },
+            (cb) => {
+              request(app)
+                .post('/agents/signin')
+                .send(agent1SigninProps)
+                .end((err, res) => {
+                  cb(err, res.body.token)
+                })
+            }
+          ],
+          (err, results) => {
+            company1Token = results[0]
+            agent1Token = results[1]
+            done()
           })
+
       })
   })
-  
+
   it('test', done => {
-  	console.log(company1Token)
-  	console.log(agent1Token)
-  	done()
+    console.log(company1Token)
+    console.log(agent1Token)
+    done()
   })
 })
