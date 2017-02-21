@@ -193,35 +193,4 @@ describe('Company request', () => {
           })
       })
   })
-
-  it.only('two agent must appear on GET /companies/request-pendings', done => {
-    request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
-      .expect(200)
-      .end((err, res) => {
-        if (err) return done(err)
-
-        request(app)
-          .post('/companies/request')
-          .send({ _id: agent2._id })
-          .set('authorization', company1Token)
-          .expect(200)
-          .end((err, res) => {
-            if (err) return done(err)
-
-            request(app)
-              .get('/companies/request-pendings')
-              .set('authorization', company1Token)
-              .expect(200)
-              .end((err, res) => {
-                if (err) return done(err)
-
-                expect(res.body.requestPendings.length).to.equal(2)
-                done()
-              })
-          })
-      })
-  })
 })
