@@ -1,4 +1,5 @@
 const Agent = require('../models/agent')
+const Company = require('../models/company')
 const jwt = require('jwt-simple')
 const config = require('../config')
 
@@ -34,5 +35,28 @@ module.exports = {
 
   profile(req, res, next) {
     res.send({ message: 'realy secret' })
-  }
+  },
+
+  request(req, res, next) {
+    const companyId = req.body._id
+    const agentId = req.user._id
+
+    Agent.update({ _id: agentId }, {
+        $addToSet: { 'requestPendings': companyId }
+      })
+      .then(({ nModified }) => {
+        if (nModified) {
+          Company.update({ _id: companyId }, {
+              $addToSet: { 'acceptPendings': agentId }
+            })
+            .then(() => res.send({ message: 'Send request completed' }))
+            .catch(next)
+        } else {
+          let err = new Error('This company is already request')
+          err.status = 422
+          return next(err)
+        }
+      })
+      .catch(next)
+  },
 }
