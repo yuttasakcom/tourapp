@@ -118,4 +118,37 @@ describe.only('Company request', () => {
           })
       })
   })
+
+  it('two agent', done => {
+    request(app)
+      .post('/companies/request')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        request(app)
+          .post('/companies/request')
+          .send({ _id: agent2._id })
+          .set('authorization', company1Token)
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            Promise.all([
+                Company.findById(company1._id),
+                Agent.findById(agent1._id),
+                Agent.findById(agent2._id)
+              ])
+              .then(result => {
+                expect(result[0].requestPendings.length).to.equal(2)
+                expect(result[1].acceptPendings.length).to.equal(1)
+                expect(result[2].acceptPendings.length).to.equal(1)
+                done()
+              })
+              .catch(done)
+          })
+      })
+  })
 })
