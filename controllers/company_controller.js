@@ -123,6 +123,15 @@ module.exports = {
       })
   },
 
+  getAcceptPendingsList(req, res, next) {
+    const companyId = req.user._id
+
+    Company.findById(companyId, { _id: 0, acceptPendings: 1 })
+      .then(acceptPendings => {
+        res.send(acceptPendings)
+      })
+  },
+
   addRelationship(req, res, next) {
     const agentId = req.body._id
     const companyId = req.user._id
