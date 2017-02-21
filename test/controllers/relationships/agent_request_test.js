@@ -1,94 +1,95 @@
-const app = require('../../app')
+const app = require('../../../app')
 const request = require('supertest')
 const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe('Company request', () => {
+describe('Agent request', () => {
 
-  let company1, agent1, agent2, company1Token
-
-  const company1Props = {
-    email: 'company1@test.com',
-    password: '1234'
-  }
+  let agent1, company1, company2, agent1Token
 
   const agent1Props = {
     email: 'agent1@test.com',
     password: '1234'
   }
 
-  const agent2Props = {
-    email: 'agent2@test.com',
+  const company1Props = {
+    email: 'company1@test.com',
     password: '1234'
   }
 
-  const company1SigninProps = Object.assign({}, company1Props, { role: 'company' })
+
+  const company2Props = {
+    email: 'company2@test.com',
+    password: '1234'
+  }
+
   const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
+  const company1SigninProps = Object.assign({}, company1Props, { role: 'company' })
 
   beforeEach(done => {
-    company1 = new Company(company1Props)
     agent1 = new Agent(agent1Props)
-    agent2 = new Agent(agent2Props)
+    company1 = new Company(company1Props)
+    company2 = new Company(company2Props)
 
     Promise.all([
-        company1.save(),
         agent1.save(),
-        agent2.save()
+        company1.save(),
+        company2.save()
       ])
       .then(() => {
         request(app)
-          .post('/companies/signin')
-          .send(company1SigninProps)
+          .post('/agents/signin')
+          .send(agent1SigninProps)
           .end((err, res) => {
-            company1Token = res.body.token
+            agent1Token = res.body.token
 
             done()
           })
       })
   })
 
-  it('must be appear on company request pendings', done => {
+  it('must be appear on agent request pendings', done => {
     request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
+      .post('/agents/request')
+      .send({ _id: company1._id })
+      .set('authorization', agent1Token)
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
 
-        Company.findById(company1._id)
-          .then(company => {
+        Agent.findById(agent1._id)
+          .then(agent => {
 
-            expect(company.requestPendings.length).to.equal(1)
-            expect(company.requestPendings[0].toString()).to.equal(agent1._id.toString())
+            expect(agent.requestPendings.length).to.equal(1)
+            expect(agent.requestPendings[0].toString()).to.equal(company1._id.toString())
             done()
           })
           .catch(done)
       })
   })
 
-  it('cancel request must remove company requestPendings and agent acceptPendings', done => {
+  it('cancel request must remove agent requestPendings and company acceptPendings', done => {
     request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
+      .post('/agents/request')
+      .send({ _id: company1._id })
+      .set('authorization', agent1Token)
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
 
         request(app)
-          .delete('/companies/cancel-request')
-          .send({ _id: agent1._id })
-          .set('authorization', company1Token)
+          .delete('/agents/cancel-request')
+          .send({ _id: company1._id })
+          .set('authorization', agent1Token)
           .expect(200)
           .end((err, res) => {
             if (err) return done(err)
 
             Promise.all([
-                Company.findById(company1._id),
-                Agent.findById(agent1._id)
+                Agent.findById(agent1._id),
+                Company.findById(company1._id)
               ])
               .then(results => {
                 expect(results[0].requestPendings.length).to.equal(0)
@@ -100,32 +101,32 @@ describe('Company request', () => {
       })
   })
 
-  it('reject request must remove company acceptPendings and agent requestPendings', done => {
+  it('reject request must remove agent acceptPendings and company requestPendings', done => {
     request(app)
-      .post('/agents/signin')
-      .send(agent1SigninProps)
+      .post('/companies/signin')
+      .send(company1SigninProps)
       .end((err, res) => {
         if (err) return done(err)
 
-        const agent1Token = res.body.token
+        const company1Token = res.body.token
         request(app)
-          .post('/agents/request')
-          .send({ _id: company1._id })
-          .set('authorization', agent1Token)
+          .post('/companies/request')
+          .send({ _id: agent1._id })
+          .set('authorization', company1Token)
           .end((err, res) => {
             if (err) return done(err)
 
             request(app)
-              .delete('/companies/reject-request')
-              .send({ _id: agent1._id })
-              .set('authorization', company1Token)
+              .delete('/agents/reject-request')
+              .send({ _id: company1._id })
+              .set('authorization', agent1Token)
               .expect(200)
               .end((err, res) => {
                 if (err) return done(err)
 
                 Promise.all([
-                    Company.findById(company1._id),
-                    Agent.findById(agent1._id)
+                    Agent.findById(agent1._id),
+                    Company.findById(company1._id)
                   ])
                   .then(results => {
                     expect(results[0].acceptPendings.length).to.equal(0)
@@ -138,46 +139,46 @@ describe('Company request', () => {
       })
   })
 
-  it('must be appear on agent accept pendings', done => {
+  it('must be appear on company accept pendings', done => {
     request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
+      .post('/agents/request')
+      .send({ _id: company1._id })
+      .set('authorization', agent1Token)
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
 
-        Agent.findById(agent1._id)
-          .then(agent => {
+        Company.findById(company1._id)
+          .then(company => {
 
-            expect(agent.acceptPendings.length).to.equal(1)
-            expect(agent.acceptPendings[0].toString()).to.equal(company1._id.toString())
+            expect(company.acceptPendings.length).to.equal(1)
+            expect(company.acceptPendings[0].toString()).to.equal(agent1._id.toString())
             done()
           })
           .catch(done)
       })
   })
 
-  it('duplicate agent must return status 422 and not insert', done => {
+  it('duplicate company must return status 422 and not insert', done => {
     request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
+      .post('/agents/request')
+      .send({ _id: company1._id })
+      .set('authorization', agent1Token)
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
 
         request(app)
-          .post('/companies/request')
-          .send({ _id: agent1._id })
-          .set('authorization', company1Token)
+          .post('/agents/request')
+          .send({ _id: company1._id })
+          .set('authorization', agent1Token)
           .expect(422)
           .end((err, res) => {
             if (err) return done(err)
 
             Promise.all([
-                Company.findById(company1._id),
-                Agent.findById(agent1._id)
+                Agent.findById(agent1._id),
+                Company.findById(company1._id)
               ])
               .then(result => {
                 expect(result[0].requestPendings.length).to.equal(1)
@@ -189,27 +190,27 @@ describe('Company request', () => {
       })
   })
 
-  it('two agent', done => {
+  it('two company', done => {
     request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
+      .post('/agents/request')
+      .send({ _id: company1._id })
+      .set('authorization', agent1Token)
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
 
         request(app)
-          .post('/companies/request')
-          .send({ _id: agent2._id })
-          .set('authorization', company1Token)
+          .post('/agents/request')
+          .send({ _id: company2._id })
+          .set('authorization', agent1Token)
           .expect(200)
           .end((err, res) => {
             if (err) return done(err)
 
             Promise.all([
-                Company.findById(company1._id),
                 Agent.findById(agent1._id),
-                Agent.findById(agent2._id)
+                Company.findById(company1._id),
+                Company.findById(company2._id)
               ])
               .then(result => {
                 expect(result[0].requestPendings.length).to.equal(2)
@@ -224,34 +225,34 @@ describe('Company request', () => {
 
   it('already member must return status 422', done => {
     request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
+      .post('/agents/request')
+      .send({ _id: company1._id })
+      .set('authorization', agent1Token)
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
 
         request(app)
-          .post('/agents/signin')
-          .send(agent1SigninProps)
+          .post('/companies/signin')
+          .send(company1SigninProps)
           .expect(200)
           .end((err, res) => {
             if (err) return done(err)
 
-            const agent1Token = res.body.token
+            const company1Token = res.body.token
 
             request(app)
-              .post('/agents/accept')
-              .send({ _id: company1._id })
-              .set('authorization', agent1Token)
+              .post('/companies/accept')
+              .send({ _id: agent1._id })
+              .set('authorization', company1Token)
               .expect(200)
               .end((err, res) => {
                 if (err) return done(err)
 
                 request(app)
-                  .post('/companies/request')
-                  .send({ _id: agent1._id })
-                  .set('authorization', company1Token)
+                  .post('/agents/request')
+                  .send({ _id: company1._id })
+                  .set('authorization', agent1Token)
                   .expect(422)
                   .end((err, res) => {
                     if (err) return done(err)

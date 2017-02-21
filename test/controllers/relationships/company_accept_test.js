@@ -1,4 +1,4 @@
-const app = require('../../app')
+const app = require('../../../app')
 const request = require('supertest')
 const expect = require('chai').expect
 const parallel = require('async/parallel')
@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe('Agent accept', () => {
+describe('Company accept', () => {
 
   let company1, agent1, company1Token, agent1Token
 
@@ -54,9 +54,9 @@ describe('Agent accept', () => {
             company1Token = results[0]
             agent1Token = results[1]
             request(app)
-              .post('/companies/request')
-              .send({ _id: agent1._id })
-              .set('authorization', company1Token)
+              .post('/agents/request')
+              .send({ _id: company1._id })
+              .set('authorization', agent1Token)
               .end((err, res) => {
                 if (err) return done(err)
 
@@ -67,36 +67,36 @@ describe('Agent accept', () => {
       })
   })
 
-  it('must remove agent accept pendings', done => {
+  it('must remove company accept pendings', done => {
     request(app)
-      .post('/agents/accept')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
-      .expect(200)
-      .end((err, res) => {
-        if (err) return done(err)
-
-        Agent.findById(agent1._id)
-          .then(agent => {
-            expect(agent.acceptPendings.length).to.equal(0)
-            done()
-          })
-          .catch(done)
-      })
-  })
-
-  it('must remove company request pendings', done => {
-    request(app)
-      .post('/agents/accept')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
+      .post('/companies/accept')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
 
         Company.findById(company1._id)
           .then(company => {
-            expect(company.requestPendings.length).to.equal(0)
+            expect(company.acceptPendings.length).to.equal(0)
+            done()
+          })
+          .catch(done)
+      })
+  })
+
+  it('must remove agent request pendings', done => {
+    request(app)
+      .post('/companies/accept')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        Agent.findById(agent1._id)
+          .then(agent => {
+            expect(agent.requestPendings.length).to.equal(0)
             done()
           })
           .catch(done)
@@ -105,49 +105,31 @@ describe('Agent accept', () => {
 
   it('duplicate accept must return status 422', done => {
     request(app)
-      .post('/agents/accept')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
+      .post('/companies/accept')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
 
         request(app)
-          .post('/agents/accept')
-          .send({ _id: company1._id })
-          .set('authorization', agent1Token)
+          .post('/companies/accept')
+          .send({ _id: agent1._id })
+          .set('authorization', company1Token)
           .expect(422)
           .end((err, res) => {
-            if (err) return done(err)
+          	if (err) return done(err)
 
-            done()
+          	done()
           })
-      })
-  })
-
-  it('completed company must appear in agent.companies', done => {
-    request(app)
-      .post('/agents/accept')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
-      .expect(200)
-      .end((err, res) => {
-        if (err) return done(err)
-
-        Agent.findById(agent1._id)
-          .then(agent => {
-            expect(agent.companies.length).to.equal(1)
-            done()
-          })
-          .catch(done)
       })
   })
 
   it('completed agent must appear in company.agents', done => {
-    request(app)
-      .post('/agents/accept')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
+  	request(app)
+      .post('/companies/accept')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
@@ -155,6 +137,24 @@ describe('Agent accept', () => {
         Company.findById(company1._id)
           .then(company => {
             expect(company.agents.length).to.equal(1)
+            done()
+          })
+          .catch(done)
+      })
+  })
+
+  it('completed company must appear in agent.companies', done => {
+  	request(app)
+      .post('/companies/accept')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        Agent.findById(agent1._id)
+          .then(agent => {
+            expect(agent.companies.length).to.equal(1)
             done()
           })
           .catch(done)
