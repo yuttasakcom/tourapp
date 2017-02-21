@@ -84,17 +84,16 @@ module.exports = {
               $pull: { 'requestPendings': companyId }
             })
             .then(() => {
-              Company.update({ _id: companyId }, {
-                  $addToSet: { 'agents': agentId }
-                })
-                .then(() => {
-
+              Promise.all([
+                  Company.update({ _id: companyId }, {
+                    $addToSet: { 'agents': agentId }
+                  }),
                   Agent.update({ _id: agentId }, {
-                      $addToSet: { 'companies': companyId }
-                    })
-                    .then(() => {
-                      res.send({ message: 'Accept request completed' })
-                    })
+                    $addToSet: { 'companies': companyId }
+                  })
+                ])
+                .then(() => {
+                  res.send({ message: 'Accept request completed' })
                 })
             })
         } else {
