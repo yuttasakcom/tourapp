@@ -69,7 +69,7 @@ describe('Company request', () => {
       })
   })
 
-  it.only('cancel request must remove company requestPendings and agent acceptPendings', done => {
+  it('cancel request must remove company requestPendings and agent acceptPendings', done => {
     request(app)
       .post('/companies/request')
       .send({ _id: agent1._id })
