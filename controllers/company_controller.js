@@ -72,7 +72,15 @@ module.exports = {
   },
 
   accept(req, res, next) {
-    res.send({ message: 'mock' })
+    const agentId = req.body._id
+    const companyId = req.user._id
+
+    Company.update({ _id: companyId }, {
+        $pull: { 'acceptPendings': agentId }
+      })
+      .then(() => {
+        res.send({ message: 'Accept request completed' })
+      })
   },
 
   addRelationship(req, res, next) {

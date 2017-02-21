@@ -53,15 +53,35 @@ describe.only('Company accept', () => {
           (err, results) => {
             company1Token = results[0]
             agent1Token = results[1]
-            done()
+            request(app)
+              .post('/agents/request')
+              .send({ _id: company1._id })
+              .set('authorization', agent1Token)
+              .end((err, res) => {
+                if (err) return done(err)
+
+                done()
+              })
           })
 
       })
   })
 
-  it('test', done => {
-    console.log(company1Token)
-    console.log(agent1Token)
-    done()
+  it('accept must remove company accept pendings', done => {
+    request(app)
+      .post('/companies/accept')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        Company.findById(company1._id)
+      		.then(company => {
+      			expect(company.acceptPendings.length).to.equal(0)
+      			done()
+      		})
+      		.catch(done)
+      })
   })
 })
