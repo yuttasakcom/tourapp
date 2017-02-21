@@ -122,13 +122,11 @@ describe('Company add relation', () => {
 
             Promise.all([
                 Company.findById(company1._id),
-                Agent.findById(agent1._id),
-                Agent.findById(agent2._id)
+                Agent.findById(agent1._id)
               ])
               .then(result => {
                 expect(result[0].agents.length).to.equal(1)
                 expect(result[1].companies.length).to.equal(1)
-                expect(result[2].companies.length).to.equal(0)
                 done()
               })
               .catch(done)
