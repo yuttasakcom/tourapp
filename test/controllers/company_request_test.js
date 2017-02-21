@@ -67,4 +67,24 @@ describe.only('Company request', () => {
           .catch(done)
       })
   })
+
+  it('must be appear on agent accept pendings', done => {
+    request(app)
+      .post('/companies/request')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        Agent.findById(agent1._id)
+          .then(agent => {
+
+            expect(agent.acceptPendings.length).to.equal(1)
+            expect(agent.acceptPendings[0].toString()).to.equal(company1._id.toString())
+            done()
+          })
+          .catch(done)
+      })
+  })
 })

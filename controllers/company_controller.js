@@ -57,7 +57,11 @@ module.exports = {
       })
       .then(({ nModified }) => {
         if (nModified) {
-          res.send({ message: 'Send request completed' })
+          Agent.update({ _id: agentId }, {
+              $addToSet: { 'acceptPendings': companyId }
+            })
+            .then(() => res.send({ message: 'Send request completed' }))
+            .catch(next)
         } else {
           let err = new Error('This agent is already request')
           err.status = 422
