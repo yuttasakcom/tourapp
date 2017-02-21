@@ -96,6 +96,7 @@ describe('Agent request', () => {
                 expect(results[1].acceptPendings.length).to.equal(0)
                 done()
               })
+              .catch(done)
           })
       })
   })

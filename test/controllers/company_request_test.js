@@ -95,11 +95,12 @@ describe('Company request', () => {
                 expect(results[1].acceptPendings.length).to.equal(0)
                 done()
               })
+              .catch(done)
           })
       })
   })
 
-  it.only('reject request must remove company acceptPendings and agent requestPendings', done => {
+  it('reject request must remove company acceptPendings and agent requestPendings', done => {
     request(app)
       .post('/agents/signin')
       .send(agent1SigninProps)
