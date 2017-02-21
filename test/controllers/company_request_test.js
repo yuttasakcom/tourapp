@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe('Company request', () => {
+describe.only('Company request', () => {
 
   let company1, agent1, agent2, company1Token
 
@@ -25,6 +25,7 @@ describe('Company request', () => {
   }
 
   const company1SigninProps = Object.assign({}, company1Props, { role: 'company' })
+  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
 
   beforeEach(done => {
     company1 = new Company(company1Props)
@@ -148,6 +149,47 @@ describe('Company request', () => {
                 done()
               })
               .catch(done)
+          })
+      })
+  })
+
+  it('already member must return status 422', done => {
+    request(app)
+      .post('/companies/request')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        request(app)
+          .post('/agents/signin')
+          .send(agent1SigninProps)
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            const agent1Token = res.body.token
+
+            request(app)
+              .post('/agents/accept')
+              .send({ _id: company1._id })
+              .set('authorization', agent1Token)
+              .expect(200)
+              .end((err, res) => {
+                if (err) return done(err)
+
+                request(app)
+                  .post('/companies/request')
+                  .send({ _id: agent1._id })
+                  .set('authorization', company1Token)
+                  .expect(422)
+                  .end((err, res) => {
+                    if (err) return done(err)
+
+                    done()
+                  })
+              })
           })
       })
   })
