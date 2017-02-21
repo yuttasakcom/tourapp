@@ -69,6 +69,36 @@ describe('Company request', () => {
       })
   })
 
+  it.only('cancel request must remove company requestPendings and agent acceptPendings', done => {
+    request(app)
+      .post('/companies/request')
+      .send({ _id: agent1._id })
+      .set('authorization', company1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        request(app)
+          .post('/companies/cancel-request')
+          .send({ _id: agent1._id })
+          .set('authorization', company1Token)
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            Promise.all([
+                Company.findById(company1._id),
+                Agent.findById(agent1._id)
+              ])
+              .then(results => {
+                expect(results[0].requestPendings.length).to.equal(0)
+                expect(results[1].acceptPendings.length).to.equal(0)
+                done()
+              })
+          })
+      })
+  })
+
   it('must be appear on agent accept pendings', done => {
     request(app)
       .post('/companies/request')
