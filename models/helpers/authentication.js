@@ -15,9 +15,9 @@ module.exports = {
   checkEmailExist(modelName, email) {
     return new Promise((resolve, reject) => {
       const User = mongoose.model(modelName)
-      User.findOne({ email })
-        .then(existingUser => {
-          if (existingUser) {
+      User.count({ email })
+        .then(exist => {
+          if (exist) {
             resolve(true)
           } else {
             resolve(false)
