@@ -4,7 +4,8 @@ const {
   profile,
   request,
   accept,
-  getRequestPendingsList
+  getRequestPendingsList,
+  getAcceptPendingsList
 } = require('../controllers/agent_controller')
 const passport = require('../services/passport')
 const requireSignin = passport.authenticate('local', { session: false })
@@ -18,5 +19,6 @@ router.get('/profile', requireAuth, hasRole('agent'), profile)
 router.post('/request', requireAuth, hasRole('agent'), request)
 router.post('/accept', requireAuth, hasRole('agent'), accept)
 router.get('/request-pendings', requireAuth, hasRole('agent'), getRequestPendingsList)
+router.get('/accept-pendings', requireAuth, hasRole('agent'), getAcceptPendingsList)
 
 module.exports = router
