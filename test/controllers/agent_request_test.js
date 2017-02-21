@@ -26,6 +26,7 @@ describe('Agent request', () => {
   }
 
   const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
+  const company1SigninProps = Object.assign({}, company1Props, { role: 'company' })
 
   beforeEach(done => {
     agent1 = new Agent(agent1Props)
@@ -149,6 +150,47 @@ describe('Agent request', () => {
                 done()
               })
               .catch(done)
+          })
+      })
+  })
+
+  it.only('already member must return status 422', done => {
+    request(app)
+      .post('/agents/request')
+      .send({ _id: company1._id })
+      .set('authorization', agent1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        request(app)
+          .post('/companies/signin')
+          .send(company1SigninProps)
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            const company1Token = res.body.token
+
+            request(app)
+              .post('/companies/accept')
+              .send({ _id: agent1._id })
+              .set('authorization', company1Token)
+              .expect(200)
+              .end((err, res) => {
+                if (err) return done(err)
+
+                request(app)
+                  .post('/agents/request')
+                  .send({ _id: company1._id })
+                  .set('authorization', agent1Token)
+                  .expect(422)
+                  .end((err, res) => {
+                    if (err) return done(err)
+
+                    done()
+                  })
+              })
           })
       })
   })
