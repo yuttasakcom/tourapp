@@ -67,7 +67,7 @@ describe.only('Company accept', () => {
       })
   })
 
-  it('accept must remove company accept pendings', done => {
+  it('must remove company accept pendings', done => {
     request(app)
       .post('/companies/accept')
       .send({ _id: agent1._id })
@@ -85,7 +85,7 @@ describe.only('Company accept', () => {
       })
   })
 
-  it('accept must remove agent request pendings', done => {
+  it('must remove agent request pendings', done => {
     request(app)
       .post('/companies/accept')
       .send({ _id: agent1._id })
@@ -124,4 +124,5 @@ describe.only('Company accept', () => {
           })
       })
   })
+
 })
