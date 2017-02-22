@@ -48,6 +48,10 @@ module.exports = {
       })
   },
 
+  getPkgsList(req, res, next) {
+    res.send({ message: 'mock' })
+  },
+
   request(req, res, next) {
     const agentId = req.body._id
     const companyId = req.user._id
