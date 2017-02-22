@@ -49,7 +49,14 @@ module.exports = {
   },
 
   getPkgsList(req, res, next) {
-    res.send({ message: 'mock' })
+    const companyId = req.user._id
+    Company.findById(companyId, {
+      _id: 0,
+      pkgs: 1
+    })
+    .then(pkgs => {
+      res.send(pkgs)
+    })
   },
 
   request(req, res, next) {
