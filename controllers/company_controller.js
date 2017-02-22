@@ -48,6 +48,17 @@ module.exports = {
       })
   },
 
+  getPkgsList(req, res, next) {
+    const companyId = req.user._id
+    Company.findById(companyId, {
+      _id: 0,
+      pkgs: 1
+    })
+    .then(pkgs => {
+      res.send(pkgs)
+    })
+  },
+
   request(req, res, next) {
     const agentId = req.body._id
     const companyId = req.user._id
