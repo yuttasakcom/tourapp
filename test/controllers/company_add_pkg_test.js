@@ -53,5 +53,41 @@ describe('Company add pkg', () => {
           .catch(done)
       })
   })
+  
+  it('two pkg', done => {
+    request(app)
+      .post('/companies/pkgs')
+      .send({
+        name: 'name_test1',
+        description: 'description_test1',
+        priceAdult: '3000',
+        priceChild: '2000'
+      })
+      .set('authorization', company1Token)
+      .expect(201)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        request(app)
+          .post('/companies/pkgs')
+          .send({
+            name: 'name_test2',
+            description: 'description_test2',
+            priceAdult: '3000',
+            priceChild: '2000'
+          })
+          .set('authorization', company1Token)
+          .expect(201)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            Company.findById(company1._id)
+              .then(company => {
+                expect(company.pkgs.length).to.equal(2)
+                done()
+              })
+          })
+      })
+  }) 
 
 })
