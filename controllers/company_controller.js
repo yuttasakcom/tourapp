@@ -48,15 +48,30 @@ module.exports = {
       })
   },
 
+  getPkg(req, res, next) {
+    const companyId = req.user._id
+    const pkgId = req.params.id
+
+    Company.findById(companyId, {
+        pkgs: {
+          $elemMatch: { _id: pkgId }
+        }
+      })
+      .then(company => {
+        res.send(company.pkgs[0])
+      })
+      .catch(next)
+  },
+
   getPkgsList(req, res, next) {
     const companyId = req.user._id
     Company.findById(companyId, {
-      _id: 0,
-      pkgs: 1
-    })
-    .then(pkgs => {
-      res.send(pkgs)
-    })
+        _id: 0,
+        pkgs: 1
+      })
+      .then(pkgs => {
+        res.send(pkgs)
+      })
   },
 
   request(req, res, next) {
