@@ -9,7 +9,8 @@ const {
   cancelRequest,
   rejectRequest,
   getPkgsList,
-  getCompaniesList
+  getCompaniesList,
+  deleteRelationship
 } = require('../controllers/agent_controller')
 const passport = require('../services/passport')
 const requireSignin = passport.authenticate('local', { session: false })
@@ -26,6 +27,7 @@ router.get('/request-pendings', requireAuth, hasRole('agent'), getRequestPending
 router.get('/accept-pendings', requireAuth, hasRole('agent'), getAcceptPendingsList)
 router.delete('/cancel-request', requireAuth, hasRole('agent'), cancelRequest)
 router.delete('/reject-request', requireAuth, hasRole('agent'), rejectRequest)
+router.delete('/relationship/:id', requireAuth, hasRole('agent'), deleteRelationship)
 
 router.get('/pkgs', requireAuth, hasRole('agent'), getPkgsList)
 router.get('/companies', requireAuth, hasRole('agent'), getCompaniesList)
