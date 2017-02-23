@@ -11,15 +11,15 @@ describe.only('Agent get pkgs', () => {
   let company1, agent1, company1Token, agent1Token
 
   let companyPkgsStubs = new Array(10)
-      .fill(undefined)
-      .map((val, key) => {
-        return {
-          name: `name_test${key}`,
-          description: `description_test${key}`,
-          priceAdult: '3000',
-          priceChild: '2000'
-        }
-      })
+    .fill(undefined)
+    .map((val, key) => {
+      return {
+        name: `name_test${key}`,
+        description: `description_test${key}`,
+        priceAdult: '3000',
+        priceChild: '2000'
+      }
+    })
 
   const company1Props = {
     email: 'company1@test.com',
@@ -76,7 +76,6 @@ describe.only('Agent get pkgs', () => {
                   .post('/companies/accept')
                   .send({ _id: agent1._id })
                   .set('authorization', company1Token)
-                  .expect(200)
                   .end((err, res) => {
                     if (err) return done(err)
 
@@ -89,10 +88,15 @@ describe.only('Agent get pkgs', () => {
   })
 
   it('one member', done => {
-    Company.findById(company1._id)
-      .then(company => {
-        console.log(company)
-        done()
-      })
+    request(app)
+    	.get('/agents/pkgs')
+    	.set('authorization', agent1Token)
+    	.expect(200)
+    	.end((err, res) => {
+    		if (err) return done(err)
+
+    		console.log(res.body)
+    		done()
+    	})
   })
 })
