@@ -15,6 +15,18 @@ const tokenForAgent = (agent) => {
 
 
 module.exports = {
+  getPkgsList(req, res, next) {
+    const agentId = req.user._id
+
+    Company.find({ agents: agentId }, {
+        email: 1,
+        pkgs: 1
+      })
+      .then(companies => {
+        res.send(companies)
+      })
+  },
+
   signup(req, res, next) {
     const agentProps = req.body
     const agent = new Agent(agentProps)
