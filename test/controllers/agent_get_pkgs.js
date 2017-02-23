@@ -10,9 +10,21 @@ describe.only('Agent get pkgs', () => {
 
   let company1, agent1, company1Token, agent1Token
 
+  let companyPkgsStubs = new Array(10)
+      .fill(undefined)
+      .map((val, key) => {
+        return {
+          name: `name_test${key}`,
+          description: `description_test${key}`,
+          priceAdult: '3000',
+          priceChild: '2000'
+        }
+      })
+
   const company1Props = {
     email: 'company1@test.com',
-    password: '1234'
+    password: '1234',
+    pkgs: companyPkgsStubs
   }
 
   const agent1Props = {
