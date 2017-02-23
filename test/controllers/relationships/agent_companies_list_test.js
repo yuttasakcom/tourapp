@@ -62,8 +62,8 @@ describe.only('Agent get companies list', () => {
 
         const companies = res.body
         expect(companies.length).to.equal(2)
-        expect(companies[0].email).to.equal(companies1Props.email)
-        expect(companies[1].email).to.equal(companies2Props.email)
+        expect(companies[0].email).to.equal(company1Props.email)
+        expect(companies[1].email).to.equal(company2Props.email)
         done()
       })
   })
