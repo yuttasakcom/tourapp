@@ -79,7 +79,7 @@ describe.only('Agent delete relationship', () => {
 
             expect(results[0]).to.equal(null)
             expect(results[1]).to.equal(null)
-            expect(results[2].agents.length).to.equal(1)
+            expect(results[2].companies.length).to.equal(1)
             done()
           })
           .catch(done)
