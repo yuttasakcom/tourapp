@@ -78,7 +78,27 @@ module.exports = {
   },
 
   updatePkg(req, res, next) {
-    res.send({ msg: 'mock' })
+    const companyId = req.user._id
+    const pkgId = req.params.id
+
+    let pkgProp = req.body
+    pkgProp._id = pkgId
+
+    Company.findOneAndUpdate({ _id: companyId, 'pkgs._id': pkgId }, {
+        $set: { 'pkgs.$': pkgProp }
+      }, {
+        new: true,
+        select: {
+          pkgs: {
+            $elemMatch: { _id: pkgId }
+          }
+        }
+      })
+      .then(company => {
+        const updatedPkg = company.pkgs[0]
+        res.send(updatedPkg)
+      })
+      .catch(next)
   },
 
   getPkgsList(req, res, next) {
