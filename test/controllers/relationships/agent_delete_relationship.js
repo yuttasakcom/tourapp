@@ -5,48 +5,48 @@ const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe('Company delete relationship', () => {
+describe.only('Agent delete relationship', () => {
 
-  let company1, agent1, agent2, company1Token
-
-  const company1Props = {
-    email: 'company1@test.com',
-    password: '1234'
-  }
+  let agent1, company1, company2, agent1Token
 
   const agent1Props = {
     email: 'agent1@test.com',
     password: '1234'
   }
 
-  const agent2Props = {
-    email: 'agent2@test.com',
+  const company1Props = {
+    email: 'company1@test.com',
     password: '1234'
   }
 
-  const company1SigninProps = Object.assign({}, company1Props, { role: 'company' })
+  const company2Props = {
+    email: 'company2@test.com',
+    password: '1234'
+  }
+
+  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
 
   beforeEach(done => {
-    company1 = new Company(company1Props)
     agent1 = new Agent(agent1Props)
-    agent2 = new Agent(agent2Props)
+    company1 = new Company(company1Props)
+    company2 = new Company(company2Props)
 
-    company1.agents.push(agent1)
-    company1.agents.push(agent2)
     agent1.companies.push(company1)
-    agent2.companies.push(company1)
+    agent1.companies.push(company2)
+    company1.agents.push(agent1)
+    company1.agents.push(agent1)
 
     Promise.all([
-        company1.save(),
         agent1.save(),
-        agent2.save()
+        company1.save(),
+        company2.save()
       ])
       .then(() => {
         request(app)
-          .post('/companies/signin')
-          .send(company1SigninProps)
+          .post('/agents/signin')
+          .send(agent1SigninProps)
           .end((err, res) => {
-            company1Token = res.body.token
+            agent1Token = res.body.token
 
             done()
           })
@@ -55,24 +55,24 @@ describe('Company delete relationship', () => {
 
   it('one relationship', done => {
     request(app)
-      .delete(`/companies/relationship/${agent1._id}`)
-      .set('authorization', company1Token)
+      .delete(`/agents/relationship/${company1._id}`)
+      .set('authorization', agent1Token)
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
 
         Promise.all([
-            Company.findOne({
-              _id: company1._id,
-              agents: agent1._id
-            }),
             Agent.findOne({
               _id: agent1._id,
               companies: company1._id
             }),
             Company.findOne({
               _id: company1._id,
-              agents: agent2._id
+              agents: agent1._id
+            }),
+            Agent.findOne({
+              _id: agent1._id,
+              companies: company2._id
             })
           ])
           .then(results => {
@@ -88,31 +88,31 @@ describe('Company delete relationship', () => {
 
   it('two relationship', done => {
     request(app)
-      .delete(`/companies/relationship/${agent1._id}`)
-      .set('authorization', company1Token)
+      .delete(`/agents/relationship/${company1._id}`)
+      .set('authorization', agent1Token)
       .expect(200)
       .end((err, res) => {
         if (err) return done(err)
 
         request(app)
-          .delete(`/companies/relationship/${agent2._id}`)
-          .set('authorization', company1Token)
+          .delete(`/agents/relationship/${company2._id}`)
+          .set('authorization', agent1Token)
           .expect(200)
           .end((err, res) => {
             if (err) return done(err)
 
             Promise.all([
-                Company.findOne({
-                  _id: company1._id,
-                  agents: agent1._id
-                }),
                 Agent.findOne({
                   _id: agent1._id,
                   companies: company1._id
                 }),
                 Company.findOne({
                   _id: company1._id,
-                  agents: agent2._id
+                  agents: agent1._id
+                }),
+                Agent.findOne({
+                  _id: agent1._id,
+                  companies: company2._id
                 })
               ])
               .then(results => {
