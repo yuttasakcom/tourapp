@@ -4,7 +4,7 @@ const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Company = mongoose.model('Company')
 
-describe('Company add pkg', () => {
+describe('Company CRUD pkg', () => {
 
   let company1, company1Token
 
@@ -60,12 +60,8 @@ describe('Company add pkg', () => {
       })
   })
 
-  it.only('GET /companies/pkgs/:id', done => {
+  it('GET /companies/pkgs/:id', done => {
     Company.findById(company1._id, {
-        _id: 0,
-        acceptPendings: 0,
-        requestPendings: 0,
-        agents: 0,
         pkgs: {
           $elemMatch: { name: 'name_test0' }
         }
@@ -81,6 +77,35 @@ describe('Company add pkg', () => {
 
             expect(res.body.name).to.equal(company.pkgs[0].name)
             done()
+          })
+      })
+  })
+
+  it.only('DELETE /companies/pkgs/:id', done => {
+    Company.findById(company1._id, {
+        pkgs: {
+          $elemMatch: { name: 'name_test0' }
+        }
+      })
+      .then(company => {
+        const pkgId = company.pkgs[0]._id
+        request(app)
+          .delete(`/companies/pkgs/${pkgId}`)
+          .set('authorization', company1Token)
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            Company.findById(company1._id, {
+                pkgs: {
+                  $elemMatch: { _id: pkgId }
+                }
+              })
+              .then(company => {
+
+                expect(company.pkgs.length).to.equal(0)
+                done()
+              })
           })
       })
   })

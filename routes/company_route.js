@@ -5,6 +5,7 @@ const {
   addPkg,
   getPkgsList,
   getPkg,
+  deletePkg,
   request,
   accept,
   getRequestPendingsList,
@@ -24,6 +25,7 @@ router.get('/profile', requireAuth, hasRole('company'), profile)
 router.post('/pkgs', requireAuth, hasRole('company'), addPkg)
 router.get('/pkgs', requireAuth, hasRole('company'), getPkgsList)
 router.get('/pkgs/:id', requireAuth, hasRole('company'), getPkg)
+router.delete('/pkgs/:id', requireAuth, hasRole('company'), deletePkg)
 router.post('/request', requireAuth, hasRole('company'), request)
 router.post('/accept', requireAuth, hasRole('company'), accept)
 router.get('/request-pendings', requireAuth, hasRole('company'), getRequestPendingsList)

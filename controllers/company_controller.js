@@ -63,6 +63,20 @@ module.exports = {
       .catch(next)
   },
 
+  deletePkg(req, res, next) {
+    const companyId = req.user._id
+    const pkgId = req.params.id
+
+    Company.update({ _id: companyId }, {
+        $pull: {
+          pkgs: { _id: pkgId }
+        }
+      })
+      .then(() => {
+        res.send({ message: 'Delete package completed' })
+      })
+  },
+
   getPkgsList(req, res, next) {
     const companyId = req.user._id
     Company.findById(companyId, {
