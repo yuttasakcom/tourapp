@@ -77,6 +77,10 @@ module.exports = {
       })
   },
 
+  updatePkg(req, res, next) {
+    res.send({ msg: 'mock' })
+  },
+
   getPkgsList(req, res, next) {
     const companyId = req.user._id
     Company.findById(companyId, {
