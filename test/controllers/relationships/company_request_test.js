@@ -79,8 +79,7 @@ describe('Company request', () => {
         if (err) return done(err)
 
         request(app)
-          .delete('/companies/cancel-request')
-          .send({ _id: agent1._id })
+          .delete(`/companies/cancel-request/${agent1._id}`)
           .set('authorization', company1Token)
           .expect(200)
           .end((err, res) => {
@@ -116,8 +115,7 @@ describe('Company request', () => {
             if (err) return done(err)
 
             request(app)
-              .delete('/companies/reject-request')
-              .send({ _id: agent1._id })
+              .delete(`/companies/reject-request/${agent1._id}`)
               .set('authorization', company1Token)
               .expect(200)
               .end((err, res) => {
