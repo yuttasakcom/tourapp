@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe.only('Company get agents list', () => {
+describe('Company get agents list', () => {
 
   let company1, agent1, agent2, company1Token
 
@@ -50,7 +50,6 @@ describe.only('Company get agents list', () => {
           })
       })
   })
-
 
   it('two agents', done => {
     request(app)
