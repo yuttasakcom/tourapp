@@ -8,7 +8,7 @@ const Agent = mongoose.model('Agent')
 
 describe.only('Agent get pkgs', () => {
 
-  let company1, agent1, company1Token, agent1Token
+  let company1, company2, agent1, company1Token, agent1Token
 
   let companyPkgsStubs = new Array(10)
     .fill(undefined)
@@ -27,20 +27,29 @@ describe.only('Agent get pkgs', () => {
     pkgs: companyPkgsStubs
   }
 
+  const company2Props = {
+    email: 'company2@test.com',
+    password: '1234',
+    pkgs: companyPkgsStubs
+  }
+
   const agent1Props = {
     email: 'agent1@test.com',
     password: '1234'
   }
 
   const company1SigninProps = Object.assign({}, company1Props, { role: 'company' })
+  const company2SigninProps = Object.assign({}, company2Props, { role: 'company' })
   const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
 
   beforeEach(done => {
     company1 = new Company(company1Props)
+    company2 = new Company(company2Props)
     agent1 = new Agent(agent1Props)
 
     Promise.all([
         company1.save(),
+        company2.save(),
         agent1.save()
       ])
       .then(() => {
@@ -49,6 +58,14 @@ describe.only('Agent get pkgs', () => {
               request(app)
                 .post('/companies/signin')
                 .send(company1SigninProps)
+                .end((err, res) => {
+                  cb(err, res.body.token)
+                })
+            },
+            (cb) => {
+              request(app)
+                .post('/companies/signin')
+                .send(company2SigninProps)
                 .end((err, res) => {
                   cb(err, res.body.token)
                 })
@@ -64,7 +81,8 @@ describe.only('Agent get pkgs', () => {
           ],
           (err, results) => {
             company1Token = results[0]
-            agent1Token = results[1]
+            company2Token = results[1]
+            agent1Token = results[2]
             request(app)
               .post('/agents/request')
               .send({ _id: company1._id })
@@ -97,6 +115,35 @@ describe.only('Agent get pkgs', () => {
 
         expect(res.body.length).to.equal(1)
         done()
+      })
+  })
+
+  it('two member', done => {
+    request(app)
+      .post('/agents/request')
+      .send({ _id: company2._id })
+      .set('authorization', agent1Token)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        request(app)
+          .post('/companies/accept')
+          .send({ _id: agent1._id })
+          .set('authorization', company2Token)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            request(app)
+              .get('/agents/pkgs')
+              .set('authorization', agent1Token)
+              .expect(200)
+              .end((err, res) => {
+                if (err) return done(err)
+
+                expect(res.body.length).to.equal(2)
+                done()
+              })
+          })
       })
   })
 })
