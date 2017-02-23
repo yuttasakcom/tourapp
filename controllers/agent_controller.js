@@ -15,6 +15,10 @@ const tokenForAgent = (agent) => {
 
 
 module.exports = {
+  getPkgsList(req, res, next) {
+    res.send({ msg: 'mock' })
+  },
+
   signup(req, res, next) {
     const agentProps = req.body
     const agent = new Agent(agentProps)
