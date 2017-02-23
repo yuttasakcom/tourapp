@@ -211,8 +211,8 @@ module.exports = {
   },
 
   cancelRequest(req, res, next) {
-    const agentId = req.body._id
     const companyId = req.user._id
+    const agentId = req.params.id
 
     Promise.all([
       Company.update({ _id: companyId }, {
@@ -243,8 +243,8 @@ module.exports = {
   },
 
   rejectRequest(req, res, next) {
-    const agentId = req.body._id
     const companyId = req.user._id
+    const agentId = req.params.id
 
     Promise.all([
       Company.update({ _id: companyId }, {

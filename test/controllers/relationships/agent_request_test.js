@@ -80,8 +80,7 @@ describe('Agent request', () => {
         if (err) return done(err)
 
         request(app)
-          .delete('/agents/cancel-request')
-          .send({ _id: company1._id })
+          .delete(`/agents/cancel-request/${company1._id}`)
           .set('authorization', agent1Token)
           .expect(200)
           .end((err, res) => {
@@ -117,8 +116,7 @@ describe('Agent request', () => {
             if (err) return done(err)
 
             request(app)
-              .delete('/agents/reject-request')
-              .send({ _id: company1._id })
+              .delete(`/agents/reject-request/${company1._id}`)
               .set('authorization', agent1Token)
               .expect(200)
               .end((err, res) => {
