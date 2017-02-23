@@ -89,14 +89,14 @@ describe.only('Agent get pkgs', () => {
 
   it('one member', done => {
     request(app)
-    	.get('/agents/pkgs')
-    	.set('authorization', agent1Token)
-    	.expect(200)
-    	.end((err, res) => {
-    		if (err) return done(err)
+      .get('/agents/pkgs')
+      .set('authorization', agent1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
 
-    		console.log(res.body)
-    		done()
-    	})
+        expect(res.body.length).to.equal(1)
+        done()
+      })
   })
 })

@@ -16,7 +16,15 @@ const tokenForAgent = (agent) => {
 
 module.exports = {
   getPkgsList(req, res, next) {
-    res.send({ msg: 'mock' })
+    const agentId = req.user._id
+
+    Company.find({ agents: agentId }, {
+        email: 1,
+        pkgs: 1
+      })
+      .then(companies => {
+        res.send(companies)
+      })
   },
 
   signup(req, res, next) {
