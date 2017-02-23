@@ -27,6 +27,20 @@ module.exports = {
       })
   },
 
+  getCompaniesList(req, res, next) {
+    const agentId = req.user._id
+
+    Agent.findById(agentId, {
+        _id: 0,
+        companies: 1
+      })
+      .populate('companies')
+      .then(agent => {
+        res.send(agent.companies)
+      })
+      .catch(next)
+  },
+
   signup(req, res, next) {
     const agentProps = req.body
     const agent = new Agent(agentProps)
