@@ -81,7 +81,7 @@ describe('Company CRUD pkg', () => {
       })
   })
 
-  it.only('DELETE /companies/pkgs/:id', done => {
+  it('DELETE /companies/pkgs/:id', done => {
     Company.findById(company1._id, {
         pkgs: {
           $elemMatch: { name: 'name_test0' }
@@ -104,6 +104,52 @@ describe('Company CRUD pkg', () => {
               .then(company => {
 
                 expect(company.pkgs.length).to.equal(0)
+                done()
+              })
+          })
+      })
+  })
+
+  it.only('PUT /companies/pkgs/:id', done => {
+    Company.findById(company1._id, {
+        pkgs: {
+          $elemMatch: { name: 'name_test0' }
+        }
+      })
+      .then(company => {
+        const pkgId = company.pkgs[0]._id
+        request(app)
+          .put(`/companies/pkgs/${pkgId}`)
+          .set('authorization', company1Token)
+          .send({
+            name: 'updated_name',
+            description: 'updated_description',
+            priceAdult: 4000,
+            priceChild: 3000
+          })
+          .expect(200)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            const updatedPkg = res.body
+
+            expect(updatedPkg.name).to.equal('updated_name')
+            expect(updatedPkg.description).to.equal('updated_description')
+            expect(updatedPkg.priceAdult).to.equal(4000)
+            expect(updatedPkg.priceChild).to.equal(3000)
+
+            Company.findById(company1._id, {
+                pkgs: {
+                  $elemMatch: { _id: pkgId }
+                }
+              })
+              .then(company => {
+                const updatedPkg = company.pkgs[0]
+
+                expect(updatedPkg.name).to.equal('updated_name')
+                expect(updatedPkg.description).to.equal('updated_description')
+                expect(updatedPkg.priceAdult).to.equal(4000)
+                expect(updatedPkg.priceChild).to.equal(3000)
                 done()
               })
           })
