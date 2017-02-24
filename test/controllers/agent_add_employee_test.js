@@ -4,7 +4,7 @@ const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 
-describe.only('Agent create employee', () => {
+describe.only('Agent add employee', () => {
 
   let agent1, agent1Token
 
