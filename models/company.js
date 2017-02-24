@@ -29,30 +29,6 @@ const companySchema = new Schema({
   }]
 })
 
-companySchema.pre('save', function(next) {
-  return next()
-  if (this.isNew) {
-    helper.checkEmailExist('Company', this.email)
-      .then(exist => {
-        if (exist) {
-          let err = new Error('Email is in use')
-          err.status = 422
-          return next(err)
-        } else {
-          helper.hashPassword(this.password)
-            .then(hash => {
-              this.password = hash
-              return next()
-            })
-            .catch(next)
-        }
-      })
-      .catch(next)
-  } else {
-    return next()
-  }
-})
-
 companySchema.methods.comparePassword = helper.comparePassword
 
 const Company = mongoose.model('Company', companySchema)
