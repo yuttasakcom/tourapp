@@ -27,6 +27,28 @@ module.exports = {
     })
   },
 
+  checkEmployeeEmailExist(modelName, employerId, email) {
+    return new Promise((resolve, reject) => {
+      const Employer = mongoose.model(modelName)
+      Employer.count({
+        _id: employerId,
+        employees: {
+          $elemMatch: {
+            email: email
+          }
+        }
+      })
+      .then(exist => {
+        if (exist) {
+          resolve(true)
+        } else {
+          resolve(false)
+        }
+      })
+      .catch(reject)
+    })
+  },
+
   hashPassword(password) {
     return new Promise((resolve, reject) => {
       bcrypt.genSalt(10, function(err, salt) {
