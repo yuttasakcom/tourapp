@@ -30,6 +30,7 @@ const agentSchema = new Schema({
 })
 
 agentSchema.pre('save', function(next) {
+  return next()
   if (this.isNew) {
     helper.checkEmailExist('Agent', this.email)
       .then(exist => {

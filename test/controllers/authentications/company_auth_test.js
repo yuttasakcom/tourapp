@@ -4,7 +4,7 @@ const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Company = mongoose.model('Company')
 
-describe.only('company authentication', () => {
+describe('company authentication', () => {
 
   const companyProps = {
     email: 'company1@test.com',

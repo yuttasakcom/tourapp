@@ -84,8 +84,24 @@ module.exports = {
       err.status = 422
       return next(err)
     }
-    agent.save()
-      .then(agent => res.status(201).send({ token: tokenForAgent(agent) }))
+
+    helper.checkEmailExist('Agent', agent.email)
+      .then(exist => {
+        if (exist) {
+          let err = new Error('Email is in use')
+          err.status = 422
+          return next(err)
+        } else {
+          helper.hashPassword(agent.password)
+            .then(hash => {
+              agent.password = hash
+              agent.save()
+                .then(agent => res.status(201).send({ token: tokenForAgent(agent) }))
+                .catch(next)
+            })
+            .catch(next)
+        }
+      })
       .catch(next)
   },
 

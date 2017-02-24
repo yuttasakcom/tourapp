@@ -4,7 +4,7 @@ const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 
-describe('agent authentication', () => {
+describe.only('agent authentication', () => {
 
   const agentProps = {
     email: 'agent1@test.com',
@@ -115,10 +115,17 @@ describe('agent authentication', () => {
     let testAgent
 
     beforeEach(done => {
-      Agent.create(agentProps)
-        .then(agent => {
-          testAgent = agent
-          done()
+      request(app)
+        .post('/agents/signup')
+        .send(agentProps)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          Agent.findOne({ email: agentProps.email })
+            .then(agent => {
+              testAgent = agent
+              done()
+            })
         })
     })
 
@@ -172,8 +179,12 @@ describe('agent authentication', () => {
     })
 
     it('signin token can get secret route', done => {
-      Agent.create(agentProps)
-        .then(agent => {
+      request(app)
+        .post('/agents/signup')
+        .send(agentProps)
+        .end((err, res) => {
+          if (err) return done(err)
+
           request(app)
             .post('/agents/signin')
             .send(agentSigninProps)
