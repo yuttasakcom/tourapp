@@ -23,26 +23,19 @@ describe('Agent add employee', () => {
   const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
 
   beforeEach(done => {
-    request(app)
-      .post('/agents/signup')
-      .send(agent1Props)
-      .end((err, res) => {
+    agent1 = new Agent(agent1Props)
+    agent1.save()
+      .then(() => {
+        request(app)
+          .post('/agents/signin')
+          .send(agent1SigninProps)
+          .end((err, res) => {
+            agent1Token = res.body.token
 
-        Agent.findOne({ email: agent1Props.email })
-          .then(agent => {
-            agent1 = agent
-            request(app)
-              .post('/agents/signin')
-              .send(agent1SigninProps)
-              .end((err, res) => {
-                agent1Token = res.body.token
-
-                done()
-              })
+            done()
           })
       })
   })
-
 
   it('one employee', done => {
     request(app)
