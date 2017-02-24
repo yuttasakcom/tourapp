@@ -98,16 +98,16 @@ describe('Agent model', () => {
       .then(() => Agent.findOne({ email: 'agent1@test.com' }))
       .then(agent => {
         agent.employees.push({
-          email: 'employee@test.com',
+          email: 'employee1@test.com',
           password: '1234',
           name: 'name_test',
-          phoneNumber: '3000'
+          phoneNumber: '024283192'
         })
         return agent.save()
       })
       .then(() => Agent.findOne({ email: 'agent1@test.com' }))
       .then(agent => {
-        expect(agent.employees[0].email).to.equal('agent1@test.com')
+        expect(agent.employees[0].email).to.equal('employee1@test.com')
         done()
       })
       .catch(done)
