@@ -53,9 +53,9 @@ module.exports = {
 
   addPkg(req, res, next) {
     const companyId = req.user._id
-    const pkgProp = req.body
+    const pkgProps = req.body
     Company.update({ _id: companyId }, {
-        $push: { pkgs: pkgProp }
+        $push: { pkgs: pkgProps }
       })
       .then(() => {
         res.status(201).send({ message: 'Create package completed' })
@@ -95,11 +95,11 @@ module.exports = {
     const companyId = req.user._id
     const pkgId = req.params.id
 
-    let pkgProp = req.body
+    let pkgProps = req.body
     pkgProp._id = pkgId
 
     Company.findOneAndUpdate({ _id: companyId, 'pkgs._id': pkgId }, {
-        $set: { 'pkgs.$': pkgProp }
+        $set: { 'pkgs.$': pkgProps }
       }, {
         new: true,
         select: {
