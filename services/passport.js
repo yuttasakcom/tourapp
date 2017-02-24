@@ -24,7 +24,10 @@ const localLogin = new LocalStrategy({
     }
   }
 
-  userCollection(role).findOne({ email: email })
+  userCollection(role).findOne({ email: email }, {
+      password: 1,
+      email: 1
+    })
     .then(user => {
       if (!user) return done(null, false)
 
