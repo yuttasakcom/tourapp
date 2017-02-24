@@ -4,7 +4,7 @@ const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 
-describe.only('agent authentication', () => {
+describe('agent authentication', () => {
 
   const agentProps = {
     email: 'agent1@test.com',
