@@ -13,6 +13,13 @@ describe.only('Agent add employee', () => {
     password: '1234'
   }
 
+  const employee1Props = {
+    email: 'employee@test.com',
+    password: '1234',
+    name: 'name_test',
+    phoneNumber: '024283192'
+  }
+
   const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
 
   beforeEach(done => {
@@ -33,12 +40,7 @@ describe.only('Agent add employee', () => {
   it('one employee', done => {
     request(app)
       .post('/agents/employees')
-      .send({
-        email: 'employee1@test.com',
-        password: '1234',
-        name: 'name_test',
-        phoneNumber: '024283192'
-      })
+      .send(employee1Props)
       .set('authorization', agent1Token)
       .expect(201)
       .end((err, res) => {
@@ -91,14 +93,9 @@ describe.only('Agent add employee', () => {
   })
 
   it('can not be use a duplicate email', done => {
-    const employeeProps = {
-      email: 'employee@test.com',
-      password: '1234'
-    }
-
     request(app)
       .post('/agents/employees')
-      .send(employeeProps)
+      .send(employee1Props)
       .set('authorization', agent1Token)
       .expect(201)
       .end((err, res) => {
@@ -106,7 +103,7 @@ describe.only('Agent add employee', () => {
 
         request(app)
           .post('/agents/employees')
-          .send(employeeProps)
+          .send(employee1Props)
           .set('authorization', agent1Token)
           .expect(422)
           .end((err, res) => {
@@ -120,6 +117,24 @@ describe.only('Agent add employee', () => {
               })
               .catch(done)
           })
+      })
+  })
+
+  it.only('password must be hash', done => {
+    request(app)
+      .post('/agents/employees')
+      .send(employee1Props)
+      .set('authorization', agent1Token)
+      .expect(201)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        Agent.findOne({ email: agent1Props.email })
+          .then(agent => {
+            expect(agent.employees[0].password).to.not.equal(employee1Props.password)
+            done()
+          })
+          .catch(done)
       })
   })
 

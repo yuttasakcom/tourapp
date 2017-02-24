@@ -65,7 +65,12 @@ agentSchema.pre('update', function(next) {
           err.status = 422
           next(err)
         } else {
-          return next()
+          helper.hashPassword(employee.password)
+            .then(hash => {
+              employee.password = hash
+              next()
+            })
+            .catch(next)
         }
       })
   } else {
