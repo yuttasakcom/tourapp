@@ -90,4 +90,37 @@ describe.only('Agent add employee', () => {
       })
   })
 
+  it('can not be use a duplicate email', done => {
+    const employeeProps = {
+      email: 'employee@test.com',
+      password: '1234'
+    }
+
+    request(app)
+      .post('/agents/employees')
+      .send(employeeProps)
+      .set('authorization', agent1Token)
+      .expect(201)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        request(app)
+          .post('/agents/employees')
+          .send(employeeProps)
+          .set('authorization', agent1Token)
+          .expect(422)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            expect(res.body.error).to.equal('Email is in use')
+            Agent.findById(agent1._id)
+              .then(agent => {
+                expect(agent.employees.length).to.equal(1)
+                done()
+              })
+              .catch(done)
+          })
+      })
+  })
+
 })

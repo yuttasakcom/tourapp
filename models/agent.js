@@ -52,6 +52,27 @@ agentSchema.pre('save', function(next) {
   }
 })
 
+agentSchema.pre('update', function(next) {
+  const employee = this._update.$push.employees
+
+  if (employee) {
+    const agentId = this._conditions._id
+
+    helper.checkEmployeeEmailExist('Agent', this._conditions._id, employee.email)
+      .then(exist => {
+        if (exist) {
+          let err = new Error('Email is in use')
+          err.status = 422
+          next(err)
+        } else {
+          return next()
+        }
+      })
+  } else {
+    return next()
+  }
+})
+
 agentSchema.methods.comparePassword = helper.comparePassword
 
 const Agent = mongoose.model('Agent', agentSchema)
