@@ -87,4 +87,30 @@ describe('Agent model', () => {
 
   })
 
+  it.only('add employees to an existing agent', done => {
+    const agent1 = new Agent({
+      email: 'agent1@test.com',
+      password: '1234',
+      employees: []
+    })
+
+    agent1.save()
+      .then(() => Agent.findOne({ email: 'agent1@test.com' }))
+      .then(agent => {
+        agent.employees.push({
+          email: 'employee@test.com',
+          password: '1234',
+          name: 'name_test',
+          phoneNumber: '3000'
+        })
+        return agent.save()
+      })
+      .then(() => Agent.findOne({ email: 'agent1@test.com' }))
+      .then(agent => {
+        expect(agent.employees[0].email).to.equal('agent1@test.com')
+        done()
+      })
+      .catch(done)
+  })
+
 })
