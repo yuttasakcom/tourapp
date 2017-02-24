@@ -15,6 +15,10 @@ const tokenForAgent = (agent) => {
 
 
 module.exports = {
+  addEmployee(req, res, next) {
+    res.status(201).send('mock')
+  },
+
   getPkgsList(req, res, next) {
     const agentId = req.user._id
 
