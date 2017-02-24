@@ -31,9 +31,26 @@ describe.only('Agent create employee', () => {
   })
 
   it('one employee', done => {
-    console.log(agent1Token)
+    request(app)
+      .post('/agents/employees')
+      .send({
+        email: 'employee1@test.com',
+        password: '1234',
+        name: 'name_test',
+        phoneNumber: '024283192'
+      })
+      .set('authorization', agent1Token)
+      .expect(201)
+      .end((err, res) => {
+        if (err) return done(err)
 
-    done()
+        Agent.findById(agent1._id)
+          .then(agent => {
+            expect(agent.employees.length).to.equal(1)
+            done()
+          })
+          .catch(done)
+      })
   })
 
 })
