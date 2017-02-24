@@ -96,7 +96,7 @@ module.exports = {
     const pkgId = req.params.id
 
     let pkgProps = req.body
-    pkgProp._id = pkgId
+    pkgProps._id = pkgId
 
     Company.findOneAndUpdate({ _id: companyId, 'pkgs._id': pkgId }, {
         $set: { 'pkgs.$': pkgProps }
