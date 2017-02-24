@@ -6,6 +6,7 @@ const LocalStrategy = require('passport-local-roles')
 const passportJwt = require('passport-jwt')
 const JwtStrategy = passportJwt.Strategy
 const ExtractJwt = passportJwt.ExtractJwt
+const { comparePassword } = require('../helpers/authentication')
 
 const localLogin = new LocalStrategy({
   usernameField: 'email',
@@ -31,7 +32,7 @@ const localLogin = new LocalStrategy({
     .then(user => {
       if (!user) return done(null, false)
 
-      user.comparePassword(password)
+      comparePassword(password, user.password)
         .then(isMatch => {
           if (!isMatch) return done(null, false)
 

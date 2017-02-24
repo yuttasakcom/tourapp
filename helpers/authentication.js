@@ -2,9 +2,9 @@ const bcrypt = require('bcrypt-nodejs')
 const mongoose = require('../models/mongoose')
 
 module.exports = {
-  comparePassword(candidatePassword) {
+  comparePassword(candidatePassword, realPassword) {
     return new Promise((resolve, reject) => {
-      bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+      bcrypt.compare(candidatePassword, realPassword, function(err, isMatch) {
         if (err) return reject(err)
 
         resolve(isMatch)

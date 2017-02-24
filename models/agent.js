@@ -29,8 +29,6 @@ const agentSchema = new Schema({
   employees: [employeeSchema]
 })
 
-agentSchema.methods.comparePassword = helper.comparePassword
-
 const Agent = mongoose.model('Agent', agentSchema)
 
 module.exports = Agent

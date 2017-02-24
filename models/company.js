@@ -29,8 +29,6 @@ const companySchema = new Schema({
   }]
 })
 
-companySchema.methods.comparePassword = helper.comparePassword
-
 const Company = mongoose.model('Company', companySchema)
 
 module.exports = Company

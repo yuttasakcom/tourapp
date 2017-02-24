@@ -3,6 +3,7 @@ const request = require('supertest')
 const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
+const { comparePassword } = require('../../../helpers/authentication')
 
 describe('agent authentication', () => {
 
@@ -130,7 +131,7 @@ describe('agent authentication', () => {
     })
 
     it('comparePassword must be valid', done => {
-      testAgent.comparePassword(agentProps.password)
+      comparePassword(agentProps.password, testAgent.password)
         .then(isMatch => {
           expect(isMatch).to.be.true
           done()
@@ -139,7 +140,7 @@ describe('agent authentication', () => {
     })
 
     it('comparePassword must be invalid', done => {
-      testAgent.comparePassword('4321')
+      comparePassword('4321', testAgent.password)
         .then(isMatch => {
           expect(isMatch).to.be.false
           done()
