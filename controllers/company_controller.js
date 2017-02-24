@@ -1,6 +1,6 @@
 const Company = require('../models/company')
 const Agent = require('../models/agent')
-const helper = require('../models/helpers/authentication')
+const helper = require('../helpers/authentication')
 const jwt = require('jwt-simple')
 const config = require('../config')
 

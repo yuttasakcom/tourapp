@@ -1,7 +1,6 @@
 const mongoose = require('./mongoose')
 const pkgSchema = require('./sub_documents/pkg')
 const Schema = mongoose.Schema
-const helper = require('./helpers/authentication')
 
 const companySchema = new Schema({
   email: {
