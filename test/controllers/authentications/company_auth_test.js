@@ -4,7 +4,7 @@ const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Company = mongoose.model('Company')
 
-describe('company authentication', () => {
+describe.only('company authentication', () => {
 
   const companyProps = {
     email: 'company1@test.com',
@@ -115,10 +115,17 @@ describe('company authentication', () => {
     let testCompany
 
     beforeEach(done => {
-      Company.create(companyProps)
-        .then(company => {
-          testCompany = company
-          done()
+      request(app)
+        .post('/companies/signup')
+        .send(companyProps)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          Company.findOne({ email: companyProps.email })
+            .then(company => {
+              testCompany = company
+              done()
+            })
         })
     })
 
@@ -172,8 +179,12 @@ describe('company authentication', () => {
     })
 
     it('signin token can get secret route', done => {
-      Company.create(companyProps)
-        .then(company => {
+      request(app)
+        .post('/companies/signup')
+        .send(companyProps)
+        .end((err, res) => {
+          if (err) return done(err)
+
           request(app)
             .post('/companies/signin')
             .send(companySigninProps)

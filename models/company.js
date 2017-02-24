@@ -30,6 +30,7 @@ const companySchema = new Schema({
 })
 
 companySchema.pre('save', function(next) {
+  return next()
   if (this.isNew) {
     helper.checkEmailExist('Company', this.email)
       .then(exist => {

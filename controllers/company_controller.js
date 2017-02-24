@@ -1,5 +1,6 @@
 const Company = require('../models/company')
 const Agent = require('../models/agent')
+const helper = require('../models/helpers/authentication')
 const jwt = require('jwt-simple')
 const config = require('../config')
 
@@ -38,8 +39,23 @@ module.exports = {
       return next(err)
     }
 
-    company.save()
-      .then(company => res.status(201).send({ token: tokenForCompany(company) }))
+    helper.checkEmailExist('Company', company.email)
+      .then(exist => {
+        if (exist) {
+          let err = new Error('Email is in use')
+          err.status = 422
+          return next(err)
+        } else {
+          helper.hashPassword(company.password)
+            .then(hash => {
+              company.password = hash
+              company.save()
+                .then(company => res.status(201).send({ token: tokenForCompany(company) }))
+                .catch(next)
+            })
+            .catch(next)
+        }
+      })
       .catch(next)
   },
 
