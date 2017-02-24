@@ -16,7 +16,15 @@ const tokenForAgent = (agent) => {
 
 module.exports = {
   addEmployee(req, res, next) {
-    res.status(201).send('mock')
+    const agentId = req.user._id
+    const employeeProps = req.body
+
+    Agent.update({ _id: agentId }, {
+        $push: { employees: employeeProps }
+      })
+      .then(() => {
+        res.status(201).send({ message: 'Create employee completed' })
+      })
   },
 
   getPkgsList(req, res, next) {
