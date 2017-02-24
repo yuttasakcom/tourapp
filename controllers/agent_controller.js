@@ -21,10 +21,13 @@ module.exports = {
 
     Agent.update({ _id: agentId }, {
         $push: { employees: employeeProps }
+      }, {
+        runValidators: true
       })
       .then(() => {
         res.status(201).send({ message: 'Create employee completed' })
       })
+      .catch(next)
   },
 
   getPkgsList(req, res, next) {

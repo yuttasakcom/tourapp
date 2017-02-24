@@ -53,4 +53,41 @@ describe.only('Agent add employee', () => {
       })
   })
 
+  it('must provide email and password', done => {
+    const employeeWithoutEmail = {
+      email: undefined,
+      password: '1234'
+    }
+    const employeeWithoutPassword = {
+      email: 'employee1@test.com',
+      password: undefined
+    }
+    request(app)
+      .post('/agents/employees')
+      .send(employeeWithoutEmail)
+      .set('authorization', agent1Token)
+      .expect(422)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        expect(res.body.error).to.equal('Validation failed')
+        request(app)
+          .post('/agents/employees')
+          .send(employeeWithoutPassword)
+          .set('authorization', agent1Token)
+          .expect(422)
+          .end((err, res) => {
+            if (err) return done(err)
+
+            expect(res.body.error).to.equal('Validation failed')
+            Agent.findById(agent1._id)
+              .then(agent => {
+                expect(agent.employees.length).to.equal(0)
+                done()
+              })
+              .catch(done)
+          })
+      })
+  })
+
 })
