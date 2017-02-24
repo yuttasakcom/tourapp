@@ -16,17 +16,22 @@ describe('Company CRUD pkg', () => {
   const company1SigninProps = Object.assign({}, company1Props, { role: 'company' })
 
   beforeEach(done => {
+    request(app)
+      .post('/companies/signup')
+      .send(company1Props)
+      .end((err, res) => {
 
-    company1 = new Company(company1Props)
-    company1.save()
-      .then(() => {
-        request(app)
-          .post('/companies/signin')
-          .send(company1SigninProps)
-          .end((err, res) => {
-            company1Token = res.body.token
+        Company.findOne({ email: company1Props.email })
+          .then(company => {
+            company1 = company
+            request(app)
+              .post('/companies/signin')
+              .send(company1SigninProps)
+              .end((err, res) => {
+                company1Token = res.body.token
 
-            done()
+                done()
+              })
           })
       })
   })

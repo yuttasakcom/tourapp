@@ -5,6 +5,7 @@ const parallel = require('async/parallel')
 const mongoose = require('mongoose')
 const Company = mongoose.model('Company')
 const Agent = mongoose.model('Agent')
+const password = require('../../helpers/password')
 
 describe('Agent get pkgs', () => {
 
@@ -23,24 +24,24 @@ describe('Agent get pkgs', () => {
 
   const company1Props = {
     email: 'company1@test.com',
-    password: '1234',
+    password: password.hash,
     pkgs: companyPkgsStubs
   }
 
   const company2Props = {
     email: 'company2@test.com',
-    password: '1234',
+    password: password.hash,
     pkgs: companyPkgsStubs
   }
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: '1234'
+    password: password.hash
   }
 
-  const company1SigninProps = Object.assign({}, company1Props, { role: 'company' })
-  const company2SigninProps = Object.assign({}, company2Props, { role: 'company' })
-  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
+  const company1SigninProps = Object.assign({}, company1Props, { role: 'company', password: password.raw })
+  const company2SigninProps = Object.assign({}, company2Props, { role: 'company', password: password.raw })
+  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent', password: password.raw })
 
   beforeEach(done => {
     company1 = new Company(company1Props)

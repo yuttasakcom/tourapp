@@ -3,6 +3,7 @@ const request = require('supertest')
 const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
+const password = require('../../../helpers/password')
 
 describe('Agent add employee', () => {
 
@@ -10,7 +11,7 @@ describe('Agent add employee', () => {
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: '1234'
+    password: password.hash
   }
 
   const employee1Props = {
@@ -20,7 +21,7 @@ describe('Agent add employee', () => {
     phoneNumber: '024283192'
   }
 
-  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
+  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent', password: password.raw })
 
   beforeEach(done => {
     agent1 = new Agent(agent1Props)
