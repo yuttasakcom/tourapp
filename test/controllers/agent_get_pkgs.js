@@ -23,12 +23,14 @@ describe('Agent get pkgs', () => {
 
   const company1Props = {
     email: 'company1@test.com',
-    password: '1234'
+    password: '1234',
+    pkgs: companyPkgsStubs
   }
 
   const company2Props = {
     email: 'company2@test.com',
-    password: '1234'
+    password: '1234',
+    pkgs: companyPkgsStubs
   }
 
   const agent1Props = {
@@ -41,44 +43,16 @@ describe('Agent get pkgs', () => {
   const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
 
   beforeEach(done => {
-    parallel([
-      (cb) => {
-        request(app)
-          .post('/companies/signup')
-          .send(company1Props)
-          .end((err, res) => {
-            cb()
-          })
-      },
-      (cb) => {
-        request(app)
-          .post('/companies/signup')
-          .send(company2Props)
-          .end((err, res) => {
-            cb()
-          })
-      },
-      (cb) => {
-        request(app)
-          .post('/agents/signup')
-          .send(agent1Props)
-          .end((err, res) => {
-            cb()
-          })
-      }
-    ], (err, results) => {
-      Promise.all([
-        Company.update({}, {
-          $pushAll: { pkgs: companyPkgsStubs }
-        }),
-        Company.findOne({ email: company1Props.email }),
-        Company.findOne({ email: company2Props.email }),
-        Agent.findOne({ email: agent1Props.email })
+    company1 = new Company(company1Props)
+    company2 = new Company(company2Props)
+    agent1 = new Agent(agent1Props)
+
+    Promise.all([
+        company1.save(),
+        company2.save(),
+        agent1.save()
       ])
-      .then(results => {
-        company1 = results[1]
-        company2 = results[2]
-        agent1 = results[3]
+      .then(() => {
         parallel([
             (cb) => {
               request(app)
@@ -127,8 +101,8 @@ describe('Agent get pkgs', () => {
                   })
               })
           })
+
       })
-    })
   })
 
   it('one member', done => {
