@@ -63,7 +63,6 @@ describe('Agent accept', () => {
                 done()
               })
           })
-
       })
   })
 

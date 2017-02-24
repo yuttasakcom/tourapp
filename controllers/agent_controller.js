@@ -1,5 +1,6 @@
 const Agent = require('../models/agent')
 const Company = require('../models/company')
+const helper = require('../models/helpers/authentication')
 const jwt = require('jwt-simple')
 const config = require('../config')
 
@@ -19,15 +20,33 @@ module.exports = {
     const agentId = req.user._id
     const employeeProps = req.body
 
-    Agent.update({ _id: agentId }, {
-        $push: { employees: employeeProps }
-      }, {
-        runValidators: true
+    if (!(employeeProps.email && employeeProps.password)) {
+      let err = new Error('Must provide email and password')
+      err.status = 422
+      return next(err)
+    }
+
+    helper.checkEmployeeEmailExist('Agent', agentId, employeeProps.email)
+      .then(exist => {
+        if (exist) {
+          let err = new Error('Email is in use')
+          err.status = 422
+          return next(err)
+        } else {
+          helper.hashPassword(employeeProps.password)
+            .then(hash => {
+              employeeProps.password = hash
+              Agent.update({ _id: agentId }, {
+                  $push: { employees: employeeProps }
+                })
+                .then(() => {
+                  res.status(201).send({ message: 'Create employee completed' })
+                })
+                .catch(next)
+            })
+            .catch(next)
+        }
       })
-      .then(() => {
-        res.status(201).send({ message: 'Create employee completed' })
-      })
-      .catch(next)
   },
 
   getPkgsList(req, res, next) {

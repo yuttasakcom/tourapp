@@ -4,7 +4,7 @@ const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 
-describe.only('Agent add employee', () => {
+describe('Agent add employee', () => {
 
   let agent1, agent1Token
 
@@ -72,7 +72,7 @@ describe.only('Agent add employee', () => {
       .end((err, res) => {
         if (err) return done(err)
 
-        expect(res.body.error).to.equal('Validation failed')
+        expect(res.body.error).to.equal('Must provide email and password')
         request(app)
           .post('/agents/employees')
           .send(employeeWithoutPassword)
@@ -81,7 +81,7 @@ describe.only('Agent add employee', () => {
           .end((err, res) => {
             if (err) return done(err)
 
-            expect(res.body.error).to.equal('Validation failed')
+            expect(res.body.error).to.equal('Must provide email and password')
             Agent.findById(agent1._id)
               .then(agent => {
                 expect(agent.employees.length).to.equal(0)
@@ -120,7 +120,7 @@ describe.only('Agent add employee', () => {
       })
   })
 
-  it.only('password must be hash', done => {
+  it('password must be hash', done => {
     request(app)
       .post('/agents/employees')
       .send(employee1Props)
