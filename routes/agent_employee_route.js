@@ -9,6 +9,6 @@ const router = require('express').Router()
 const { hasRole } = require('../middlewares')
 
 router.post('/signin', requireSignin, signin)
-router.get('/profile', profile)
+router.get('/profile', requireAuth, hasRole('agentEmployee'), profile)
 
 module.exports = router

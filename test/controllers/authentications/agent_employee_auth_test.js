@@ -47,7 +47,7 @@ describe('agent employee authentication', () => {
       })
   })
 
-  it.only('signin must return token in body', done => {
+  it('signin must return token in body', done => {
     request(app)
       .post('/agents-employees/signin')
       .send(employee1SigninProps)
@@ -75,4 +75,12 @@ describe('agent employee authentication', () => {
           .expect(200, done)
       })
   })
+
+  it('fake token can not get secret route', done => {
+      const token = 'fake token'
+      request(app)
+        .get('/agents-employees/profile')
+        .set('authorization', token)
+        .expect(401, done)
+    })
 })
