@@ -60,4 +60,20 @@ describe.only('agent employee authentication', () => {
         done()
       })
   })
+
+  it('signin token can get secret route', done => {
+    request(app)
+      .post('/agents-employees/signin')
+      .send(employee1SigninProps)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        const token = res.body.token
+        request(app)
+          .get('/agents-employees/profile')
+          .set('authorization', token)
+          .expect(200, done)
+      })
+  })
 })
