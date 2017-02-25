@@ -5,7 +5,7 @@ const parallel = require('async/parallel')
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
-const password = require('../../../helpers/password')
+const { password } = require('../../../helpers/mock')
 
 describe('Company accept', () => {
 
