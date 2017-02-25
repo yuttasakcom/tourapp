@@ -4,8 +4,9 @@ const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const password = require('../../../helpers/password')
+const { comparePassword } = require('../../../helpers/authentication')
 
-describe('Agent add employee', () => {
+describe.only('Agent add employee', () => {
 
   let agent1, agent1Token
 
@@ -136,6 +137,28 @@ describe('Agent add employee', () => {
             done()
           })
           .catch(done)
+      })
+  })
+
+  it('comparePassword must be valid', done => {
+    request(app)
+      .post('/agents/employees')
+      .send(employee1Props)
+      .set('authorization', agent1Token)
+      .end((err, res) => {
+        if (err) return done(err)
+
+        Agent.findById(agent1._id)
+          .then(agent => {
+            const employee = agent.employees[0]
+
+            comparePassword('1234', employee.password)
+              .then(isMatch => {
+                expect(isMatch).to.be.true
+                done()
+              })
+              .catch(done)
+          })
       })
   })
 
