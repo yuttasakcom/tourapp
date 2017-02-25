@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const password = require('../../../helpers/password')
 
-describe.only('agent employee authentication', () => {
+describe('agent employee authentication', () => {
 
   let agent1, agent1Token
 
@@ -23,8 +23,7 @@ describe.only('agent employee authentication', () => {
 
   const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent', password: password.raw })
   const employee1SigninProps = {
-    agentEmail: 'agent1@test.com',
-    email: 'employee1@test.com',
+    email: 'agent1@test.com..employee1@test.com',
     password: '1234',
     role: 'agentEmployee'
   }
@@ -48,7 +47,7 @@ describe.only('agent employee authentication', () => {
       })
   })
 
-  it('signin must return token in body', done => {
+  it.only('signin must return token in body', done => {
     request(app)
       .post('/agents-employees/signin')
       .send(employee1SigninProps)
