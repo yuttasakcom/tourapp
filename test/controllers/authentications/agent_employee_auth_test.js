@@ -15,13 +15,19 @@ describe.only('agent employee authentication', () => {
   }
 
   const employee1Props = {
-    email: 'employee@test.com',
+    email: 'employee1@test.com',
     password: '1234',
     name: 'name_test',
     phoneNumber: '024283192'
   }
 
   const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent', password: password.raw })
+  const employee1SigninProps = {
+    agentEmail: 'agent1@test.com',
+    email: 'employee1@test.com',
+    password: '1234',
+    role: 'agentEmployee'
+  }
 
   beforeEach(done => {
     agent1 = new Agent(agent1Props)
@@ -43,7 +49,15 @@ describe.only('agent employee authentication', () => {
   })
 
   it('signin must return token in body', done => {
-  	done()
-  })
+    request(app)
+      .post('/agents-employees/signin')
+      .send(employee1SigninProps)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
 
+        expect(res.body.token).to.be.exist
+        done()
+      })
+  })
 })
