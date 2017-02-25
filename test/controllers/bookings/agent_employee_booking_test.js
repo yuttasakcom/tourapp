@@ -3,7 +3,8 @@ const request = require('supertest')
 const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
-const { password } = require('../../../helpers/mock')
+const Booking = mongoose.model('Booking')
+const { password, objectId } = require('../../../helpers/mock')
 
 describe.only('Agent employee booking', () => {
 
@@ -28,11 +29,27 @@ describe.only('Agent employee booking', () => {
     role: 'agentEmployee'
   }
 
+  const booking1Props = {
+    agentId: objectId,
+    employeeId: objectId,
+    companyId: objectId,
+    pkgId: objectId,
+    tourist: {
+      name: 'Paiboon',
+      phoneNumber: '024283192',
+      hotel: 'clusterkit hotel',
+      adult: 3,
+      child: 1,
+      nationality: 'thai',
+      date: new Date(),
+      note: 'awesome trip'
+    }
+  }
+
   beforeEach(done => {
     const agent1 = new Agent(agent1Props)
     agent1.save()
       .then(() => {
-
         request(app)
           .post('/agents-employees/signin')
           .send(agentEmployee1SigninProps)
@@ -45,9 +62,20 @@ describe.only('Agent employee booking', () => {
   })
 
   it('one booking', done => {
-    console.log(agentEmployee1Token)
+    request(app)
+      .post('/agents-employees/bookings')
+      .send(booking1Props)
+      .set('authorization', agentEmployee1Token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err)
 
-    done()
+        Booking.count()
+          .then(count => {
+            expect(count).to.equal(1)
+            done()
+          })
+      })
   })
 
 })
