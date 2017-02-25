@@ -13,7 +13,6 @@ const localLogin = new LocalStrategy({
   roleField: 'role',
   session: false
 }, function(email, password, role, done) {
-
   const userCollection = (role) => {
     switch (role) {
       case 'company':
