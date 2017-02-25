@@ -1,6 +1,7 @@
 const {
   signin,
-  profile
+  profile,
+  addBooking
 } = require('../controllers/agent_employee_controller')
 const passport = require('../services/passport')
 const requireSignin = passport.authenticate('local', { session: false })
@@ -10,5 +11,6 @@ const { hasRole } = require('../middlewares')
 
 router.post('/signin', requireSignin, signin)
 router.get('/profile', requireAuth, hasRole('agentEmployee'), profile)
+router.post('/bookings', requireAuth, hasRole('agentEmployee'), addBooking)
 
 module.exports = router

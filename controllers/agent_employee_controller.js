@@ -16,6 +16,19 @@ const tokenForAgentEmployee = (agent) => {
 }
 
 module.exports = {
+  addBooking(req, res, next) {
+    const user = req.user
+
+    let bookingProps = req.body
+    bookingProps.agentId = user.agentId
+    bookingProps.employeeId = user._id
+
+    Booking.create(bookingProps)
+      .then(booking => {
+        res.send(booking)
+      })
+  },
+
   signin(req, res, next) {
     res.send({ token: tokenForAgentEmployee(req.user) })
   },

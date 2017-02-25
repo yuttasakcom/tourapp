@@ -30,8 +30,6 @@ describe.only('Agent employee booking', () => {
   }
 
   const booking1Props = {
-    agentId: objectId,
-    employeeId: objectId,
     companyId: objectId,
     pkgId: objectId,
     tourist: {
@@ -75,6 +73,7 @@ describe.only('Agent employee booking', () => {
             expect(count).to.equal(1)
             done()
           })
+          .catch(done)
       })
   })
 
