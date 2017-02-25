@@ -7,7 +7,7 @@ const tokenForAgentEmployee = (agent) => {
 
   return jwt.encode({
     _id: employee._id,
-    epr: agent._id,
+    agentId: agent._id,
     sub: employee.email,
     role: 'agentEmployee',
     iat: timestamp
