@@ -1,3 +1,4 @@
+const Booking = require('../models/booking')
 const jwt = require('jwt-simple')
 const config = require('../config')
 
