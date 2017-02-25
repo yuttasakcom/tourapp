@@ -1,5 +1,6 @@
 const Company = require('../models/company')
 const Agent = require('../models/agent')
+const helper = require('../helpers/authentication')
 const jwt = require('jwt-simple')
 const config = require('../config')
 
@@ -38,8 +39,23 @@ module.exports = {
       return next(err)
     }
 
-    company.save()
-      .then(company => res.status(201).send({ token: tokenForCompany(company) }))
+    helper.checkEmailExist('Company', company.email)
+      .then(exist => {
+        if (exist) {
+          let err = new Error('Email is in use')
+          err.status = 422
+          return next(err)
+        } else {
+          helper.hashPassword(company.password)
+            .then(hash => {
+              company.password = hash
+              company.save()
+                .then(company => res.status(201).send({ token: tokenForCompany(company) }))
+                .catch(next)
+            })
+            .catch(next)
+        }
+      })
       .catch(next)
   },
 
@@ -53,9 +69,9 @@ module.exports = {
 
   addPkg(req, res, next) {
     const companyId = req.user._id
-    const pkgProp = req.body
+    const pkgProps = req.body
     Company.update({ _id: companyId }, {
-        $push: { pkgs: pkgProp }
+        $push: { pkgs: pkgProps }
       })
       .then(() => {
         res.status(201).send({ message: 'Create package completed' })
@@ -95,11 +111,11 @@ module.exports = {
     const companyId = req.user._id
     const pkgId = req.params.id
 
-    let pkgProp = req.body
-    pkgProp._id = pkgId
+    let pkgProps = req.body
+    pkgProps._id = pkgId
 
     Company.findOneAndUpdate({ _id: companyId, 'pkgs._id': pkgId }, {
-        $set: { 'pkgs.$': pkgProp }
+        $set: { 'pkgs.$': pkgProps }
       }, {
         new: true,
         select: {

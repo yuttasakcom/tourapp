@@ -4,26 +4,27 @@ const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
+const password = require('../../../helpers/password')
 
 describe('Agent pendings list', () => {
   let agent1, agent1Token
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: '1234'
+    password: password.hash
   }
 
   const company1Stub = new Company({
     email: 'company1stub@test.com',
-    password: '1234'
+    password: password.hash
   })
 
   const company2Stub = new Company({
     email: 'company2Stub@test.com',
-    password: '1234'
+    password: password.hash
   })
 
-  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent' })
+  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent', password: password.raw })
 
   beforeEach(done => {
     agent1 = new Agent(agent1Props)

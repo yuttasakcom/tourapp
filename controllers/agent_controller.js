@@ -1,5 +1,6 @@
 const Agent = require('../models/agent')
 const Company = require('../models/company')
+const helper = require('../helpers/authentication')
 const jwt = require('jwt-simple')
 const config = require('../config')
 
@@ -15,6 +16,39 @@ const tokenForAgent = (agent) => {
 
 
 module.exports = {
+  addEmployee(req, res, next) {
+    const agentId = req.user._id
+    const employeeProps = req.body
+
+    if (!(employeeProps.email && employeeProps.password)) {
+      let err = new Error('Must provide email and password')
+      err.status = 422
+      return next(err)
+    }
+
+    helper.checkEmployeeEmailExist('Agent', agentId, employeeProps.email)
+      .then(exist => {
+        if (exist) {
+          let err = new Error('Email is in use')
+          err.status = 422
+          return next(err)
+        } else {
+          helper.hashPassword(employeeProps.password)
+            .then(hash => {
+              employeeProps.password = hash
+              Agent.update({ _id: agentId }, {
+                  $push: { employees: employeeProps }
+                })
+                .then(() => {
+                  res.status(201).send({ message: 'Create employee completed' })
+                })
+                .catch(next)
+            })
+            .catch(next)
+        }
+      })
+  },
+
   getPkgsList(req, res, next) {
     const agentId = req.user._id
 
@@ -50,8 +84,24 @@ module.exports = {
       err.status = 422
       return next(err)
     }
-    agent.save()
-      .then(agent => res.status(201).send({ token: tokenForAgent(agent) }))
+
+    helper.checkEmailExist('Agent', agent.email)
+      .then(exist => {
+        if (exist) {
+          let err = new Error('Email is in use')
+          err.status = 422
+          return next(err)
+        } else {
+          helper.hashPassword(agent.password)
+            .then(hash => {
+              agent.password = hash
+              agent.save()
+                .then(agent => res.status(201).send({ token: tokenForAgent(agent) }))
+                .catch(next)
+            })
+            .catch(next)
+        }
+      })
       .catch(next)
   },
 

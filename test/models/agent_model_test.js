@@ -87,7 +87,7 @@ describe('Agent model', () => {
 
   })
 
-  it.only('add employees to an existing agent', done => {
+  it('add employees to an existing agent', done => {
     const agent1 = new Agent({
       email: 'agent1@test.com',
       password: '1234',

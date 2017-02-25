@@ -10,7 +10,8 @@ const {
   rejectRequest,
   getPkgsList,
   getCompaniesList,
-  deleteRelationship
+  deleteRelationship,
+  addEmployee
 } = require('../controllers/agent_controller')
 const passport = require('../services/passport')
 const requireSignin = passport.authenticate('local', { session: false })
@@ -31,5 +32,7 @@ router.delete('/relationship/:id', requireAuth, hasRole('agent'), deleteRelation
 
 router.get('/pkgs', requireAuth, hasRole('agent'), getPkgsList)
 router.get('/companies', requireAuth, hasRole('agent'), getCompaniesList)
+
+router.post('/employees', requireAuth, hasRole('agent'), addEmployee)
 
 module.exports = router

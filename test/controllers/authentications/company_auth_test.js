@@ -3,6 +3,7 @@ const request = require('supertest')
 const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Company = mongoose.model('Company')
+const { comparePassword } = require('../../../helpers/authentication')
 
 describe('company authentication', () => {
 
@@ -115,15 +116,22 @@ describe('company authentication', () => {
     let testCompany
 
     beforeEach(done => {
-      Company.create(companyProps)
-        .then(company => {
-          testCompany = company
-          done()
+      request(app)
+        .post('/companies/signup')
+        .send(companyProps)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          Company.findOne({ email: companyProps.email })
+            .then(company => {
+              testCompany = company
+              done()
+            })
         })
     })
 
     it('comparePassword must be valid', done => {
-      testCompany.comparePassword(companyProps.password)
+      comparePassword(companyProps.password, testCompany.password)
         .then(isMatch => {
           expect(isMatch).to.be.true
           done()
@@ -132,7 +140,7 @@ describe('company authentication', () => {
     })
 
     it('comparePassword must be invalid', done => {
-      testCompany.comparePassword('4321')
+      comparePassword('4321', testCompany.password)
         .then(isMatch => {
           expect(isMatch).to.be.false
           done()
@@ -172,8 +180,12 @@ describe('company authentication', () => {
     })
 
     it('signin token can get secret route', done => {
-      Company.create(companyProps)
-        .then(company => {
+      request(app)
+        .post('/companies/signup')
+        .send(companyProps)
+        .end((err, res) => {
+          if (err) return done(err)
+
           request(app)
             .post('/companies/signin')
             .send(companySigninProps)

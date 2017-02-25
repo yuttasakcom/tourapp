@@ -1,10 +1,10 @@
 const bcrypt = require('bcrypt-nodejs')
-const mongoose = require('../mongoose')
+const mongoose = require('../models/mongoose')
 
 module.exports = {
-  comparePassword(candidatePassword) {
+  comparePassword(candidatePassword, realPassword) {
     return new Promise((resolve, reject) => {
-      bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+      bcrypt.compare(candidatePassword, realPassword, function(err, isMatch) {
         if (err) return reject(err)
 
         resolve(isMatch)
@@ -24,6 +24,28 @@ module.exports = {
           }
         })
         .catch(reject)
+    })
+  },
+
+  checkEmployeeEmailExist(modelName, employerId, email) {
+    return new Promise((resolve, reject) => {
+      const Employer = mongoose.model(modelName)
+      Employer.count({
+        _id: employerId,
+        employees: {
+          $elemMatch: {
+            email: email
+          }
+        }
+      })
+      .then(exist => {
+        if (exist) {
+          resolve(true)
+        } else {
+          resolve(false)
+        }
+      })
+      .catch(reject)
     })
   },
 
