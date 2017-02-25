@@ -3,7 +3,7 @@ const request = require('supertest')
 const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
-const password = require('../../../helpers/password')
+const { password } = require('../../../helpers/mock')
 const { comparePassword } = require('../../../helpers/authentication')
 
 describe('Agent add employee', () => {

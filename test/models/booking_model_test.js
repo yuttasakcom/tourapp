@@ -1,15 +1,16 @@
 const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Booking = mongoose.model('Booking')
+const { objectId } = require('../../helpers/mock')
 
-describe.only('Booking model', () => {
+describe('Booking model', () => {
 
   it('add booking', done => {
     const booking1 = new Booking({
-      agentId: '41224d776a326fb40f000001',
-      employeeId: '41224d776a326fb40f000001',
-      companyId: '41224d776a326fb40f000001',
-      pkgId: '41224d776a326fb40f000001',
+      agentId: objectId,
+      employeeId: objectId,
+      companyId: objectId,
+      pkgId: objectId,
       tourist: {
         name: 'Paiboon',
         phoneNumber: '024283192',
@@ -25,7 +26,7 @@ describe.only('Booking model', () => {
     booking1.save()
       .then(booking => {
 
-      	expect(booking1.isNew).to.be.false
+        expect(booking1.isNew).to.be.false
         done()
       })
       .catch(done)

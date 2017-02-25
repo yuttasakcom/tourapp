@@ -4,7 +4,7 @@ const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
-const password = require('../../../helpers/password')
+const { password } = require('../../../helpers/mock')
 
 describe('Agent delete relationship', () => {
 
