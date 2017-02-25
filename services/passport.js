@@ -19,29 +19,65 @@ const localLogin = new LocalStrategy({
       case 'company':
         return Company
       case 'agent':
+      case 'agentEmployee':
         return Agent
       default:
         return Agent
     }
   }
 
-  userCollection(role).findOne({ email: email }, {
-      password: 1,
-      email: 1
-    })
-    .then(user => {
-      if (!user) return done(null, false)
+  switch (role) {
+    case 'company':
+    case 'agent':
+      userCollection(role).findOne({ email: email }, {
+          password: 1,
+          email: 1
+        })
+        .then(user => {
+          if (!user) return done(null, false)
 
-      comparePassword(password, user.password)
-        .then(isMatch => {
-          if (!isMatch) return done(null, false)
+          comparePassword(password, user.password)
+            .then(isMatch => {
+              if (!isMatch) return done(null, false)
 
-          return done(null, user)
+              return done(null, user)
+            })
+            .catch(done)
+
         })
         .catch(done)
+      break
+    case 'agentEmployee':
+      const emails = email.split('..')
+      const agentEmail = emails[0]
+      const employeeEmail = emails[1]
 
-    })
-    .catch(done)
+      userCollection(role).findOne({ email: agentEmail }, {
+          employees: {
+            $elemMatch: {
+              email: employeeEmail
+            }
+          },
+          email: 1
+        })
+        .then(agent => {
+          const user = agent.employees[0]
+
+          if (!user) return done(null, false)
+
+          comparePassword(password, user.password)
+            .then(isMatch => {
+              if (!isMatch) return done(null, false)
+
+              return done(null, agent)
+            })
+            .catch(done)
+        })
+        .catch(done)
+      break
+    default:
+      break
+  }
 })
 
 const jwtOptions = {

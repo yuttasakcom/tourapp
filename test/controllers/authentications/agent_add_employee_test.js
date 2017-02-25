@@ -6,7 +6,7 @@ const Agent = mongoose.model('Agent')
 const password = require('../../../helpers/password')
 const { comparePassword } = require('../../../helpers/authentication')
 
-describe.only('Agent add employee', () => {
+describe('Agent add employee', () => {
 
   let agent1, agent1Token
 
@@ -16,7 +16,7 @@ describe.only('Agent add employee', () => {
   }
 
   const employee1Props = {
-    email: 'employee@test.com',
+    email: 'employee1@test.com',
     password: '1234',
     name: 'name_test',
     phoneNumber: '024283192'
