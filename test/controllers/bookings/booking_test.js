@@ -140,7 +140,7 @@ describe('Booking', () => {
       })
   })
 
-  describe.only('Agent employee get pkgs list', () => {
+  describe('Agent employee get pkgs list', () => {
 
     it('one member', done => {
       request(app)
