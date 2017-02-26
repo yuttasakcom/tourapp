@@ -20,7 +20,7 @@ module.exports = {
     const companyId = req.user._id
 
     Booking.find({ company: companyId })
-      .populate('agentId')
+      .populate('agent', 'email')
       .then(bookings => {
         console.log(bookings)
         res.send(bookings)
