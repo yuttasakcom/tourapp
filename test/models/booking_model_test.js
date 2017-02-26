@@ -4,7 +4,7 @@ const Booking = mongoose.model('Booking')
 const { objectId } = require('../../helpers/mock')
 const { status } = require('../../helpers/booking')
 
-describe.only('Booking model', () => {
+describe('Booking model', () => {
 
   it('add booking', done => {
     const booking1 = new Booking({
