@@ -6,7 +6,7 @@ const Agent = mongoose.model('Agent')
 const Booking = mongoose.model('Booking')
 const { password, objectId } = require('../../../helpers/mock')
 
-describe.only('Agent employee booking', () => {
+describe('Agent employee booking', () => {
 
   let agentEmployee1Token
 

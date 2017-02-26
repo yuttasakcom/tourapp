@@ -13,7 +13,11 @@ const bookingSchema = new Schema({
     ref: 'Company'
   },
   pkgId: Schema.Types.ObjectId,
-  tourist: touristSchema
+  tourist: touristSchema,
+  status: {
+    type: Number,
+    default: 0
+  }
 })
 
 const Booking = mongoose.model('Booking', bookingSchema)

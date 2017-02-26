@@ -2,6 +2,7 @@ const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Booking = mongoose.model('Booking')
 const { objectId } = require('../../helpers/mock')
+const { status } = require('../../helpers/booking')
 
 describe('Booking model', () => {
 
@@ -27,6 +28,7 @@ describe('Booking model', () => {
       .then(booking => {
 
         expect(booking1.isNew).to.be.false
+        expect(booking.status).to.be.equal(status.waiting)
         done()
       })
       .catch(done)
