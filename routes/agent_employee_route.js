@@ -6,8 +6,11 @@ const router = require('express').Router()
 const { hasRole } = require('../middlewares')
 
 router.post('/signin', requireSignin, c.signin)
-router.get('/profile', requireAuth, hasRole('agentEmployee'), c.profile)
-router.post('/bookings', requireAuth, hasRole('agentEmployee'), c.addBooking)
-router.get('/pkgs', requireAuth, hasRole('agentEmployee'), c.getPkgsList)
+
+router.all('*', requireAuth, hasRole('agentEmployee'))
+
+router.get('/profile', c.profile)
+router.post('/bookings', c.addBooking)
+router.get('/pkgs', c.getPkgsList)
 
 module.exports = router
