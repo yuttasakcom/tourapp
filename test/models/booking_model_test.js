@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Booking = mongoose.model('Booking')
 const { objectId } = require('../../helpers/mock')
 
-describe('Booking model', () => {
+describe.only('Booking model', () => {
 
   it('add booking', done => {
     const booking1 = new Booking({
@@ -27,6 +27,7 @@ describe('Booking model', () => {
       .then(booking => {
 
         expect(booking1.isNew).to.be.false
+        expect(booking.status).to.be.equal(0)
         done()
       })
       .catch(done)
