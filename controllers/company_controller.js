@@ -1,5 +1,6 @@
 const Company = require('../models/company')
 const Agent = require('../models/agent')
+const Booking = require('../models/booking')
 const helper = require('../helpers/authentication')
 const jwt = require('jwt-simple')
 const config = require('../config')
@@ -16,7 +17,12 @@ const tokenForCompany = (company) => {
 
 module.exports = {
   getBookingsList(req, res, next) {
-    res.send([])
+    const companyId = req.user._id
+
+    Booking.find({ companyId })
+      .then(bookings => {
+        res.send(bookings)
+      })
   },
 
   getAgentsList(req, res, next) {
