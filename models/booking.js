@@ -3,16 +3,16 @@ const touristSchema = require('./sub_documents/tourist')
 const Schema = mongoose.Schema
 
 const bookingSchema = new Schema({
-  agentId: {
+  agent: {
     type: Schema.Types.ObjectId,
     ref: 'Agent'
   },
-  employeeId: Schema.Types.ObjectId,
-  companyId: {
+  employee: Schema.Types.ObjectId,
+  company: {
     type: Schema.Types.ObjectId,
     ref: 'Company'
   },
-  pkgId: Schema.Types.ObjectId,
+  pkg: Schema.Types.ObjectId,
   tourist: touristSchema,
   status: {
     type: Number,

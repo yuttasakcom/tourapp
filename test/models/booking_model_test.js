@@ -8,10 +8,10 @@ describe('Booking model', () => {
 
   it('add booking', done => {
     const booking1 = new Booking({
-      agentId: objectId,
-      employeeId: objectId,
-      companyId: objectId,
-      pkgId: objectId,
+      agent: objectId,
+      employee: objectId,
+      company: objectId,
+      pkg: objectId,
       tourist: {
         name: 'Paiboon',
         phoneNumber: '024283192',
