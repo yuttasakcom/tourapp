@@ -140,7 +140,7 @@ describe('Booking', () => {
       })
   })
 
-  describe.only('Company offer special price', () => {
+  describe('Company offer special price', () => {
 
     it('offer package1 to agent1', done => {
       const pkg = company1.pkgs[0]

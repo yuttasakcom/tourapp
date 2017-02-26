@@ -1,46 +1,27 @@
-const {
-  signup,
-  signin,
-  profile,
-  addPkg,
-  getPkgsList,
-  getPkg,
-  deletePkg,
-  updatePkg,
-  request,
-  accept,
-  getRequestPendingsList,
-  getAcceptPendingsList,
-  cancelRequest,
-  rejectRequest,
-  getAgentsList,
-  deleteRelationship,
-  getBookingsList,
-  addPkgSpecialPrice
-} = require('../controllers/company_controller')
+const c = require('../controllers/company_controller')
 const passport = require('../services/passport')
 const requireSignin = passport.authenticate('local', { session: false })
 const requireAuth = passport.authenticate('jwt', { session: false })
 const router = require('express').Router()
 const { hasRole } = require('../middlewares')
 
-router.post('/signup', signup)
-router.post('/signin', requireSignin, signin)
-router.get('/profile', requireAuth, hasRole('company'), profile)
-router.post('/pkgs', requireAuth, hasRole('company'), addPkg)
-router.get('/pkgs', requireAuth, hasRole('company'), getPkgsList)
-router.get('/pkgs/:id', requireAuth, hasRole('company'), getPkg)
-router.delete('/pkgs/:id', requireAuth, hasRole('company'), deletePkg)
-router.put('/pkgs/:id', requireAuth, hasRole('company'), updatePkg)
-router.post('/request', requireAuth, hasRole('company'), request)
-router.post('/accept', requireAuth, hasRole('company'), accept)
-router.get('/request-pendings', requireAuth, hasRole('company'), getRequestPendingsList)
-router.get('/accept-pendings', requireAuth, hasRole('company'), getAcceptPendingsList)
-router.delete('/cancel-request/:id', requireAuth, hasRole('company'), cancelRequest)
-router.delete('/reject-request/:id', requireAuth, hasRole('company'), rejectRequest)
-router.get('/agents', requireAuth, hasRole('company'), getAgentsList)
-router.delete('/relationship/:id', requireAuth, hasRole('company'), deleteRelationship)
-router.get('/bookings', requireAuth, hasRole('company'), getBookingsList)
-router.post('/pkgs/:pkgId/special-prices', requireAuth, hasRole('company'), addPkgSpecialPrice)
+router.post('/signup', c.signup)
+router.post('/signin', requireSignin, c.signin)
+router.get('/profile', requireAuth, hasRole('company'), c.profile)
+router.post('/pkgs', requireAuth, hasRole('company'), c.addPkg)
+router.get('/pkgs', requireAuth, hasRole('company'), c.getPkgsList)
+router.get('/pkgs/:id', requireAuth, hasRole('company'), c.getPkg)
+router.delete('/pkgs/:id', requireAuth, hasRole('company'), c.deletePkg)
+router.put('/pkgs/:id', requireAuth, hasRole('company'), c.updatePkg)
+router.post('/request', requireAuth, hasRole('company'), c.request)
+router.post('/accept', requireAuth, hasRole('company'), c.accept)
+router.get('/request-pendings', requireAuth, hasRole('company'), c.getRequestPendingsList)
+router.get('/accept-pendings', requireAuth, hasRole('company'), c.getAcceptPendingsList)
+router.delete('/cancel-request/:id', requireAuth, hasRole('company'), c.cancelRequest)
+router.delete('/reject-request/:id', requireAuth, hasRole('company'), c.rejectRequest)
+router.get('/agents', requireAuth, hasRole('company'), c.getAgentsList)
+router.delete('/relationship/:id', requireAuth, hasRole('company'), c.deleteRelationship)
+router.get('/bookings', requireAuth, hasRole('company'), c.getBookingsList)
+router.post('/pkgs/:pkgId/special-prices', requireAuth, hasRole('company'), c.addPkgSpecialPrice)
 
 module.exports = router
