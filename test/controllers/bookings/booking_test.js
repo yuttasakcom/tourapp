@@ -163,6 +163,30 @@ describe.only('Booking', () => {
             .catch(done)
         })
     })
+
+    it('not member must return status 401', done => {
+    	const booking1Props = {
+    		companyId: company2._id,
+    		pkgId: company2.pkgs[0]._id,
+    		tourist: touristProps
+    	}
+    	request(app)
+        .post('/agents-employees/bookings')
+        .send(booking1Props)
+        .set('authorization', agentEmployee1Token)
+        .expect(401)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          Booking.count()
+            .then(count => {
+              expect(count).to.equal(0)
+              done()
+            })
+            .catch(done)
+        })
+
+    })
   })
 
   describe('Company get bookings list', () => {

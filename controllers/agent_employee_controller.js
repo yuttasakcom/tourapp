@@ -1,4 +1,5 @@
 const Booking = require('../models/booking')
+const Agent = require('../models/agent')
 const jwt = require('jwt-simple')
 const config = require('../config')
 
@@ -18,14 +19,26 @@ const tokenForAgentEmployee = (agent) => {
 module.exports = {
   addBooking(req, res, next) {
     const user = req.user
-
     let bookingProps = req.body
-    bookingProps.agentId = user.agentId
-    bookingProps.employeeId = user._id
 
-    Booking.create(bookingProps)
-      .then(booking => {
-        res.send(booking)
+    Agent.count({
+        _id: user.agentId,
+        companies: bookingProps.companyId
+      })
+      .then(exist => {
+        if (!exist) {
+          let err = new Error('This company is not member')
+          err.status = 401
+          return next(err)
+        }
+
+        bookingProps.agentId = user.agentId
+        bookingProps.employeeId = user._id
+
+        Booking.create(bookingProps)
+          .then(booking => {
+            res.send(booking)
+          })
       })
   },
 
