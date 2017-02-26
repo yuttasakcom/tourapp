@@ -10,7 +10,7 @@ const { password } = require('../../../helpers/mock')
 
 describe.only('Booking', () => {
 
-  let company1, company1Token, agent1, agent1Token, agentEmployee1Token
+  let company1, company2, company1Token, company2Token, agent1, agent1Token, agentEmployee1Token
 
   const agentEmployee1Props = {
     email: 'agentemployee1@test.com',
@@ -48,6 +48,12 @@ describe.only('Booking', () => {
     pkgs: companyPkgsStubs
   }
 
+  const company2Props = {
+    email: 'company2@test.com',
+    password: password.hash,
+    pkgs: companyPkgsStubs
+  }
+
   const touristProps = {
     name: 'Paiboon',
     phoneNumber: '024283192',
@@ -60,14 +66,17 @@ describe.only('Booking', () => {
   }
 
   const company1SigninProps = Object.assign({}, company1Props, { role: 'company', password: password.raw })
+  const company2SigninProps = Object.assign({}, company2Props, { role: 'company', password: password.raw })
   const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent', password: password.raw })
 
   beforeEach(done => {
     company1 = new Company(company1Props)
+    company2 = new Company(company2Props)
     agent1 = new Agent(agent1Props)
 
     Promise.all([
         company1.save(),
+        company2.save(),
         agent1.save()
       ])
       .then(() => {
@@ -95,12 +104,21 @@ describe.only('Booking', () => {
                 .end((err, res) => {
                   cb(err, res.body.token)
                 })
+            },
+            (cb) => {
+            	request(app)
+            		.post('/companies/signin')
+            		.send(company2SigninProps)
+            		.end((err, res) => {
+            			cb(err, res.body.token)
+            		})
             }
           ],
           (err, results) => {
             company1Token = results[0]
             agent1Token = results[1]
             agentEmployee1Token = results[2]
+            company2Token = results[3]
             request(app)
               .post('/agents/request')
               .send({ _id: company1._id })
