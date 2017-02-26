@@ -140,6 +140,22 @@ describe('Booking', () => {
       })
   })
 
+  describe('Agent employee get pkgs list', () => {
+
+    it('one member', done => {
+      request(app)
+        .get('/agents-employees/pkgs')
+        .set('authorization', agentEmployee1Token)
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          expect(res.body.length).to.equal(1)
+          done()
+        })
+    })
+  })
+
   describe('Agent employee add booking', () => {
 
     it('one booking', done => {
@@ -190,7 +206,7 @@ describe('Booking', () => {
     })
   })
 
-  describe.only('Company get bookings list', () => {
+  describe('Company get bookings list', () => {
 
     it('get bookings', done => {
       const booking1Props = {
@@ -207,15 +223,15 @@ describe('Booking', () => {
           if (err) return done(err)
 
           request(app)
-        		.get('/companies/bookings')
-        		.set('authorization', company1Token)
-        		.expect(200)
-        		.end((err, res) => {
-        			if (err) return done(err)
+            .get('/companies/bookings')
+            .set('authorization', company1Token)
+            .expect(200)
+            .end((err, res) => {
+              if (err) return done(err)
 
-        			expect(res.body.length).to.equal(1)
-        			done()
-        		})
+              expect(res.body.length).to.equal(1)
+              done()
+            })
         })
     })
   })

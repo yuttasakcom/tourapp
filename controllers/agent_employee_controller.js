@@ -1,5 +1,6 @@
 const Booking = require('../models/booking')
 const Agent = require('../models/agent')
+const Company = require('../models/company')
 const jwt = require('jwt-simple')
 const config = require('../config')
 
@@ -17,6 +18,18 @@ const tokenForAgentEmployee = (agent) => {
 }
 
 module.exports = {
+  getPkgsList(req, res, next) {
+    const agentId = req.user.agentId
+
+    Company.find({ agents: agentId }, {
+        email: 1,
+        pkgs: 1
+      })
+      .then(companies => {
+        res.send(companies)
+      })
+  },
+
   addBooking(req, res, next) {
     const user = req.user
     let bookingProps = req.body
