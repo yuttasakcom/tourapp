@@ -140,6 +140,37 @@ describe('Booking', () => {
       })
   })
 
+  describe.only('Company offer special price', () => {
+
+    it('offer package1 to agent1', done => {
+      const pkg = company1.pkgs[0]
+
+      request(app)
+        .post(`/companies/pkgs/${pkg._id}/special-prices`)
+        .send({
+          agent: agent1._id,
+          priceAdult: 2500,
+          priceChild: 1500
+        })
+        .set('authorization', company1Token)
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          Company.findById(company1._id, {
+              pkgs: {
+                $elemMatch: { _id: pkg._id }
+              }
+            })
+            .then(company => {
+              console.log(company)
+              done()
+            })
+        })
+    })
+
+  })
+
   describe('Agent employee get pkgs list', () => {
 
     it('one member', done => {

@@ -88,7 +88,7 @@ describe('Company model', () => {
 
   })
 
-  describe.only('Package', () => {
+  describe('Package', () => {
 
     it('add pkgs to an existing company', done => {
       const company1 = new Company({
