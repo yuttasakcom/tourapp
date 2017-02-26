@@ -15,7 +15,8 @@ const {
   rejectRequest,
   getAgentsList,
   deleteRelationship,
-  getBookingsList
+  getBookingsList,
+  addPkgSpecialPrice
 } = require('../controllers/company_controller')
 const passport = require('../services/passport')
 const requireSignin = passport.authenticate('local', { session: false })
@@ -40,4 +41,6 @@ router.delete('/reject-request/:id', requireAuth, hasRole('company'), rejectRequ
 router.get('/agents', requireAuth, hasRole('company'), getAgentsList)
 router.delete('/relationship/:id', requireAuth, hasRole('company'), deleteRelationship)
 router.get('/bookings', requireAuth, hasRole('company'), getBookingsList)
+router.post('/pkgs/:pkgId/special-prices', requireAuth, hasRole('company'), addPkgSpecialPrice)
+
 module.exports = router

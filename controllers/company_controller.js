@@ -16,6 +16,10 @@ const tokenForCompany = (company) => {
 }
 
 module.exports = {
+  addPkgSpecialPrice(req, res, next) {
+    res.send('mock')
+  },
+
   getBookingsList(req, res, next) {
     const companyId = req.user._id
 
