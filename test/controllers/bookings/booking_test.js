@@ -150,7 +150,7 @@ describe('Booking', () => {
         .end((err, res) => {
           if (err) return done(err)
 
-          expect(res.body.length).to.equal(5)
+          expect(res.body.length).to.equal(1)
           done()
         })
     })
