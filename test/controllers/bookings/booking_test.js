@@ -106,12 +106,12 @@ describe.only('Booking', () => {
                 })
             },
             (cb) => {
-            	request(app)
-            		.post('/companies/signin')
-            		.send(company2SigninProps)
-            		.end((err, res) => {
-            			cb(err, res.body.token)
-            		})
+              request(app)
+                .post('/companies/signin')
+                .send(company2SigninProps)
+                .end((err, res) => {
+                  cb(err, res.body.token)
+                })
             }
           ],
           (err, results) => {
@@ -141,6 +141,7 @@ describe.only('Booking', () => {
   })
 
   describe('Agent employee add booking', () => {
+
     it('one booking', done => {
       const booking1Props = {
         companyId: company1._id,
@@ -165,12 +166,12 @@ describe.only('Booking', () => {
     })
 
     it('not member must return status 401', done => {
-    	const booking1Props = {
-    		companyId: company2._id,
-    		pkgId: company2.pkgs[0]._id,
-    		tourist: touristProps
-    	}
-    	request(app)
+      const booking1Props = {
+        companyId: company2._id,
+        pkgId: company2.pkgs[0]._id,
+        tourist: touristProps
+      }
+      request(app)
         .post('/agents-employees/bookings')
         .send(booking1Props)
         .set('authorization', agentEmployee1Token)
@@ -189,10 +190,33 @@ describe.only('Booking', () => {
     })
   })
 
-  describe('Company get bookings list', () => {
-    it('get bookings', done => {
+  describe.only('Company get bookings list', () => {
 
-      done()
+    it('get bookings', done => {
+      const booking1Props = {
+        companyId: company1._id,
+        pkgId: company1.pkgs[0]._id,
+        tourist: touristProps
+      }
+      request(app)
+        .post('/agents-employees/bookings')
+        .send(booking1Props)
+        .set('authorization', agentEmployee1Token)
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          request(app)
+        		.get('/companies/bookings')
+        		.set('authorization', company1Token)
+        		.expect(200)
+        		.end((err, res) => {
+        			if (err) return done(err)
+
+        			expect(res.body.length).to.equal(1)
+        			done()
+        		})
+        })
     })
   })
 })
