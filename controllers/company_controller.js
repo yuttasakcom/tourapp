@@ -15,6 +15,10 @@ const tokenForCompany = (company) => {
 }
 
 module.exports = {
+  getBookingsList(req, res, next) {
+    res.send([])
+  },
+
   getAgentsList(req, res, next) {
     const companyId = req.user._id
 
