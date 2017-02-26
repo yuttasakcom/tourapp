@@ -19,8 +19,10 @@ module.exports = {
   getBookingsList(req, res, next) {
     const companyId = req.user._id
 
-    Booking.find({ companyId })
+    Booking.find({ company: companyId })
+      .populate('agentId')
       .then(bookings => {
+        console.log(bookings)
         res.send(bookings)
       })
   },

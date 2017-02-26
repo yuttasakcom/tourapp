@@ -23,7 +23,7 @@ module.exports = {
 
     Agent.count({
         _id: user.agentId,
-        companies: bookingProps.companyId
+        companies: bookingProps.company
       })
       .then(exist => {
         if (!exist) {
@@ -32,8 +32,8 @@ module.exports = {
           return next(err)
         }
 
-        bookingProps.agentId = user.agentId
-        bookingProps.employeeId = user._id
+        bookingProps.agent = user.agentId
+        bookingProps.employee = user._id
 
         Booking.create(bookingProps)
           .then(booking => {

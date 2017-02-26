@@ -8,7 +8,7 @@ const Company = mongoose.model('Company')
 const Booking = mongoose.model('Booking')
 const { password } = require('../../../helpers/mock')
 
-describe.only('Booking', () => {
+describe('Booking', () => {
 
   let company1, company2, company1Token, company2Token, agent1, agent1Token, agentEmployee1Token
 
@@ -144,8 +144,8 @@ describe.only('Booking', () => {
 
     it('one booking', done => {
       const booking1Props = {
-        companyId: company1._id,
-        pkgId: company1.pkgs[0]._id,
+        company: company1._id,
+        pkg: company1.pkgs[0]._id,
         tourist: touristProps
       }
       request(app)
@@ -167,8 +167,8 @@ describe.only('Booking', () => {
 
     it('not member must return status 401', done => {
       const booking1Props = {
-        companyId: company2._id,
-        pkgId: company2.pkgs[0]._id,
+        company: company2._id,
+        pkg: company2.pkgs[0]._id,
         tourist: touristProps
       }
       request(app)
@@ -194,8 +194,8 @@ describe.only('Booking', () => {
 
     it('get bookings', done => {
       const booking1Props = {
-        companyId: company1._id,
-        pkgId: company1.pkgs[0]._id,
+        company: company1._id,
+        pkg: company1.pkgs[0]._id,
         tourist: touristProps
       }
       request(app)
