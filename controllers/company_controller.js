@@ -96,16 +96,11 @@ module.exports = {
   },
 
   getPkg(req, res, next) {
-    const companyId = req.user._id
     const pkgId = req.params.id
 
-    Company.findById(companyId, {
-        pkgs: {
-          $elemMatch: { _id: pkgId }
-        }
-      })
-      .then(company => {
-        res.send(company.pkgs[0])
+    Pkg.findById(pkgId)
+      .then(pkg => {
+        res.send(pkg)
       })
       .catch(next)
   },

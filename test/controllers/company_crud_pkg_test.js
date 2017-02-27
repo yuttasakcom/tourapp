@@ -120,7 +120,7 @@ describe('Company CRUD pkg', () => {
         })
     })
 
-    it.only('GET /companies/pkgs', done => {
+    it('GET /companies/pkgs', done => {
       request(app)
         .get('/companies/pkgs')
         .set('authorization', company1Token)
@@ -133,14 +133,10 @@ describe('Company CRUD pkg', () => {
         })
     })
 
-    it('GET /companies/pkgs/:id', done => {
-      Company.findById(company1._id, {
-          pkgs: {
-            $elemMatch: { name: 'name_test0' }
-          }
-        })
-        .then(company => {
-          const pkgId = company.pkgs[0]._id
+    it.only('GET /companies/pkgs/:id', done => {
+      Pkg.findOne({ company: company1._id, name: 'name_test0' })
+        .then(pkg => {
+          const pkgId = pkg._id
           request(app)
             .get(`/companies/pkgs/${pkgId}`)
             .set('authorization', company1Token)
@@ -148,7 +144,7 @@ describe('Company CRUD pkg', () => {
             .end((err, res) => {
               if (err) return done(err)
 
-              expect(res.body.name).to.equal(company.pkgs[0].name)
+              expect(res.body.name).to.equal('name_test0')
               done()
             })
         })
