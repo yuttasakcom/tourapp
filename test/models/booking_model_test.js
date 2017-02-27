@@ -11,7 +11,12 @@ describe('Booking model', () => {
       agent: objectId,
       employee: objectId,
       company: objectId,
-      pkg: objectId,
+      pkg: {
+        _id: objectId,
+        name: 'name_test',
+        priceAdult: 2000,
+        priceChild: 1000
+      },
       tourist: {
         name: 'Paiboon',
         phoneNumber: '024283192',
@@ -28,7 +33,8 @@ describe('Booking model', () => {
       .then(booking => {
 
         expect(booking1.isNew).to.be.false
-        expect(booking.status).to.be.equal(status.waiting)
+        expect(booking.status).to.equal(status.waiting)
+        expect(booking.pkg.priceAdult).to.equal(2000)
         done()
       })
       .catch(done)

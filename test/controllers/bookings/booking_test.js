@@ -296,7 +296,7 @@ describe('Booking', () => {
 
           const booking1Props = {
             company: company1._id,
-            pkg: pkg._id,
+            pkg: pkg,
             tourist: touristProps
           }
           request(app)
@@ -323,7 +323,7 @@ describe('Booking', () => {
 
           const booking1Props = {
             company: company2._id,
-            pkg: pkg._id,
+            pkg: pkg,
             tourist: touristProps
           }
           request(app)
@@ -353,7 +353,7 @@ describe('Booking', () => {
 
           const booking1Props = {
             company: company1._id,
-            pkg: pkg._id,
+            pkg: pkg,
             tourist: touristProps
           }
           request(app)
