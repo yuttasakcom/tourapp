@@ -12,7 +12,12 @@ const bookingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Company'
   },
-  pkg: Schema.Types.ObjectId,
+  pkg: {
+    _id: Schema.Types.ObjectId,
+    name: String,
+    priceAdult: Number,
+    priceChild: Number
+  },
   tourist: touristSchema,
   status: {
     type: Number,
