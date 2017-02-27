@@ -8,6 +8,7 @@ const Company = mongoose.model('Company')
 const Booking = mongoose.model('Booking')
 const Pkg = mongoose.model('Pkg')
 const { password } = require('../../../helpers/mock')
+const { status } = require('../../../helpers/booking')
 
 describe('Booking', () => {
 
@@ -289,90 +290,125 @@ describe('Booking', () => {
 
   describe('Agent employee add booking', () => {
 
-    it('one booking', done => {
+    let booking1Props
 
+    beforeEach(done => {
       Pkg.findOne({ company: company1._id, name: 'name_test0' })
         .then(pkg => {
-
-          const booking1Props = {
+          booking1Props = {
             company: company1._id,
             pkg: pkg,
             tourist: touristProps
           }
-          request(app)
-            .post('/agents-employees/bookings')
-            .send(booking1Props)
-            .set('authorization', agentEmployee1Token)
-            .expect(200)
-            .end((err, res) => {
-              if (err) return done(err)
+          done()
+        })
+    })
 
-              Booking.count()
-                .then(count => {
-                  expect(count).to.equal(1)
-                  done()
-                })
-                .catch(done)
+    it('one booking', done => {
+      request(app)
+        .post('/agents-employees/bookings')
+        .send(booking1Props)
+        .set('authorization', agentEmployee1Token)
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          Booking.count()
+            .then(count => {
+              expect(count).to.equal(1)
+              done()
             })
+            .catch(done)
         })
     })
 
     it('not member must return status 401', done => {
-      Pkg.findOne({ company: company2._id, name: 'name_test0' })
-        .then(pkg => {
+      booking1Props.company = company2._id
+      request(app)
+        .post('/agents-employees/bookings')
+        .send(booking1Props)
+        .set('authorization', agentEmployee1Token)
+        .expect(401)
+        .end((err, res) => {
+          if (err) return done(err)
 
-          const booking1Props = {
-            company: company2._id,
-            pkg: pkg,
-            tourist: touristProps
-          }
+          Booking.count()
+            .then(count => {
+              expect(count).to.equal(0)
+              done()
+            })
+            .catch(done)
+        })
+    })
+
+    it('Company get bookings list', done => {
+      request(app)
+        .post('/agents-employees/bookings')
+        .send(booking1Props)
+        .set('authorization', agentEmployee1Token)
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err)
+
           request(app)
-            .post('/agents-employees/bookings')
-            .send(booking1Props)
-            .set('authorization', agentEmployee1Token)
-            .expect(401)
+            .get('/companies/bookings')
+            .set('authorization', company1Token)
+            .expect(200)
             .end((err, res) => {
               if (err) return done(err)
 
-              Booking.count()
-                .then(count => {
-                  expect(count).to.equal(0)
-                  done()
-                })
-                .catch(done)
+              expect(res.body.length).to.equal(1)
+              done()
             })
         })
     })
   })
 
-  describe('Company get bookings list', () => {
+  describe('Company change booking status', () => {
 
-    it('get bookings', done => {
-      Pkg.findOne({ company: company1._id, name: 'name_test0' })
-        .then(pkg => {
+    it.only('accept', done => {
+      request(app)
+        .get('/agents-employees/pkgs')
+        .set('authorization', agentEmployee1Token)
+        .end((err, res) => {
+          if (err) return done(err)
 
+          const pkg = res.body[0]
           const booking1Props = {
             company: company1._id,
             pkg: pkg,
             tourist: touristProps
           }
+
           request(app)
             .post('/agents-employees/bookings')
             .send(booking1Props)
             .set('authorization', agentEmployee1Token)
-            .expect(200)
             .end((err, res) => {
               if (err) return done(err)
 
               request(app)
                 .get('/companies/bookings')
                 .set('authorization', company1Token)
-                .expect(200)
                 .end((err, res) => {
                   if (err) return done(err)
 
-                  expect(res.body.length).to.equal(1)
-                  done()
+                  const bookingId = res.body[0]._id
+                  request(app)
+                    .put(`/companies/bookings/${bookingId}`)
+                    .send({ status: status.accepted })
+                    .set('authorization', company1Token)
+                    .expect(200)
+                    .end((err, res) => {
+                      if (err) return done(err)
+
+                      Booking.findById(bookingId)
+                        .then(booking => {
+                          expect(booking.status).to.equal(status.accepted)
+                          done()
+                        })
+                        .catch(done)
+                    })
                 })
             })
         })
