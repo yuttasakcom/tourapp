@@ -38,7 +38,7 @@ describe('Company CRUD pkg', () => {
   })
 
   describe('Create pkg', () => {
-    it.only('one pkg', done => {
+    it('one pkg', done => {
       request(app)
         .post('/companies/pkgs')
         .send({
@@ -88,38 +88,39 @@ describe('Company CRUD pkg', () => {
             .end((err, res) => {
               if (err) return done(err)
 
-              Company.findById(company1._id)
-                .then(company => {
-                  expect(company.pkgs.length).to.equal(2)
+              Pkg.find({ company: company1._id })
+                .then(pkgs => {
+                  expect(pkgs.length).to.equal(2)
                   done()
                 })
+                .catch(done)
             })
         })
     })
   })
 
   describe('RUD pkg', () => {
-    let companyPkgsStubs = new Array(10)
-      .fill(undefined)
-      .map((val, key) => {
-        return {
-          name: `name_test${key}`,
-          description: `description_test${key}`,
-          priceAdult: '3000',
-          priceChild: '2000'
-        }
-      })
 
     beforeEach(done => {
-      Company.update({ _id: company1._id }, {
-          $pushAll: { pkgs: companyPkgsStubs }
+      let pkgsStubs = new Array(10)
+        .fill(undefined)
+        .map((val, key) => {
+          return {
+            company: company1._id,
+            name: `name_test${key}`,
+            description: `description_test${key}`,
+            priceAdult: '3000',
+            priceChild: '2000'
+          }
         })
+
+      Pkg.insertMany(pkgsStubs)
         .then(() => {
           done()
         })
     })
 
-    it('GET /companies/pkgs', done => {
+    it.only('GET /companies/pkgs', done => {
       request(app)
         .get('/companies/pkgs')
         .set('authorization', company1Token)
@@ -127,7 +128,7 @@ describe('Company CRUD pkg', () => {
         .end((err, res) => {
           if (err) return done(err)
 
-          expect(res.body.pkgs.length).to.equal(10)
+          expect(res.body.length).to.equal(10)
           done()
         })
     })

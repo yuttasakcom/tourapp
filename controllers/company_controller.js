@@ -150,10 +150,8 @@ module.exports = {
 
   getPkgsList(req, res, next) {
     const companyId = req.user._id
-    Company.findById(companyId, {
-        _id: 0,
-        pkgs: 1
-      })
+
+    Pkg.find({ company: companyId })
       .then(pkgs => {
         res.send(pkgs)
       })
