@@ -43,7 +43,6 @@ module.exports = {
     Booking.find({ company: companyId })
       .populate('agent', 'email')
       .then(bookings => {
-        console.log(bookings)
         res.send(bookings)
       })
   },
