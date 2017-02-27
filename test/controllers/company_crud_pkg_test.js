@@ -133,7 +133,7 @@ describe('Company CRUD pkg', () => {
         })
     })
 
-    it.only('GET /companies/pkgs/:id', done => {
+    it('GET /companies/pkgs/:id', done => {
       Pkg.findOne({ company: company1._id, name: 'name_test0' })
         .then(pkg => {
           const pkgId = pkg._id
@@ -150,14 +150,10 @@ describe('Company CRUD pkg', () => {
         })
     })
 
-    it('DELETE /companies/pkgs/:id', done => {
-      Company.findById(company1._id, {
-          pkgs: {
-            $elemMatch: { name: 'name_test0' }
-          }
-        })
-        .then(company => {
-          const pkgId = company.pkgs[0]._id
+    it.only('DELETE /companies/pkgs/:id', done => {
+      Pkg.findOne({ company: company1._id, name: 'name_test0' })
+        .then(pkg => {
+          const pkgId = pkg._id
           request(app)
             .delete(`/companies/pkgs/${pkgId}`)
             .set('authorization', company1Token)
@@ -165,14 +161,9 @@ describe('Company CRUD pkg', () => {
             .end((err, res) => {
               if (err) return done(err)
 
-              Company.findById(company1._id, {
-                  pkgs: {
-                    $elemMatch: { _id: pkgId }
-                  }
-                })
-                .then(company => {
-
-                  expect(company.pkgs.length).to.equal(0)
+              Pkg.count({ _id: pkgId })
+                .then(count => {
+                  expect(count).to.equal(0)
                   done()
                 })
             })

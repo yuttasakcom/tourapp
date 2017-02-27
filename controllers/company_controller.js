@@ -106,14 +106,9 @@ module.exports = {
   },
 
   deletePkg(req, res, next) {
-    const companyId = req.user._id
     const pkgId = req.params.id
 
-    Company.update({ _id: companyId }, {
-        $pull: {
-          pkgs: { _id: pkgId }
-        }
-      })
+    Pkg.remove({ _id: pkgId })
       .then(() => {
         res.send({ message: 'Delete package completed' })
       })
