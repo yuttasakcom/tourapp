@@ -17,7 +17,19 @@ const tokenForCompany = (company) => {
 
 module.exports = {
   addPkgSpecialPrice(req, res, next) {
-    res.send('mock')
+    const companyId = req.user._id
+    const pkgId = req.params.pkgId
+    const specialPriceProps = req.body
+
+    Company.findOneAndUpdate({ _id: companyId, 'pkgs._id': pkgId }, {
+        $push: { 'pkgs.$.specialPrices': specialPriceProps }
+      }, {
+        new: true
+      })
+      .then(company => {
+        //console.log(company)
+        res.send({ message: 'Offer special price completed'})
+      })
   },
 
   getBookingsList(req, res, next) {
