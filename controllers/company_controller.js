@@ -86,10 +86,10 @@ module.exports = {
 
   addPkg(req, res, next) {
     const companyId = req.user._id
+    req.body.company = companyId
     const pkgProps = req.body
-    Company.update({ _id: companyId }, {
-        $push: { pkgs: pkgProps }
-      })
+
+    Pkg.create(pkgProps)
       .then(() => {
         res.status(201).send({ message: 'Create package completed' })
       })

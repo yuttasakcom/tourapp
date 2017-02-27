@@ -3,6 +3,7 @@ const request = require('supertest')
 const expect = require('chai').expect
 const mongoose = require('mongoose')
 const Company = mongoose.model('Company')
+const Pkg = mongoose.model('Pkg')
 
 describe('Company CRUD pkg', () => {
 
@@ -37,7 +38,7 @@ describe('Company CRUD pkg', () => {
   })
 
   describe('Create pkg', () => {
-    it('one pkg', done => {
+    it.only('one pkg', done => {
       request(app)
         .post('/companies/pkgs')
         .send({
@@ -51,9 +52,9 @@ describe('Company CRUD pkg', () => {
         .end((err, res) => {
           if (err) return done(err)
 
-          Company.findById(company1._id)
-            .then(company => {
-              expect(company.pkgs.length).to.equal(1)
+          Pkg.find({ company: company1._id })
+            .then(pkgs => {
+              expect(pkgs.length).to.equal(1)
               done()
             })
             .catch(done)

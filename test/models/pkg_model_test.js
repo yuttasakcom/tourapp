@@ -4,7 +4,7 @@ const Pkg = mongoose.model('Pkg')
 const { objectId } = require('../../helpers/mock')
 const { status } = require('../../helpers/booking')
 
-describe.only('Pkg model', () => {
+describe('Pkg model', () => {
 
   it('add pkg', done => {
     const pkg1 = new Pkg({
