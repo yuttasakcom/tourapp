@@ -202,7 +202,7 @@ describe('Booking', () => {
     })
   })
 
-  describe.only('Agent employee add booking', () => {
+  describe('Agent employee add booking', () => {
 
     it('one booking', done => {
 
@@ -263,28 +263,32 @@ describe('Booking', () => {
   describe('Company get bookings list', () => {
 
     it('get bookings', done => {
-      const booking1Props = {
-        company: company1._id,
-        pkg: company1.pkgs[0]._id,
-        tourist: touristProps
-      }
-      request(app)
-        .post('/agents-employees/bookings')
-        .send(booking1Props)
-        .set('authorization', agentEmployee1Token)
-        .expect(200)
-        .end((err, res) => {
-          if (err) return done(err)
+      Pkg.findOne({ company: company1._id, name: 'name_test0' })
+        .then(pkg => {
 
+          const booking1Props = {
+            company: company1._id,
+            pkg: pkg._id,
+            tourist: touristProps
+          }
           request(app)
-            .get('/companies/bookings')
-            .set('authorization', company1Token)
+            .post('/agents-employees/bookings')
+            .send(booking1Props)
+            .set('authorization', agentEmployee1Token)
             .expect(200)
             .end((err, res) => {
               if (err) return done(err)
 
-              expect(res.body.length).to.equal(1)
-              done()
+              request(app)
+                .get('/companies/bookings')
+                .set('authorization', company1Token)
+                .expect(200)
+                .end((err, res) => {
+                  if (err) return done(err)
+
+                  expect(res.body.length).to.equal(1)
+                  done()
+                })
             })
         })
     })
