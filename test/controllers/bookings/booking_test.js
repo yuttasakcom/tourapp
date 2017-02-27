@@ -8,6 +8,7 @@ const Company = mongoose.model('Company')
 const Booking = mongoose.model('Booking')
 const Pkg = mongoose.model('Pkg')
 const { password } = require('../../../helpers/mock')
+const { status } = require('../../../helpers/booking')
 
 describe('Booking', () => {
 
@@ -287,7 +288,7 @@ describe('Booking', () => {
     })
   })
 
-  describe.only('Agent employee add booking', () => {
+  describe('Agent employee add booking', () => {
 
     let booking1Props
 
@@ -365,15 +366,51 @@ describe('Booking', () => {
 
   describe('Company change booking status', () => {
 
-    it('accept', done => {
+    it.only('accept', done => {
       request(app)
         .get('/agents-employees/pkgs')
         .set('authorization', agentEmployee1Token)
         .end((err, res) => {
           if (err) return done(err)
 
+          const pkg = res.body[0]
+          const booking1Props = {
+            company: company1._id,
+            pkg: pkg,
+            tourist: touristProps
+          }
 
-          done()
+          request(app)
+            .post('/agents-employees/bookings')
+            .send(booking1Props)
+            .set('authorization', agentEmployee1Token)
+            .end((err, res) => {
+              if (err) return done(err)
+
+              request(app)
+                .get('/companies/bookings')
+                .set('authorization', company1Token)
+                .end((err, res) => {
+                  if (err) return done(err)
+
+                  const bookingId = res.body[0]._id
+                  request(app)
+                    .put(`/companies/bookings/${bookingId}`)
+                    .send({ status: status.accepted })
+                    .set('authorization', company1Token)
+                    .expect(200)
+                    .end((err, res) => {
+                      if (err) return done(err)
+
+                      Booking.findById(bookingId)
+                        .then(booking => {
+                          expect(booking.status).to.equal(status.accepted)
+                          done()
+                        })
+                        .catch(done)
+                    })
+                })
+            })
         })
     })
   })
