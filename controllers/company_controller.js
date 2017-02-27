@@ -18,18 +18,22 @@ const tokenForCompany = (company) => {
 
 module.exports = {
   addPkgSpecialPrice(req, res, next) {
-    const companyId = req.user._id
     const pkgId = req.params.pkgId
     const specialPriceProps = req.body
 
-    Company.findOneAndUpdate({ _id: companyId, 'pkgs._id': pkgId }, {
-        $push: { 'pkgs.$.specialPrices': specialPriceProps }
-      }, {
-        new: true
-      })
-      .then(company => {
-        //console.log(company)
-        res.send({ message: 'Offer special price completed'})
+    let find = { _id: pkgId, 'specialPrices.agent': specialPriceProps.agent }
+    let update = { $set: { 'specialPrices.$': specialPriceProps } }
+
+    Pkg.count(find)
+      .then(exist => {
+        if (!exist) {
+          find = { _id: pkgId }
+          update = { $push: { 'specialPrices': specialPriceProps } }
+        }
+        Pkg.update(find, update)
+          .then(() => {
+            res.send({ message: 'Offer special price completed' })
+          })
       })
   },
 

@@ -155,33 +155,85 @@ describe('Booking', () => {
       })
   })
 
-  describe.only('Company offer special price', () => {
+  describe('Company offer special price', () => {
 
     it('offer package1 to agent1', done => {
-      const pkg = company1.pkgs[0]
+      Pkg.findOne({ company: company1._id, name: 'name_test0' })
+        .then(pkg => {
 
-      request(app)
-        .post(`/companies/pkgs/${pkg._id}/special-prices`)
-        .send({
-          agent: agent1._id,
-          priceAdult: 2500,
-          priceChild: 1500
-        })
-        .set('authorization', company1Token)
-        .expect(200)
-        .end((err, res) => {
-          if (err) return done(err)
-
-          Company.findById(company1._id, {
-              pkgs: {
-                $elemMatch: { _id: pkg._id }
-              }
+          request(app)
+            .post(`/companies/pkgs/${pkg._id}/special-prices`)
+            .send({
+              agent: agent1._id,
+              priceAdult: 2500,
+              priceChild: 1500
             })
-            .then(company => {
-              const pkg = company.pkgs[0]
+            .set('authorization', company1Token)
+            .expect(200)
+            .end((err, res) => {
+              if (err) return done(err)
 
-              expect(pkg.specialPrices[0].priceAdult).to.equal(2500)
-              done()
+              Pkg.findById(pkg._id, {
+                  specialPrices: {
+                    $elemMatch: { agent: agent1._id }
+                  }
+                })
+                .then(pkg => {
+
+                  expect(pkg.specialPrices[0].priceAdult).to.equal(2500)
+                  done()
+                })
+            })
+        })
+    })
+
+    it('offer same pkg again must update', done => {
+      Pkg.findOne({ company: company1._id, name: 'name_test0' })
+        .then(pkg => {
+
+          request(app)
+            .post(`/companies/pkgs/${pkg._id}/special-prices`)
+            .send({
+              agent: agent1._id,
+              priceAdult: 2500,
+              priceChild: 1500
+            })
+            .set('authorization', company1Token)
+            .end((err, res) => {
+              if (err) return done(err)
+
+
+              request(app)
+                .post(`/companies/pkgs/${pkg._id}/special-prices`)
+                .send({
+                  agent: company1._id,
+                  priceAdult: 5555,
+                  priceChild: 4444
+                })
+                .set('authorization', company1Token)
+                .end((err, res) => {
+                  if (err) return done(err)
+
+                  request(app)
+                    .post(`/companies/pkgs/${pkg._id}/special-prices`)
+                    .send({
+                      agent: agent1._id,
+                      priceAdult: 2000,
+                      priceChild: 1000
+                    })
+                    .set('authorization', company1Token)
+                    .end((err, res) => {
+                      if (err) return done(err)
+
+                      Pkg.findById(pkg._id)
+                        .then(pkg => {
+                          expect(pkg.specialPrices[0].priceAdult).to.equal(2000)
+                          expect(pkg.specialPrices[1].priceAdult).to.equal(5555)
+                          done()
+                        })
+                        .catch(done)
+                    })
+                })
             })
         })
     })
