@@ -254,6 +254,37 @@ describe('Booking', () => {
           done()
         })
     })
+
+    it.only('if has special price show special price', done => {
+      Pkg.findOne({ company: company1._id, name: 'name_test0' })
+        .then(pkg => {
+
+          pkg.specialPrices.push({
+            agent: agent1._id,
+            priceAdult: 2500,
+            priceChild: 1500
+          })
+          pkg.specialPrices.push({
+            agent: company2._id,
+            priceAdult: 1500,
+            priceChild: 500
+          })
+
+          pkg.save()
+            .then(() => {
+              request(app)
+                .get('/agents-employees/pkgs')
+                .set('authorization', agentEmployee1Token)
+                .expect(200)
+                .end((err, res) => {
+                  if (err) return done(err)
+
+                  expect(res.body[0].priceAdult).to.equal(2500)
+                  done()
+                })
+            })
+        })
+    })
   })
 
   describe('Agent employee add booking', () => {

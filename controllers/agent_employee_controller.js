@@ -31,9 +31,26 @@ module.exports = {
             company: {
               $in: agent.companies
             }
+          }, {
+            specialPrices: {
+              $elemMatch: {
+                agent: agentId
+              }
+            },
+            name: 1,
+            priceAdult: 1,
+            priceChild: 1
           })
           .then(pkgs => {
-            res.send(pkgs)
+            const resolvedPricePkgs = pkgs.map(pkg => {
+              if (pkg.specialPrices.length) {
+                pkg.priceAdult = pkg.specialPrices[0].priceAdult
+                pkg.priceChild = pkg.specialPrices[0].priceChild
+              }
+              pkg.specialPrices = undefined
+              return pkg
+            })
+            res.send(resolvedPricePkgs)
           })
       })
   },
