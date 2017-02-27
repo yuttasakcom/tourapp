@@ -123,7 +123,7 @@ describe('Agent get pkgs', () => {
       })
   })
 
-  it.only('one member', done => {
+  it('one member', done => {
     request(app)
       .get('/agents/pkgs')
       .set('authorization', agent1Token)
@@ -136,7 +136,7 @@ describe('Agent get pkgs', () => {
       })
   })
 
-  it.only('two member', done => {
+  it('two member', done => {
     request(app)
       .post('/agents/request')
       .send({ _id: company2._id })

@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 const Booking = mongoose.model('Booking')
+const Pkg = mongoose.model('Pkg')
 const { password } = require('../../../helpers/mock')
 
 describe('Booking', () => {
@@ -31,27 +32,14 @@ describe('Booking', () => {
     role: 'agentEmployee'
   }
 
-  let companyPkgsStubs = new Array(5)
-    .fill(undefined)
-    .map((val, key) => {
-      return {
-        name: `name_test${key}`,
-        description: `description_test${key}`,
-        priceAdult: '3000',
-        priceChild: '2000'
-      }
-    })
-
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash,
-    pkgs: companyPkgsStubs
+    password: password.hash
   }
 
   const company2Props = {
     email: 'company2@test.com',
-    password: password.hash,
-    pkgs: companyPkgsStubs
+    password: password.hash
   }
 
   const touristProps = {
@@ -74,10 +62,37 @@ describe('Booking', () => {
     company2 = new Company(company2Props)
     agent1 = new Agent(agent1Props)
 
+    let company1PkgsStubs = new Array(10)
+      .fill(undefined)
+      .map((val, key) => {
+        return {
+          company: company1._id,
+          name: `name_test${key}`,
+          description: `description_test${key}`,
+          priceAdult: '3000',
+          priceChild: '2000'
+        }
+      })
+
+    let company2PkgsStubs = new Array(10)
+      .fill(undefined)
+      .map((val, key) => {
+        return {
+          company: company2._id,
+          name: `name_test${key}`,
+          description: `description_test${key}`,
+          priceAdult: '3000',
+          priceChild: '2000'
+        }
+      })
+
+    let pkgsStubs = company1PkgsStubs.concat(company2PkgsStubs)
+
     Promise.all([
         company1.save(),
         company2.save(),
-        agent1.save()
+        agent1.save(),
+        Pkg.insertMany(pkgsStubs)
       ])
       .then(() => {
         parallel([
@@ -173,7 +188,7 @@ describe('Booking', () => {
 
   describe('Agent employee get pkgs list', () => {
 
-    it('one member', done => {
+    it.only('one member', done => {
       request(app)
         .get('/agents-employees/pkgs')
         .set('authorization', agentEmployee1Token)
@@ -181,7 +196,7 @@ describe('Booking', () => {
         .end((err, res) => {
           if (err) return done(err)
 
-          expect(res.body.length).to.equal(1)
+          expect(res.body.length).to.equal(10)
           done()
         })
     })
