@@ -255,7 +255,7 @@ describe('Booking', () => {
         })
     })
 
-    it.only('if has special price show special price', done => {
+    it('if has special price show special price', done => {
       Pkg.findOne({ company: company1._id, name: 'name_test0' })
         .then(pkg => {
 
