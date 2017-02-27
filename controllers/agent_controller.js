@@ -1,5 +1,6 @@
 const Agent = require('../models/agent')
 const Company = require('../models/company')
+const Pkg = require('../models/pkg')
 const helper = require('../helpers/authentication')
 const jwt = require('jwt-simple')
 const config = require('../config')
@@ -52,12 +53,19 @@ module.exports = {
   getPkgsList(req, res, next) {
     const agentId = req.user._id
 
-    Company.find({ agents: agentId }, {
-        email: 1,
-        pkgs: 1
+    Agent.findById(agentId, {
+        _id: 0,
+        companies: 1
       })
-      .then(companies => {
-        res.send(companies)
+      .then(agent => {
+        Pkg.find({
+            company: {
+              $in: agent.companies
+            }
+          })
+          .then(pkgs => {
+            res.send(pkgs)
+          })
       })
   },
 

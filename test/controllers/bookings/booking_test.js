@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 const Booking = mongoose.model('Booking')
+const Pkg = mongoose.model('Pkg')
 const { password } = require('../../../helpers/mock')
 
 describe('Booking', () => {
@@ -31,27 +32,14 @@ describe('Booking', () => {
     role: 'agentEmployee'
   }
 
-  let companyPkgsStubs = new Array(5)
-    .fill(undefined)
-    .map((val, key) => {
-      return {
-        name: `name_test${key}`,
-        description: `description_test${key}`,
-        priceAdult: '3000',
-        priceChild: '2000'
-      }
-    })
-
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash,
-    pkgs: companyPkgsStubs
+    password: password.hash
   }
 
   const company2Props = {
     email: 'company2@test.com',
-    password: password.hash,
-    pkgs: companyPkgsStubs
+    password: password.hash
   }
 
   const touristProps = {
@@ -74,10 +62,37 @@ describe('Booking', () => {
     company2 = new Company(company2Props)
     agent1 = new Agent(agent1Props)
 
+    let company1PkgsStubs = new Array(10)
+      .fill(undefined)
+      .map((val, key) => {
+        return {
+          company: company1._id,
+          name: `name_test${key}`,
+          description: `description_test${key}`,
+          priceAdult: '3000',
+          priceChild: '2000'
+        }
+      })
+
+    let company2PkgsStubs = new Array(10)
+      .fill(undefined)
+      .map((val, key) => {
+        return {
+          company: company2._id,
+          name: `name_test${key}`,
+          description: `description_test${key}`,
+          priceAdult: '3000',
+          priceChild: '2000'
+        }
+      })
+
+    let pkgsStubs = company1PkgsStubs.concat(company2PkgsStubs)
+
     Promise.all([
         company1.save(),
         company2.save(),
-        agent1.save()
+        agent1.save(),
+        Pkg.insertMany(pkgsStubs)
       ])
       .then(() => {
         parallel([
@@ -183,7 +198,7 @@ describe('Booking', () => {
         .end((err, res) => {
           if (err) return done(err)
 
-          expect(res.body.length).to.equal(1)
+          expect(res.body.length).to.equal(10)
           done()
         })
     })
@@ -192,78 +207,90 @@ describe('Booking', () => {
   describe('Agent employee add booking', () => {
 
     it('one booking', done => {
-      const booking1Props = {
-        company: company1._id,
-        pkg: company1.pkgs[0]._id,
-        tourist: touristProps
-      }
-      request(app)
-        .post('/agents-employees/bookings')
-        .send(booking1Props)
-        .set('authorization', agentEmployee1Token)
-        .expect(200)
-        .end((err, res) => {
-          if (err) return done(err)
 
-          Booking.count()
-            .then(count => {
-              expect(count).to.equal(1)
-              done()
+      Pkg.findOne({ company: company1._id, name: 'name_test0' })
+        .then(pkg => {
+
+          const booking1Props = {
+            company: company1._id,
+            pkg: pkg._id,
+            tourist: touristProps
+          }
+          request(app)
+            .post('/agents-employees/bookings')
+            .send(booking1Props)
+            .set('authorization', agentEmployee1Token)
+            .expect(200)
+            .end((err, res) => {
+              if (err) return done(err)
+
+              Booking.count()
+                .then(count => {
+                  expect(count).to.equal(1)
+                  done()
+                })
+                .catch(done)
             })
-            .catch(done)
         })
     })
 
     it('not member must return status 401', done => {
-      const booking1Props = {
-        company: company2._id,
-        pkg: company2.pkgs[0]._id,
-        tourist: touristProps
-      }
-      request(app)
-        .post('/agents-employees/bookings')
-        .send(booking1Props)
-        .set('authorization', agentEmployee1Token)
-        .expect(401)
-        .end((err, res) => {
-          if (err) return done(err)
+      Pkg.findOne({ company: company2._id, name: 'name_test0' })
+        .then(pkg => {
 
-          Booking.count()
-            .then(count => {
-              expect(count).to.equal(0)
-              done()
+          const booking1Props = {
+            company: company2._id,
+            pkg: pkg._id,
+            tourist: touristProps
+          }
+          request(app)
+            .post('/agents-employees/bookings')
+            .send(booking1Props)
+            .set('authorization', agentEmployee1Token)
+            .expect(401)
+            .end((err, res) => {
+              if (err) return done(err)
+
+              Booking.count()
+                .then(count => {
+                  expect(count).to.equal(0)
+                  done()
+                })
+                .catch(done)
             })
-            .catch(done)
         })
-
     })
   })
 
   describe('Company get bookings list', () => {
 
     it('get bookings', done => {
-      const booking1Props = {
-        company: company1._id,
-        pkg: company1.pkgs[0]._id,
-        tourist: touristProps
-      }
-      request(app)
-        .post('/agents-employees/bookings')
-        .send(booking1Props)
-        .set('authorization', agentEmployee1Token)
-        .expect(200)
-        .end((err, res) => {
-          if (err) return done(err)
+      Pkg.findOne({ company: company1._id, name: 'name_test0' })
+        .then(pkg => {
 
+          const booking1Props = {
+            company: company1._id,
+            pkg: pkg._id,
+            tourist: touristProps
+          }
           request(app)
-            .get('/companies/bookings')
-            .set('authorization', company1Token)
+            .post('/agents-employees/bookings')
+            .send(booking1Props)
+            .set('authorization', agentEmployee1Token)
             .expect(200)
             .end((err, res) => {
               if (err) return done(err)
 
-              expect(res.body.length).to.equal(1)
-              done()
+              request(app)
+                .get('/companies/bookings')
+                .set('authorization', company1Token)
+                .expect(200)
+                .end((err, res) => {
+                  if (err) return done(err)
+
+                  expect(res.body.length).to.equal(1)
+                  done()
+                })
             })
         })
     })
