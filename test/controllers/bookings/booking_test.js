@@ -288,7 +288,7 @@ describe('Booking', () => {
     })
   })
 
-  describe('Agent employee add booking', () => {
+  describe('Add booking', () => {
 
     let booking1Props
 
@@ -304,7 +304,25 @@ describe('Booking', () => {
         })
     })
 
-    it('one booking', done => {
+    it('agent one booking', done => {
+      request(app)
+        .post('/agents/bookings')
+        .send(booking1Props)
+        .set('authorization', agent1Token)
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          Booking.count()
+            .then(count => {
+              expect(count).to.equal(1)
+              done()
+            })
+            .catch(done)
+        })
+    })
+
+    it('agent employee one booking', done => {
       request(app)
         .post('/agents-employees/bookings')
         .send(booking1Props)
@@ -322,7 +340,7 @@ describe('Booking', () => {
         })
     })
 
-    it('not member must return status 401', done => {
+    it('agent employee not member must return status 401', done => {
       booking1Props.company = company2._id
       request(app)
         .post('/agents-employees/bookings')
@@ -366,7 +384,7 @@ describe('Booking', () => {
 
   describe('Company change booking status', () => {
 
-    it.only('accept', done => {
+    it('accept', done => {
       request(app)
         .get('/agents-employees/pkgs')
         .set('authorization', agentEmployee1Token)

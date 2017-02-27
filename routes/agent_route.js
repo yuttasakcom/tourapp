@@ -21,5 +21,6 @@ router.delete('/relationship/:id', c.deleteRelationship)
 router.get('/pkgs', c.getPkgsList)
 router.get('/companies', c.getCompaniesList)
 router.post('/employees', c.addEmployee)
+router.post('/bookings', c.addBooking)
 
 module.exports = router
