@@ -1,4 +1,5 @@
 const Company = require('../models/company')
+const Pkg = require('../models/pkg')
 const Agent = require('../models/agent')
 const Booking = require('../models/booking')
 const helper = require('../helpers/authentication')
