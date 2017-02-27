@@ -5,33 +5,23 @@ const parallel = require('async/parallel')
 const mongoose = require('mongoose')
 const Company = mongoose.model('Company')
 const Agent = mongoose.model('Agent')
+const Pkg = mongoose.model('Pkg')
 const { password } = require('../../helpers/mock')
 
 describe('Agent get pkgs', () => {
 
   let company1, company2, agent1, company1Token, agent1Token
 
-  let companyPkgsStubs = new Array(10)
-    .fill(undefined)
-    .map((val, key) => {
-      return {
-        name: `name_test${key}`,
-        description: `description_test${key}`,
-        priceAdult: '3000',
-        priceChild: '2000'
-      }
-    })
+
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash,
-    pkgs: companyPkgsStubs
+    password: password.hash
   }
 
   const company2Props = {
     email: 'company2@test.com',
-    password: password.hash,
-    pkgs: companyPkgsStubs
+    password: password.hash
   }
 
   const agent1Props = {
@@ -48,10 +38,37 @@ describe('Agent get pkgs', () => {
     company2 = new Company(company2Props)
     agent1 = new Agent(agent1Props)
 
+    let company1PkgsStubs = new Array(10)
+      .fill(undefined)
+      .map((val, key) => {
+        return {
+          company: company1._id,
+          name: `name_test${key}`,
+          description: `description_test${key}`,
+          priceAdult: '3000',
+          priceChild: '2000'
+        }
+      })
+
+    let company2PkgsStubs = new Array(10)
+      .fill(undefined)
+      .map((val, key) => {
+        return {
+          company: company2._id,
+          name: `name_test${key}`,
+          description: `description_test${key}`,
+          priceAdult: '3000',
+          priceChild: '2000'
+        }
+      })
+
+    let pkgsStubs = company1PkgsStubs.concat(company2PkgsStubs)
+
     Promise.all([
         company1.save(),
         company2.save(),
-        agent1.save()
+        agent1.save(),
+        Pkg.insertMany(pkgsStubs)
       ])
       .then(() => {
         parallel([
@@ -114,7 +131,7 @@ describe('Agent get pkgs', () => {
       .end((err, res) => {
         if (err) return done(err)
 
-        expect(res.body.length).to.equal(1)
+        expect(res.body.length).to.equal(10)
         done()
       })
   })
@@ -141,7 +158,7 @@ describe('Agent get pkgs', () => {
               .end((err, res) => {
                 if (err) return done(err)
 
-                expect(res.body.length).to.equal(2)
+                expect(res.body.length).to.equal(20)
                 done()
               })
           })

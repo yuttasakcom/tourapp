@@ -1,4 +1,5 @@
 const Company = require('../models/company')
+const Pkg = require('../models/pkg')
 const Agent = require('../models/agent')
 const Booking = require('../models/booking')
 const helper = require('../helpers/authentication')
@@ -85,74 +86,53 @@ module.exports = {
 
   addPkg(req, res, next) {
     const companyId = req.user._id
+    req.body.company = companyId
     const pkgProps = req.body
-    Company.update({ _id: companyId }, {
-        $push: { pkgs: pkgProps }
-      })
+
+    Pkg.create(pkgProps)
       .then(() => {
         res.status(201).send({ message: 'Create package completed' })
       })
   },
 
   getPkg(req, res, next) {
-    const companyId = req.user._id
     const pkgId = req.params.id
 
-    Company.findById(companyId, {
-        pkgs: {
-          $elemMatch: { _id: pkgId }
-        }
-      })
-      .then(company => {
-        res.send(company.pkgs[0])
+    Pkg.findById(pkgId)
+      .then(pkg => {
+        res.send(pkg)
       })
       .catch(next)
   },
 
   deletePkg(req, res, next) {
-    const companyId = req.user._id
     const pkgId = req.params.id
 
-    Company.update({ _id: companyId }, {
-        $pull: {
-          pkgs: { _id: pkgId }
-        }
-      })
+    Pkg.remove({ _id: pkgId })
       .then(() => {
         res.send({ message: 'Delete package completed' })
       })
   },
 
   updatePkg(req, res, next) {
-    const companyId = req.user._id
     const pkgId = req.params.id
+    const pkgProps = req.body
 
-    let pkgProps = req.body
-    pkgProps._id = pkgId
-
-    Company.findOneAndUpdate({ _id: companyId, 'pkgs._id': pkgId }, {
-        $set: { 'pkgs.$': pkgProps }
+    Pkg.findByIdAndUpdate(pkgId, {
+        $set: pkgProps
       }, {
         new: true,
-        select: {
-          pkgs: {
-            $elemMatch: { _id: pkgId }
-          }
-        }
       })
-      .then(company => {
-        const updatedPkg = company.pkgs[0]
-        res.send(updatedPkg)
+      .then(pkg => {
+        res.send(pkg)
       })
       .catch(next)
   },
 
   getPkgsList(req, res, next) {
     const companyId = req.user._id
-    Company.findById(companyId, {
-        _id: 0,
-        pkgs: 1
-      })
+
+    Pkg.find({ company: companyId })
       .then(pkgs => {
         res.send(pkgs)
       })
