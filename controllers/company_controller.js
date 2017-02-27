@@ -115,25 +115,16 @@ module.exports = {
   },
 
   updatePkg(req, res, next) {
-    const companyId = req.user._id
     const pkgId = req.params.id
+    const pkgProps = req.body
 
-    let pkgProps = req.body
-    pkgProps._id = pkgId
-
-    Company.findOneAndUpdate({ _id: companyId, 'pkgs._id': pkgId }, {
-        $set: { 'pkgs.$': pkgProps }
+    Pkg.findByIdAndUpdate(pkgId, {
+        $set: pkgProps
       }, {
         new: true,
-        select: {
-          pkgs: {
-            $elemMatch: { _id: pkgId }
-          }
-        }
       })
-      .then(company => {
-        const updatedPkg = company.pkgs[0]
-        res.send(updatedPkg)
+      .then(pkg => {
+        res.send(pkg)
       })
       .catch(next)
   },
