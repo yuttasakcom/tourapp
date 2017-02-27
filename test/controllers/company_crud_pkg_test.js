@@ -170,7 +170,7 @@ describe('Company CRUD pkg', () => {
         })
     })
 
-    it.only('PUT /companies/pkgs/:id', done => {
+    it('PUT /companies/pkgs/:id', done => {
       Pkg.findOne({ company: company1._id, name: 'name_test0' })
         .then(pkg => {
           const pkgId = pkg._id
