@@ -1,5 +1,4 @@
 const mongoose = require('./mongoose')
-const pkgSchema = require('./sub_documents/pkg')
 const Schema = mongoose.Schema
 
 const companySchema = new Schema({
@@ -13,7 +12,6 @@ const companySchema = new Schema({
     type: String,
     required: [true, 'Password is required']
   },
-  pkgs: [pkgSchema],
   agents: [{
     type: Schema.Types.ObjectId,
     ref: 'Agent'

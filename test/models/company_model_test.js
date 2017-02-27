@@ -87,39 +87,4 @@ describe('Company model', () => {
     })
 
   })
-
-  describe('Package', () => {
-
-    it('add pkgs to an existing company', done => {
-      const company1 = new Company({
-        email: 'company1@test.com',
-        password: '1234',
-        pkgs: []
-      })
-
-      company1.save()
-        .then(() => Company.findOne({ email: 'company1@test.com' }))
-        .then(company => {
-          company.pkgs.push({
-            name: 'name_test',
-            description: 'description_test',
-            priceAdult: 3000,
-            priceChild: 2000,
-            specialPrices: [{
-              agent: objectId,
-              priceAdult: 2500,
-              priceChild: 2000
-            }]
-          })
-          return company.save()
-        })
-        .then(() => Company.findOne({ email: 'company1@test.com' }))
-        .then(company => {
-          expect(company.pkgs[0].name).to.equal('name_test')
-          expect(company.pkgs[0].specialPrices[0].priceAdult).to.equal(2500)
-          done()
-        })
-        .catch(done)
-    })
-  })
 })
