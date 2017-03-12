@@ -9,7 +9,11 @@ const {
   handleAnotherError
 } = require('./middlewares')
 
-app.use(cors())
+const corsOptions = {
+	exposedHeaders: ['Content-Range']
+}
+
+app.use(cors(corsOptions))
 app.use(bodyParser.json())
 
 if (process.env.NODE_ENV !== 'test') {
