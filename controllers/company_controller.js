@@ -161,6 +161,7 @@ module.exports = {
 
     Pkg.find({ company: companyId })
       .then(pkgs => {
+        res.set('Content-Range', pkgs.length)
         res.send(pkgs)
       })
   },
