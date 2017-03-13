@@ -117,8 +117,8 @@ module.exports = {
     const pkgProps = req.body
 
     Pkg.create(pkgProps)
-      .then(() => {
-        res.status(201).send({ message: 'Create package completed' })
+      .then(pkg => {
+        res.status(201).send(pkg)
       })
   },
 
