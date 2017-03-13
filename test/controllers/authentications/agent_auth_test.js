@@ -160,6 +160,13 @@ describe('agent authentication', () => {
           done()
         })
     })
+
+    it('return status 401 when dont send role', done => {
+      request(app)
+        .post('/agents/signin')
+        .send(agentProps)
+        .expect(401, done)
+    })
   })
 
   describe('auth with jwt', done => {

@@ -75,6 +75,7 @@ const localLogin = new LocalStrategy({
         .catch(done)
       break
     default:
+      done(null, false)
       break
   }
 })

@@ -160,6 +160,13 @@ describe('company authentication', () => {
           done()
         })
     })
+
+    it('return status 401 when dont send role', done => {
+      request(app)
+        .post('/companies/signin')
+        .send(companyProps)
+        .expect(401, done)
+    })
   })
 
   describe('auth with jwt', done => {

@@ -60,6 +60,13 @@ describe('agent employee authentication', () => {
       })
   })
 
+  it('return status 401 when dont send role', done => {
+    request(app)
+      .post('/agents-employees/signin')
+      .send(employee1Props)
+      .expect(401, done)
+  })
+
   it('signin token can get secret route', done => {
     request(app)
       .post('/agents-employees/signin')
@@ -77,10 +84,10 @@ describe('agent employee authentication', () => {
   })
 
   it('fake token can not get secret route', done => {
-      const token = 'fake token'
-      request(app)
-        .get('/agents-employees/profile')
-        .set('authorization', token)
-        .expect(401, done)
-    })
+    const token = 'fake token'
+    request(app)
+      .get('/agents-employees/profile')
+      .set('authorization', token)
+      .expect(401, done)
+  })
 })
