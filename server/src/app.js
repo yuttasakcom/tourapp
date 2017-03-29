@@ -6,11 +6,11 @@ const bodyParser = require('body-parser')
 const router = require('./routes/routes')
 const {
   handleNotFound,
-  handleAnotherError
+  handleAnotherError,
 } = require('./middlewares')
 
 const corsOptions = {
-	exposedHeaders: ['Content-Range']
+  exposedHeaders: ['Content-Range'],
 }
 
 app.use(cors(corsOptions))
