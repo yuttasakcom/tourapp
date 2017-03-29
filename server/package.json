@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test nodemon --exec mocha --compilers js:babel-core/register --recursive src/test",
+    "test": "cross-env NODE_ENV=test nodemon --exec mocha --require babel-register --recursive src/test",
     "start": "cross-env NODE_ENV=production nodemon index.js"
   },
   "author": "Paiboon Auengkongkatong",
@@ -20,6 +20,7 @@
     "mongoose": "^4.8.2",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
+    "babel-register": "^6.24.0",
     "passport-jwt": "^2.2.1",
     "passport-local-roles": "^1.0.1",
     "winston": "^2.3.1"
