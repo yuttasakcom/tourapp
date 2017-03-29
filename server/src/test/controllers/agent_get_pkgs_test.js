@@ -10,7 +10,7 @@ const { password } = require('../../helpers/mock')
 
 describe('Agent get pkgs', () => {
 
-  let company1, company2, agent1, company1Token, agent1Token
+  let company1, company2, agent1, company1Token, company2Token, agent1Token
 
 
 
