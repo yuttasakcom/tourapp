@@ -2,6 +2,7 @@
   "parser": "babel-eslint",
   "extends": "airbnb",
   "rules": {
+  	"semi": ["warn", "never"],
     "object-curly-spacing": ["warn", "never"],
     "func-names": "off",
     "space-before-function-paren": ["error", "never"],
