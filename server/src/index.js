@@ -6,5 +6,5 @@ app.use(logger('dev'))
 
 const port = process.env.PORT || 4000
 app.listen(port, () => {
-  log.info('API listening on port:', port)
+  log.info(`API listening on port: ${port}`)
 })
