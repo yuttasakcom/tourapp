@@ -3,7 +3,7 @@
   "extends": "airbnb",
   "rules": {
   	"semi": ["warn", "never"],
-    "object-curly-spacing": ["warn", "never"],
+    "arrow-parens": ["warn", "as-needed"],
     "func-names": "off",
     "space-before-function-paren": ["error", "never"],
     "max-len": ["error", 120, 4],
