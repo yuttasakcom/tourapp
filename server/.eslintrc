@@ -1,0 +1,22 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "plugins": [
+    "mocha"
+  ],
+  "rules": {
+    "mocha/no-exclusive-tests": "error",
+  	"semi": ["warn", "never"],
+    "arrow-parens": ["warn", "as-needed"],
+    "func-names": "off",
+    "space-before-function-paren": ["error", "never"],
+    "max-len": ["error", 120, 4],
+    "no-unused-vars": ["error", {"argsIgnorePattern": "next"}],
+    "import/prefer-default-export": "off",
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "functions": "ignore"
+    }]
+  }
+}
