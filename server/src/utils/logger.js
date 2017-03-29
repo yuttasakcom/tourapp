@@ -1,4 +1,4 @@
-const winston = require('winston')
+import winston from 'winston'
 
 const logger = new winston.Logger({
   transports: [
@@ -16,4 +16,4 @@ logger.stream = {
   write: message => logger.info(message),
 }
 
-module.exports = logger
+export default logger
