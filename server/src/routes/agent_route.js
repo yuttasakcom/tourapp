@@ -1,5 +1,5 @@
 const c = require('../controllers/agent_controller')
-const passport = require('../services/passport')
+const passport = require('passport')
 const requireSignin = passport.authenticate('local', { session: false })
 const requireAuth = passport.authenticate('jwt', { session: false })
 const router = require('express').Router()

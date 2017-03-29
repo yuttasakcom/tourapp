@@ -28,4 +28,4 @@ router(app)
 app.use(handleNotFound)
 app.use(handleAnotherError)
 
-export default app
+module.exports = app

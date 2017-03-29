@@ -1,10 +1,10 @@
-const passport = require('passport')
-const Company = require('../models/company')
-const Agent = require('../models/agent')
-const config = require('../config')
-const LocalStrategy = require('passport-local-roles')
-const passportJwt = require('passport-jwt')
-const { comparePassword } = require('../helpers/authentication')
+import passport from 'passport'
+import LocalStrategy from 'passport-local-roles'
+import passportJwt from 'passport-jwt'
+import Company from '../models/company'
+import Agent from '../models/agent'
+import config from '../config'
+import { comparePassword } from '../helpers/authentication'
 
 const JwtStrategy = passportJwt.Strategy
 const ExtractJwt = passportJwt.ExtractJwt
@@ -94,5 +94,3 @@ const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
 
 passport.use(jwtLogin)
 passport.use(localLogin)
-
-module.exports = passport
