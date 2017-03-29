@@ -1,10 +1,10 @@
 const app = require('./app')
-const logger = require('morgan')
-const log = require('./utils/logger')
+const morgan = require('morgan')
+const logger = require('./utils/logger')
 
-app.use(logger('dev'))
+app.use(morgan('dev'))
 
 const port = process.env.PORT || 4000
 app.listen(port, () => {
-  log.info(`API listening on port: ${port}`)
+  logger.info(`API listening on port: ${port}`)
 })
