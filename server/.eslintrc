@@ -1,7 +1,11 @@
 {
   "parser": "babel-eslint",
   "extends": "airbnb",
+  "plugins": [
+    "mocha"
+  ],
   "rules": {
+    "mocha/no-exclusive-tests": "error",
   	"semi": ["warn", "never"],
     "arrow-parens": ["warn", "as-needed"],
     "func-names": "off",
