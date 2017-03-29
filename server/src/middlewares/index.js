@@ -5,9 +5,6 @@ export const handleNotFound = (req, res, next) => {
 }
 
 export const handleAnotherError = (err, req, res, next) => {
-  if (err.name === 'ValidationError') {
-    err.status = 422
-  }
   logger.warn(err.message)
   res.status(err.status || 500).send({ error: err.message })
 }
