@@ -1,6 +1,6 @@
-const app = require('./app')
-const morgan = require('morgan')
-const logger = require('./utils/logger')
+import morgan from 'morgan'
+import app from './app'
+import logger from './utils/logger'
 
 app.use(morgan('dev'))
 
