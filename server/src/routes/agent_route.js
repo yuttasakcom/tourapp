@@ -1,9 +1,11 @@
-const c = require('../controllers/agent_controller')
-const passport = require('passport')
+import express from 'express'
+import passport from 'passport'
+import c from '../controllers/agent_controller'
+import { hasRole } from '../middlewares'
+
 const requireSignin = passport.authenticate('local', { session: false })
 const requireAuth = passport.authenticate('jwt', { session: false })
-const router = require('express').Router()
-const { hasRole } = require('../middlewares')
+const router = express.Router()
 
 router.post('/signup', c.signup)
 router.post('/signin', requireSignin, c.signin)
@@ -23,4 +25,4 @@ router.get('/companies', c.getCompaniesList)
 router.post('/employees', c.addEmployee)
 router.post('/bookings', c.addBooking)
 
-module.exports = router
+export default router
