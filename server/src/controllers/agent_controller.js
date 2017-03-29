@@ -6,13 +6,13 @@ const helper = require('../helpers/authentication')
 const jwt = require('jwt-simple')
 const config = require('../config')
 
-const tokenForAgent = (agent) => {
+const tokenForAgent = agent => {
   const timestamp = new Date().getTime()
   return jwt.encode({
     _id: agent._id,
     sub: agent.email,
     role: 'agent',
-    iat: timestamp
+    iat: timestamp,
   }, config.secret)
 }
 
@@ -20,11 +20,11 @@ const tokenForAgent = (agent) => {
 module.exports = {
   addBooking(req, res, next) {
     const user = req.user
-    let bookingProps = req.body
+    const bookingProps = req.body
 
     Agent.count({
         _id: user._id,
-        companies: bookingProps.company
+        companies: bookingProps.company,
       })
       .then(exist => {
         if (!exist) {
