@@ -1,14 +1,13 @@
 import express from 'express'
-
-const cors = require('cors')
-const logger = require('morgan')
-const mongoose = require('./models/mongoose')
-const bodyParser = require('body-parser')
-const router = require('./routes/routes')
-const {
+import cors from 'cors'
+import morgan from 'morgan'
+import bodyParser from 'body-parser'
+import mongoose from './models/mongoose'
+import router from './routes/routes'
+import {
   handleNotFound,
-  handleAnotherError,
-} = require('./middlewares')
+  handleAnotherError
+} from './middlewares'
 
 const corsOptions = {
   exposedHeaders: ['Content-Range'],
@@ -20,7 +19,7 @@ app.use(cors(corsOptions))
 app.use(bodyParser.json())
 
 if (process.env.NODE_ENV !== 'test') {
-  app.use(logger('dev'))
+  app.use(morgan('dev'))
   mongoose.connect('mongodb://localhost/tourapp')
 }
 
