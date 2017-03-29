@@ -1,4 +1,5 @@
-const app = require('express')()
+import express from 'express'
+
 const cors = require('cors')
 const logger = require('morgan')
 const mongoose = require('./models/mongoose')
@@ -12,6 +13,8 @@ const {
 const corsOptions = {
   exposedHeaders: ['Content-Range'],
 }
+
+const app = express()
 
 app.use(cors(corsOptions))
 app.use(bodyParser.json())
