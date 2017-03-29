@@ -1,5 +1,6 @@
-const mongoose = require('./mongoose')
-const employeeSchema = require('./sub_documents/employee')
+import mongoose from './mongoose'
+import employeeSchema from './sub_documents/employee'
+
 const Schema = mongoose.Schema
 
 const agentSchema = new Schema({
@@ -7,25 +8,25 @@ const agentSchema = new Schema({
     type: String,
     unique: true,
     lowercase: true,
-    required: [true, 'Email is required']
+    required: [true, 'Email is required'],
   },
   password: {
     type: String,
-    required: [true, 'Password is required']
+    required: [true, 'Password is required'],
   },
   companies: [{
     type: Schema.Types.ObjectId,
-    ref: 'Company'
+    ref: 'Company',
   }],
   requestPendings: [{
     type: Schema.Types.ObjectId,
-    ref: 'Company'
+    ref: 'Company',
   }],
   acceptPendings: [{
     type: Schema.Types.ObjectId,
-    ref: 'Company'
+    ref: 'Company',
   }],
-  employees: [employeeSchema]
+  employees: [employeeSchema],
 })
 
 const Agent = mongoose.model('Agent', agentSchema)

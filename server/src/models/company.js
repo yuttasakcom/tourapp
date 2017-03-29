@@ -1,4 +1,5 @@
-const mongoose = require('./mongoose')
+import mongoose from './mongoose'
+
 const Schema = mongoose.Schema
 
 const companySchema = new Schema({
@@ -6,24 +7,24 @@ const companySchema = new Schema({
     type: String,
     unique: true,
     lowercase: true,
-    required: [true, 'Email is required']
+    required: [true, 'Email is required'],
   },
   password: {
     type: String,
-    required: [true, 'Password is required']
+    required: [true, 'Password is required'],
   },
   agents: [{
     type: Schema.Types.ObjectId,
-    ref: 'Agent'
+    ref: 'Agent',
   }],
   requestPendings: [{
     type: Schema.Types.ObjectId,
-    ref: 'Agent'
+    ref: 'Agent',
   }],
   acceptPendings: [{
     type: Schema.Types.ObjectId,
-    ref: 'Agent'
-  }]
+    ref: 'Agent',
+  }],
 })
 
 const Company = mongoose.model('Company', companySchema)

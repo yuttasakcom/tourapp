@@ -1,10 +1,11 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+
 const Schema = mongoose.Schema
 
 const pkgSchema = new Schema({
   company: {
     type: Schema.Types.ObjectId,
-    ref: 'Company'
+    ref: 'Company',
   },
   name: String,
   description: String,
@@ -13,11 +14,11 @@ const pkgSchema = new Schema({
   specialPrices: [{
     agent: {
       type: Schema.Types.ObjectId,
-      ref: 'Agent'
+      ref: 'Agent',
     },
     priceAdult: Number,
-    priceChild: Number
-  }]
+    priceChild: Number,
+  }],
 })
 
 const Pkg = mongoose.model('Pkg', pkgSchema)

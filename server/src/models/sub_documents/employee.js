@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+
 const Schema = mongoose.Schema
 
 const employeeSchema = new Schema({
@@ -6,14 +7,14 @@ const employeeSchema = new Schema({
     type: String,
     unique: true,
     lowercase: true,
-    required: [true, 'Email is required']
+    required: [true, 'Email is required'],
   },
   password: {
     type: String,
-    required: [true, 'Password is required']
+    required: [true, 'Password is required'],
   },
   name: String,
-  phoneNumber: String
+  phoneNumber: String,
 })
 
 module.exports = employeeSchema
