@@ -4,6 +4,6 @@ module.exports = {
     readed: 1,
     accepted: 2,
     completed: 3,
-    rejected: 4
-  }
+    rejected: 4,
+  },
 }
