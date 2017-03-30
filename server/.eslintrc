@@ -6,6 +6,8 @@
   ],
   "rules": {
     "mocha/no-exclusive-tests": "error",
+    "no-param-reassign": [2, { "props": false }],
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
   	"semi": ["warn", "never"],
     "arrow-parens": ["warn", "as-needed"],
     "func-names": "off",
