@@ -1,31 +1,36 @@
-const app = require('../../../app')
-const request = require('supertest')
-const expect = require('chai').expect
-const mongoose = require('mongoose')
+import request from 'supertest'
+import chai from 'chai'
+import mongoose from 'mongoose'
+import dirtyChai from 'dirty-chai'
+import app from '../../../app'
+import { password } from '../../../helpers/mock'
+
+chai.use(dirtyChai)
+
+const expect = chai.expect
 const Agent = mongoose.model('Agent')
-const { password } = require('../../../helpers/mock')
 
 describe('agent employee authentication', () => {
-
-  let agent1, agent1Token
+  let agent1
+  let agent1Token
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash
+    password: password.hash,
   }
 
   const employee1Props = {
     email: 'employee1@test.com',
     password: '1234',
     name: 'name_test',
-    phoneNumber: '024283192'
+    phoneNumber: '024283192',
   }
 
-  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent', password: password.raw })
+  const agent1SigninProps = {...agent1Props, role: 'agent', password: password.raw }
   const employee1SigninProps = {
     email: 'agent1@test.com..employee1@test.com',
     password: '1234',
-    role: 'agentEmployee'
+    role: 'agentEmployee',
   }
 
   beforeEach(done => {
@@ -55,8 +60,8 @@ describe('agent employee authentication', () => {
       .end((err, res) => {
         if (err) return done(err)
 
-        expect(res.body.token).to.be.exist
-        done()
+        expect(res.body.token).to.be.exist()
+        return done()
       })
   })
 
@@ -76,7 +81,7 @@ describe('agent employee authentication', () => {
         if (err) return done(err)
 
         const token = res.body.token
-        request(app)
+        return request(app)
           .get('/agents-employees/profile')
           .set('authorization', token)
           .expect(200, done)
