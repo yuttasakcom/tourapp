@@ -1,6 +1,6 @@
 import express from 'express'
 import passport from 'passport'
-import * as c from '../controllers/agent_controller'
+import * as c from '../controllers/agent'
 import { hasRole } from '../middlewares'
 
 const requireSignin = passport.authenticate('local', { session: false })
@@ -12,7 +12,7 @@ router.post('/signin', requireSignin, c.signin)
 
 router.all('*', requireAuth, hasRole('agent'))
 
-router.get('/profile', c.profile)
+router.get('/profile', c.getProfile)
 router.post('/request', c.request)
 router.post('/accept', c.accept)
 router.get('/request-pendings', c.getRequestPendingsList)
