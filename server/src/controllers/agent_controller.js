@@ -1,10 +1,10 @@
-const Agent = require('../models/agent')
-const Company = require('../models/company')
-const Booking = require('../models/booking')
-const Pkg = require('../models/pkg')
-const helper = require('../helpers/authentication')
-const jwt = require('jwt-simple')
-const config = require('../config')
+import jwt from 'jwt-simple'
+import Agent from '../models/agent'
+import Company from '../models/company'
+import Booking from '../models/booking'
+import Pkg from '../models/pkg'
+import helper from '../helpers/authentication'
+import config from '../config'
 
 const tokenForAgent = agent => {
   const timestamp = new Date().getTime()
@@ -22,20 +22,21 @@ module.exports = {
     const user = req.user
     const bookingProps = req.body
 
-    Agent.count({
+    Agent
+      .count({
         _id: user._id,
         companies: bookingProps.company,
       })
       .then(exist => {
         if (!exist) {
-          let err = new Error('This company is not member')
+          const err = new Error('This company is not member')
           err.status = 401
           return next(err)
         }
 
         bookingProps.agent = user._id
 
-        Booking.create(bookingProps)
+        return Booking.create(bookingProps)
           .then(booking => {
             res.send(booking)
           })
@@ -47,55 +48,57 @@ module.exports = {
     const employeeProps = req.body
 
     if (!(employeeProps.email && employeeProps.password)) {
-      let err = new Error('Must provide email and password')
+      const err = new Error('Must provide email and password')
       err.status = 422
       return next(err)
     }
 
-    helper.checkEmployeeEmailExist('Agent', agentId, employeeProps.email)
+    return helper.checkEmployeeEmailExist('Agent', agentId, employeeProps.email)
       .then(exist => {
         if (exist) {
-          let err = new Error('Email is in use')
+          const err = new Error('Email is in use')
           err.status = 422
           return next(err)
-        } else {
-          helper.hashPassword(employeeProps.password)
-            .then(hash => {
-              employeeProps.password = hash
-              Agent.update({ _id: agentId }, {
-                  $push: { employees: employeeProps }
-                })
-                .then(() => {
-                  res.status(201).send({ message: 'Create employee completed' })
-                })
-                .catch(next)
-            })
-            .catch(next)
         }
+        return helper.hashPassword(employeeProps.password)
+          .then(hash => {
+            employeeProps.password = hash
+            Agent
+              .update({ _id: agentId }, {
+                $push: { employees: employeeProps },
+              })
+              .then(() => {
+                res.status(201).send({ message: 'Create employee completed' })
+              })
+              .catch(next)
+          })
+          .catch(next)
       })
   },
 
   getPkgsList(req, res, next) {
     const agentId = req.user._id
 
-    Agent.findById(agentId, {
+    Agent
+      .findById(agentId, {
         _id: 0,
-        companies: 1
+        companies: 1,
       })
       .then(agent => {
-        Pkg.find({
+        Pkg
+          .find({
             company: {
-              $in: agent.companies
-            }
+              $in: agent.companies,
+            },
           }, {
             specialPrices: {
               $elemMatch: {
-                agent: agentId
-              }
+                agent: agentId,
+              },
             },
             name: 1,
             priceAdult: 1,
-            priceChild: 1
+            priceChild: 1,
           })
           .then(pkgs => {
             const resolvedPricePkgs = pkgs.map(pkg => {
@@ -114,9 +117,10 @@ module.exports = {
   getCompaniesList(req, res, next) {
     const agentId = req.user._id
 
-    Agent.findById(agentId, {
+    Agent
+      .findById(agentId, {
         _id: 0,
-        companies: 1
+        companies: 1,
       })
       .populate('companies')
       .then(agent => {
@@ -130,27 +134,28 @@ module.exports = {
     const agent = new Agent(agentProps)
     const validationErr = agent.validateSync()
     if (validationErr) {
-      let err = new Error('Must provide email and password')
+      const err = new Error('Must provide email and password')
       err.status = 422
       return next(err)
     }
 
-    helper.checkEmailExist('Agent', agent.email)
+    return helper.checkEmailExist('Agent', agent.email)
       .then(exist => {
         if (exist) {
-          let err = new Error('Email is in use')
+          const err = new Error('Email is in use')
           err.status = 422
           return next(err)
-        } else {
-          helper.hashPassword(agent.password)
-            .then(hash => {
-              agent.password = hash
-              agent.save()
-                .then(agent => res.status(201).send({ token: tokenForAgent(agent) }))
-                .catch(next)
-            })
-            .catch(next)
         }
+        return helper.hashPassword(agent.password)
+          .then(hash => {
+            agent.password = hash
+            agent.save()
+              .then(resAgent =>
+                res.status(201).send({ token: tokenForAgent(resAgent) })
+              )
+              .catch(next)
+          })
+          .catch(next)
       })
       .catch(next)
   },
@@ -167,29 +172,31 @@ module.exports = {
     const companyId = req.body._id
     const agentId = req.user._id
 
-    Agent.count({ _id: agentId, companies: companyId })
+    Agent
+      .count({ _id: agentId, companies: companyId })
       .then(exist => {
         if (exist) {
-          let err = new Error('This company is already member')
+          const err = new Error('This company is already member')
           err.status = 422
           return next(err)
         }
 
-        Agent.update({ _id: agentId }, {
-            $addToSet: { requestPendings: companyId }
+        return Agent
+          .update({ _id: agentId }, {
+            $addToSet: { requestPendings: companyId },
           })
           .then(({ nModified }) => {
             if (nModified) {
-              Company.update({ _id: companyId }, {
-                  $addToSet: { acceptPendings: agentId }
+              return Company
+                .update({ _id: companyId }, {
+                  $addToSet: { acceptPendings: agentId },
                 })
                 .then(() => res.send({ message: 'Send request completed' }))
                 .catch(next)
-            } else {
-              let err = new Error('This company is already request')
-              err.status = 422
-              return next(err)
             }
+            const err = new Error('This company is already request')
+            err.status = 422
+            return next(err)
           })
           .catch(next)
       })
@@ -200,29 +207,34 @@ module.exports = {
     const companyId = req.body._id
     const agentId = req.user._id
 
-    Agent.update({ _id: agentId }, {
-        $pull: { acceptPendings: companyId }
+    Agent
+      .update({ _id: agentId }, {
+        $pull: { acceptPendings: companyId },
       })
       .then(({ nModified }) => {
         if (nModified) {
-          Company.update({ _id: companyId }, {
-              $pull: { requestPendings: agentId }
+          Company
+            .update({ _id: companyId }, {
+              $pull: { requestPendings: agentId },
             })
             .then(() => {
-              Promise.all([
-                  Company.update({ _id: companyId }, {
-                    $addToSet: { agents: agentId }
-                  }),
-                  Agent.update({ _id: agentId }, {
-                    $addToSet: { companies: companyId }
-                  })
-                ])
+              const addAgentToCompany = Company
+                .update({ _id: companyId }, {
+                  $addToSet: { agents: agentId },
+                })
+
+              const addCompanyToAgent = Agent
+                .update({ _id: agentId }, {
+                  $addToSet: { companies: companyId },
+                })
+
+              Promise.all([addAgentToCompany, addCompanyToAgent])
                 .then(() => {
                   res.send({ message: 'Accept request completed' })
                 })
             })
         } else {
-          let err = new Error('Request not found')
+          const err = new Error('Request not found')
           err.status = 422
           next(err)
         }
@@ -232,7 +244,8 @@ module.exports = {
   getRequestPendingsList(req, res, next) {
     const agentId = req.user._id
 
-    Agent.findById(agentId, { _id: 0, requestPendings: 1 })
+    Agent
+      .findById(agentId, { _id: 0, requestPendings: 1 })
       .then(requestPendings => {
         res.send(requestPendings)
       })
@@ -241,7 +254,8 @@ module.exports = {
   getAcceptPendingsList(req, res, next) {
     const agentId = req.user._id
 
-    Agent.findById(agentId, { _id: 0, acceptPendings: 1 })
+    Agent
+      .findById(agentId, { _id: 0, acceptPendings: 1 })
       .then(acceptPendings => {
         res.send(acceptPendings)
       })
@@ -253,11 +267,11 @@ module.exports = {
 
     Promise.all([
       Agent.update({ _id: agentId }, {
-        $pull: { requestPendings: companyId }
+        $pull: { requestPendings: companyId },
       }),
       Company.update({ _id: companyId }, {
-        $pull: { acceptPendings: agentId }
-      })
+        $pull: { acceptPendings: agentId },
+      }),
     ]).then(() => {
       res.send({ message: 'Cancel request completed' })
     })
@@ -269,11 +283,11 @@ module.exports = {
 
     Promise.all([
       Agent.update({ _id: agentId }, {
-        $pull: { acceptPendings: companyId }
+        $pull: { acceptPendings: companyId },
       }),
       Company.update({ _id: companyId }, {
-        $pull: { requestPendings: agentId }
-      })
+        $pull: { requestPendings: agentId },
+      }),
     ]).then(() => {
       res.send({ message: 'Reject request completed' })
     })
@@ -285,13 +299,13 @@ module.exports = {
 
     Promise.all([
       Company.update({ _id: companyId }, {
-        $pull: { agents: agentId }
+        $pull: { agents: agentId },
       }),
       Agent.update({ _id: agentId }, {
-        $pull: { companies: companyId }
-      })
+        $pull: { companies: companyId },
+      }),
     ]).then(() => {
       res.send({ message: 'Delete relationship completed' })
     })
-  }
+  },
 }
