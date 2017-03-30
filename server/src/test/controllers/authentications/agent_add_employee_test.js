@@ -1,28 +1,29 @@
-const app = require('../../../app')
-const request = require('supertest')
-const expect = require('chai').expect
-const mongoose = require('mongoose')
+import request from 'supertest'
+import { expect } from 'chai'
+import mongoose from 'mongoose'
+import app from '../../../app'
+
 const Agent = mongoose.model('Agent')
 const { password } = require('../../../helpers/mock')
 const { comparePassword } = require('../../../helpers/authentication')
 
 describe('Agent add employee', () => {
-
-  let agent1, agent1Token
+  let agent1
+  let agent1Token
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash
+    password: password.hash,
   }
 
   const employee1Props = {
     email: 'employee1@test.com',
     password: '1234',
     name: 'name_test',
-    phoneNumber: '024283192'
+    phoneNumber: '024283192',
   }
 
-  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent', password: password.raw })
+  const agent1SigninProps = {...agent1Props, role: 'agent', password: password.raw }
 
   beforeEach(done => {
     agent1 = new Agent(agent1Props)
@@ -45,10 +46,11 @@ describe('Agent add employee', () => {
       .send(employee1Props)
       .set('authorization', agent1Token)
       .expect(201)
-      .end((err, res) => {
+      .end(err => {
         if (err) return done(err)
 
-        Agent.findById(agent1._id)
+        return Agent
+          .findById(agent1._id)
           .then(agent => {
             expect(agent.employees.length).to.equal(1)
             done()
@@ -60,11 +62,11 @@ describe('Agent add employee', () => {
   it('must provide email and password', done => {
     const employeeWithoutEmail = {
       email: undefined,
-      password: '1234'
+      password: '1234',
     }
     const employeeWithoutPassword = {
       email: 'employee1@test.com',
-      password: undefined
+      password: undefined,
     }
     request(app)
       .post('/agents/employees')
@@ -75,16 +77,17 @@ describe('Agent add employee', () => {
         if (err) return done(err)
 
         expect(res.body.error).to.equal('Must provide email and password')
-        request(app)
+        return request(app)
           .post('/agents/employees')
           .send(employeeWithoutPassword)
           .set('authorization', agent1Token)
           .expect(422)
-          .end((err, res) => {
-            if (err) return done(err)
+          .end((resErr, res1) => {
+            if (resErr) return done(resErr)
 
-            expect(res.body.error).to.equal('Must provide email and password')
-            Agent.findById(agent1._id)
+            expect(res1.body.error).to.equal('Must provide email and password')
+            return Agent
+              .findById(agent1._id)
               .then(agent => {
                 expect(agent.employees.length).to.equal(0)
                 done()
@@ -100,19 +103,20 @@ describe('Agent add employee', () => {
       .send(employee1Props)
       .set('authorization', agent1Token)
       .expect(201)
-      .end((err, res) => {
+      .end(err => {
         if (err) return done(err)
 
-        request(app)
+        return request(app)
           .post('/agents/employees')
           .send(employee1Props)
           .set('authorization', agent1Token)
           .expect(422)
-          .end((err, res) => {
-            if (err) return done(err)
+          .end((resErr, res) => {
+            if (resErr) return done(resErr)
 
             expect(res.body.error).to.equal('Email is in use')
-            Agent.findById(agent1._id)
+            return Agent
+              .findById(agent1._id)
               .then(agent => {
                 expect(agent.employees.length).to.equal(1)
                 done()
@@ -128,10 +132,11 @@ describe('Agent add employee', () => {
       .send(employee1Props)
       .set('authorization', agent1Token)
       .expect(201)
-      .end((err, res) => {
+      .end(err => {
         if (err) return done(err)
 
-        Agent.findOne({ email: agent1Props.email })
+        return Agent
+          .findOne({ email: agent1Props.email })
           .then(agent => {
             expect(agent.employees[0].password).to.not.equal(employee1Props.password)
             done()
@@ -145,21 +150,21 @@ describe('Agent add employee', () => {
       .post('/agents/employees')
       .send(employee1Props)
       .set('authorization', agent1Token)
-      .end((err, res) => {
+      .end(err => {
         if (err) return done(err)
 
-        Agent.findById(agent1._id)
+        return Agent
+          .findById(agent1._id)
           .then(agent => {
             const employee = agent.employees[0]
 
             comparePassword('1234', employee.password)
               .then(isMatch => {
-                expect(isMatch).to.be.true
+                expect(isMatch).to.equal(true)
                 done()
               })
               .catch(done)
           })
       })
   })
-
 })
