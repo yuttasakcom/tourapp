@@ -3,7 +3,11 @@ import Agent from '../models/agent'
 import Company from '../models/company'
 import Booking from '../models/booking'
 import Pkg from '../models/pkg'
-import helper from '../helpers/authentication'
+import {
+  checkEmailExist,
+  hashPassword,
+  checkEmployeeEmailExist
+} from '../helpers/authentication'
 import config from '../config'
 
 const tokenForAgent = agent => {
@@ -53,14 +57,14 @@ module.exports = {
       return next(err)
     }
 
-    return helper.checkEmployeeEmailExist('Agent', agentId, employeeProps.email)
+    return checkEmployeeEmailExist('Agent', agentId, employeeProps.email)
       .then(exist => {
         if (exist) {
           const err = new Error('Email is in use')
           err.status = 422
           return next(err)
         }
-        return helper.hashPassword(employeeProps.password)
+        return hashPassword(employeeProps.password)
           .then(hash => {
             employeeProps.password = hash
             Agent
@@ -139,14 +143,14 @@ module.exports = {
       return next(err)
     }
 
-    return helper.checkEmailExist('Agent', agent.email)
+    return checkEmailExist('Agent', agent.email)
       .then(exist => {
         if (exist) {
           const err = new Error('Email is in use')
           err.status = 422
           return next(err)
         }
-        return helper.hashPassword(agent.password)
+        return hashPassword(agent.password)
           .then(hash => {
             agent.password = hash
             agent.save()
