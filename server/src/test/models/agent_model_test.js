@@ -1,9 +1,9 @@
-const expect = require('chai').expect
+import { expect } from 'chai'
 const mongoose = require('mongoose')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe('Agent model', () => {
+describe.only('Agent model', () => {
 
   describe('relationship', () => {
 

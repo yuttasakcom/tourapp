@@ -1,12 +1,10 @@
 import request from 'supertest'
-import chai from 'chai'
+import { expect } from 'chai'
 import mongoose from 'mongoose'
 import app from '../../app'
 
 const Company = mongoose.model('Company')
 const Pkg = mongoose.model('Pkg')
-
-const expect = chai.expect
 
 describe('Company CRUD pkg', () => {
   let company1

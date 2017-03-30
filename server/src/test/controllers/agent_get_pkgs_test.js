@@ -1,5 +1,5 @@
 import request from 'supertest'
-import chai from 'chai'
+import { expect } from 'chai'
 import { parallel } from 'async'
 import mongoose from 'mongoose'
 import app from '../../app'
@@ -8,8 +8,6 @@ import { password } from '../../helpers/mock'
 const Company = mongoose.model('Company')
 const Agent = mongoose.model('Agent')
 const Pkg = mongoose.model('Pkg')
-
-const expect = chai.expect
 
 describe('Agent get pkgs', () => {
   let company1
