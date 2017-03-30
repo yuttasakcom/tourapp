@@ -1,34 +1,38 @@
-const app = require('../../../app')
-const request = require('supertest')
-const expect = require('chai').expect
-const mongoose = require('mongoose')
+import request from 'supertest'
+import chai from 'chai'
+import dirtyChai from 'dirty-chai'
+import mongoose from 'mongoose'
+import app from '../../../app'
+import { comparePassword } from '../../../helpers/authentication'
+
+chai.use(dirtyChai)
+
 const Company = mongoose.model('Company')
-const { comparePassword } = require('../../../helpers/authentication')
+const expect = chai.expect
 
 describe('company authentication', () => {
-
   const companyProps = {
     email: 'company1@test.com',
-    password: '1234'
+    password: '1234',
   }
 
-  const companySigninProps = Object.assign({}, companyProps, { role: 'company' })
+  const companySigninProps = {...companyProps, role: 'company' }
 
   describe('signup', () => {
-
     it('create a new company', done => {
       Company.count().then(count => {
         request(app)
           .post('/companies/signup')
           .send(companyProps)
           .expect(201)
-          .end((err, res) => {
+          .end(err => {
             if (err) return done(err)
 
-            Company.count().then(newCount => {
-              expect(count + 1).to.equal(newCount)
-              done()
-            })
+            return Company
+              .count().then(newCount => {
+                expect(count + 1).to.equal(newCount)
+                done()
+              })
           })
       })
     })
@@ -36,11 +40,11 @@ describe('company authentication', () => {
     it('must provide email and password', done => {
       const companyWithoutEmail = {
         email: undefined,
-        password: '1234'
+        password: '1234',
       }
       const companyWithoutPassword = {
         email: 'company1@test.com',
-        password: undefined
+        password: undefined,
       }
       request(app)
         .post('/companies/signup')
@@ -50,15 +54,15 @@ describe('company authentication', () => {
           if (err) return done(err)
 
           expect(res.body.error).to.equal('Must provide email and password')
-          request(app)
+          return request(app)
             .post('/companies/signup')
             .send(companyWithoutPassword)
             .expect(422)
-            .end((err, res) => {
-              if (err) return done(err)
+            .end((resErr, res1) => {
+              if (resErr) return done(resErr)
 
-              expect(res.body.error).to.equal('Must provide email and password')
-              done()
+              expect(res1.body.error).to.equal('Must provide email and password')
+              return done()
             })
         })
     })
@@ -75,7 +79,7 @@ describe('company authentication', () => {
             if (err) return done(err)
 
             expect(res.body.error).to.equal('Email is in use')
-            done()
+            return done()
           })
       })
     })
@@ -85,10 +89,11 @@ describe('company authentication', () => {
         .post('/companies/signup')
         .send(companyProps)
         .expect(201)
-        .end((err, res) => {
+        .end(err => {
           if (err) return done(err)
 
-          Company.findOne({ email: companyProps.email })
+          return Company
+            .findOne({ email: companyProps.email })
             .then(company => {
               expect(company.password).to.not.equal(companyProps.password)
               done()
@@ -105,24 +110,24 @@ describe('company authentication', () => {
         .end((err, res) => {
           if (err) return done(err)
 
-          expect(res.body.token).to.be.exist
-          done()
+          expect(res.body.token).to.be.exist()
+          return done()
         })
     })
   })
 
   describe('signin', () => {
-
     let testCompany
 
     beforeEach(done => {
       request(app)
         .post('/companies/signup')
         .send(companyProps)
-        .end((err, res) => {
+        .end(err => {
           if (err) return done(err)
 
-          Company.findOne({ email: companyProps.email })
+          return Company
+            .findOne({ email: companyProps.email })
             .then(company => {
               testCompany = company
               done()
@@ -133,7 +138,7 @@ describe('company authentication', () => {
     it('comparePassword must be valid', done => {
       comparePassword(companyProps.password, testCompany.password)
         .then(isMatch => {
-          expect(isMatch).to.be.true
+          expect(isMatch).to.equal(true)
           done()
         })
         .catch(done)
@@ -142,7 +147,7 @@ describe('company authentication', () => {
     it('comparePassword must be invalid', done => {
       comparePassword('4321', testCompany.password)
         .then(isMatch => {
-          expect(isMatch).to.be.false
+          expect(isMatch).to.equal(false)
           done()
         })
         .catch(done)
@@ -156,8 +161,8 @@ describe('company authentication', () => {
         .end((err, res) => {
           if (err) return done(err)
 
-          expect(res.body.token).to.be.exist
-          done()
+          expect(res.body.token).to.be.exist()
+          return done()
         })
     })
 
@@ -169,8 +174,7 @@ describe('company authentication', () => {
     })
   })
 
-  describe('auth with jwt', done => {
-
+  describe('auth with jwt', () => {
     it('signup token can get secret route', done => {
       request(app)
         .post('/companies/signup')
@@ -179,7 +183,7 @@ describe('company authentication', () => {
           if (err) return done(err)
 
           const token = res.body.token
-          request(app)
+          return request(app)
             .get('/companies/profile')
             .set('authorization', token)
             .expect(200, done)
@@ -190,17 +194,17 @@ describe('company authentication', () => {
       request(app)
         .post('/companies/signup')
         .send(companyProps)
-        .end((err, res) => {
+        .end(err => {
           if (err) return done(err)
 
-          request(app)
+          return request(app)
             .post('/companies/signin')
             .send(companySigninProps)
-            .end((err, res) => {
-              if (err) return done(err)
+            .end((err1, res) => {
+              if (err1) return done(err1)
 
               const token = res.body.token
-              request(app)
+              return request(app)
                 .get('/companies/profile')
                 .set('authorization', token)
                 .expect(200, done)
@@ -219,7 +223,7 @@ describe('company authentication', () => {
     it('agent token can not get secret route', done => {
       const agentProps = {
         email: 'agent1@test.com',
-        password: '1234'
+        password: '1234',
       }
 
       request(app)
@@ -230,12 +234,11 @@ describe('company authentication', () => {
           if (err) return done(err)
 
           const agentToken = res.body.token
-          request(app)
+          return request(app)
             .get('/companies/profile')
             .set('authorization', agentToken)
             .expect(401, done)
         })
     })
-
   })
 })

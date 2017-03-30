@@ -82,8 +82,8 @@ describe('Agent add employee', () => {
           .send(employeeWithoutPassword)
           .set('authorization', agent1Token)
           .expect(422)
-          .end((resErr, res1) => {
-            if (resErr) return done(resErr)
+          .end((err1, res1) => {
+            if (err1) return done(err1)
 
             expect(res1.body.error).to.equal('Must provide email and password')
             return Agent
@@ -111,8 +111,8 @@ describe('Agent add employee', () => {
           .send(employee1Props)
           .set('authorization', agent1Token)
           .expect(422)
-          .end((resErr, res) => {
-            if (resErr) return done(resErr)
+          .end((err1, res) => {
+            if (err1) return done(err1)
 
             expect(res.body.error).to.equal('Email is in use')
             return Agent

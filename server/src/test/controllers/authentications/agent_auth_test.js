@@ -58,8 +58,8 @@ describe('agent authentication', () => {
             .post('/agents/signup')
             .send(agentWithoutPassword)
             .expect(422)
-            .end((resErr, res1) => {
-              if (resErr) return done(resErr)
+            .end((err1, res1) => {
+              if (err1) return done(err1)
 
               expect(res1.body.error).to.equal('Must provide email and password')
               return done()
@@ -200,8 +200,8 @@ describe('agent authentication', () => {
           return request(app)
             .post('/agents/signin')
             .send(agentSigninProps)
-            .end((resErr, res) => {
-              if (resErr) return done(resErr)
+            .end((err1, res) => {
+              if (err1) return done(err1)
 
               const token = res.body.token
               return request(app)
