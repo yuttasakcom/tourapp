@@ -4,27 +4,29 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test nodemon --exec eslint src/ && mocha --require babel-register --recursive src/test",
-    "start": "cross-env NODE_ENV=production nodemon index.js"
+    "test": "cross-env NODE_ENV=test nodemon --exec mocha --require babel-register --recursive src/test",
+    "start": "cross-env NODE_ENV=production nodemon index.js",
+    "eslint": "nodemon --exec eslint src/test/controllers/authentications"
   },
   "author": "Paiboon Auengkongkatong",
   "license": "ISC",
   "dependencies": {
     "async": "^2.1.5",
     "babel-core": "^6.24.0",
+    "babel-register": "^6.24.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.16.1",
+    "chai": "^3.5.0",
     "cors": "^2.8.1",
+    "dirty-chai": "^1.2.2",
     "express": "^4.14.1",
     "jwt-simple": "^0.5.1",
     "mongoose": "^4.8.2",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
-    "babel-register": "^6.24.0",
     "passport-jwt": "^2.2.1",
     "passport-local-roles": "^1.0.1",
     "supertest": "^3.0.0",
-    "chai": "^3.5.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {
