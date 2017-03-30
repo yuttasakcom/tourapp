@@ -5,6 +5,7 @@
     "mocha"
   ],
   "rules": {
+    "object-curly-spacing": 0,
     "mocha/no-exclusive-tests": "error",
     "no-param-reassign": [2, { "props": false }],
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
