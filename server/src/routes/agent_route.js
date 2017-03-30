@@ -1,6 +1,6 @@
 import express from 'express'
 import passport from 'passport'
-import c from '../controllers/agent_controller'
+import * as c from '../controllers/agent_controller'
 import { hasRole } from '../middlewares'
 
 const requireSignin = passport.authenticate('local', { session: false })
