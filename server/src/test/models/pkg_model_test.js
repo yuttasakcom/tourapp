@@ -1,11 +1,10 @@
-const expect = require('chai').expect
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
+import { expect } from 'chai'
+import { objectId } from '../../helpers/mock'
+
 const Pkg = mongoose.model('Pkg')
-const { objectId } = require('../../helpers/mock')
-const { status } = require('../../helpers/booking')
 
 describe('Pkg model', () => {
-
   it('add pkg', done => {
     const pkg1 = new Pkg({
       company: objectId,
@@ -16,17 +15,15 @@ describe('Pkg model', () => {
       specialPrices: [{
         agent: objectId,
         priceAdult: 2500,
-        priceChild: 2000
-      }]
+        priceChild: 2000,
+      }],
     })
 
     pkg1.save()
-      .then(pkg => {
-
-        expect(pkg1.isNew).to.be.false
+      .then(() => {
+        expect(pkg1.isNew).to.equal(false)
         done()
       })
       .catch(done)
   })
-
 })

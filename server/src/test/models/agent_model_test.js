@@ -1,34 +1,36 @@
-const expect = require('chai').expect
-const mongoose = require('mongoose')
+import { expect } from 'chai'
+import mongoose from 'mongoose'
+
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
 describe('Agent model', () => {
-
   describe('relationship', () => {
-
-    let agent1, company1
+    let agent1
+    let company1
 
     beforeEach(done => {
       agent1 = new Agent({
         email: 'agent1@test.com',
-        password: '1234'
+        password: '1234',
       })
       company1 = new Company({
         email: 'company1@test.com',
-        password: '1234'
+        password: '1234',
       })
 
-      Promise.all([
+      Promise
+        .all([
           agent1.save(),
-          company1.save()
+          company1.save(),
         ])
         .then(() => done())
     })
 
     it('can add company to an existing agent', done => {
-      Agent.findByIdAndUpdate(agent1._id, {
-          $push: { 'companies': company1._id }
+      Agent
+        .findByIdAndUpdate(agent1._id, {
+          $push: { companies: company1._id },
         }, { new: true })
         .then(() => {
           Agent.findById(agent1._id)
@@ -41,19 +43,22 @@ describe('Agent model', () => {
     })
 
     it('add company to an existing agent, and company can list agent too', done => {
-      const pushAgentToCompany = Company.findByIdAndUpdate(company1._id, {
-        $push: { 'agents': agent1._id }
-      }, { new: true })
+      const pushAgentToCompany = Company
+        .findByIdAndUpdate(company1._id, {
+          $push: { agents: agent1._id },
+        }, { new: true })
 
-      const pushCompanyToAgent = Agent.findByIdAndUpdate(agent1._id, {
-        $push: { 'companies': company1._id }
-      }, { new: true })
+      const pushCompanyToAgent = Agent
+        .findByIdAndUpdate(agent1._id, {
+          $push: { companies: company1._id },
+        }, { new: true })
 
-      Promise.all([
+      Promise
+        .all([
           pushAgentToCompany,
-          pushCompanyToAgent
+          pushCompanyToAgent,
         ])
-        .then(result => {
+        .then(() => {
           Company.findById(company1._id)
             .populate('agents')
             .then(company => {
@@ -64,8 +69,9 @@ describe('Agent model', () => {
     })
 
     it('add company id to requestPendings', done => {
-      Agent.findByIdAndUpdate(agent1._id, {
-          $addToSet: { 'requestPendings': company1._id }
+      Agent
+        .findByIdAndUpdate(agent1._id, {
+          $addToSet: { requestPendings: company1._id },
         }, { new: true })
         .then(agent => {
           expect(agent.requestPendings.length).to.be.equal(1)
@@ -75,8 +81,9 @@ describe('Agent model', () => {
     })
 
     it('add company id to acceptPendings', done => {
-      Agent.findByIdAndUpdate(agent1._id, {
-          $addToSet: { 'acceptPendings': company1._id }
+      Agent
+        .findByIdAndUpdate(agent1._id, {
+          $addToSet: { acceptPendings: company1._id },
         }, { new: true })
         .then(agent => {
           expect(agent.acceptPendings.length).to.be.equal(1)
@@ -84,14 +91,13 @@ describe('Agent model', () => {
         })
         .catch(done)
     })
-
   })
 
   it('add employees to an existing agent', done => {
     const agent1 = new Agent({
       email: 'agent1@test.com',
       password: '1234',
-      employees: []
+      employees: [],
     })
 
     agent1.save()
@@ -101,7 +107,7 @@ describe('Agent model', () => {
           email: 'employee1@test.com',
           password: '1234',
           name: 'name_test',
-          phoneNumber: '024283192'
+          phoneNumber: '024283192',
         })
         return agent.save()
       })
@@ -112,5 +118,4 @@ describe('Agent model', () => {
       })
       .catch(done)
   })
-
 })

@@ -7,23 +7,25 @@ const Company = mongoose.model('Company')
 const { password } = require('../../../helpers/mock')
 
 describe('Agent request', () => {
-
-  let agent1, company1, company2, agent1Token
+  let agent1,
+    company1,
+    company2,
+    agent1Token
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash
+    password: password.hash,
   }
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash
+    password: password.hash,
   }
 
 
   const company2Props = {
     email: 'company2@test.com',
-    password: password.hash
+    password: password.hash,
   }
 
   const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent', password: password.raw })
@@ -35,10 +37,10 @@ describe('Agent request', () => {
     company2 = new Company(company2Props)
 
     Promise.all([
-        agent1.save(),
-        company1.save(),
-        company2.save()
-      ])
+      agent1.save(),
+      company1.save(),
+      company2.save(),
+    ])
       .then(() => {
         request(app)
           .post('/agents/signin')
@@ -62,7 +64,6 @@ describe('Agent request', () => {
 
         Agent.findById(agent1._id)
           .then(agent => {
-
             expect(agent.requestPendings.length).to.equal(1)
             expect(agent.requestPendings[0].toString()).to.equal(company1._id.toString())
             done()
@@ -88,9 +89,9 @@ describe('Agent request', () => {
             if (err) return done(err)
 
             Promise.all([
-                Agent.findById(agent1._id),
-                Company.findById(company1._id)
-              ])
+              Agent.findById(agent1._id),
+              Company.findById(company1._id),
+            ])
               .then(results => {
                 expect(results[0].requestPendings.length).to.equal(0)
                 expect(results[1].acceptPendings.length).to.equal(0)
@@ -124,9 +125,9 @@ describe('Agent request', () => {
                 if (err) return done(err)
 
                 Promise.all([
-                    Agent.findById(agent1._id),
-                    Company.findById(company1._id)
-                  ])
+                  Agent.findById(agent1._id),
+                  Company.findById(company1._id),
+                ])
                   .then(results => {
                     expect(results[0].acceptPendings.length).to.equal(0)
                     expect(results[1].requestPendings.length).to.equal(0)
@@ -149,7 +150,6 @@ describe('Agent request', () => {
 
         Company.findById(company1._id)
           .then(company => {
-
             expect(company.acceptPendings.length).to.equal(1)
             expect(company.acceptPendings[0].toString()).to.equal(agent1._id.toString())
             done()
@@ -176,9 +176,9 @@ describe('Agent request', () => {
             if (err) return done(err)
 
             Promise.all([
-                Agent.findById(agent1._id),
-                Company.findById(company1._id)
-              ])
+              Agent.findById(agent1._id),
+              Company.findById(company1._id),
+            ])
               .then(result => {
                 expect(result[0].requestPendings.length).to.equal(1)
                 expect(result[1].acceptPendings.length).to.equal(1)
@@ -207,10 +207,10 @@ describe('Agent request', () => {
             if (err) return done(err)
 
             Promise.all([
-                Agent.findById(agent1._id),
-                Company.findById(company1._id),
-                Company.findById(company2._id)
-              ])
+              Agent.findById(agent1._id),
+              Company.findById(company1._id),
+              Company.findById(company2._id),
+            ])
               .then(result => {
                 expect(result[0].requestPendings.length).to.equal(2)
                 expect(result[1].acceptPendings.length).to.equal(1)
