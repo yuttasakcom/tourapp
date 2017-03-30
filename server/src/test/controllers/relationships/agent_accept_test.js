@@ -1,28 +1,33 @@
-const app = require('../../../app')
-const request = require('supertest')
-const expect = require('chai').expect
-const parallel = require('async/parallel')
-const mongoose = require('mongoose')
+import request from 'supertest'
+import chai from 'chai'
+import { parallel } from 'async'
+import mongoose from 'mongoose'
+import app from '../../../app'
+import { password } from '../../../helpers/mock'
+
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
-const { password } = require('../../../helpers/mock')
+
+const expect = chai.expect
 
 describe('Agent accept', () => {
-
-  let company1, agent1, company1Token, agent1Token
+  let company1
+  let agent1
+  let company1Token
+  let agent1Token
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash
+    password: password.hash,
   }
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash
+    password: password.hash,
   }
 
-  const company1SigninProps = Object.assign({}, company1Props, { role: 'company', password: password.raw })
-  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent', password: password.raw })
+  const company1SigninProps = {...company1Props, role: 'company', password: password.raw }
+  const agent1SigninProps = {...agent1Props, role: 'agent', password: password.raw }
 
   beforeEach(done => {
     company1 = new Company(company1Props)
