@@ -7,22 +7,22 @@ const Company = mongoose.model('Company')
 const { password } = require('../../../helpers/mock')
 
 describe('Company pendings list', () => {
-
-  let company1, company1Token
+  let company1,
+    company1Token
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash
+    password: password.hash,
   }
 
   const agent1Stub = new Agent({
     email: 'agent1stub@test.com',
-    password: password.hash
+    password: password.hash,
   })
 
   const agent2Stub = new Agent({
     email: 'agent2stub@test.com',
-    password: password.hash
+    password: password.hash,
   })
 
   const company1SigninProps = Object.assign({}, company1Props, { role: 'company', password: password.raw })

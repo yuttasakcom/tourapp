@@ -7,22 +7,24 @@ const Company = mongoose.model('Company')
 const { password } = require('../../../helpers/mock')
 
 describe('Company get agents list', () => {
-
-  let company1, agent1, agent2, company1Token
+  let company1,
+    agent1,
+    agent2,
+    company1Token
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash
+    password: password.hash,
   }
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash
+    password: password.hash,
   }
 
   const agent2Props = {
     email: 'agent2@test.com',
-    password: password.hash
+    password: password.hash,
   }
 
   const company1SigninProps = Object.assign({}, company1Props, { role: 'company', password: password.raw })
@@ -36,10 +38,10 @@ describe('Company get agents list', () => {
     company1.agents.push(agent2)
 
     Promise.all([
-        company1.save(),
-        agent1.save(),
-        agent2.save()
-      ])
+      company1.save(),
+      agent1.save(),
+      agent2.save(),
+    ])
       .then(() => {
         request(app)
           .post('/companies/signin')

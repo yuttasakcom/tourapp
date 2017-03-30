@@ -34,28 +34,28 @@ describe('Agent accept', () => {
     agent1 = new Agent(agent1Props)
 
     Promise.all([
-        company1.save(),
-        agent1.save()
-      ])
+      company1.save(),
+      agent1.save(),
+    ])
       .then(() => {
         parallel([
-            (cb) => {
-              request(app)
+          cb => {
+            request(app)
                 .post('/companies/signin')
                 .send(company1SigninProps)
                 .end((err, res) => {
                   cb(err, res.body.token)
                 })
-            },
-            (cb) => {
-              request(app)
+          },
+          cb => {
+            request(app)
                 .post('/agents/signin')
                 .send(agent1SigninProps)
                 .end((err, res) => {
                   cb(err, res.body.token)
                 })
-            }
-          ],
+          },
+        ],
           (err, results) => {
             company1Token = results[0]
             agent1Token = results[1]
