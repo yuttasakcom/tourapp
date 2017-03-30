@@ -1,28 +1,31 @@
-const app = require('../../app')
-const request = require('supertest')
-const expect = require('chai').expect
-const mongoose = require('mongoose')
+import request from 'supertest'
+import chai from 'chai'
+import mongoose from 'mongoose'
+import app from '../../app'
+
 const Company = mongoose.model('Company')
 const Pkg = mongoose.model('Pkg')
 
-describe('Company CRUD pkg', () => {
+const expect = chai.expect
 
-  let company1, company1Token
+describe('Company CRUD pkg', () => {
+  let company1
+  let company1Token
 
   const company1Props = {
     email: 'company1@test.com',
-    password: '1234'
+    password: '1234',
   }
 
-  const company1SigninProps = Object.assign({}, company1Props, { role: 'company' })
+  const company1SigninProps = {...company1Props, role: 'company' }
 
   beforeEach(done => {
     request(app)
       .post('/companies/signup')
       .send(company1Props)
-      .end((err, res) => {
-
-        Company.findOne({ email: company1Props.email })
+      .end(() => {
+        Company
+          .findOne({ email: company1Props.email })
           .then(company => {
             company1 = company
             request(app)
@@ -30,7 +33,6 @@ describe('Company CRUD pkg', () => {
               .send(company1SigninProps)
               .end((err, res) => {
                 company1Token = res.body.token
-
                 done()
               })
           })
@@ -45,14 +47,15 @@ describe('Company CRUD pkg', () => {
           name: 'name_test',
           description: 'description_test',
           priceAdult: '3000',
-          priceChild: '2000'
+          priceChild: '2000',
         })
         .set('authorization', company1Token)
         .expect(201)
-        .end((err, res) => {
+        .end(err => {
           if (err) return done(err)
 
-          Pkg.find({ company: company1._id })
+          return Pkg
+            .find({ company: company1._id })
             .then(pkgs => {
               expect(pkgs.length).to.equal(1)
               done()
@@ -68,27 +71,28 @@ describe('Company CRUD pkg', () => {
           name: 'name_test1',
           description: 'description_test1',
           priceAdult: '3000',
-          priceChild: '2000'
+          priceChild: '2000',
         })
         .set('authorization', company1Token)
         .expect(201)
-        .end((err, res) => {
+        .end(err => {
           if (err) return done(err)
 
-          request(app)
+          return request(app)
             .post('/companies/pkgs')
             .send({
               name: 'name_test2',
               description: 'description_test2',
               priceAdult: '3000',
-              priceChild: '2000'
+              priceChild: '2000',
             })
             .set('authorization', company1Token)
             .expect(201)
-            .end((err, res) => {
+            .end(() => {
               if (err) return done(err)
 
-              Pkg.find({ company: company1._id })
+              return Pkg
+                .find({ company: company1._id })
                 .then(pkgs => {
                   expect(pkgs.length).to.equal(2)
                   done()
@@ -100,21 +104,19 @@ describe('Company CRUD pkg', () => {
   })
 
   describe('RUD pkg', () => {
-
     beforeEach(done => {
-      let pkgsStubs = new Array(10)
+      const pkgsStubs = new Array(10)
         .fill(undefined)
-        .map((val, key) => {
-          return {
-            company: company1._id,
-            name: `name_test${key}`,
-            description: `description_test${key}`,
-            priceAdult: '3000',
-            priceChild: '2000'
-          }
-        })
+        .map((val, key) => ({
+          company: company1._id,
+          name: `name_test${key}`,
+          description: `description_test${key}`,
+          priceAdult: '3000',
+          priceChild: '2000',
+        }))
 
-      Pkg.insertMany(pkgsStubs)
+      Pkg
+        .insertMany(pkgsStubs)
         .then(() => {
           done()
         })
@@ -129,7 +131,7 @@ describe('Company CRUD pkg', () => {
           if (err) return done(err)
 
           expect(res.body.length).to.equal(10)
-          done()
+          return done()
         })
     })
 
@@ -145,7 +147,7 @@ describe('Company CRUD pkg', () => {
               if (err) return done(err)
 
               expect(res.body.name).to.equal('name_test0')
-              done()
+              return done()
             })
         })
     })
@@ -158,10 +160,11 @@ describe('Company CRUD pkg', () => {
             .delete(`/companies/pkgs/${pkgId}`)
             .set('authorization', company1Token)
             .expect(200)
-            .end((err, res) => {
+            .end(err => {
               if (err) return done(err)
 
-              Pkg.count({ _id: pkgId })
+              return Pkg
+                .count({ _id: pkgId })
                 .then(count => {
                   expect(count).to.equal(0)
                   done()
@@ -181,7 +184,7 @@ describe('Company CRUD pkg', () => {
               name: 'updated_name',
               description: 'updated_description',
               priceAdult: 4000,
-              priceChild: 3000
+              priceChild: 3000,
             })
             .expect(200)
             .end((err, res) => {
@@ -194,12 +197,13 @@ describe('Company CRUD pkg', () => {
               expect(updatedPkg.priceAdult).to.equal(4000)
               expect(updatedPkg.priceChild).to.equal(3000)
 
-              Pkg.findById(pkgId)
-                .then(pkg => {
-                  expect(pkg.name).to.equal('updated_name')
-                  expect(pkg.description).to.equal('updated_description')
-                  expect(pkg.priceAdult).to.equal(4000)
-                  expect(pkg.priceChild).to.equal(3000)
+              return Pkg
+                .findById(pkgId)
+                .then(updatedResPkg => {
+                  expect(updatedResPkg.name).to.equal('updated_name')
+                  expect(updatedResPkg.description).to.equal('updated_description')
+                  expect(updatedResPkg.priceAdult).to.equal(4000)
+                  expect(updatedResPkg.priceChild).to.equal(3000)
                   done()
                 })
             })
