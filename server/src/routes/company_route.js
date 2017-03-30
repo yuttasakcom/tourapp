@@ -1,6 +1,6 @@
 import express from 'express'
 import passport from 'passport'
-import * as c from '../controllers/company_controller'
+import * as c from '../controllers/company'
 import { hasRole } from '../middlewares'
 
 const requireSignin = passport.authenticate('local', { session: false })
@@ -12,7 +12,7 @@ router.post('/signin', requireSignin, c.signin)
 
 router.all('*', requireAuth, hasRole('company'))
 
-router.get('/profile', c.profile)
+router.get('/profile', c.getProfile)
 router.post('/pkgs', c.addPkg)
 router.get('/pkgs', c.getPkgsList)
 router.get('/pkgs/:id', c.getPkg)
