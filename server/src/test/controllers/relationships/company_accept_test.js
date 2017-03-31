@@ -1,17 +1,18 @@
-const app = require('../../../app')
-const request = require('supertest')
-const expect = require('chai').expect
-const parallel = require('async/parallel')
-const mongoose = require('mongoose')
+import request from 'supertest'
+import { expect } from 'chai'
+import { parallel } from 'async'
+import mongoose from 'mongoose'
+import app from '../../../app'
+import { password } from '../../../helpers/mock'
+
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
-const { password } = require('../../../helpers/mock')
 
 describe('Company accept', () => {
-  let company1,
-    agent1,
-    company1Token,
-    agent1Token
+  let company1
+  let agent1
+  let company1Token
+  let agent1Token
 
   const company1Props = {
     email: 'company1@test.com',
@@ -23,36 +24,38 @@ describe('Company accept', () => {
     password: password.hash,
   }
 
-  const company1SigninProps = Object.assign({}, company1Props, { role: 'company', password: password.raw })
-  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent', password: password.raw })
+  const company1SigninProps = {...company1Props, role: 'company', password: password.raw }
+  const agent1SigninProps = {...agent1Props, role: 'agent', password: password.raw }
 
   beforeEach(done => {
     company1 = new Company(company1Props)
     agent1 = new Agent(agent1Props)
 
-    Promise.all([
-      company1.save(),
-      agent1.save(),
-    ])
+    Promise
+      .all([
+        company1.save(),
+        agent1.save(),
+      ])
       .then(() => {
-        parallel([
-          cb => {
-            request(app)
+        parallel(
+          [
+            cb => {
+              request(app)
                 .post('/companies/signin')
                 .send(company1SigninProps)
                 .end((err, res) => {
                   cb(err, res.body.token)
                 })
-          },
-          cb => {
-            request(app)
+            },
+            cb => {
+              request(app)
                 .post('/agents/signin')
                 .send(agent1SigninProps)
                 .end((err, res) => {
                   cb(err, res.body.token)
                 })
-          },
-        ],
+            },
+          ],
           (err, results) => {
             company1Token = results[0]
             agent1Token = results[1]
@@ -60,10 +63,10 @@ describe('Company accept', () => {
               .post('/agents/request')
               .send({ _id: company1._id })
               .set('authorization', agent1Token)
-              .end((err, res) => {
-                if (err) return done(err)
+              .end(err1 => {
+                if (err1) return done(err1)
 
-                done()
+                return done()
               })
           })
       })
@@ -75,10 +78,11 @@ describe('Company accept', () => {
       .send({ _id: agent1._id })
       .set('authorization', company1Token)
       .expect(200)
-      .end((err, res) => {
+      .end(err => {
         if (err) return done(err)
 
-        Company.findById(company1._id)
+        return Company
+          .findById(company1._id)
           .then(company => {
             expect(company.acceptPendings.length).to.equal(0)
             done()
@@ -93,10 +97,11 @@ describe('Company accept', () => {
       .send({ _id: agent1._id })
       .set('authorization', company1Token)
       .expect(200)
-      .end((err, res) => {
+      .end(err => {
         if (err) return done(err)
 
-        Agent.findById(agent1._id)
+        return Agent
+          .findById(agent1._id)
           .then(agent => {
             expect(agent.requestPendings.length).to.equal(0)
             done()
@@ -111,32 +116,33 @@ describe('Company accept', () => {
       .send({ _id: agent1._id })
       .set('authorization', company1Token)
       .expect(200)
-      .end((err, res) => {
+      .end(err => {
         if (err) return done(err)
 
-        request(app)
+        return request(app)
           .post('/companies/accept')
           .send({ _id: agent1._id })
           .set('authorization', company1Token)
           .expect(422)
-          .end((err, res) => {
-          	if (err) return done(err)
+          .end(err1 => {
+            if (err1) return done(err1)
 
-          	done()
+            return done()
           })
       })
   })
 
   it('completed agent must appear in company.agents', done => {
-  	request(app)
+    request(app)
       .post('/companies/accept')
       .send({ _id: agent1._id })
       .set('authorization', company1Token)
       .expect(200)
-      .end((err, res) => {
+      .end(err => {
         if (err) return done(err)
 
-        Company.findById(company1._id)
+        return Company
+          .findById(company1._id)
           .then(company => {
             expect(company.agents.length).to.equal(1)
             done()
@@ -146,15 +152,16 @@ describe('Company accept', () => {
   })
 
   it('completed company must appear in agent.companies', done => {
-  	request(app)
+    request(app)
       .post('/companies/accept')
       .send({ _id: agent1._id })
       .set('authorization', company1Token)
       .expect(200)
-      .end((err, res) => {
+      .end(err => {
         if (err) return done(err)
 
-        Agent.findById(agent1._id)
+        return Agent
+          .findById(agent1._id)
           .then(agent => {
             expect(agent.companies.length).to.equal(1)
             done()

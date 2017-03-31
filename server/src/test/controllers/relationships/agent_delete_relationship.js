@@ -1,16 +1,17 @@
-const app = require('../../../app')
-const request = require('supertest')
-const expect = require('chai').expect
-const mongoose = require('mongoose')
+import request from 'supertest'
+import { expect } from 'chai'
+import mongoose from 'mongoose'
+import app from '../../../app'
+import { password } from '../../../helpers/mock'
+
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
-const { password } = require('../../../helpers/mock')
 
 describe('Agent delete relationship', () => {
-  let agent1,
-    company1,
-    company2,
-    agent1Token
+  let agent1
+  let company1
+  let company2
+  let agent1Token
 
   const agent1Props = {
     email: 'agent1@test.com',
@@ -27,7 +28,7 @@ describe('Agent delete relationship', () => {
     password: password.hash,
   }
 
-  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent', password: password.raw })
+  const agent1SigninProps = {...agent1Props, role: 'agent', password: password.raw }
 
   beforeEach(done => {
     agent1 = new Agent(agent1Props)
@@ -39,11 +40,12 @@ describe('Agent delete relationship', () => {
     company1.agents.push(agent1)
     company1.agents.push(agent1)
 
-    Promise.all([
-      agent1.save(),
-      company1.save(),
-      company2.save(),
-    ])
+    Promise
+      .all([
+        agent1.save(),
+        company1.save(),
+        company2.save(),
+      ])
       .then(() => {
         request(app)
           .post('/agents/signin')
@@ -61,23 +63,24 @@ describe('Agent delete relationship', () => {
       .delete(`/agents/relationship/${company1._id}`)
       .set('authorization', agent1Token)
       .expect(200)
-      .end((err, res) => {
+      .end(err => {
         if (err) return done(err)
 
-        Promise.all([
-          Agent.findOne({
-            _id: agent1._id,
-            companies: company1._id,
-          }),
-          Company.findOne({
-            _id: company1._id,
-            agents: agent1._id,
-          }),
-          Agent.findOne({
-            _id: agent1._id,
-            companies: company2._id,
-          }),
-        ])
+        return Promise
+          .all([
+            Agent.findOne({
+              _id: agent1._id,
+              companies: company1._id,
+            }),
+            Company.findOne({
+              _id: company1._id,
+              agents: agent1._id,
+            }),
+            Agent.findOne({
+              _id: agent1._id,
+              companies: company2._id,
+            }),
+          ])
           .then(results => {
             expect(results[0]).to.equal(null)
             expect(results[1]).to.equal(null)
@@ -93,30 +96,31 @@ describe('Agent delete relationship', () => {
       .delete(`/agents/relationship/${company1._id}`)
       .set('authorization', agent1Token)
       .expect(200)
-      .end((err, res) => {
+      .end(err => {
         if (err) return done(err)
 
-        request(app)
+        return request(app)
           .delete(`/agents/relationship/${company2._id}`)
           .set('authorization', agent1Token)
           .expect(200)
-          .end((err, res) => {
-            if (err) return done(err)
+          .end(err1 => {
+            if (err1) return done(err1)
 
-            Promise.all([
-              Agent.findOne({
-                _id: agent1._id,
-                companies: company1._id,
-              }),
-              Company.findOne({
-                _id: company1._id,
-                agents: agent1._id,
-              }),
-              Agent.findOne({
-                _id: agent1._id,
-                companies: company2._id,
-              }),
-            ])
+            return Promise
+              .all([
+                Agent.findOne({
+                  _id: agent1._id,
+                  companies: company1._id,
+                }),
+                Company.findOne({
+                  _id: company1._id,
+                  agents: agent1._id,
+                }),
+                Agent.findOne({
+                  _id: agent1._id,
+                  companies: company2._id,
+                }),
+              ])
               .then(results => {
                 expect(results[0]).to.equal(null)
                 expect(results[1]).to.equal(null)

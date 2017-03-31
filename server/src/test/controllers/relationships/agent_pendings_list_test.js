@@ -1,14 +1,15 @@
-const app = require('../../../app')
-const request = require('supertest')
-const expect = require('chai').expect
-const mongoose = require('mongoose')
+import request from 'supertest'
+import { expect } from 'chai'
+import mongoose from 'mongoose'
+import app from '../../../app'
+import { password } from '../../../helpers/mock'
+
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
-const { password } = require('../../../helpers/mock')
 
 describe('Agent pendings list', () => {
-  let agent1,
-    agent1Token
+  let agent1
+  let agent1Token
 
   const agent1Props = {
     email: 'agent1@test.com',
@@ -25,7 +26,7 @@ describe('Agent pendings list', () => {
     password: password.hash,
   })
 
-  const agent1SigninProps = Object.assign({}, agent1Props, { role: 'agent', password: password.raw })
+  const agent1SigninProps = {...agent1Props, role: 'agent', password: password.raw }
 
   beforeEach(done => {
     agent1 = new Agent(agent1Props)
@@ -43,7 +44,7 @@ describe('Agent pendings list', () => {
             if (err) return done(err)
 
             agent1Token = res.body.token
-            done()
+            return done()
           })
       })
   })
@@ -57,7 +58,7 @@ describe('Agent pendings list', () => {
         if (err) return done(err)
 
         expect(res.body.requestPendings.length).to.equal(2)
-        done()
+        return done()
       })
   })
 
@@ -70,7 +71,7 @@ describe('Agent pendings list', () => {
         if (err) return done(err)
 
         expect(res.body.acceptPendings.length).to.equal(2)
-        done()
+        return done()
       })
   })
 })

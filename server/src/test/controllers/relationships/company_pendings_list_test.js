@@ -1,14 +1,15 @@
-const app = require('../../../app')
-const request = require('supertest')
-const expect = require('chai').expect
-const mongoose = require('mongoose')
+import request from 'supertest'
+import { expect } from 'chai'
+import mongoose from 'mongoose'
+import app from '../../../app'
+import { password } from '../../../helpers/mock'
+
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
-const { password } = require('../../../helpers/mock')
 
 describe('Company pendings list', () => {
-  let company1,
-    company1Token
+  let company1
+  let company1Token
 
   const company1Props = {
     email: 'company1@test.com',
@@ -25,7 +26,7 @@ describe('Company pendings list', () => {
     password: password.hash,
   })
 
-  const company1SigninProps = Object.assign({}, company1Props, { role: 'company', password: password.raw })
+  const company1SigninProps = {...company1Props, role: 'company', password: password.raw }
 
   beforeEach(done => {
     company1 = new Company(company1Props)
@@ -42,7 +43,7 @@ describe('Company pendings list', () => {
             if (err) return done(err)
 
             company1Token = res.body.token
-          	done()
+            return done()
           })
       })
   })
@@ -56,7 +57,7 @@ describe('Company pendings list', () => {
         if (err) return done(err)
 
         expect(res.body.requestPendings.length).to.equal(2)
-        done()
+        return done()
       })
   })
 
@@ -69,7 +70,7 @@ describe('Company pendings list', () => {
         if (err) return done(err)
 
         expect(res.body.acceptPendings.length).to.equal(2)
-        done()
+        return done()
       })
   })
 })

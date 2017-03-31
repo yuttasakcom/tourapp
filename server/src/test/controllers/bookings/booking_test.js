@@ -1,6 +1,6 @@
 import request from 'supertest'
 import { expect } from 'chai'
-import { parallel } from 'async/parallel'
+import { parallel } from 'async'
 import mongoose from 'mongoose'
 import app from '../../../app'
 import { password } from '../../../helpers/mock'
