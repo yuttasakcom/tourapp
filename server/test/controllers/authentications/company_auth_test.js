@@ -2,8 +2,8 @@ import request from 'supertest'
 import chai from 'chai'
 import dirtyChai from 'dirty-chai'
 import mongoose from 'mongoose'
-import app from '../../../app'
-import { comparePassword } from '../../../helpers/authentication'
+import app from '../../../src/app'
+import { comparePassword } from '../../../src/helpers/authentication'
 
 chai.use(dirtyChai)
 

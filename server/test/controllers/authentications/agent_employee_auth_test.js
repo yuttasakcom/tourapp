@@ -2,8 +2,8 @@ import request from 'supertest'
 import chai from 'chai'
 import mongoose from 'mongoose'
 import dirtyChai from 'dirty-chai'
-import app from '../../../app'
-import { password } from '../../../helpers/mock'
+import app from '../../../src/app'
+import { password } from '../../../src/helpers/mock'
 
 chai.use(dirtyChai)
 

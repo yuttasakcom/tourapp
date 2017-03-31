@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test nodemon --exec mocha --require babel-register --recursive src/test",
+    "test": "cross-env NODE_ENV=test nodemon --exec mocha --require babel-register --recursive test/",
     "start": "cross-env NODE_ENV=production nodemon index.js",
-    "eslint": "nodemon --exec eslint src/"
+    "eslint": "nodemon --exec eslint src/ test/"
   },
   "author": "Paiboon Auengkongkatong",
   "license": "ISC",
