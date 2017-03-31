@@ -2,8 +2,8 @@ import mongoose from 'mongoose'
 import { expect } from 'chai'
 
 const Booking = mongoose.model('Booking')
-const { objectId } = require('../../helpers/mock')
-const { status } = require('../../helpers/booking')
+const { objectId } = require('../../src/helpers/mock')
+const { status } = require('../../src/helpers/booking')
 
 describe('Booking model', () => {
   it('add booking', done => {

@@ -1,11 +1,11 @@
 import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import app from '../../../app'
+import app from '../../../src/app'
+import { password } from '../../../src/helpers/mock'
+import { comparePassword } from '../../../src/helpers/authentication'
 
 const Agent = mongoose.model('Agent')
-const { password } = require('../../../helpers/mock')
-const { comparePassword } = require('../../../helpers/authentication')
 
 describe('Agent add employee', () => {
   let agent1

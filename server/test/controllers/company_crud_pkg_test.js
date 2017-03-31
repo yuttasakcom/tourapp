@@ -1,7 +1,7 @@
 import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import app from '../../app'
+import app from '../../src/app'
 
 const Company = mongoose.model('Company')
 const Pkg = mongoose.model('Pkg')
