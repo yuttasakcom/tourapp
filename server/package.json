@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test nodemon --exec mocha --require babel-register --recursive src/test",
     "start": "cross-env NODE_ENV=production nodemon index.js",
-    "eslint": "nodemon --exec eslint src/test/controllers/relationships"
+    "eslint": "nodemon --exec eslint src/"
   },
   "author": "Paiboon Auengkongkatong",
   "license": "ISC",
