@@ -1,16 +1,17 @@
-const app = require('../../../app')
-const request = require('supertest')
-const expect = require('chai').expect
-const mongoose = require('mongoose')
+import request from 'supertest'
+import { expect } from 'chai'
+import mongoose from 'mongoose'
+import app from '../../../app'
+import { password } from '../../../helpers/mock'
+
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
-const { password } = require('../../../helpers/mock')
 
 describe('Company get agents list', () => {
-  let company1,
-    agent1,
-    agent2,
-    company1Token
+  let company1
+  let agent1
+  let agent2
+  let company1Token
 
   const company1Props = {
     email: 'company1@test.com',
@@ -27,7 +28,7 @@ describe('Company get agents list', () => {
     password: password.hash,
   }
 
-  const company1SigninProps = Object.assign({}, company1Props, { role: 'company', password: password.raw })
+  const company1SigninProps = {...company1Props, role: 'company', password: password.raw }
 
   beforeEach(done => {
     company1 = new Company(company1Props)
@@ -37,11 +38,12 @@ describe('Company get agents list', () => {
     company1.agents.push(agent1)
     company1.agents.push(agent2)
 
-    Promise.all([
-      company1.save(),
-      agent1.save(),
-      agent2.save(),
-    ])
+    Promise
+      .all([
+        company1.save(),
+        agent1.save(),
+        agent2.save(),
+      ])
       .then(() => {
         request(app)
           .post('/companies/signin')
@@ -66,7 +68,7 @@ describe('Company get agents list', () => {
         expect(agents.length).to.equal(2)
         expect(agents[0].email).to.equal(agent1Props.email)
         expect(agents[1].email).to.equal(agent2Props.email)
-        done()
+        return done()
       })
   })
 })
