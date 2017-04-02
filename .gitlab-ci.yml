@@ -4,9 +4,12 @@ services:
 
 stages:
 - build
+- test
+- release
 
 variables:
   SERVER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
+  SERVER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
 
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
@@ -16,3 +19,17 @@ build-server:
   script:
     - docker build -t $SERVER_TEST_IMAGE ./server
     - docker push $SERVER_TEST_IMAGE
+
+test-server:
+  stage: test
+  script:
+    - docker run $SERVER_TEST_IMAGE yarn test
+
+release-server:
+  stage: release
+  script:
+    - docker pull $SERVER_TEST_IMAGE
+    - docker tag $SERVER_TEST_IMAGE $SERVER_RELEASE_IMAGE
+    - docker push $SERVER_RELEASE_IMAGE
+  only:
+    - master
