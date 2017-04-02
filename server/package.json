@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "deploy:test": "cross-env NODE_ENV=test mocha --timeout 120000 --require babel-register --recursive test/",
     "test": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 120000 --require babel-register --recursive test/",
     "start": "cross-env NODE_ENV=production nodemon index.js",
     "eslint": "nodemon --exec eslint src/ test/"

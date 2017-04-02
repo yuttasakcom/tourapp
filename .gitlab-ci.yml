@@ -23,7 +23,7 @@ build-server:
 test-server:
   stage: test
   script:
-    - docker run $SERVER_TEST_IMAGE yarn test
+    - docker run $SERVER_TEST_IMAGE yarn deploy:test
 
 release-server:
   stage: release
