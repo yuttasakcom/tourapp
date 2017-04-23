@@ -6,29 +6,49 @@ export default (req, res, next) => {
   const agentId = req.user._id
 
   Agent
-    .update({ _id: agentId }, {
-      $pull: { acceptPendings: companyId },
+    .update({
+      _id: agentId,
+    }, {
+      $pull: {
+        acceptPendings: companyId,
+      },
     })
-    .then(({ nModified }) => {
+    .then(({
+      nModified,
+    }) => {
       if (nModified) {
         Company
-          .update({ _id: companyId }, {
-            $pull: { requestPendings: agentId },
+          .update({
+            _id: companyId,
+          }, {
+            $pull: {
+              requestPendings: agentId,
+            },
           })
           .then(() => {
             const addAgentToCompany = Company
-              .update({ _id: companyId }, {
-                $addToSet: { agents: agentId },
+              .update({
+                _id: companyId,
+              }, {
+                $addToSet: {
+                  agents: agentId,
+                },
               })
 
             const addCompanyToAgent = Agent
-              .update({ _id: agentId }, {
-                $addToSet: { companies: companyId },
+              .update({
+                _id: agentId,
+              }, {
+                $addToSet: {
+                  companies: companyId,
+                },
               })
 
             Promise.all([addAgentToCompany, addCompanyToAgent])
               .then(() => {
-                res.send({ message: 'Accept request completed' })
+                res.send({
+                  message: 'Accept request completed',
+                })
               })
           })
       } else {
