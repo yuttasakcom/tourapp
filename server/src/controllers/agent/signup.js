@@ -27,7 +27,9 @@ export default (req, res, next) => {
           agent.password = hash
           agent.save()
             .then(resAgent =>
-              res.status(201).send({ token: generateToken(resAgent) })
+              res.status(201).send({
+                token: generateToken(resAgent),
+              })
             )
             .catch(next)
         })
