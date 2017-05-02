@@ -2,6 +2,9 @@
   "parser": "babel-eslint",
   "extends": "airbnb",
   "rules": {
+    "react/jsx-filename-extension": [1, {
+      "extensions": [".js", ".jsx"]
+    }],
     "import/no-extraneous-dependencies": 0,
     "linebreak-style": 0,
     "object-curly-spacing": 0,
@@ -20,6 +23,7 @@
       "argsIgnorePattern": "next"
     }],
     "import/prefer-default-export": "off",
+    "import/no-named-default": [0],
     "comma-dangle": ["error", {
       "arrays": "always-multiline",
       "objects": "always-multiline",
