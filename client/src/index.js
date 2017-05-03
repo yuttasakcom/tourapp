@@ -1,12 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'bulma/css/bulma.css'
-import 'font-awesome/css/font-awesome.min.css'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
 import App from './App'
-import './index.css'
+import './resources/css/index.css'
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-)
+injectTapEventPlugin()
+
+ReactDOM.render(<App />, document.getElementById('root'))

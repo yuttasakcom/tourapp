@@ -1,41 +1,34 @@
 import React from 'react'
+import { purple500 } from 'material-ui/styles/colors'
+import Paper from 'material-ui/Paper'
+import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
 
 const styles = {
-  loginWrapper: {
-    margin: '-0.75rem',
-    overflowY: 'hidden',
+  main: {
+    display: 'flex',
+    backgroundColor: purple500,
+    minHeight: '100vh',
   },
-  heroBanner: {
-    background: 'url(\'https://unsplash.it/2000/1000\')',
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundBlendMode: 'screen',
+  paper: {
+    minWidth: 300,
+    margin: 'auto',
   },
-  heroTitle: {
-    display: 'inline-block',
-    padding: '5px',
-  },
-  heroBodyContainer: {
-    backgroundColor: 'transparent',
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '0 1em 1em 1em',
   },
 }
 
 export default () => (
-  <div style={styles.loginWrapper} className="columns">
-    <div className="column is-8 is-hidden-mobile">
-      <section style={styles.heroBanner} className="hero is-fullheight is-dark">
-        <div className="hero-body">
-          <div style={styles.heroBodyContainer} className="container section">
-            <div className="has-text-right">
-              <h1 className="title is-1">Login</h1>
-              <p className="title is-3">Secure User Account Login</p>
-            </div>
-          </div>
-        </div>
-        <div className="hero-footer">
-          <p className="has-text-centered">Image Glenn Carstens-Peters via unsplash</p>
-        </div>
-      </section>
-    </div>
+  <div style={styles.main}>
+    <Paper style={styles.paper}>
+      <form style={styles.form}>
+        <TextField floatingLabelText="Email" />
+        <TextField floatingLabelText="Password" type="password" />
+        <RaisedButton type="submit" primary label="Sign in" />
+      </form>
+    </Paper>
   </div>
 )

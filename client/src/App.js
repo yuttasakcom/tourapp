@@ -1,7 +1,10 @@
 import React from 'react'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import SignIn from './components/SignIn'
 
 export default () => (
-  <SignIn />
+  <MuiThemeProvider>
+    <SignIn />
+  </MuiThemeProvider>
 )
