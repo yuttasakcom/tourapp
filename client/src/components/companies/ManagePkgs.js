@@ -39,7 +39,6 @@ class ManagePkgs extends Component {
   }
 
   render() {
-    console.log(this.props.pkgs)
     return (
       <div style={styles.content}>
         <RaisedButton
@@ -51,19 +50,26 @@ class ManagePkgs extends Component {
         <Table selectable={false}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
-              <TableHeaderColumn>ID</TableHeaderColumn>
               <TableHeaderColumn>Name</TableHeaderColumn>
-              <TableHeaderColumn>Status</TableHeaderColumn>
+              <TableHeaderColumn>Description</TableHeaderColumn>
+              <TableHeaderColumn>Price Adult</TableHeaderColumn>
+              <TableHeaderColumn>Price Child</TableHeaderColumn>
+              <TableHeaderColumn>Manage</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
-            <TableRow>
-              <TableRowColumn>1</TableRowColumn>
-              <TableRowColumn>John Smith</TableRowColumn>
-              <TableRowColumn>
-                <RaisedButton label="Edit" primary />
-              </TableRowColumn>
-            </TableRow>
+            {this.props.pkgs.map((row, index) => (
+              <TableRow key={index}>
+                <TableRowColumn>{row.name}</TableRowColumn>
+                <TableRowColumn>{row.description}</TableRowColumn>
+                <TableRowColumn>{row.priceAdult}</TableRowColumn>
+                <TableRowColumn>{row.priceChild}</TableRowColumn>
+                <TableRowColumn>
+                  <RaisedButton label="Edit" primary />
+                  <RaisedButton label="Delete" primary />
+                </TableRowColumn>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>
