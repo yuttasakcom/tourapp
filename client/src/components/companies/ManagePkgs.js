@@ -23,22 +23,15 @@ const styles = {
 export default () => (
   <div style={styles.content}>
     <RaisedButton style={styles.addButton} label="Add" primary />
-    <Table
-      selectable={false}
-    >
-      <TableHeader
-        displaySelectAll={false}
-        adjustForCheckbox={false}
-      >
+    <Table selectable={false}>
+      <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
         <TableRow>
           <TableHeaderColumn>ID</TableHeaderColumn>
           <TableHeaderColumn>Name</TableHeaderColumn>
           <TableHeaderColumn>Status</TableHeaderColumn>
         </TableRow>
       </TableHeader>
-      <TableBody
-        displayRowCheckbox={false}
-      >
+      <TableBody displayRowCheckbox={false}>
         <TableRow>
           <TableRowColumn>1</TableRowColumn>
           <TableRowColumn>John Smith</TableRowColumn>

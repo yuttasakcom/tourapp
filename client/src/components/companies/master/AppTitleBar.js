@@ -8,8 +8,5 @@ const styles = {
 }
 
 export default () => (
-  <AppBar
-    title="Title Name"
-    titleStyle={styles.appBarTitle}
-  />
+  <AppBar title="Title Name" titleStyle={styles.appBarTitle} />
 )

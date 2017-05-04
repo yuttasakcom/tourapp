@@ -3,8 +3,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import SignIn from './components/SignIn'
-import MangePackage from './components/companies/ManagePackage'
-import CompanyMaster from './components/companies/master'
+import MangePkgs from './components/companies/ManagePkgs'
+import CompaniesMaster from './components/companies/master'
 
 const styles = {
   content: {
@@ -18,9 +18,9 @@ export default () => (
     <Router>
       <div>
         <Route path="/signin" component={SignIn} />
-        <Route path="/company" component={CompanyMaster} />
+        <Route path="/companies" component={CompaniesMaster} />
         <div style={styles.content}>
-          <Route path="/company/manage-package" component={MangePackage} />
+          <Route path="/companies/manage-pkgs" component={MangePkgs} />
         </div>
       </div>
     </Router>
