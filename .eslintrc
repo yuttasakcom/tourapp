@@ -4,6 +4,7 @@
     "semi": [
       "warn",
       "never"
-    ]
+    ],
+    "import/no-unresolved": "error"
   }
 }
