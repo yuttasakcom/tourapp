@@ -24,19 +24,19 @@ export default ({ title }) =>
     />
     <MenuItem
       text="Manage Tour Package"
-      icon="assignment"
+      icon="widgets"
       title={title}
       path="/manage-tour-package"
     />
     <MenuItem
       text="Manage Agent"
-      icon="assignment"
+      icon="contact_phone"
       title={title}
       path="/manage-agent"
     />
     <MenuItem
       text="Contract Rate"
-      icon="assignment"
+      icon="attach_money"
       title={title}
       path="/contract-rate"
     />
