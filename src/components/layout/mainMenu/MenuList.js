@@ -22,4 +22,22 @@ export default ({ title }) =>
       title={title}
       path="/booking-summary"
     />
+    <MenuItem
+      text="Manage Tour Package"
+      icon="assignment"
+      title={title}
+      path="/manage-tour-package"
+    />
+    <MenuItem
+      text="Manage Agent"
+      icon="assignment"
+      title={title}
+      path="/manage-agent"
+    />
+    <MenuItem
+      text="Contract Rate"
+      icon="assignment"
+      title={title}
+      path="/contract-rate"
+    />
   </ul>

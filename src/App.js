@@ -5,6 +5,9 @@ import SignIn from './pages/signIn'
 import Dashboard from './pages/dashboard'
 import Notifications from './pages/notifications'
 import BoogkingSummary from './pages/bookingSummary'
+import ManageTourPackage from './pages/manageTourPackage'
+import ManageAgent from './pages/manageAgent'
+import ContractRate from './pages/contractRate'
 
 class App extends Component {
   render() {
@@ -15,6 +18,9 @@ class App extends Component {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/notifications" component={Notifications} />
           <Route path="/booking-summary" component={BoogkingSummary} />
+          <Route path="/manage-tour-package" component={ManageTourPackage} />
+          <Route path="/manage-agent" component={ManageAgent} />
+          <Route path="/contract-rate" component={ContractRate} />
         </div>
       </Router>
     )
