@@ -4,10 +4,7 @@ import Notification from './Notification'
 import Searchbar from './Searchbar'
 
 export default ({ title }) =>
-  <nav
-    className="navbar navbar-transparent navbar-absolute"
-    style={{ color: '#555555' }}
-  >
+  <nav className="navbar navbar-transparent navbar-absolute">
     <div className="container-fluid">
       <div className="navbar-header">
         <button type="button" className="navbar-toggle" data-toggle="collapse">
