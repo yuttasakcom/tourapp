@@ -4,13 +4,19 @@ import { connect } from 'react-redux'
 import DataTable from '../../components/dataTable'
 import * as actions from '../../actions'
 
-class TourPackageDataTable extends Component {
+class TourPkgDataTable extends Component {
   componentDidMount() {
-    this.props.fetchPackages()
+    this.props.fetchPkgs()
   }
 
   renderTableBody = () => {
-    return this.props.packages.map(row =>
+    const { pkgs } = this.props
+
+    if (!pkgs) {
+      return <tr />
+    }
+
+    return pkgs.map(row =>
       <tr key={row._id}>
         <td>{row.name}</td>
         <td>{row.description}</td>
@@ -25,27 +31,20 @@ class TourPackageDataTable extends Component {
   }
 
   render() {
-    const { packages } = this.props
-
-    if (!packages) {
-      return <div />
-    }
-
     const tableTitles = ['Name', 'Description', 'Adult Price', 'Child Price']
-
     return (
       <DataTable
         title="Packages"
         description="Manage tour packages"
         tableTitles={tableTitles}
-        renderTableBody={this.renderTableBody}       
+        renderTableBody={this.renderTableBody}
       />
     )
   }
 }
 
 const mapStateToProps = state => ({
-  packages: state.packages
+  pkgs: state.pkgs
 })
 
-export default connect(mapStateToProps, actions)(TourPackageDataTable)
+export default connect(mapStateToProps, actions)(TourPkgDataTable)

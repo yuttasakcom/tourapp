@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
 import { reducer as form } from 'redux-form'
 
-import packages from './packageReducer'
+import ui from './ui'
+import pkgs from './pkgReducer'
 
 export default combineReducers({
   form,
-  packages
+  pkgs,
+  ui
 })

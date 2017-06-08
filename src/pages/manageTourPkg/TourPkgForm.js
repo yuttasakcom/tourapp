@@ -19,7 +19,7 @@ const renderField = ({
     />
   </div>
 
-const TourPackageForm = props => {
+const TourPkgForm = props => {
   const { handleSubmit } = props
 
   return (
@@ -70,4 +70,4 @@ const TourPackageForm = props => {
   )
 }
 
-export default reduxForm({ form: 'tourPackage' })(TourPackageForm)
+export default reduxForm({ form: 'tourPkg' })(TourPkgForm)

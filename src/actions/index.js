@@ -1,1 +1,1 @@
-export * from './packageActions'
+export * from './pkgActions'

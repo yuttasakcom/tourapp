@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import Layout from '../../components/layout'
-import TourPackageDataTable from './TourPackageDataTable'
+import TourPkgDataTable from './TourPkgDataTable'
 import AddModal from './AddModal'
 import * as actions from '../../actions'
 
-class ManageTourPackage extends Component {
+class ManageTourPkg extends Component {
   state = {
     showModal: false
   }
-  
+
   closeModal = () => {
     this.setState({ showModal: false })
   }
@@ -31,7 +31,7 @@ class ManageTourPackage extends Component {
           </button>
           <div className="row">
             <div className="col-md-12">
-              <TourPackageDataTable />
+              <TourPkgDataTable />
             </div>
           </div>
         </div>
@@ -44,4 +44,4 @@ class ManageTourPackage extends Component {
   }
 }
 
-export default connect(null, actions)(ManageTourPackage)
+export default connect(null, actions)(ManageTourPkg)

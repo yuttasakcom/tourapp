@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Modal } from 'react-bootstrap'
 
-import TourPackageForm from './TourPackageForm'
+import TourPkgForm from './TourPkgForm'
 import * as actions from '../../actions'
 
 class AddModal extends Component {
@@ -16,7 +16,7 @@ class AddModal extends Component {
         <Modal.Header closeButton>
           <Modal.Title>Add Tour Package</Modal.Title>
         </Modal.Header>
-        <TourPackageForm onSubmit={this.onSubmit} closeModal={closeModal} />
+        <TourPkgForm onSubmit={this.onSubmit} closeModal={closeModal} />
       </Modal>
     )
   }

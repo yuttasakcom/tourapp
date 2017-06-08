@@ -1,8 +1,8 @@
-import { FETCH_PACKAGES_SUCCESS } from '../actions/types'
+import { FETCH_PKGS_SUCCESS } from '../actions/types'
 
 export default (state = [], action) => {
   switch (action.type) {
-    case FETCH_PACKAGES_SUCCESS:
+    case FETCH_PKGS_SUCCESS:
       return action.payload
 
     default:

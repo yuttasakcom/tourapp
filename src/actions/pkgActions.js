@@ -1,10 +1,10 @@
 import axios from './axios'
-import { FETCH_PACKAGES_SUCCESS } from './types'
+import { FETCH_PKGS_SUCCESS } from './types'
 
-export const fetchPackages = () => async dispatch => {
+export const fetchPkgs = () => async dispatch => {
   try {
     const { data } = await axios.get('/companies/pkgs')
-    dispatch({ type: FETCH_PACKAGES_SUCCESS, payload: data })
+    dispatch({ type: FETCH_PKGS_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
   }
