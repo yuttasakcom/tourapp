@@ -7,25 +7,13 @@ import AddModal from './AddModal'
 import * as actions from '../../actions'
 
 class ManageTourPkg extends Component {
-  state = {
-    showModal: false
-  }
-
-  closeModal = () => {
-    this.setState({ showModal: false })
-  }
-
-  openModal = () => {
-    this.setState({ showModal: true })
-  }
-
   render() {
     return (
       <Layout title="Manage Tour Package">
         <div className="container-fluid">
           <button
             className="btn btn-primary pull-right"
-            onClick={this.openModal}
+            onClick={this.props.openAddPkgModal}
           >
             Add
           </button>
@@ -35,10 +23,7 @@ class ManageTourPkg extends Component {
             </div>
           </div>
         </div>
-        <AddModal
-          showModal={this.state.showModal}
-          closeModal={this.closeModal}
-        />
+        <AddModal />
       </Layout>
     )
   }
