@@ -6,13 +6,35 @@ class AddModal extends Component {
     return (
       <Modal show={this.props.showModal} onHide={this.props.closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Add Tour Package</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Body</h4>
+          <form>
+            <div className="row">
+              <div className="col-md-5">
+                <div className="form-group label-floating">
+                  <label className="control-label">Company (disabled)</label>
+                  <input type="text" className="form-control" disabled />
+                </div>
+              </div>
+              <div className="col-md-3">
+                <div className="form-group label-floating">
+                  <label className="control-label">Username</label>
+                  <input type="text" className="form-control" />
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="form-group label-floating">
+                  <label className="control-label">Email address</label>
+                  <input type="email" className="form-control" />
+                </div>
+              </div>
+            </div>
+          </form>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.props.closeModal}>Close</Button>
+          <Button bsStyle="primary">Save</Button>
         </Modal.Footer>
       </Modal>
     )

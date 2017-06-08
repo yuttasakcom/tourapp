@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import Header from './Header'
+import Card from '../Card'
 
 class DataTable extends Component {
   renderTableTitle() {
@@ -18,19 +18,16 @@ class DataTable extends Component {
     const { title, description } = this.props
 
     return (
-      <div className="card">
-        <Header title={title} description={description} />
-        <div className="card-content table-responsive">
-          <table className="table">
-            <thead className="text-primary">
-              {this.renderTableTitle()}
-            </thead>
-            <tbody>
-              {this.props.renderTableBody()}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <Card title={title} description={description}>
+        <table className="table">
+          <thead className="text-primary">
+            {this.renderTableTitle()}
+          </thead>
+          <tbody>
+            {this.props.renderTableBody()}
+          </tbody>
+        </table>
+      </Card>
     )
   }
 }

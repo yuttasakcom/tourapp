@@ -38,7 +38,7 @@ class TourPackageDataTable extends Component {
         title="Packages"
         description="Manage tour packages"
         tableTitles={tableTitles}
-        renderTableBody={this.renderTableBody}       
+        renderTableBody={this.renderTableBody}
       />
     )
   }
