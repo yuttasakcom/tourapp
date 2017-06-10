@@ -7,24 +7,29 @@ import * as actions from '../../actions'
 
 class AddModal extends PureComponent {
   onSubmit = values => {
-    this.props.addPkg(values)
+    this.props.editPkg(this.props.pkg, values)
   }
 
   render() {
-    const { showModal, closeEditPkgModal } = this.props
+    const { showModal, closeEditPkgModal, pkg } = this.props
     return (
       <Modal show={showModal} onHide={closeEditPkgModal}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Tour Package</Modal.Title>
         </Modal.Header>
-        <TourPkgForm onSubmit={this.onSubmit} closeModal={closeEditPkgModal} />
+        <TourPkgForm
+          onSubmit={this.onSubmit}
+          closeModal={closeEditPkgModal}
+          initialValues={pkg}
+        />
       </Modal>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  showModal: state.pkg.showEditPkgModal
+const mapStateToProps = ({ pkg }) => ({
+  showModal: pkg.showEditPkgModal,
+  pkg: pkg.pkgs[pkg.selectedPkg]
 })
 
 export default connect(mapStateToProps, actions)(AddModal)

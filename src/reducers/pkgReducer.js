@@ -2,6 +2,7 @@ import _ from 'lodash'
 import {
   FETCH_PKGS_SUCCESS,
   ADD_PKG_SUCCESS,
+  EDIT_PKG_SUCCESS,
   OPEN_ADD_PKG_MODAL,
   CLOSE_ADD_PKG_MODAL,
   OPEN_EDIT_PKG_MODAL,
@@ -35,6 +36,18 @@ export default (state = initialState, action) => {
           show: true,
           type: 'success',
           message: 'Add package success'
+        }
+      }
+
+    case EDIT_PKG_SUCCESS:
+      return {
+        ...state,
+        pkgs: { ...state.pkgs, [action.payload._id]: action.payload },
+        showEditPkgModal: false,
+        notification: {
+          show: true,
+          type: 'success',
+          message: 'Edit package success'
         }
       }
 

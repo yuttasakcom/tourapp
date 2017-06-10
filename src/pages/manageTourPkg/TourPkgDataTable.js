@@ -47,7 +47,7 @@ class TourPkgDataTable extends PureComponent {
   render() {
     const tableTitles = ['Name', 'Description', 'Adult Price', 'Child Price']
     return (
-      <Card title="Pakcages" description="Manage tour packages">
+      <Card title="Packages" description="Manage tour packages">
         <DataTable
           tableTitles={tableTitles}
           renderTableBody={this.renderTableBody}
