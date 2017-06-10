@@ -20,10 +20,6 @@
       "argsIgnorePattern": "next"
     }],
     "import/prefer-default-export": "off",
-    "comma-dangle": ["error", {
-      "arrays": "always-multiline",
-      "objects": "always-multiline",
-      "functions": "ignore"
-    }]
+    "comma-dangle": 0
   }
 }
