@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default () => (
+export default () =>
   <footer className="footer">
     <div className="container">
       <nav className="pull-left">
@@ -34,8 +34,7 @@ export default () => (
         {' '}
         by
         {' '}
-        <a href="http://www.creative-tim.com" target="_blank">Creative Tim</a>
+        <a href="http://www.creative-tim.com">Creative Tim</a>
       </div>
     </div>
   </footer>
-)

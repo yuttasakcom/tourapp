@@ -106,7 +106,6 @@ export default () =>
           <div className="card card-profile">
             <div className="card-avatar">
               <a href="#pablo">
-                <img className="img" src="../assets/img/faces/marc.jpg" />
               </a>
             </div>
 

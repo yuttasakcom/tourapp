@@ -13,7 +13,7 @@ export default ({ title }) =>
           <span className="icon-bar" />
           <span className="icon-bar" />
         </button>
-        <a className="navbar-brand" href="#">{title}</a>
+        <a className="navbar-brand">{title}</a>
       </div>
       <div className="collapse navbar-collapse">
         <ul className="nav navbar-nav navbar-right">
