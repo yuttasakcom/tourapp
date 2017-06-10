@@ -10,13 +10,20 @@ class DeleteModal extends PureComponent {
   }
 
   render() {
-    const { showModal, closeDeletePkgModal } = this.props
+    const { showModal, closeDeletePkgModal, pkg } = this.props
+
+    if (!pkg) {
+      return <div />
+    }
+
     return (
       <Modal show={showModal} onHide={closeDeletePkgModal}>
         <Modal.Header closeButton>
           <Modal.Title>Delete Tour Package</Modal.Title>
         </Modal.Header>
-        <Modal.Body />
+        <Modal.Body>
+          <h4>Are you sure to delete package {pkg.name} ?</h4>
+        </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeDeletePkgModal}>Close</Button>
           <Button bsStyle="primary" type="submit">Save</Button>
@@ -26,8 +33,9 @@ class DeleteModal extends PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  showModal: state.pkg.showDeletePkgModal
+const mapStateToProps = ({ pkg }) => ({
+  showModal: pkg.showDeletePkgModal,
+  pkg: pkg.pkgs[pkg.selectedPkg]
 })
 
 export default connect(mapStateToProps, actions)(DeleteModal)
