@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Modal } from 'react-bootstrap'
 
 import TourPkgForm from './TourPkgForm'
 import * as actions from '../../actions'
 
-class AddModal extends Component {
+class AddModal extends PureComponent {
   onSubmit = values => {
     this.props.addPkg(values)
   }

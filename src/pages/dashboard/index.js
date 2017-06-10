@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 
 import Layout from '../../components/layout'
 
-class Dashboard extends Component {
+class Dashboard extends PureComponent {
   state = { showModal: false }
 
   close = () => {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import Layout from '../../components/layout'
@@ -6,7 +6,7 @@ import TourPkgDataTable from './TourPkgDataTable'
 import AddModal from './AddModal'
 import * as actions from '../../actions'
 
-class ManageTourPkg extends Component {
+class ManageTourPkg extends PureComponent {
   render() {
     return (
       <Layout title="Manage Tour Package">
