@@ -24,7 +24,7 @@ class AddModal extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  showModal: state.ui.pkg.showAddPkgModal
+  showModal: state.pkg.showAddPkgModal
 })
 
 export default connect(mapStateToProps, actions)(AddModal)

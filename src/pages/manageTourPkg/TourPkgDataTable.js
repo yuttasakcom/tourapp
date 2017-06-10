@@ -53,7 +53,7 @@ class TourPkgDataTable extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  pkgs: state.pkgs
+  pkgs: state.pkg.pkgs
 })
 
 export default connect(mapStateToProps, actions)(TourPkgDataTable)

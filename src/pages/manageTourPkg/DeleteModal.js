@@ -27,7 +27,7 @@ class DeleteModal extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  showModal: state.ui.pkg.showDeletePkgModal
+  showModal: state.pkg.showDeletePkgModal
 })
 
 export default connect(mapStateToProps, actions)(DeleteModal)
