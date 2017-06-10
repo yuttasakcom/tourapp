@@ -5,7 +5,7 @@ import { Modal } from 'react-bootstrap'
 import TourPkgForm from './TourPkgForm'
 import * as actions from '../../actions'
 
-class AddModal extends PureComponent {
+class EditModal extends PureComponent {
   onSubmit = values => {
     this.props.editPkg(this.props.pkg, values)
   }
@@ -32,4 +32,4 @@ const mapStateToProps = ({ pkg }) => ({
   pkg: pkg.pkgs[pkg.selectedPkg]
 })
 
-export default connect(mapStateToProps, actions)(AddModal)
+export default connect(mapStateToProps, actions)(EditModal)
