@@ -25,8 +25,8 @@ class DeleteModal extends PureComponent {
           <h4>Are you sure to delete package {pkg.name} ?</h4>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={closeDeletePkgModal}>Close</Button>
-          <Button bsStyle="primary" type="submit">Save</Button>
+          <Button onClick={closeDeletePkgModal}>No</Button>
+          <Button bsStyle="danger" type="submit">Yes</Button>
         </Modal.Footer>
       </Modal>
     )
