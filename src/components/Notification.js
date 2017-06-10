@@ -2,24 +2,38 @@ import React, { PureComponent } from 'react'
 
 class Notification extends PureComponent {
   render() {
+    let { type, message } = this.props
+    let icon
+    switch (type) {
+      case 'success':
+        icon = 'check'
+        break
+
+      case 'warning':
+        icon = 'warning'
+        break
+
+      case 'danger':
+        icon = 'error_outline'
+        break
+
+      default:
+        type = 'info'
+        icon = 'info_outline'
+    }
+
     return (
-      <div className="alert alert-success">
+      <div className={`alert alert-${type}`}>
         <div className="container-fluid">
           <div className="alert-icon">
-            <i className="material-icons">check</i>
+            <i className="material-icons">{icon}</i>
           </div>
-          <button
-            type="button"
-            className="close"
-            data-dismiss="alert"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">
+          <button type="button" className="close">
+            <span>
               <i className="material-icons">clear</i>
             </span>
           </button>
-          <b>Success Alert:</b> Yuhuuu! You've got your $11.99 album from The
-          Weeknd
+          {message}
         </div>
       </div>
     )
