@@ -24,8 +24,8 @@ class TourPkgDataTable extends PureComponent {
       <tr key={pkg._id}>
         <td>{pkg.name}</td>
         <td>{pkg.description}</td>
-        <td>{pkg.priceAdult}</td>
-        <td>{pkg.priceChild}</td>
+        <td>{pkg.priceAdult.toLocaleString()}</td>
+        <td>{pkg.priceChild.toLocaleString()}</td>
         <td style={{ textAlign: 'center' }}>
           <button
             className="btn btn-warning btn-sm"
