@@ -1,8 +1,6 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-import Card from '../Card'
-
-class DataTable extends Component {
+class DataTable extends PureComponent {
   renderTableTitle() {
     return (
       <tr>
@@ -15,19 +13,15 @@ class DataTable extends Component {
   }
 
   render() {
-    const { title, description } = this.props
-
     return (
-      <Card title={title} description={description}>
-        <table className="table">
-          <thead className="text-primary">
-            {this.renderTableTitle()}
-          </thead>
-          <tbody>
-            {this.props.renderTableBody()}
-          </tbody>
-        </table>
-      </Card>
+      <table className="table">
+        <thead className="text-primary">
+          {this.renderTableTitle()}
+        </thead>
+        <tbody>
+          {this.props.renderTableBody()}
+        </tbody>
+      </table>
     )
   }
 }

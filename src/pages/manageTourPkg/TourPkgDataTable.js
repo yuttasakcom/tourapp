@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
+import Card from '../../components/Card'
 import DataTable from '../../components/dataTable'
+import DeleteModal from './DeleteModal'
 import * as actions from '../../actions'
 
-class TourPkgDataTable extends Component {
+class TourPkgDataTable extends PureComponent {
   componentDidMount() {
     this.props.fetchPkgs()
   }
@@ -16,12 +18,12 @@ class TourPkgDataTable extends Component {
       return <tr />
     }
 
-    return pkgs.map(row =>
-      <tr key={row._id}>
-        <td>{row.name}</td>
-        <td>{row.description}</td>
-        <td>{row.priceAdult}</td>
-        <td>{row.priceChild}</td>
+    return pkgs.map(pkg =>
+      <tr key={pkg._id}>
+        <td>{pkg.name}</td>
+        <td>{pkg.description}</td>
+        <td>{pkg.priceAdult}</td>
+        <td>{pkg.priceChild}</td>
         <td style={{ textAlign: 'center' }}>
           <button className="btn btn-warning btn-sm">Edit</button>
           <button className="btn btn-danger btn-sm">Delete</button>
@@ -33,12 +35,13 @@ class TourPkgDataTable extends Component {
   render() {
     const tableTitles = ['Name', 'Description', 'Adult Price', 'Child Price']
     return (
-      <DataTable
-        title="Packages"
-        description="Manage tour packages"
-        tableTitles={tableTitles}
-        renderTableBody={this.renderTableBody}
-      />
+      <Card title="Pakcages" description="Manage tour packages">
+        <DataTable
+          tableTitles={tableTitles}
+          renderTableBody={this.renderTableBody}
+        />
+        <DeleteModal />
+      </Card>
     )
   }
 }
