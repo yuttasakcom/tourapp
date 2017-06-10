@@ -1,6 +1,8 @@
 import axios from './axios'
 import {
   FETCH_PKGS_SUCCESS,
+  ADD_PKG_SUCCESS,
+  DELETE_PKG_SUCCESS,
   OPEN_ADD_PKG_MODAL,
   CLOSE_ADD_PKG_MODAL,
   OPEN_DELETE_PKG_MODAL,
@@ -19,16 +21,16 @@ export const fetchPkgs = () => async dispatch => {
 export const addPkg = pkg => async dispatch => {
   try {
     const { data } = await axios.post('/companies/pkgs', pkg)
-    console.log(data)
+    dispatch({ type: ADD_PKG_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
   }
 }
 
-export const deletePkg = pkg => async dispatch => {
+export const deletePkg = ({ _id }) => async dispatch => {
   try {
-    const { data } = await axios.delete(`/companies/pkgs/${pkg._id}`)
-    console.log(data)
+    const { data } = await axios.delete(`/companies/pkgs/${_id}`)
+    dispatch({ type: DELETE_PKG_SUCCESS, payload: { _id, data } })
   } catch (e) {
     console.error(e)
   }

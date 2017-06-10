@@ -10,7 +10,7 @@ class DeleteModal extends PureComponent {
   }
 
   render() {
-    const { showModal, closeDeletePkgModal, pkg } = this.props
+    const { showModal, closeDeletePkgModal, deletePkg, pkg } = this.props
 
     if (!pkg) {
       return <div />
@@ -26,7 +26,7 @@ class DeleteModal extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeDeletePkgModal}>No</Button>
-          <Button bsStyle="danger" type="submit">Yes</Button>
+          <Button bsStyle="danger" onClick={() => deletePkg(pkg)}>Yes</Button>
         </Modal.Footer>
       </Modal>
     )
