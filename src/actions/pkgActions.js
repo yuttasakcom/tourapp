@@ -6,6 +6,8 @@ import {
   DELETE_PKG_SUCCESS,
   OPEN_ADD_PKG_MODAL,
   CLOSE_ADD_PKG_MODAL,
+  OPEN_EDIT_PKG_MODAL,
+  CLOSE_EDIT_PKG_MODAL,
   OPEN_DELETE_PKG_MODAL,
   CLOSE_DELETE_PKG_MODAL,
   HIDE_PKG_NOTIFICATION
@@ -46,6 +48,14 @@ export const openAddPkgModal = () => {
 
 export const closeAddPkgModal = () => {
   return { type: CLOSE_ADD_PKG_MODAL }
+}
+
+export const openEditPkgModal = () => {
+  return { type: OPEN_EDIT_PKG_MODAL }
+}
+
+export const closeEditPkgModal = () => {
+  return { type: CLOSE_EDIT_PKG_MODAL }
 }
 
 export const openDeletePkgModal = _id => {
