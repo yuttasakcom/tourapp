@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import axios from './axios'
 import {
   FETCH_PKGS_SUCCESS,
@@ -6,7 +7,8 @@ import {
   OPEN_ADD_PKG_MODAL,
   CLOSE_ADD_PKG_MODAL,
   OPEN_DELETE_PKG_MODAL,
-  CLOSE_DELETE_PKG_MODAL
+  CLOSE_DELETE_PKG_MODAL,
+  HIDE_PKG_NOTIFICATION
 } from './types'
 
 export const fetchPkgs = () => async dispatch => {
@@ -22,6 +24,7 @@ export const addPkg = pkg => async dispatch => {
   try {
     const { data } = await axios.post('/companies/pkgs', pkg)
     dispatch({ type: ADD_PKG_SUCCESS, payload: data })
+    _.delay(() => dispatch({ type: HIDE_PKG_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
   }
@@ -31,6 +34,7 @@ export const deletePkg = ({ _id }) => async dispatch => {
   try {
     const { data } = await axios.delete(`/companies/pkgs/${_id}`)
     dispatch({ type: DELETE_PKG_SUCCESS, payload: { _id, data } })
+    _.delay(() => dispatch({ type: HIDE_PKG_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
   }

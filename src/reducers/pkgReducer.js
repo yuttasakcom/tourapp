@@ -6,14 +6,16 @@ import {
   CLOSE_ADD_PKG_MODAL,
   OPEN_DELETE_PKG_MODAL,
   CLOSE_DELETE_PKG_MODAL,
-  DELETE_PKG_SUCCESS
+  DELETE_PKG_SUCCESS,
+  HIDE_PKG_NOTIFICATION
 } from '../actions/types'
 
 const initialState = {
   pkgs: {},
   selectedPkg: null,
   showAddPkgModal: false,
-  showDeletePkgModal: false
+  showDeletePkgModal: false,
+  notification: { show: false, type: null, message: null }
 }
 
 export default (state = initialState, action) => {
@@ -25,16 +27,32 @@ export default (state = initialState, action) => {
       return {
         ...state,
         pkgs: { ...state.pkgs, [action.payload._id]: action.payload },
-        showAddPkgModal: false
+        showAddPkgModal: false,
+        notification: {
+          show: true,
+          type: 'success',
+          message: 'Add package success'
+        }
       }
 
     case DELETE_PKG_SUCCESS:
       console.log(action.payload)
-      const { _id, data } = action.payload
+      const { _id, data: { message } } = action.payload
       return {
         ...state,
         pkgs: _.omit(state.pkgs, _id),
-        showDeletePkgModal: false
+        showDeletePkgModal: false,
+        notification: {
+          show: true,
+          type: 'success',
+          message
+        }
+      }
+
+    case HIDE_PKG_NOTIFICATION:
+      return {
+        ...state,
+        notification: { show: false }
       }
 
     case OPEN_ADD_PKG_MODAL:
