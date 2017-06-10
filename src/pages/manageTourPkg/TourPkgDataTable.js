@@ -13,7 +13,7 @@ class TourPkgDataTable extends PureComponent {
   }
 
   renderTableBody = () => {
-    const { pkgs } = this.props
+    const { pkgs, openDeletePkgModal } = this.props
 
     if (!pkgs) {
       return <tr />
@@ -27,7 +27,12 @@ class TourPkgDataTable extends PureComponent {
         <td>{pkg.priceChild}</td>
         <td style={{ textAlign: 'center' }}>
           <button className="btn btn-warning btn-sm">Edit</button>
-          <button className="btn btn-danger btn-sm">Delete</button>
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={() => openDeletePkgModal(pkg._id)}
+          >
+            Delete
+          </button>
         </td>
       </tr>
     )

@@ -42,8 +42,8 @@ export const closeAddPkgModal = () => {
   return { type: CLOSE_ADD_PKG_MODAL }
 }
 
-export const openDeletePkgModal = () => {
-  return { type: OPEN_DELETE_PKG_MODAL }
+export const openDeletePkgModal = _id => {
+  return { type: OPEN_DELETE_PKG_MODAL, payload: _id }
 }
 
 export const closeDeletePkgModal = () => {

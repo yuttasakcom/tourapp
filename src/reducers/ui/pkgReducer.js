@@ -5,7 +5,11 @@ import {
   CLOSE_DELETE_PKG_MODAL
 } from '../../actions/types'
 
-const initialState = { showAddPkgModal: false, showDeletePkgModal: false }
+const initialState = {
+  showAddPkgModal: false,
+  showDeletePkgModal: false,
+  selectedPkg: null
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -16,7 +20,7 @@ export default (state = initialState, action) => {
       return { ...state, showAddPkgModal: false }
 
     case OPEN_DELETE_PKG_MODAL:
-      return { ...state, showDeletePkgModal: true }
+      return { ...state, showDeletePkgModal: true, selectedPkg: action.payload }
 
     case CLOSE_DELETE_PKG_MODAL:
       return { ...state, showDeletePkgModal: false }
