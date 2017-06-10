@@ -4,6 +4,8 @@ import {
   ADD_PKG_SUCCESS,
   OPEN_ADD_PKG_MODAL,
   CLOSE_ADD_PKG_MODAL,
+  OPEN_EDIT_PKG_MODAL,
+  CLOSE_EDIT_PKG_MODAL,
   OPEN_DELETE_PKG_MODAL,
   CLOSE_DELETE_PKG_MODAL,
   DELETE_PKG_SUCCESS,
@@ -14,6 +16,7 @@ const initialState = {
   pkgs: {},
   selectedPkg: null,
   showAddPkgModal: false,
+  showEditPkgModal: false,
   showDeletePkgModal: false,
   notification: { show: false, type: null, message: null }
 }
@@ -36,7 +39,6 @@ export default (state = initialState, action) => {
       }
 
     case DELETE_PKG_SUCCESS:
-      console.log(action.payload)
       const { _id, data: { message } } = action.payload
       return {
         ...state,
@@ -60,6 +62,12 @@ export default (state = initialState, action) => {
 
     case CLOSE_ADD_PKG_MODAL:
       return { ...state, showAddPkgModal: false }
+
+    case OPEN_EDIT_PKG_MODAL:
+      return { ...state, showEditPkgModal: true, selectedPkg: action.payload }
+
+    case CLOSE_EDIT_PKG_MODAL:
+      return { ...state, showEditPkgModal: false }
 
     case OPEN_DELETE_PKG_MODAL:
       return { ...state, showDeletePkgModal: true, selectedPkg: action.payload }

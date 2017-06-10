@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Card from '../../components/Card'
 import DataTable from '../../components/dataTable'
 import DeleteModal from './DeleteModal'
+import EditModal from './EditModal'
 import * as actions from '../../actions'
 
 class TourPkgDataTable extends PureComponent {
@@ -13,7 +14,7 @@ class TourPkgDataTable extends PureComponent {
   }
 
   renderTableBody = () => {
-    const { pkgs, openDeletePkgModal } = this.props
+    const { pkgs, openDeletePkgModal, openEditPkgModal } = this.props
 
     if (!pkgs) {
       return <tr />
@@ -26,7 +27,12 @@ class TourPkgDataTable extends PureComponent {
         <td>{pkg.priceAdult}</td>
         <td>{pkg.priceChild}</td>
         <td style={{ textAlign: 'center' }}>
-          <button className="btn btn-warning btn-sm">Edit</button>
+          <button
+            className="btn btn-warning btn-sm"
+            onClick={() => openEditPkgModal(pkg._id)}
+          >
+            Edit
+          </button>
           <button
             className="btn btn-danger btn-sm"
             onClick={() => openDeletePkgModal(pkg._id)}
@@ -46,6 +52,7 @@ class TourPkgDataTable extends PureComponent {
           tableTitles={tableTitles}
           renderTableBody={this.renderTableBody}
         />
+        <EditModal />
         <DeleteModal />
       </Card>
     )

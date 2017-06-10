@@ -50,8 +50,8 @@ export const closeAddPkgModal = () => {
   return { type: CLOSE_ADD_PKG_MODAL }
 }
 
-export const openEditPkgModal = () => {
-  return { type: OPEN_EDIT_PKG_MODAL }
+export const openEditPkgModal = _id => {
+  return { type: OPEN_EDIT_PKG_MODAL, payload: _id }
 }
 
 export const closeEditPkgModal = () => {
