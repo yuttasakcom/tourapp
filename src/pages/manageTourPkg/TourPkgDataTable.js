@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
@@ -18,7 +19,7 @@ class TourPkgDataTable extends PureComponent {
       return <tr />
     }
 
-    return pkgs.map(pkg =>
+    return _.map(pkgs, pkg =>
       <tr key={pkg._id}>
         <td>{pkg.name}</td>
         <td>{pkg.description}</td>
