@@ -3,6 +3,7 @@ import React from 'react'
 import Notification from './Notification'
 import AcceptPending from './AcceptPending'
 import RequestPending from './RequestPending'
+import ProfileMenu from './ProfileMenu'
 import Searchbar from './Searchbar'
 
 export default ({ title }) =>
@@ -28,14 +29,8 @@ export default ({ title }) =>
           <AcceptPending />
           <RequestPending />
           <Notification />
-          <li>
-            <a href="#pablo" className="dropdown-toggle" data-toggle="dropdown">
-              <i className="material-icons">person</i>
-              <p className="hidden-lg hidden-md">Profile</p>
-            </a>
-          </li>
+          <ProfileMenu />
         </ul>
-
         <Searchbar />
       </div>
     </div>
