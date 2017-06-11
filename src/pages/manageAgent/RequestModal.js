@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Modal } from 'react-bootstrap'
 
-import AgentForm from './AgentForm'
+import RequestForm from './RequestForm'
 import * as actions from '../../actions'
 
 class RequestModal extends PureComponent {
@@ -17,7 +17,7 @@ class RequestModal extends PureComponent {
         <Modal.Header closeButton>
           <Modal.Title>Request Agent</Modal.Title>
         </Modal.Header>
-        <AgentForm onSubmit={this.onSubmit} closeModal={closeRequestAgentModal} />
+        <RequestForm onSubmit={this.onSubmit} closeModal={closeRequestAgentModal} />
       </Modal>
     )
   }
