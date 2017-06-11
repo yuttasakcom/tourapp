@@ -1,29 +1,17 @@
 import React, { Component } from 'react'
 
-class Notification extends Component {
-  state = { open: false }
+import Gem from './Gem'
 
+class Notification extends Component {
   render() {
-    return (
-      <li className={`dropdown${this.state.open ? ' open' : ''}`}>
-        <a
-          style={{ cursor: 'pointer' }}
-          className="dropdown-toggle"
-          onClick={() => this.setState({ open: !this.state.open })}
-        >
-          <i className="material-icons">notifications</i>
-          <span className="notification">5</span>
-          <p className="hidden-lg hidden-md">Notifications</p>
-        </a>
-        <ul className="dropdown-menu">
-          <li><a>Mike John responded to your email</a></li>
-          <li><a>You have 5 new tasks</a></li>
-          <li><a>You're now friend with Andrew</a></li>
-          <li><a>Another Notification</a></li>
-          <li><a>Another One</a></li>
-        </ul>
-      </li>
-    )
+    const items = [
+      'Mike John responded to your email',
+      'You have 5 new tasks',
+      'Youre now friend with Andrew',
+      'Another Notification',
+      'Another One'
+    ]
+    return <Gem icon="notifications" items={items} />
   }
 }
 

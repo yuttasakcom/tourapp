@@ -1,17 +1,11 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 
-class RequestPending extends PureComponent {
+import Gem from './Gem'
+
+class AcceptPending extends Component {
   render() {
-    return (
-      <li>
-        <a href="#pablo" className="dropdown-toggle" data-toggle="dropdown">
-          <i className="material-icons">arrow_upward</i>
-          <span className="notification">5</span>
-          <p className="hidden-lg hidden-md">Request Pendings</p>
-        </a>
-      </li>
-    )
+    return <Gem icon="arrow_upward" items={['test2']} />
   }
 }
 
-export default RequestPending
+export default AcceptPending
