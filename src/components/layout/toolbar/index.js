@@ -1,6 +1,8 @@
 import React from 'react'
 
 import Notification from './Notification'
+import AcceptPending from './AcceptPending'
+import RequestPending from './RequestPending'
 import Searchbar from './Searchbar'
 
 export default ({ title }) =>
@@ -23,6 +25,8 @@ export default ({ title }) =>
               <p className="hidden-lg hidden-md">Dashboard</p>
             </a>
           </li>
+          <AcceptPending />
+          <RequestPending />
           <Notification />
           <li>
             <a href="#pablo" className="dropdown-toggle" data-toggle="dropdown">
