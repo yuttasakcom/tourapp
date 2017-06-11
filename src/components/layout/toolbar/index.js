@@ -20,12 +20,6 @@ export default ({ title }) =>
       </div>
       <div className="collapse navbar-collapse">
         <ul className="nav navbar-nav navbar-right">
-          <li>
-            <a href="#pablo" className="dropdown-toggle" data-toggle="dropdown">
-              <i className="material-icons">dashboard</i>
-              <p className="hidden-lg hidden-md">Dashboard</p>
-            </a>
-          </li>
           <AcceptPending />
           <RequestPending />
           <Notification />
