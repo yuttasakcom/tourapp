@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
         notification: {
           show: true,
           type: 'success',
-          message: action.payload
+          message: action.payload.message
         }
       }
 

@@ -23,8 +23,11 @@ export const fetchAgents = () => async dispatch => {
 
 export const requestAgent = values => async dispatch => {
   try {
-    const { data } = await axios.post('/companies/request', values)
-    dispatch({ type: REQUEST_AGENT_SUCCESS, payload: data.message })
+    const { data: { message } } = await axios.post('/companies/request', values)
+    dispatch({
+      type: REQUEST_AGENT_SUCCESS,
+      payload: { message, _id: values._id }
+    })
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {
     dispatch({

@@ -5,7 +5,8 @@ import {
   HIDE_ALL_GEM,
   FETCH_REQUEST_PENDINGS_SUCCESS,
   FETCH_ACCEPT_PENDINGS_SUCCESS,
-  FETCH_NOTIFICATIONS_SUCCESS
+  FETCH_NOTIFICATIONS_SUCCESS,
+  REQUEST_AGENT_SUCCESS
 } from '../actions/types'
 
 const initialState = {
@@ -19,6 +20,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case REQUEST_AGENT_SUCCESS:
+      return {
+        ...state,
+        requestPendings: [...state.requestPendings, action.payload._id]
+      }
+
     case FETCH_REQUEST_PENDINGS_SUCCESS:
       return {
         ...state,
