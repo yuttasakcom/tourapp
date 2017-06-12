@@ -19,3 +19,7 @@ export const CLOSE_REQUEST_AGENT_MODAL = 'close_request_agent_modal'
 export const OPEN_DELETE_AGENT_MODAL = 'open_delete_agent_modal'
 export const CLOSE_DELETE_AGENT_MODAL = 'close_delete_agent_modal'
 export const HIDE_AGENT_NOTIFICATION = 'hide_agent_notification'
+
+export const TOGGLE_NOTIFICATION_GEM = 'toggle_notification_gem'
+export const TOGGLE_ACCEPT_PENDING_GEM = 'toggle_accept_pending_gem'
+export const TOGGLE_REQUEST_PENDING_GEM = 'toggle_request_pending_gem'
