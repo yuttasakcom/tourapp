@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
-export default () =>
-  <div className="logo">
-    <a className="simple-text">
-      App
-    </a>
-  </div>
+class Logo extends PureComponent {
+  render() {
+    return (
+      <div className="logo">
+        <a className="simple-text">
+          App
+        </a>
+      </div>
+    )
+  }
+}
+
+export default Logo
