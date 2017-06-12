@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { ConnectedRouter as Router } from 'connected-react-router'
 
 import SignIn from './pages/signIn'
 import Dashboard from './pages/dashboard'
@@ -8,20 +8,14 @@ import BoogkingSummary from './pages/bookingSummary'
 import ManageTourPkg from './pages/manageTourPkg'
 import ManageAgent from './pages/manageAgent'
 import ContractRate from './pages/contractRate'
+import Layout from './components/layout'
+import { history } from './store'
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div>
-          <Route path="/signin" component={SignIn} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/notifications" component={Notifications} />
-          <Route path="/booking-summary" component={BoogkingSummary} />
-          <Route path="/manage-tour-package" component={ManageTourPkg} />
-          <Route path="/manage-agent" component={ManageAgent} />
-          <Route path="/contract-rate" component={ContractRate} />
-        </div>
+      <Router history={history}>
+        <Layout />
       </Router>
     )
   }
