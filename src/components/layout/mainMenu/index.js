@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
 import Logo from './Logo'
 import MenuList from './MenuList'
 
-export default ({ title }) =>
-  <div className="sidebar" data-color="purple">
-    <Logo />
-    <div className="sidebar-wrapper">
-      <MenuList title={title} />
-    </div>
-  </div>
+class MainMenu extends PureComponent {
+  render() {
+    return (
+      <div className="sidebar" data-color="purple">
+        <Logo />
+        <div className="sidebar-wrapper">
+          <MenuList />
+        </div>
+      </div>
+    )
+  }
+}
+
+export default MainMenu
