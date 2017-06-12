@@ -7,18 +7,26 @@ class Gem extends PureComponent {
     )
   }
 
+  renderGemNumber() {
+    const { items } = this.props
+    if (!items.length) {
+      return
+    }
+    return <span className="notification">{items.length}</span>
+  }
+
   render() {
     const { icon, items, show, toggle } = this.props
 
     return (
-      <li className={`dropdown${show ? ' open' : ''}`}>
+      <li className={`dropdown${show && items.length ? ' open' : ''}`}>
         <a
           style={{ cursor: 'pointer' }}
           className="dropdown-toggle"
           onClick={toggle}
         >
           <i className="material-icons">{icon}</i>
-          <span className="notification">{items.length}</span>
+          {this.renderGemNumber()}
         </a>
         <ul className="dropdown-menu">{this.renderListItem()}</ul>
       </li>
