@@ -1,11 +1,25 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 
 import Gem from './Gem'
+import * as actions from '../../../actions'
 
-class AcceptPending extends Component {
+class AcceptPending extends PureComponent {
   render() {
-    return <Gem icon="arrow_downward" items={['test1', 'test2']} />
+    const { show, toggleAcceptPendingGem } = this.props
+    return (
+      <Gem
+        icon="arrow_downward"
+        items={['test1', 'test2']}
+        show={show}
+        toggle={toggleAcceptPendingGem}
+      />
+    )
   }
 }
 
-export default AcceptPending
+const mapStateToProps = ({ notification }) => {
+  return { show: notification.showAcceptPendingGem }
+}
+
+export default connect(mapStateToProps, actions)(AcceptPending)

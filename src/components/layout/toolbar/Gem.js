@@ -1,8 +1,6 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-class Gem extends Component {
-  state = { open: false }
-
+class Gem extends PureComponent {
   renderListItem() {
     return this.props.items.map((item, index) =>
       <li key={index}><a>{item}</a></li>
@@ -10,14 +8,14 @@ class Gem extends Component {
   }
 
   render() {
-    const { icon, items } = this.props
+    const { icon, items, show, toggle } = this.props
 
     return (
-      <li className={`dropdown${this.state.open ? ' open' : ''}`}>
+      <li className={`dropdown${show ? ' open' : ''}`}>
         <a
           style={{ cursor: 'pointer' }}
           className="dropdown-toggle"
-          onClick={() => this.setState({ open: !this.state.open })}
+          onClick={toggle}
         >
           <i className="material-icons">{icon}</i>
           <span className="notification">{items.length}</span>
