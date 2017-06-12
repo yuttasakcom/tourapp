@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { ConnectedRouter as Router } from 'connected-react-router'
 import { Route } from 'react-router-dom'
 
-import SignIn from './pages/signIn'
 import Dashboard from './pages/dashboard'
 import Notifications from './pages/notifications'
 import BoogkingSummary from './pages/bookingSummary'
