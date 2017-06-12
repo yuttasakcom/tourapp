@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { ConnectedRouter as Router } from 'connected-react-router'
 import { Route } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ import ContractRate from './pages/contractRate'
 import Layout from './components/layout'
 import { history } from './store'
 
-class App extends Component {
+class App extends PureComponent {
   render() {
     return (
       <Router history={history}>
