@@ -15,12 +15,12 @@ import ContractRate from '../../pages/contractRate'
 
 class Layout extends PureComponent {
   render() {
-    const { title, children, hideAllGem } = this.props
+    const { hideAllGem } = this.props
     return (
       <div className="wrapper">
         <MainMenu />
         <div className="main-panel">
-          <Toolbar title={title} />
+          <Toolbar />
           <div className="content" onClick={hideAllGem}>
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/notifications" component={Notifications} />
