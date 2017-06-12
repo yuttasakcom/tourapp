@@ -5,8 +5,24 @@ import {
   TOGGLE_ACCEPT_PENDING_GEM,
   TOGGLE_REQUEST_PENDING_GEM,
   HIDE_ALL_GEM,
-  FETCH_REQUEST_PENDINGS_SUCCESS
+  FETCH_REQUEST_PENDINGS_SUCCESS,
+  FETCH_NOTIFICATIONS_SUCCESS,
+  FETCH_ACCEPT_PENDINGS_SUCCESS
 } from './types'
+
+export const fetchAcceptPendings = () => {
+  return {
+    type: FETCH_ACCEPT_PENDINGS_SUCCESS,
+    payload: ['test1', 'test2', 'test3']
+  }
+}
+
+export const fetchNotifications = () => {
+  return {
+    type: FETCH_NOTIFICATIONS_SUCCESS,
+    payload: ['noti1', 'noti2']
+  }
+}
 
 export const fetchRequestPendings = () => async dispatch => {
   try {

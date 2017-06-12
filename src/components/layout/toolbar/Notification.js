@@ -5,29 +5,31 @@ import Gem from './Gem'
 import * as actions from '../../../actions'
 
 class Notification extends PureComponent {
-  render() {
-    const { show, toggleNotificationGem } = this.props
+  componentDidMount() {
+    this.props.fetchNotifications()
+  }
 
-    const items = [
-      'Mike John responded to your email',
-      'You have 5 new tasks',
-      'Youre now friend with Andrew',
-      'Another Notification',
-      'Another One'
-    ]
+  render() {
+    const {
+      showNotificationGem,
+      toggleNotificationGem,
+      notifications
+    } = this.props
     return (
       <Gem
         icon="notifications"
-        items={items}
-        show={show}
+        items={notifications}
+        show={showNotificationGem}
         toggle={toggleNotificationGem}
       />
     )
   }
 }
 
-const mapStateToProps = ({ notification }) => {
-  return { show: notification.showNotificationGem }
+const mapStateToProps = ({
+  notification: { showNotificationGem, notifications }
+}) => {
+  return { showNotificationGem, notifications }
 }
 
 export default connect(mapStateToProps, actions)(Notification)

@@ -3,14 +3,18 @@ import {
   TOGGLE_ACCEPT_PENDING_GEM,
   TOGGLE_REQUEST_PENDING_GEM,
   HIDE_ALL_GEM,
-  FETCH_REQUEST_PENDINGS_SUCCESS
+  FETCH_REQUEST_PENDINGS_SUCCESS,
+  FETCH_ACCEPT_PENDINGS_SUCCESS,
+  FETCH_NOTIFICATIONS_SUCCESS
 } from '../actions/types'
 
 const initialState = {
   showNotificationGem: false,
   showRequestPendingGem: false,
   showAcceptPendingGem: false,
-  requestPendings: []
+  requestPendings: [],
+  acceptPendings: [],
+  notifications: []
 }
 
 export default (state = initialState, action) => {
@@ -19,6 +23,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         requestPendings: action.payload
+      }
+
+    case FETCH_ACCEPT_PENDINGS_SUCCESS:
+      return {
+        ...state,
+        acceptPendings: action.payload
+      }
+
+    case FETCH_NOTIFICATIONS_SUCCESS:
+      return {
+        ...state,
+        notifications: action.payload
       }
 
     case TOGGLE_NOTIFICATION_GEM:

@@ -5,21 +5,31 @@ import Gem from './Gem'
 import * as actions from '../../../actions'
 
 class AcceptPending extends PureComponent {
+  componentDidMount() {
+    this.props.fetchAcceptPendings()
+  }
+
   render() {
-    const { show, toggleAcceptPendingGem } = this.props
+    const {
+      showAcceptPendingGem,
+      toggleAcceptPendingGem,
+      acceptPendings
+    } = this.props
     return (
       <Gem
         icon="arrow_downward"
-        items={['test1', 'test2']}
-        show={show}
+        items={acceptPendings}
+        show={showAcceptPendingGem}
         toggle={toggleAcceptPendingGem}
       />
     )
   }
 }
 
-const mapStateToProps = ({ notification }) => {
-  return { show: notification.showAcceptPendingGem }
+const mapStateToProps = ({
+  notification: { showAcceptPendingGem, acceptPendings }
+}) => {
+  return { showAcceptPendingGem, acceptPendings }
 }
 
 export default connect(mapStateToProps, actions)(AcceptPending)

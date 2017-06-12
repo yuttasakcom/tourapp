@@ -5,21 +5,31 @@ import Gem from './Gem'
 import * as actions from '../../../actions'
 
 class RequestPending extends PureComponent {
+  componentDidMount() {
+    this.props.fetchRequestPendings()
+  }
+
   render() {
-    const { show, toggleRequestPendingGem } = this.props
+    const {
+      showRequestPendingGem,
+      toggleRequestPendingGem,
+      requestPendings
+    } = this.props
     return (
       <Gem
         icon="arrow_upward"
-        items={['test2']}
-        show={show}
+        items={requestPendings}
+        show={showRequestPendingGem}
         toggle={toggleRequestPendingGem}
       />
     )
   }
 }
 
-const mapStateToProps = ({ notification }) => {
-  return { show: notification.showRequestPendingGem }
+const mapStateToProps = ({
+  notification: { showRequestPendingGem, requestPendings }
+}) => {
+  return { showRequestPendingGem, requestPendings }
 }
 
 export default connect(mapStateToProps, actions)(RequestPending)
