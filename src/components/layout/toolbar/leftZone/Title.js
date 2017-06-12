@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import { titleCase } from 'change-case'
 
 class Title extends PureComponent {
   render() {
@@ -8,7 +9,7 @@ class Title extends PureComponent {
 }
 
 const mapStateToProps = state => {
-  return { title: state.router.location.pathname }
+  return { title: titleCase(state.router.location.pathname) }
 }
 
 export default connect(mapStateToProps)(Title)
