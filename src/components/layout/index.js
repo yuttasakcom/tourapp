@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 
 import MainMenu from './mainMenu'
 import Toolbar from './toolbar'
@@ -35,4 +35,4 @@ class Layout extends PureComponent {
   }
 }
 
-export default connect(null, actions)(Layout)
+export default withRouter(connect(null, actions)(Layout))

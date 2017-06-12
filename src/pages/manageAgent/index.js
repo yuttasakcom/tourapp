@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import Layout from '../../components/layout'
 import AgentDataTable from './AgentDataTable'
 import RequestModal from './RequestModal'
 import Notification from '../../components/Notification'
@@ -17,7 +16,7 @@ class ManageAgent extends PureComponent {
 
   render() {
     return (
-      <Layout title="Manage Agent">
+      <div>
         <div className="container-fluid">
           {this.renderNotification()}
           <button
@@ -33,7 +32,7 @@ class ManageAgent extends PureComponent {
           </div>
         </div>
         <RequestModal />
-      </Layout>
+      </div>
     )
   }
 }

@@ -1,4 +1,3 @@
 import React from 'react'
-import Layout from '../../components/layout'
 
-export default () => <Layout title="Notifications">Notifications</Layout>
+export default () => <div>Notifications</div>

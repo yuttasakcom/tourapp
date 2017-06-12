@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 
-import Layout from '../../components/layout'
-
 class Dashboard extends PureComponent {
   state = { showModal: false }
 
@@ -16,7 +14,7 @@ class Dashboard extends PureComponent {
 
   render() {
     return (
-      <Layout title="Dashboard">
+      <div>
         <Button bsStyle="primary" bsSize="large" onClick={this.open}>
           Launch demo modal
         </Button>
@@ -32,7 +30,7 @@ class Dashboard extends PureComponent {
             <Button onClick={this.close}>Close</Button>
           </Modal.Footer>
         </Modal>
-      </Layout>
+      </div>
     )
   }
 }

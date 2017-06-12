@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import Layout from '../../components/layout'
 import TourPkgDataTable from './TourPkgDataTable'
 import AddModal from './AddModal'
 import Notification from '../../components/Notification'
@@ -17,7 +16,7 @@ class ManageTourPkg extends PureComponent {
 
   render() {
     return (
-      <Layout title="Manage Tour Package">
+      <div>
         <div className="container-fluid">
           {this.renderNotification()}
           <button
@@ -33,7 +32,7 @@ class ManageTourPkg extends PureComponent {
           </div>
         </div>
         <AddModal />
-      </Layout>
+      </div>
     )
   }
 }
