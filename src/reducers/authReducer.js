@@ -1,4 +1,8 @@
-import { SIGN_IN_SUCCESS, SIGN_OUT_SUCCESS } from '../actions/types'
+import {
+  SIGN_IN_SUCCESS,
+  SIGN_OUT_SUCCESS,
+  SIGN_UP_SUCCESS
+} from '../actions/types'
 
 const initialState = {
   authenticated: false
@@ -9,9 +13,12 @@ export default (state = initialState, action) => {
     case SIGN_IN_SUCCESS:
       return { authenticated: true }
 
+    case SIGN_UP_SUCCESS:
+      return { authenticated: true }
+
     case SIGN_OUT_SUCCESS:
       return { authenticated: false }
-      
+
     default:
       return state
   }
