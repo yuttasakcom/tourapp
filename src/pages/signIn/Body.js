@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default () => (
+export default () =>
   <div className="container">
     <div className="row">
       <div className="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
@@ -58,7 +58,7 @@ export default () => (
 
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" name="optionsCheckboxes" checked />
+                  <input type="checkbox" name="optionsCheckboxes" />
                   Subscribe to newsletter
                 </label>
               </div>
@@ -73,4 +73,3 @@ export default () => (
       </div>
     </div>
   </div>
-)
