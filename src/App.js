@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { ConnectedRouter as Router } from 'connected-react-router'
 import { Route, Switch } from 'react-router-dom'
 
-import SignIn from './pages/signIn'
+import SignIn from './pages/auth/SignIn'
 import PrivateRoute from './components/PrivateRoute'
 import Dashboard from './pages/dashboard'
 import Notifications from './pages/notifications'
@@ -24,7 +24,10 @@ class App extends PureComponent {
             <PrivateRoute path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/notifications" component={Notifications} />
             <PrivateRoute path="/booking-summary" component={BoogkingSummary} />
-            <PrivateRoute path="/manage-tour-package" component={ManageTourPkg} />
+            <PrivateRoute
+              path="/manage-tour-package"
+              component={ManageTourPkg}
+            />
             <PrivateRoute path="/manage-agent" component={ManageAgent} />
             <PrivateRoute path="/contract-rate" component={ContractRate} />
           </Layout>
