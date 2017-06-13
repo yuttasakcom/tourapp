@@ -22,11 +22,11 @@ class App extends PureComponent {
           <Route path="/signin" component={SignIn} />
           <Layout>
             <PrivateRoute path="/dashboard" component={Dashboard} />
-            <Route path="/notifications" component={Notifications} />
-            <Route path="/booking-summary" component={BoogkingSummary} />
-            <Route path="/manage-tour-package" component={ManageTourPkg} />
-            <Route path="/manage-agent" component={ManageAgent} />
-            <Route path="/contract-rate" component={ContractRate} />
+            <PrivateRoute path="/notifications" component={Notifications} />
+            <PrivateRoute path="/booking-summary" component={BoogkingSummary} />
+            <PrivateRoute path="/manage-tour-package" component={ManageTourPkg} />
+            <PrivateRoute path="/manage-agent" component={ManageAgent} />
+            <PrivateRoute path="/contract-rate" component={ContractRate} />
           </Layout>
         </Switch>
       </Router>
