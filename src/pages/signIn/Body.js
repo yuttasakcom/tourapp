@@ -10,32 +10,8 @@ class Body extends PureComponent {
               <form className="form" method="" action="">
                 <div className="header header-primary text-center">
                   <h4>Sign Up</h4>
-                  <div className="social-line">
-                    <a href="#pablo" className="btn btn-simple btn-just-icon">
-                      <i className="fa fa-facebook-square" />
-                    </a>
-                    <a href="#pablo" className="btn btn-simple btn-just-icon">
-                      <i className="fa fa-twitter" />
-                    </a>
-                    <a href="#pablo" className="btn btn-simple btn-just-icon">
-                      <i className="fa fa-google-plus" />
-                    </a>
-                  </div>
                 </div>
-                <p className="text-divider">Or Be Classical</p>
                 <div className="content">
-
-                  <div className="input-group">
-                    <span className="input-group-addon">
-                      <i className="material-icons">face</i>
-                    </span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="First Name..."
-                    />
-                  </div>
-
                   <div className="input-group">
                     <span className="input-group-addon">
                       <i className="material-icons">email</i>
@@ -56,13 +32,6 @@ class Body extends PureComponent {
                       placeholder="Password..."
                       className="form-control"
                     />
-                  </div>
-
-                  <div className="checkbox">
-                    <label>
-                      <input type="checkbox" name="optionsCheckboxes" />
-                      Subscribe to newsletter
-                    </label>
                   </div>
                 </div>
                 <div className="footer text-center">
