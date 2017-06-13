@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { Link } from 'react-router-dom'
 
 import Card from '../../components/Card'
 import { Button } from 'react-bootstrap'
@@ -19,6 +20,23 @@ class AuthForm extends PureComponent {
     )
   }
 
+  renderAlternativeLink() {
+    let path, text
+    if (this.props.title === 'Sign Up') {
+      path = '/signin'
+      text = 'Sign In'
+    } else {
+      path = '/signup'
+      text = 'Sign Up'
+    }
+
+    return (
+      <Link to={path}>
+        <Button bsStyle="info">{text}</Button>
+      </Link>
+    )
+  }
+
   render() {
     const { handleSubmit, title, description } = this.props
 
@@ -26,21 +44,26 @@ class AuthForm extends PureComponent {
       <div className="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
         <Card title={title} description={description}>
           <form onSubmit={handleSubmit}>
-            <Field
-              name="email"
-              component={this.renderField}
-              label="Email"
-              type="text"
-            />
-            <Field
-              name="password"
-              component={this.renderField}
-              label="Password"
-              type="text"
-            />
-            <Button bsStyle="primary pull-right" type="submit">
-              Submit
-            </Button>
+            <div className="row">
+              <Field
+                name="email"
+                component={this.renderField}
+                label="Email"
+                type="text"
+              />
+              <Field
+                name="password"
+                component={this.renderField}
+                label="Password"
+                type="text"
+              />
+            </div>
+            <div className="row pull-right">
+              <Button bsStyle="primary" type="submit">
+                Submit
+              </Button>
+              {this.renderAlternativeLink()}
+            </div>
           </form>
         </Card>
       </div>
