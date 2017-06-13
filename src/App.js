@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
 import { ConnectedRouter as Router } from 'connected-react-router'
 import { Route, Switch } from 'react-router-dom'
 
@@ -37,8 +36,4 @@ class App extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ auth: { authenticated } }) => {
-  return { authenticated }
-}
-
-export default connect(mapStateToProps)(App)
+export default App
