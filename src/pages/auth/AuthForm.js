@@ -55,7 +55,7 @@ class AuthForm extends PureComponent {
                 name="password"
                 component={this.renderField}
                 label="Password"
-                type="text"
+                type="password"
               />
             </div>
             <div className="row pull-right">
