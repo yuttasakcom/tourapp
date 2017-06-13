@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 
 import AuthForm from './AuthForm'
 import * as actions from '../../actions'
@@ -11,18 +10,9 @@ class SignUp extends PureComponent {
   }
 
   render() {
-    const { location, authenticated } = this.props
-
-    const { from } = location.state || {
-      from: { pathname: '/dashboard' }
-    }
-
-    if (authenticated) {
-      return <Redirect to={from} />
-    }
-
     return (
       <AuthForm
+        location={this.props.location}
         title="Sign Up"
         description="sign up description"
         onSubmit={this.onSubmit}
@@ -31,8 +21,4 @@ class SignUp extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ auth: { authenticated } }) => {
-  return { authenticated }
-}
-
-export default connect(mapStateToProps, actions)(SignUp)
+export default connect(null, actions)(SignUp)

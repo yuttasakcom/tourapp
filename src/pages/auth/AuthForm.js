@@ -1,11 +1,20 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { Link } from 'react-router-dom'
-
-import Card from '../../components/Card'
+import { Link, Redirect } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 
+import Card from '../../components/Card'
+import Notification from '../../components/Notification'
+
 class AuthForm extends PureComponent {
+  renderNotification() {
+    const { show, type, message } = this.props.notification
+    if (show) {
+      return <Notification type={type} message={message} />
+    }
+  }
+
   renderField = ({ input, label, type, meta: { touched, error, warning } }) => {
     return (
       <div className="form-group label-floating">
@@ -38,11 +47,23 @@ class AuthForm extends PureComponent {
   }
 
   render() {
-    const { handleSubmit, title, description } = this.props
+    const {
+      handleSubmit,
+      title,
+      description,
+      authenticated,
+      location
+    } = this.props
+    const { from } = location.state || { from: { pathname: '/dashboard' } }
+
+    if (authenticated) {
+      return <Redirect to={from} />
+    }
 
     return (
       <div className="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
         <Card title={title} description={description}>
+          {this.renderNotification()}
           <form onSubmit={handleSubmit}>
             <div className="row">
               <Field
@@ -71,4 +92,8 @@ class AuthForm extends PureComponent {
   }
 }
 
-export default reduxForm({ form: 'auth' })(AuthForm)
+const mapStateToProps = ({ auth: { notification, authenticated } }) => {
+  return { authenticated, notification }
+}
+
+export default reduxForm({ form: 'auth' })(connect(mapStateToProps)(AuthForm))
