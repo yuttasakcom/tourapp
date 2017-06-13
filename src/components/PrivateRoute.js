@@ -1,4 +1,26 @@
 import React, { PureComponent } from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Route, Redirect, withRouter } from 'react-router-dom'
 
-export default <div />
+class PrivateRoute extends PureComponent {
+  render() {
+    const { component: Component, authenticated, ...rest } = this.props
+    return (
+      <Route
+        {...rest}
+        render={props =>
+          authenticated
+            ? <Component {...props} />
+            : <Redirect
+                to={{ pathname: '/signin', state: { from: props.location } }}
+              />}
+      />
+    )
+  }
+}
+
+const mapStateToProps = state => {
+  return { authenticated: state.auth.authenticated }
+}
+
+export default withRouter(connect(mapStateToProps)(PrivateRoute))
