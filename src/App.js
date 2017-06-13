@@ -3,6 +3,7 @@ import { ConnectedRouter as Router } from 'connected-react-router'
 import { Route, Switch } from 'react-router-dom'
 
 import SignIn from './pages/auth/SignIn'
+import SignUp from './pages/auth/SignUp'
 import PrivateRoute from './components/PrivateRoute'
 import Dashboard from './pages/dashboard'
 import Notifications from './pages/notifications'
@@ -19,6 +20,7 @@ class App extends PureComponent {
       <Router history={history}>
         <Switch>
           <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
           <Layout>
             <PrivateRoute path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/notifications" component={Notifications} />
