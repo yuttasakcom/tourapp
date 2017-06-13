@@ -11,11 +11,13 @@ class SignIn extends PureComponent {
   }
 
   render() {
-    const { from } = this.props.location.state || {
+    const { location, authenticated } = this.props
+
+    const { from } = location.state || {
       from: { pathname: '/dashboard' }
     }
 
-    if (this.props.authenticated) {
+    if (authenticated) {
       return <Redirect to={from} />
     }
 
