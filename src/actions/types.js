@@ -1,3 +1,6 @@
+export const SIGN_IN_SUCCESS = 'sign_in_success'
+export const SIGN_OUT_SUCCESS = 'sign_out_success'
+
 export const FETCH_PKGS_SUCCESS = 'fetch_pkgs_success'
 export const DELETE_PKG_SUCCESS = 'delete_pkg_success'
 export const ADD_PKG_SUCCESS = 'add_pkg_success'
