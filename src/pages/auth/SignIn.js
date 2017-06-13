@@ -26,6 +26,7 @@ class SignIn extends PureComponent {
         title="Sign In"
         description="sign in description"
         onSubmit={this.onSubmit}
+        initialValues={{ email: 'paiboon15721@gmail.com', password: '1234' }}
       />
     )
   }
