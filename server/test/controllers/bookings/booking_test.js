@@ -23,29 +23,29 @@ describe('Booking', () => {
     email: 'agentemployee1@test.com',
     password: password.hash,
     name: 'name_test',
-    phoneNumber: '024283192',
+    phoneNumber: '024283192'
   }
 
   const agent1Props = {
     email: 'agent1@test.com',
     password: password.hash,
-    employees: [agentEmployee1Props],
+    employees: [agentEmployee1Props]
   }
 
   const agentEmployee1SigninProps = {
     email: 'agent1@test.com..agentemployee1@test.com',
     password: password.raw,
-    role: 'agentEmployee',
+    role: 'agentEmployee'
   }
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash,
+    password: password.hash
   }
 
   const company2Props = {
     email: 'company2@test.com',
-    password: password.hash,
+    password: password.hash
   }
 
   const touristProps = {
@@ -56,186 +56,188 @@ describe('Booking', () => {
     child: 1,
     nationality: 'thai',
     date: new Date(),
-    note: 'awesome trip',
+    note: 'awesome trip'
   }
 
-  const company1SigninProps = {...company1Props, role: 'company', password: password.raw }
-  const company2SigninProps = {...company2Props, role: 'company', password: password.raw }
-  const agent1SigninProps = {...agent1Props, role: 'agent', password: password.raw }
+  const company1SigninProps = {
+    ...company1Props,
+    role: 'company',
+    password: password.raw
+  }
+  const company2SigninProps = {
+    ...company2Props,
+    role: 'company',
+    password: password.raw
+  }
+  const agent1SigninProps = {
+    ...agent1Props,
+    role: 'agent',
+    password: password.raw
+  }
 
   beforeEach(done => {
     company1 = new Company(company1Props)
     company2 = new Company(company2Props)
     agent1 = new Agent(agent1Props)
 
-    const company1PkgsStubs = new Array(10)
-      .fill(undefined)
-      .map((val, key) => ({
-        company: company1._id,
-        name: `name_test${key}`,
-        description: `description_test${key}`,
-        priceAdult: '3000',
-        priceChild: '2000',
-      }))
+    const company1PkgsStubs = new Array(10).fill(undefined).map((val, key) => ({
+      company: company1._id,
+      name: `name_test${key}`,
+      description: `description_test${key}`,
+      priceAdult: '3000',
+      priceChild: '2000'
+    }))
 
-    const company2PkgsStubs = new Array(10)
-      .fill(undefined)
-      .map((val, key) => ({
-        company: company2._id,
-        name: `name_test${key}`,
-        description: `description_test${key}`,
-        priceAdult: '3000',
-        priceChild: '2000',
-      }))
+    const company2PkgsStubs = new Array(10).fill(undefined).map((val, key) => ({
+      company: company2._id,
+      name: `name_test${key}`,
+      description: `description_test${key}`,
+      priceAdult: '3000',
+      priceChild: '2000'
+    }))
 
     const pkgsStubs = company1PkgsStubs.concat(company2PkgsStubs)
 
-    Promise
-      .all([
-        company1.save(),
-        company2.save(),
-        agent1.save(),
-        Pkg.insertMany(pkgsStubs),
-      ])
-      .then(() => {
-        parallel(
-          [
-            cb => {
-              request(app)
-                .post('/companies/signin')
-                .send(company1SigninProps)
-                .end((err, res) => {
-                  cb(err, res.body.token)
-                })
-            },
-            cb => {
-              request(app)
-                .post('/agents/signin')
-                .send(agent1SigninProps)
-                .end((err, res) => {
-                  cb(err, res.body.token)
-                })
-            },
-            cb => {
-              request(app)
-                .post('/agents-employees/signin')
-                .send(agentEmployee1SigninProps)
-                .end((err, res) => {
-                  cb(err, res.body.token)
-                })
-            },
-            cb => {
-              request(app)
-                .post('/companies/signin')
-                .send(company2SigninProps)
-                .end((err, res) => {
-                  cb(err, res.body.token)
-                })
-            },
-          ],
-          (err, results) => {
-            company1Token = results[0]
-            agent1Token = results[1]
-            agentEmployee1Token = results[2]
+    Promise.all([
+      company1.save(),
+      company2.save(),
+      agent1.save(),
+      Pkg.insertMany(pkgsStubs)
+    ]).then(() => {
+      parallel(
+        [
+          cb => {
             request(app)
-              .post('/agents/request')
-              .send({ _id: company1._id })
-              .set('authorization', agent1Token)
-              .end(err1 => {
-                if (err1) return done(err1)
-
-                return request(app)
-                  .post('/companies/accept')
-                  .send({ _id: agent1._id })
-                  .set('authorization', company1Token)
-                  .end(err2 => {
-                    if (err2) return done(err2)
-
-                    return done()
-                  })
+              .post('/companies/signin')
+              .send(company1SigninProps)
+              .end((err, res) => {
+                cb(err, res.body.token)
               })
-          })
-      })
+          },
+          cb => {
+            request(app)
+              .post('/agents/signin')
+              .send(agent1SigninProps)
+              .end((err, res) => {
+                cb(err, res.body.token)
+              })
+          },
+          cb => {
+            request(app)
+              .post('/agents-employees/signin')
+              .send(agentEmployee1SigninProps)
+              .end((err, res) => {
+                cb(err, res.body.token)
+              })
+          },
+          cb => {
+            request(app)
+              .post('/companies/signin')
+              .send(company2SigninProps)
+              .end((err, res) => {
+                cb(err, res.body.token)
+              })
+          }
+        ],
+        (err, results) => {
+          company1Token = results[0]
+          agent1Token = results[1]
+          agentEmployee1Token = results[2]
+          request(app)
+            .post('/agents/request')
+            .send({ _id: company1._id })
+            .set('authorization', agent1Token)
+            .end(err1 => {
+              if (err1) return done(err1)
+
+              return request(app)
+                .post('/companies/accept')
+                .send({ _id: agent1._id })
+                .set('authorization', company1Token)
+                .end(err2 => {
+                  if (err2) return done(err2)
+
+                  return done()
+                })
+            })
+        }
+      )
+    })
   })
 
   describe('Company offer special price', () => {
     it('offer package1 to agent1', done => {
-      Pkg.findOne({ company: company1._id, name: 'name_test0' })
-        .then(pkg => {
-          request(app)
-            .post(`/companies/pkgs/${pkg._id}/special-prices`)
-            .send({
-              agent: agent1._id,
-              priceAdult: 2500,
-              priceChild: 1500,
-            })
-            .set('authorization', company1Token)
-            .expect(200)
-            .end(err => {
-              if (err) return done(err)
+      Pkg.findOne({ company: company1._id, name: 'name_test0' }).then(pkg => {
+        request(app)
+          .post(`/companies/pkgs/${pkg._id}/special-prices`)
+          .send({
+            agent: agent1._id,
+            priceAdult: 2500,
+            priceChild: 1500
+          })
+          .set('authorization', company1Token)
+          .expect(200)
+          .end(err => {
+            if (err) return done(err)
 
-              return Pkg
-                .findById(pkg._id, {
-                  specialPrices: {
-                    $elemMatch: { agent: agent1._id },
-                  },
-                })
-                .then(pkg1 => {
-                  expect(pkg1.specialPrices[0].priceAdult).to.equal(2500)
-                  return done()
-                })
+            return Pkg.findById(pkg._id, {
+              specialPrices: {
+                $elemMatch: { agent: agent1._id }
+              }
+            }).then(pkg1 => {
+              expect(pkg1.specialPrices[0].priceAdult).to.equal(2500)
+              return done()
             })
-        })
+          })
+      })
     })
 
     it('offer same pkg again must update', done => {
-      Pkg.findOne({ company: company1._id, name: 'name_test0' })
-        .then(pkg => {
-          request(app)
-            .post(`/companies/pkgs/${pkg._id}/special-prices`)
-            .send({
-              agent: agent1._id,
-              priceAdult: 2500,
-              priceChild: 1500,
-            })
-            .set('authorization', company1Token)
-            .end(err => {
-              if (err) return done(err)
+      Pkg.findOne({ company: company1._id, name: 'name_test0' }).then(pkg => {
+        request(app)
+          .post(`/companies/pkgs/${pkg._id}/special-prices`)
+          .send({
+            agent: agent1._id,
+            priceAdult: 2500,
+            priceChild: 1500
+          })
+          .set('authorization', company1Token)
+          .end(err => {
+            if (err) return done(err)
 
-              return request(app)
-                .post(`/companies/pkgs/${pkg._id}/special-prices`)
-                .send({
-                  agent: company1._id,
-                  priceAdult: 5555,
-                  priceChild: 4444,
-                })
-                .set('authorization', company1Token)
-                .end(err1 => {
-                  if (err1) return done(err1)
+            return request(app)
+              .post(`/companies/pkgs/${pkg._id}/special-prices`)
+              .send({
+                agent: company1._id,
+                priceAdult: 5555,
+                priceChild: 4444
+              })
+              .set('authorization', company1Token)
+              .end(err1 => {
+                if (err1) return done(err1)
 
-                  return request(app)
-                    .post(`/companies/pkgs/${pkg._id}/special-prices`)
-                    .send({
-                      agent: agent1._id,
-                      priceAdult: 2000,
-                      priceChild: 1000,
-                    })
-                    .set('authorization', company1Token)
-                    .end(err2 => {
-                      if (err2) return done(err2)
+                return request(app)
+                  .post(`/companies/pkgs/${pkg._id}/special-prices`)
+                  .send({
+                    agent: agent1._id,
+                    priceAdult: 2000,
+                    priceChild: 1000
+                  })
+                  .set('authorization', company1Token)
+                  .end(err2 => {
+                    if (err2) return done(err2)
 
-                      return Pkg
-                        .findById(pkg._id)
-                        .then(pkg1 => {
-                          expect(pkg1.specialPrices[0].priceAdult).to.equal(2000)
-                          expect(pkg1.specialPrices[1].priceAdult).to.equal(5555)
-                          done()
-                        })
-                        .catch(done)
-                    })
-                })
-            })
-        })
+                    return Pkg.findById(pkg._id)
+                      .then(pkg1 => {
+                        expect(pkg1.specialPrices[0].priceAdult).to.equal(2000)
+                        expect(pkg1.specialPrices[1].priceAdult).to.equal(5555)
+                        done()
+                      })
+                      .catch(done)
+                  })
+              })
+          })
+      })
     })
   })
 
@@ -254,33 +256,31 @@ describe('Booking', () => {
     })
 
     it('if has special price show special price', done => {
-      Pkg.findOne({ company: company1._id, name: 'name_test0' })
-        .then(pkg => {
-          pkg.specialPrices.push({
-            agent: agent1._id,
-            priceAdult: 2500,
-            priceChild: 1500,
-          })
-          pkg.specialPrices.push({
-            agent: company2._id,
-            priceAdult: 1500,
-            priceChild: 500,
-          })
+      Pkg.findOne({ company: company1._id, name: 'name_test0' }).then(pkg => {
+        pkg.specialPrices.push({
+          agent: agent1._id,
+          priceAdult: 2500,
+          priceChild: 1500
+        })
+        pkg.specialPrices.push({
+          agent: company2._id,
+          priceAdult: 1500,
+          priceChild: 500
+        })
 
-          pkg.save()
-            .then(() => {
-              request(app)
-                .get('/agents-employees/pkgs')
-                .set('authorization', agentEmployee1Token)
-                .expect(200)
-                .end((err, res) => {
-                  if (err) return done(err)
+        pkg.save().then(() => {
+          request(app)
+            .get('/agents-employees/pkgs')
+            .set('authorization', agentEmployee1Token)
+            .expect(200)
+            .end((err, res) => {
+              if (err) return done(err)
 
-                  expect(res.body[0].priceAdult).to.equal(2500)
-                  return done()
-                })
+              expect(res.body[0].priceAdult).to.equal(2500)
+              return done()
             })
         })
+      })
     })
   })
 
@@ -288,15 +288,14 @@ describe('Booking', () => {
     let booking1Props
 
     beforeEach(done => {
-      Pkg.findOne({ company: company1._id, name: 'name_test0' })
-        .then(pkg => {
-          booking1Props = {
-            company: company1._id,
-            pkg,
-            tourist: touristProps,
-          }
-          done()
-        })
+      Pkg.findOne({ company: company1._id, name: 'name_test0' }).then(pkg => {
+        booking1Props = {
+          company: company1._id,
+          pkg,
+          tourist: touristProps
+        }
+        done()
+      })
     })
 
     it('agent one booking', done => {
@@ -308,8 +307,7 @@ describe('Booking', () => {
         .end(err => {
           if (err) return done(err)
 
-          return Booking
-            .count()
+          return Booking.count()
             .then(count => {
               expect(count).to.equal(1)
               done()
@@ -327,8 +325,7 @@ describe('Booking', () => {
         .end(err => {
           if (err) return done(err)
 
-          return Booking
-            .count()
+          return Booking.count()
             .then(count => {
               expect(count).to.equal(1)
               done()
@@ -347,8 +344,7 @@ describe('Booking', () => {
         .end(err => {
           if (err) return done(err)
 
-          return Booking
-            .count()
+          return Booking.count()
             .then(count => {
               expect(count).to.equal(0)
               done()
@@ -392,7 +388,7 @@ describe('Booking', () => {
           const booking1Props = {
             company: company1._id,
             pkg,
-            tourist: touristProps,
+            tourist: touristProps
           }
 
           return request(app)
@@ -417,8 +413,7 @@ describe('Booking', () => {
                     .end(err3 => {
                       if (err3) return done(err3)
 
-                      return Booking
-                        .findById(bookingId)
+                      return Booking.findById(bookingId)
                         .then(booking => {
                           expect(booking.status).to.equal(status.accepted)
                           done()
