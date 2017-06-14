@@ -28,6 +28,7 @@ router.get('/agents', c.getAgentsList)
 router.delete('/relationship/:id', c.deleteRelationship)
 router.get('/bookings', c.getBookingsList)
 router.post('/pkgs/:pkgId/special-prices', c.addPkgSpecialPrice)
+router.get('/special-prices/:agentId', c.getSpecialPricesList)
 router.put('/bookings/:id', c.updateBooking)
 
 export default router

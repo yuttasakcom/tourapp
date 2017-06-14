@@ -174,7 +174,7 @@ describe('Booking', () => {
         .end((err, res) => {
           if (err) return done(err)
 
-          console.log(res)
+          console.log(res.body)
           return done()
         })
     })
