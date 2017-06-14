@@ -1,12 +1,11 @@
 import Agent from '../../models/agent'
 
-export const getAcceptPendingsList = (req, res, next) => {
+export const getAcceptPendingsList = async (req, res, next) => {
   const agentId = req.user._id
 
-  Agent.findById(agentId, {
+  const acceptPendings = await Agent.findById(agentId, {
     _id: 0,
     acceptPendings: 1
-  }).then(acceptPendings => {
-    res.send(acceptPendings)
   })
+  return res.send(acceptPendings)
 }

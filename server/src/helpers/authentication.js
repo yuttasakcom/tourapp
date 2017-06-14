@@ -10,7 +10,6 @@ export const comparePassword = (candidatePassword, realPassword) =>
     })
   })
 
-
 export const checkEmailExist = (modelName, email) =>
   new Promise((resolve, reject) => {
     const User = mongoose.model(modelName)
@@ -26,25 +25,26 @@ export const checkEmailExist = (modelName, email) =>
   })
 
 export const checkEmployeeEmailExist = (modelName, employerId, email) =>
-  new Promise((resolve, reject) => {
+  new Promise(async (resolve, reject) => {
     const Employer = mongoose.model(modelName)
-    Employer
-      .count({
+
+    try {
+      const exist = await Employer.count({
         _id: employerId,
         employees: {
           $elemMatch: {
-            email,
-          },
-        },
-      })
-      .then(exist => {
-        if (exist) {
-          resolve(true)
-        } else {
-          resolve(false)
+            email
+          }
         }
       })
-      .catch(reject)
+      if (exist) {
+        resolve(true)
+      } else {
+        resolve(false)
+      }
+    } catch (e) {
+      reject(e)
+    }
   })
 
 export const hashPassword = password =>

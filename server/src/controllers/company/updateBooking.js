@@ -1,15 +1,14 @@
 import Booking from '../../models/booking'
 
-export const updateBooking = (req, res, next) => {
+export const updateBooking = async (req, res, next) => {
   const bookingId = req.params.id
   const bookingProps = req.body
 
-  Booking.update(
+  await Booking.update(
     { _id: bookingId },
     {
       $set: bookingProps
     }
-  ).then(() => {
-    res.send({ message: 'Update booking completed' })
-  })
+  )
+  return res.send({ message: 'Update booking completed' })
 }

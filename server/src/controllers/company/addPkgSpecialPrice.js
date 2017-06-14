@@ -1,6 +1,6 @@
 import Pkg from '../../models/pkg'
 
-export const addPkgSpecialPrice = (req, res, next) => {
+export const addPkgSpecialPrice = async (req, res, next) => {
   const pkgId = req.params.pkgId
   const specialPriceProps = req.body
 
@@ -13,22 +13,19 @@ export const addPkgSpecialPrice = (req, res, next) => {
       'specialPrices.$': specialPriceProps
     }
   }
-
-  Pkg.count(find).then(exist => {
-    if (!exist) {
-      find = {
-        _id: pkgId
-      }
-      update = {
-        $push: {
-          specialPrices: specialPriceProps
-        }
+  const exist = await Pkg.count(find)
+  if (!exist) {
+    find = {
+      _id: pkgId
+    }
+    update = {
+      $push: {
+        specialPrices: specialPriceProps
       }
     }
-    Pkg.update(find, update).then(() => {
-      res.send({
-        message: 'Offer special price completed'
-      })
-    })
+  }
+  await Pkg.update(find, update)
+  return res.send({
+    message: 'Offer special price completed'
   })
 }

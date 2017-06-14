@@ -1,11 +1,11 @@
 import Company from '../../models/company'
 import Agent from '../../models/agent'
 
-export const deleteRelationship = (req, res, next) => {
+export const deleteRelationship = async (req, res, next) => {
   const agentId = req.user._id
   const companyId = req.params.id
 
-  Promise.all([
+  await Promise.all([
     Company.update(
       { _id: companyId },
       {
@@ -18,7 +18,6 @@ export const deleteRelationship = (req, res, next) => {
         $pull: { companies: companyId }
       }
     )
-  ]).then(() => {
-    res.send({ message: 'Delete relationship completed' })
-  })
+  ])
+  return res.send({ message: 'Delete relationship completed' })
 }

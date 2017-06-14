@@ -1,11 +1,11 @@
 import Agent from '../../models/agent'
 import Company from '../../models/company'
 
-export const cancelRequest = (req, res, next) => {
+export const cancelRequest = async (req, res, next) => {
   const agentId = req.user._id
   const companyId = req.params.id
 
-  Promise.all([
+  await Promise.all([
     Agent.update(
       { _id: agentId },
       {
@@ -18,7 +18,6 @@ export const cancelRequest = (req, res, next) => {
         $pull: { acceptPendings: agentId }
       }
     )
-  ]).then(() => {
-    res.send({ message: 'Cancel request completed' })
-  })
+  ])
+  return res.send({ message: 'Cancel request completed' })
 }

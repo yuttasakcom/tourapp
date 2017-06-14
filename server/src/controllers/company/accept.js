@@ -1,45 +1,49 @@
 import Company from '../../models/company'
 import Agent from '../../models/agent'
 
-export const accept = (req, res, next) => {
+export const accept = async (req, res, next) => {
   const agentId = req.body._id
   const companyId = req.user._id
 
-  Company.update(
+  const { nModified } = await Company.update(
     { _id: companyId },
     {
       $pull: { acceptPendings: agentId }
     }
-  ).then(({ nModified }) => {
-    if (nModified) {
-      Agent.update(
-        { _id: agentId },
-        {
-          $pull: { requestPendings: companyId }
-        }
-      ).then(() => {
-        const addAgentToCompany = Company.update(
-          { _id: companyId },
-          {
-            $addToSet: { agents: agentId }
-          }
-        )
+  )
 
-        const addCompanyToAgent = Agent.update(
-          { _id: agentId },
-          {
-            $addToSet: { companies: companyId }
-          }
-        )
+  if (!nModified) {
+    const err = new Error('Request not found')
+    err.status = 422
+    return next(err)
+  }
 
-        Promise.all([addAgentToCompany, addCompanyToAgent]).then(() => {
-          res.send({ message: 'Accept request completed' })
-        })
-      })
-    } else {
-      const err = new Error('Request not found')
-      err.status = 422
-      next(err)
+  const removeAgentRequestPendings = Agent.update(
+    { _id: agentId },
+    {
+      $pull: { requestPendings: companyId }
     }
-  })
+  )
+
+  const addAgentToCompany = Company.update(
+    { _id: companyId },
+    {
+      $addToSet: { agents: agentId }
+    }
+  )
+
+  const addCompanyToAgent = Agent.update(
+    { _id: agentId },
+    {
+      $addToSet: { companies: companyId }
+    }
+  )
+
+  await Promise.all([
+    removeAgentRequestPendings,
+    addAgentToCompany,
+    addCompanyToAgent
+  ])
+
+  return res.send({ message: 'Accept request completed' })
 }

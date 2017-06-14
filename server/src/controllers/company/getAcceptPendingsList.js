@@ -1,12 +1,11 @@
 import Company from '../../models/company'
 
-export const getAcceptPendingsList = (req, res, next) => {
+export const getAcceptPendingsList = async (req, res, next) => {
   const companyId = req.user._id
 
-  Company.findById(companyId, {
+  const acceptPendings = await Company.findById(companyId, {
     _id: 0,
     acceptPendings: 1
-  }).then(acceptPendings => {
-    res.send(acceptPendings)
   })
+  return res.send(acceptPendings)
 }

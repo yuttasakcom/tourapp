@@ -1,20 +1,21 @@
 import Pkg from '../../models/pkg'
 
-export const updatePkg = (req, res, next) => {
+export const updatePkg = async (req, res, next) => {
   const pkgId = req.params.id
   const pkgProps = req.body
 
-  Pkg.findByIdAndUpdate(
-    pkgId,
-    {
-      $set: pkgProps
-    },
-    {
-      new: true
-    }
-  )
-    .then(pkg => {
-      res.send(pkg)
-    })
-    .catch(next)
+  try {
+    const pkg = await Pkg.findByIdAndUpdate(
+      pkgId,
+      {
+        $set: pkgProps
+      },
+      {
+        new: true
+      }
+    )
+    return res.send(pkg)
+  } catch (e) {
+    return next(e)
+  }
 }

@@ -1,11 +1,12 @@
 import Pkg from '../../models/pkg'
 
-export const getPkg = (req, res, next) => {
+export const getPkg = async (req, res, next) => {
   const pkgId = req.params.id
 
-  Pkg.findById(pkgId)
-    .then(pkg => {
-      res.send(pkg)
-    })
-    .catch(next)
+  try {
+    const pkg = await Pkg.findById(pkgId)
+    return res.send(pkg)
+  } catch (e) {
+    return next(e)
+  }
 }

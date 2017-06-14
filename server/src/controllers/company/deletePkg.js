@@ -1,9 +1,8 @@
 import Pkg from '../../models/pkg'
 
-export const deletePkg = (req, res, next) => {
+export const deletePkg = async (req, res, next) => {
   const pkgId = req.params.id
 
-  Pkg.remove({ _id: pkgId }).then(() => {
-    res.send({ message: 'Delete package completed' })
-  })
+  await Pkg.remove({ _id: pkgId })
+  return res.send({ message: 'Delete package completed' })
 }
