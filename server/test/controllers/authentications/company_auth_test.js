@@ -13,232 +13,168 @@ const expect = chai.expect
 describe('company authentication', () => {
   const companyProps = {
     email: 'company1@test.com',
-    password: '1234',
+    password: '1234'
   }
 
-  const companySigninProps = {...companyProps, role: 'company' }
+  const companySigninProps = { ...companyProps, role: 'company' }
 
   describe('signup', () => {
-    it('create a new company', done => {
-      Company.count().then(count => {
-        request(app)
-          .post('/companies/signup')
-          .send(companyProps)
-          .expect(201)
-          .end(err => {
-            if (err) return done(err)
+    it('create a new company', async () => {
+      const count = await Company.count()
+      await request(app)
+        .post('/companies/signup')
+        .send(companyProps)
+        .expect(201)
 
-            return Company
-              .count().then(newCount => {
-                expect(count + 1).to.equal(newCount)
-                done()
-              })
-          })
-      })
+      const newCount = await Company.count()
+      expect(count + 1).to.equal(newCount)
     })
 
-    it('must provide email and password', done => {
+    it('must provide email and password', async () => {
       const companyWithoutEmail = {
         email: undefined,
-        password: '1234',
+        password: '1234'
       }
       const companyWithoutPassword = {
         email: 'company1@test.com',
-        password: undefined,
+        password: undefined
       }
-      request(app)
+      const res = await request(app)
         .post('/companies/signup')
         .send(companyWithoutEmail)
         .expect(422)
-        .end((err, res) => {
-          if (err) return done(err)
 
-          expect(res.body.error).to.equal('Must provide email and password')
-          return request(app)
-            .post('/companies/signup')
-            .send(companyWithoutPassword)
-            .expect(422)
-            .end((resErr, res1) => {
-              if (resErr) return done(resErr)
+      expect(res.body.error).to.equal('Must provide email and password')
+      const res1 = await request(app)
+        .post('/companies/signup')
+        .send(companyWithoutPassword)
+        .expect(422)
 
-              expect(res1.body.error).to.equal('Must provide email and password')
-              return done()
-            })
-        })
+      expect(res1.body.error).to.equal('Must provide email and password')
     })
 
-    it('can not be use a duplicate email', done => {
+    it('can not be use a duplicate email', async () => {
       const company = new Company(companyProps)
+      await company.save()
+      const res = await request(app)
+        .post('/companies/signup')
+        .send(companyProps)
+        .expect(422)
 
-      company.save().then(() => {
-        request(app)
-          .post('/companies/signup')
-          .send(companyProps)
-          .expect(422)
-          .end((err, res) => {
-            if (err) return done(err)
-
-            expect(res.body.error).to.equal('Email is in use')
-            return done()
-          })
-      })
+      expect(res.body.error).to.equal('Email is in use')
     })
 
-    it('password must be hash', done => {
-      request(app)
+    it('password must be hash', async () => {
+      await request(app)
         .post('/companies/signup')
         .send(companyProps)
         .expect(201)
-        .end(err => {
-          if (err) return done(err)
 
-          return Company
-            .findOne({ email: companyProps.email })
-            .then(company => {
-              expect(company.password).to.not.equal(companyProps.password)
-              done()
-            })
-            .catch(done)
-        })
+      const company = await Company.findOne({ email: companyProps.email })
+      expect(company.password).to.not.equal(companyProps.password)
     })
 
-    it('return token in body', done => {
-      request(app)
+    it('return token in body', async () => {
+      const res = await request(app)
         .post('/companies/signup')
         .send(companyProps)
         .expect(201)
-        .end((err, res) => {
-          if (err) return done(err)
 
-          expect(res.body.token).to.be.exist()
-          return done()
-        })
+      expect(res.body.token).to.be.exist()
     })
   })
 
   describe('signin', () => {
     let testCompany
 
-    beforeEach(done => {
-      request(app)
-        .post('/companies/signup')
-        .send(companyProps)
-        .end(err => {
-          if (err) return done(err)
+    beforeEach(async () => {
+      await request(app).post('/companies/signup').send(companyProps)
 
-          return Company
-            .findOne({ email: companyProps.email })
-            .then(company => {
-              testCompany = company
-              done()
-            })
-        })
+      const company = await Company.findOne({ email: companyProps.email })
+      testCompany = company
     })
 
-    it('comparePassword must be valid', done => {
-      comparePassword(companyProps.password, testCompany.password)
-        .then(isMatch => {
-          expect(isMatch).to.equal(true)
-          done()
-        })
-        .catch(done)
+    it('comparePassword must be valid', async () => {
+      const isMatch = await comparePassword(
+        companyProps.password,
+        testCompany.password
+      )
+      expect(isMatch).to.equal(true)
     })
 
-    it('comparePassword must be invalid', done => {
-      comparePassword('4321', testCompany.password)
-        .then(isMatch => {
-          expect(isMatch).to.equal(false)
-          done()
-        })
-        .catch(done)
+    it('comparePassword must be invalid', async () => {
+      const isMatch = await comparePassword('4321', testCompany.password)
+      expect(isMatch).to.equal(false)
     })
 
-    it('return token in body', done => {
-      request(app)
+    it('return token in body', async () => {
+      const res = await request(app)
         .post('/companies/signin')
         .send(companySigninProps)
         .expect(200)
-        .end((err, res) => {
-          if (err) return done(err)
 
-          expect(res.body.token).to.be.exist()
-          return done()
-        })
+      expect(res.body.token).to.be.exist()
     })
 
-    it('return status 401 when dont send role', done => {
-      request(app)
+    it('return status 401 when dont send role', async () => {
+      await request(app)
         .post('/companies/signin')
         .send(companyProps)
-        .expect(401, done)
+        .expect(401)
     })
   })
 
   describe('auth with jwt', () => {
-    it('signup token can get secret route', done => {
-      request(app)
+    it('signup token can get secret route', async () => {
+      const res = await request(app)
         .post('/companies/signup')
         .send(companyProps)
-        .end((err, res) => {
-          if (err) return done(err)
 
-          const token = res.body.token
-          return request(app)
-            .get('/companies/profile')
-            .set('authorization', token)
-            .expect(200, done)
-        })
-    })
-
-    it('signin token can get secret route', done => {
-      request(app)
-        .post('/companies/signup')
-        .send(companyProps)
-        .end(err => {
-          if (err) return done(err)
-
-          return request(app)
-            .post('/companies/signin')
-            .send(companySigninProps)
-            .end((err1, res) => {
-              if (err1) return done(err1)
-
-              const token = res.body.token
-              return request(app)
-                .get('/companies/profile')
-                .set('authorization', token)
-                .expect(200, done)
-            })
-        })
-    })
-
-    it('fake token can not get secret route', done => {
-      const token = 'fake token'
-      request(app)
+      const token = res.body.token
+      await request(app)
         .get('/companies/profile')
         .set('authorization', token)
-        .expect(401, done)
+        .expect(200)
     })
 
-    it('agent token can not get secret route', done => {
+    it('signin token can get secret route', async () => {
+      await request(app).post('/companies/signup').send(companyProps)
+
+      const res = await request(app)
+        .post('/companies/signin')
+        .send(companySigninProps)
+
+      const token = res.body.token
+      await request(app)
+        .get('/companies/profile')
+        .set('authorization', token)
+        .expect(200)
+    })
+
+    it('fake token can not get secret route', async () => {
+      const token = 'fake token'
+      await request(app)
+        .get('/companies/profile')
+        .set('authorization', token)
+        .expect(401)
+    })
+
+    it('agent token can not get secret route', async () => {
       const agentProps = {
         email: 'agent1@test.com',
-        password: '1234',
+        password: '1234'
       }
 
-      request(app)
+      const res = await request(app)
         .post('/agents/signup')
         .send(agentProps)
         .expect(201)
-        .end((err, res) => {
-          if (err) return done(err)
 
-          const agentToken = res.body.token
-          return request(app)
-            .get('/companies/profile')
-            .set('authorization', agentToken)
-            .expect(401, done)
-        })
+      const agentToken = res.body.token
+      await request(app)
+        .get('/companies/profile')
+        .set('authorization', agentToken)
+        .expect(401)
     })
   })
 })

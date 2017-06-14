@@ -13,8 +13,6 @@ before(done => {
   })
 })
 
-beforeEach(done => {
-  mongoose.connection.db.dropDatabase()
-    .then(() => done())
-    .catch(() => done())
+beforeEach(async () => {
+  await mongoose.connection.db.dropDatabase()
 })

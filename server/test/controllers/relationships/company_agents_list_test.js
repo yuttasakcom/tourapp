@@ -22,32 +22,24 @@ describe('Company get empty agents list', () => {
     password: password.raw
   }
 
-  beforeEach(done => {
+  beforeEach(async () => {
     company1 = new Company(company1Props)
-    company1.save().then(() => {
-      request(app)
-        .post('/companies/signin')
-        .send(company1SigninProps)
-        .end((err, res) => {
-          company1Token = res.body.token
+    await company1.save()
+    const res = await request(app)
+      .post('/companies/signin')
+      .send(company1SigninProps)
 
-          done()
-        })
-    })
+    company1Token = res.body.token
   })
 
-  it('empty agents', done => {
-    request(app)
+  it('empty agents', async () => {
+    const res = await request(app)
       .get('/companies/agents')
       .set('authorization', company1Token)
       .expect(200)
-      .end((err, res) => {
-        if (err) return done(err)
 
-        const agents = res.body
-        expect(agents.length).to.equal(0)
-        return done()
-      })
+    const agents = res.body
+    expect(agents.length).to.equal(0)
   })
 })
 
@@ -78,7 +70,7 @@ describe('Company get agents list', () => {
     password: password.raw
   }
 
-  beforeEach(done => {
+  beforeEach(async () => {
     company1 = new Company(company1Props)
     agent1 = new Agent(agent1Props)
     agent2 = new Agent(agent2Props)
@@ -86,31 +78,23 @@ describe('Company get agents list', () => {
     company1.agents.push(agent1)
     company1.agents.push(agent2)
 
-    Promise.all([company1.save(), agent1.save(), agent2.save()]).then(() => {
-      request(app)
-        .post('/companies/signin')
-        .send(company1SigninProps)
-        .end((err, res) => {
-          company1Token = res.body.token
+    await Promise.all([company1.save(), agent1.save(), agent2.save()])
+    const res = await request(app)
+      .post('/companies/signin')
+      .send(company1SigninProps)
 
-          done()
-        })
-    })
+    company1Token = res.body.token
   })
 
-  it('two agents', done => {
-    request(app)
+  it('two agents', async () => {
+    const res = await request(app)
       .get('/companies/agents')
       .set('authorization', company1Token)
       .expect(200)
-      .end((err, res) => {
-        if (err) return done(err)
 
-        const agents = res.body
-        expect(agents.length).to.equal(2)
-        expect(agents[0].email).to.equal(agent1Props.email)
-        expect(agents[1].email).to.equal(agent2Props.email)
-        return done()
-      })
+    const agents = res.body
+    expect(agents.length).to.equal(2)
+    expect(agents[0].email).to.equal(agent1Props.email)
+    expect(agents[1].email).to.equal(agent2Props.email)
   })
 })

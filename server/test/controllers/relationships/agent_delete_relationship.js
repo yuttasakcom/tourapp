@@ -15,22 +15,26 @@ describe('Agent delete relationship', () => {
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash,
+    password: password.hash
   }
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash,
+    password: password.hash
   }
 
   const company2Props = {
     email: 'company2@test.com',
-    password: password.hash,
+    password: password.hash
   }
 
-  const agent1SigninProps = {...agent1Props, role: 'agent', password: password.raw }
+  const agent1SigninProps = {
+    ...agent1Props,
+    role: 'agent',
+    password: password.raw
+  }
 
-  beforeEach(done => {
+  beforeEach(async () => {
     agent1 = new Agent(agent1Props)
     company1 = new Company(company1Props)
     company2 = new Company(company2Props)
@@ -40,95 +44,67 @@ describe('Agent delete relationship', () => {
     company1.agents.push(agent1)
     company1.agents.push(agent1)
 
-    Promise
-      .all([
-        agent1.save(),
-        company1.save(),
-        company2.save(),
-      ])
-      .then(() => {
-        request(app)
-          .post('/agents/signin')
-          .send(agent1SigninProps)
-          .end((err, res) => {
-            agent1Token = res.body.token
+    await Promise.all([agent1.save(), company1.save(), company2.save()])
+    const res = await request(app)
+      .post('/agents/signin')
+      .send(agent1SigninProps)
 
-            done()
-          })
-      })
+    agent1Token = res.body.token
   })
 
-  it('one relationship', done => {
-    request(app)
+  it('one relationship', async () => {
+    await request(app)
       .delete(`/agents/relationship/${company1._id}`)
       .set('authorization', agent1Token)
       .expect(200)
-      .end(err => {
-        if (err) return done(err)
 
-        return Promise
-          .all([
-            Agent.findOne({
-              _id: agent1._id,
-              companies: company1._id,
-            }),
-            Company.findOne({
-              _id: company1._id,
-              agents: agent1._id,
-            }),
-            Agent.findOne({
-              _id: agent1._id,
-              companies: company2._id,
-            }),
-          ])
-          .then(results => {
-            expect(results[0]).to.equal(null)
-            expect(results[1]).to.equal(null)
-            expect(results[2].companies.length).to.equal(1)
-            done()
-          })
-          .catch(done)
+    const [res1, res2, res3] = await Promise.all([
+      Agent.findOne({
+        _id: agent1._id,
+        companies: company1._id
+      }),
+      Company.findOne({
+        _id: company1._id,
+        agents: agent1._id
+      }),
+      Agent.findOne({
+        _id: agent1._id,
+        companies: company2._id
       })
+    ])
+    expect(res1).to.equal(null)
+    expect(res2).to.equal(null)
+    expect(res3.companies.length).to.equal(1)
   })
 
-  it('two relationship', done => {
-    request(app)
-      .delete(`/agents/relationship/${company1._id}`)
-      .set('authorization', agent1Token)
-      .expect(200)
-      .end(err => {
-        if (err) return done(err)
+  it('two relationship', async () => {
+    await Promise.all([
+      request(app)
+        .delete(`/agents/relationship/${company1._id}`)
+        .set('authorization', agent1Token)
+        .expect(200),
+      request(app)
+        .delete(`/agents/relationship/${company2._id}`)
+        .set('authorization', agent1Token)
+        .expect(200)
+    ])
 
-        return request(app)
-          .delete(`/agents/relationship/${company2._id}`)
-          .set('authorization', agent1Token)
-          .expect(200)
-          .end(err1 => {
-            if (err1) return done(err1)
-
-            return Promise
-              .all([
-                Agent.findOne({
-                  _id: agent1._id,
-                  companies: company1._id,
-                }),
-                Company.findOne({
-                  _id: company1._id,
-                  agents: agent1._id,
-                }),
-                Agent.findOne({
-                  _id: agent1._id,
-                  companies: company2._id,
-                }),
-              ])
-              .then(results => {
-                expect(results[0]).to.equal(null)
-                expect(results[1]).to.equal(null)
-                expect(results[2]).to.equal(null)
-                done()
-              })
-              .catch(done)
-          })
+    const [res1, res2, res3] = await Promise.all([
+      Agent.findOne({
+        _id: agent1._id,
+        companies: company1._id
+      }),
+      Company.findOne({
+        _id: company1._id,
+        agents: agent1._id
+      }),
+      Agent.findOne({
+        _id: agent1._id,
+        companies: company2._id
       })
+    ])
+    expect(res1).to.equal(null)
+    expect(res2).to.equal(null)
+    expect(res3).to.equal(null)
   })
 })

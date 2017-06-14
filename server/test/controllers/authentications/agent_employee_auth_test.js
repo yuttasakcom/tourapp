@@ -16,83 +16,78 @@ describe('agent employee authentication', () => {
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash,
+    password: password.hash
   }
 
   const employee1Props = {
     email: 'employee1@test.com',
     password: '1234',
     name: 'name_test',
-    phoneNumber: '024283192',
+    phoneNumber: '024283192'
   }
 
-  const agent1SigninProps = {...agent1Props, role: 'agent', password: password.raw }
+  const agent1SigninProps = {
+    ...agent1Props,
+    role: 'agent',
+    password: password.raw
+  }
+
   const employee1SigninProps = {
     email: 'agent1@test.com..employee1@test.com',
     password: '1234',
-    role: 'agentEmployee',
+    role: 'agentEmployee'
   }
 
-  beforeEach(done => {
+  beforeEach(async () => {
     agent1 = new Agent(agent1Props)
-    agent1.save()
-      .then(() => {
-        request(app)
-          .post('/agents/signin')
-          .send(agent1SigninProps)
-          .end((err, res) => {
-            agent1Token = res.body.token
+    await agent1.save()
+    const res = await request(app)
+      .post('/agents/signin')
+      .send(agent1SigninProps)
 
-            request(app)
-              .post('/agents/employees')
-              .send(employee1Props)
-              .set('authorization', agent1Token)
-              .expect(201, done)
-          })
-      })
+    agent1Token = res.body.token
+
+    await request(app)
+      .post('/agents/employees')
+      .send(employee1Props)
+      .set('authorization', agent1Token)
+      .expect(201)
   })
 
-  it('signin must return token in body', done => {
-    request(app)
+  it('signin must return token in body', async () => {
+    const res = await request(app)
       .post('/agents-employees/signin')
       .send(employee1SigninProps)
       .expect(200)
-      .end((err, res) => {
-        if (err) return done(err)
 
-        expect(res.body.token).to.be.exist()
-        return done()
-      })
+    expect(res.body.token).to.be.exist()
   })
 
-  it('return status 401 when dont send role', done => {
-    request(app)
+  it('return status 401 when dont send role', async () => {
+    await request(app)
       .post('/agents-employees/signin')
       .send(employee1Props)
-      .expect(401, done)
+      .expect(401)
   })
 
-  it('signin token can get secret route', done => {
-    request(app)
+  it('signin token can get secret route', async () => {
+    const res = await request(app)
       .post('/agents-employees/signin')
       .send(employee1SigninProps)
       .expect(200)
-      .end((err, res) => {
-        if (err) return done(err)
 
-        const token = res.body.token
-        return request(app)
-          .get('/agents-employees/profile')
-          .set('authorization', token)
-          .expect(200, done)
-      })
-  })
-
-  it('fake token can not get secret route', done => {
-    const token = 'fake token'
-    request(app)
+    const token = res.body.token
+    await request(app)
       .get('/agents-employees/profile')
       .set('authorization', token)
-      .expect(401, done)
+      .expect(200)
+  })
+
+  it('fake token can not get secret route', async () => {
+    const token = 'fake token'
+    await request(app)
+      .get('/agents-employees/profile')
+      .set('authorization', token)
+      .expect(401)
   })
 })

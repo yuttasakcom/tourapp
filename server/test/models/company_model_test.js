@@ -9,88 +9,73 @@ describe('Company model', () => {
     let agent1
     let company1
 
-    beforeEach(done => {
+    beforeEach(async () => {
       agent1 = new Agent({
         email: 'agent1@test.com',
-        password: '1234',
+        password: '1234'
       })
       company1 = new Company({
         email: 'company1@test.com',
-        password: '1234',
+        password: '1234'
       })
 
-      Promise
-        .all([
-          agent1.save(),
-          company1.save(),
-        ])
-        .then(() => done())
+      await Promise.all([agent1.save(), company1.save()])
     })
 
-    it('can add agent to an existing company', done => {
-      Company
-        .findByIdAndUpdate(company1._id, {
-          $push: { agents: agent1._id },
-        }, { new: true })
-        .then(() => {
-          Company.findById(company1._id)
-            .populate('agents')
-            .then(company => {
-              expect(company.agents[0].email).to.equal(agent1.email)
-              done()
-            })
-        })
+    it('can add agent to an existing company', async () => {
+      await Company.findByIdAndUpdate(
+        company1._id,
+        {
+          $push: { agents: agent1._id }
+        },
+        { new: true }
+      )
+      const company = await Company.findById(company1._id).populate('agents')
+      expect(company.agents[0].email).to.equal(agent1.email)
     })
 
-    it('add agent to an existing company, and agent can list company too', done => {
-      const pushAgentToCompany = Company
-        .findByIdAndUpdate(company1._id, {
-          $push: { agents: agent1._id },
-        }, { new: true })
+    it('add agent to an existing company, and agent can list company too', async () => {
+      const pushAgentToCompany = Company.findByIdAndUpdate(
+        company1._id,
+        {
+          $push: { agents: agent1._id }
+        },
+        { new: true }
+      )
 
-      const pushCompanyToAgent = Agent
-        .findByIdAndUpdate(agent1._id, {
-          $push: { companies: company1._id },
-        }, { new: true })
+      const pushCompanyToAgent = Agent.findByIdAndUpdate(
+        agent1._id,
+        {
+          $push: { companies: company1._id }
+        },
+        { new: true }
+      )
 
-      Promise
-        .all([
-          pushAgentToCompany,
-          pushCompanyToAgent,
-        ])
-        .then(() => {
-          Agent
-            .findById(agent1._id)
-            .populate('companies')
-            .then(agent => {
-              expect(agent.companies[0].email).to.equal(company1.email)
-              done()
-            })
-        })
+      await Promise.all([pushAgentToCompany, pushCompanyToAgent])
+      const agent = await Agent.findById(agent1._id).populate('companies')
+      expect(agent.companies[0].email).to.equal(company1.email)
     })
 
-    it('add agent id to requestPendings', done => {
-      Company
-        .findByIdAndUpdate(company1._id, {
-          $addToSet: { requestPendings: agent1._id },
-        }, { new: true })
-        .then(company => {
-          expect(company.requestPendings.length).to.be.equal(1)
-          done()
-        })
-        .catch(done)
+    it('add agent id to requestPendings', async () => {
+      const company = await Company.findByIdAndUpdate(
+        company1._id,
+        {
+          $addToSet: { requestPendings: agent1._id }
+        },
+        { new: true }
+      )
+      expect(company.requestPendings.length).to.be.equal(1)
     })
 
-    it('add agent id to acceptPendings', done => {
-      Company
-        .findByIdAndUpdate(company1._id, {
-          $addToSet: { acceptPendings: agent1._id },
-        }, { new: true })
-        .then(company => {
-          expect(company.acceptPendings.length).to.be.equal(1)
-          done()
-        })
-        .catch(done)
+    it('add agent id to acceptPendings', async () => {
+      const company = await Company.findByIdAndUpdate(
+        company1._id,
+        {
+          $addToSet: { acceptPendings: agent1._id }
+        },
+        { new: true }
+      )
+      expect(company.acceptPendings.length).to.be.equal(1)
     })
   })
 })

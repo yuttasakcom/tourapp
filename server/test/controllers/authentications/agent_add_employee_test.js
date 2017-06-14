@@ -13,158 +13,109 @@ describe('Agent add employee', () => {
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash,
+    password: password.hash
   }
 
   const employee1Props = {
     email: 'employee1@test.com',
     password: '1234',
     name: 'name_test',
-    phoneNumber: '024283192',
+    phoneNumber: '024283192'
   }
 
-  const agent1SigninProps = {...agent1Props, role: 'agent', password: password.raw }
+  const agent1SigninProps = {
+    ...agent1Props,
+    role: 'agent',
+    password: password.raw
+  }
 
-  beforeEach(done => {
+  beforeEach(async () => {
     agent1 = new Agent(agent1Props)
-    agent1.save()
-      .then(() => {
-        request(app)
-          .post('/agents/signin')
-          .send(agent1SigninProps)
-          .end((err, res) => {
-            agent1Token = res.body.token
+    await agent1.save()
+    const { body: { token } } = await request(app)
+      .post('/agents/signin')
+      .send(agent1SigninProps)
 
-            done()
-          })
-      })
+    agent1Token = token
   })
 
-  it('one employee', done => {
-    request(app)
+  it('one employee', async () => {
+    await request(app)
       .post('/agents/employees')
       .send(employee1Props)
       .set('authorization', agent1Token)
       .expect(201)
-      .end(err => {
-        if (err) return done(err)
 
-        return Agent
-          .findById(agent1._id)
-          .then(agent => {
-            expect(agent.employees.length).to.equal(1)
-            done()
-          })
-          .catch(done)
-      })
+    const agent = await Agent.findById(agent1._id)
+    expect(agent.employees.length).to.equal(1)
   })
 
-  it('must provide email and password', done => {
+  it('must provide email and password', async () => {
     const employeeWithoutEmail = {
       email: undefined,
-      password: '1234',
+      password: '1234'
     }
     const employeeWithoutPassword = {
       email: 'employee1@test.com',
-      password: undefined,
+      password: undefined
     }
-    request(app)
+    const res = await request(app)
       .post('/agents/employees')
       .send(employeeWithoutEmail)
       .set('authorization', agent1Token)
       .expect(422)
-      .end((err, res) => {
-        if (err) return done(err)
 
-        expect(res.body.error).to.equal('Must provide email and password')
-        return request(app)
-          .post('/agents/employees')
-          .send(employeeWithoutPassword)
-          .set('authorization', agent1Token)
-          .expect(422)
-          .end((err1, res1) => {
-            if (err1) return done(err1)
+    expect(res.body.error).to.equal('Must provide email and password')
 
-            expect(res1.body.error).to.equal('Must provide email and password')
-            return Agent
-              .findById(agent1._id)
-              .then(agent => {
-                expect(agent.employees.length).to.equal(0)
-                done()
-              })
-              .catch(done)
-          })
-      })
+    const res1 = await request(app)
+      .post('/agents/employees')
+      .send(employeeWithoutPassword)
+      .set('authorization', agent1Token)
+      .expect(422)
+
+    expect(res1.body.error).to.equal('Must provide email and password')
+    const agent = await Agent.findById(agent1._id)
+    expect(agent.employees.length).to.equal(0)
   })
 
-  it('can not be use a duplicate email', done => {
-    request(app)
+  it('can not be use a duplicate email', async () => {
+    await request(app)
       .post('/agents/employees')
       .send(employee1Props)
       .set('authorization', agent1Token)
       .expect(201)
-      .end(err => {
-        if (err) return done(err)
 
-        return request(app)
-          .post('/agents/employees')
-          .send(employee1Props)
-          .set('authorization', agent1Token)
-          .expect(422)
-          .end((err1, res) => {
-            if (err1) return done(err1)
+    const res = await request(app)
+      .post('/agents/employees')
+      .send(employee1Props)
+      .set('authorization', agent1Token)
+      .expect(422)
 
-            expect(res.body.error).to.equal('Email is in use')
-            return Agent
-              .findById(agent1._id)
-              .then(agent => {
-                expect(agent.employees.length).to.equal(1)
-                done()
-              })
-              .catch(done)
-          })
-      })
+    expect(res.body.error).to.equal('Email is in use')
+    const agent = await Agent.findById(agent1._id)
+    expect(agent.employees.length).to.equal(1)
   })
 
-  it('password must be hash', done => {
-    request(app)
+  it('password must be hash', async () => {
+    await request(app)
       .post('/agents/employees')
       .send(employee1Props)
       .set('authorization', agent1Token)
       .expect(201)
-      .end(err => {
-        if (err) return done(err)
 
-        return Agent
-          .findOne({ email: agent1Props.email })
-          .then(agent => {
-            expect(agent.employees[0].password).to.not.equal(employee1Props.password)
-            done()
-          })
-          .catch(done)
-      })
+    const agent = await Agent.findOne({ email: agent1Props.email })
+    expect(agent.employees[0].password).to.not.equal(employee1Props.password)
   })
 
-  it('comparePassword must be valid', done => {
-    request(app)
+  it('comparePassword must be valid', async () => {
+    await request(app)
       .post('/agents/employees')
       .send(employee1Props)
       .set('authorization', agent1Token)
-      .end(err => {
-        if (err) return done(err)
 
-        return Agent
-          .findById(agent1._id)
-          .then(agent => {
-            const employee = agent.employees[0]
-
-            comparePassword('1234', employee.password)
-              .then(isMatch => {
-                expect(isMatch).to.equal(true)
-                done()
-              })
-              .catch(done)
-          })
-      })
+    const agent = await Agent.findById(agent1._id)
+    const employee = agent.employees[0]
+    const isMatch = await comparePassword('1234', employee.password)
+    expect(isMatch).to.equal(true)
   })
 })
