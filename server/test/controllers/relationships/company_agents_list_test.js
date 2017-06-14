@@ -7,7 +7,7 @@ import { password } from '../../../src/helpers/mock'
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe.only('Company get empty agents list', () => {
+describe('Company get empty agents list', () => {
   let company1
   let company1Token
 

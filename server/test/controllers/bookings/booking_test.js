@@ -165,6 +165,21 @@ describe('Booking', () => {
     })
   })
 
+  describe('Company get pkgs list and special price by agentId', () => {
+    it.only('must show pkgs list', done => {
+      request(app)
+        .get(`/companies/special-prices/${agent1._id}`)
+        .set('authorization', company1Token)
+        .expect(200)
+        .end((err, res) => {
+          if (err) return done(err)
+
+          console.log(res)
+          return done()
+        })
+    })
+  })
+
   describe('Company offer special price', () => {
     it('offer package1 to agent1', done => {
       Pkg.findOne({ company: company1._id, name: 'name_test0' }).then(pkg => {
