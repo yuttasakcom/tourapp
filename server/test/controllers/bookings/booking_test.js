@@ -166,7 +166,7 @@ describe('Booking', () => {
   })
 
   describe('Company get pkgs list and special price by agentId', () => {
-    it.only('must show pkgs list', done => {
+    it('must show pkgs list', done => {
       request(app)
         .get(`/companies/special-prices/${agent1._id}`)
         .set('authorization', company1Token)

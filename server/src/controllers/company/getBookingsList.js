@@ -1,6 +1,6 @@
 import Booking from '../../models/booking'
 
-export default (req, res, next) => {
+export const getBookingsList = (req, res, next) => {
   const companyId = req.user._id
 
   Booking.find({ company: companyId })

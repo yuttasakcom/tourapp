@@ -1,6 +1,6 @@
 import Pkg from '../../models/pkg'
 
-export default (req, res, next) => {
+export const getPkg = (req, res, next) => {
   const pkgId = req.params.id
 
   Pkg.findById(pkgId)

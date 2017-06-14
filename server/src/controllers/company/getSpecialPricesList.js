@@ -1,6 +1,6 @@
 import Company from '../../models/company'
 
-export default (req, res, next) => {
+export const getSpecialPricesList = (req, res, next) => {
   const companyId = req.user._id
 
   Company.findById(companyId, {

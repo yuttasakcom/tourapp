@@ -1,11 +1,8 @@
 import Agent from '../../models/agent'
 import generateToken from './generateToken'
-import {
-  hashPassword,
-  checkEmailExist
-} from '../../helpers/authentication'
+import { hashPassword, checkEmailExist } from '../../helpers/authentication'
 
-export default (req, res, next) => {
+export const signup = (req, res, next) => {
   const agentProps = req.body
   const agent = new Agent(agentProps)
   const validationErr = agent.validateSync()
@@ -25,10 +22,11 @@ export default (req, res, next) => {
       return hashPassword(agent.password)
         .then(hash => {
           agent.password = hash
-          agent.save()
+          agent
+            .save()
             .then(resAgent =>
               res.status(201).send({
-                token: generateToken(resAgent),
+                token: generateToken(resAgent)
               })
             )
             .catch(next)
