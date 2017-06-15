@@ -11,13 +11,23 @@ import {
   CLOSE_DELETE_AGENT_MODAL,
   HIDE_AGENT_NOTIFICATION,
   OPEN_CONTRACT_RATE_MODAL,
-  CLOSE_CONTRACT_RATE_MODAL
+  CLOSE_CONTRACT_RATE_MODAL,
+  FETCH_AGENT_CONTRACT_RATE_SUCCESS
 } from './types'
 
 export const fetchAgents = () => async dispatch => {
   try {
     const { data } = await axios.get('/companies/agents')
     dispatch({ type: FETCH_AGENTS_SUCCESS, payload: data })
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export const fetchAgentContractRate = ({ _id }) => async dispatch => {
+  try {
+    const { data } = await axios.get(`/companies/special-prices/${_id}`)
+    dispatch({ type: FETCH_AGENT_CONTRACT_RATE_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
   }
