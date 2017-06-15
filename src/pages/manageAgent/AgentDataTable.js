@@ -13,8 +13,14 @@ class AgentDataTable extends PureComponent {
     this.props.fetchAgents()
   }
 
+  openContractRateModal(agent) {
+    const { openContractRateModal, fetchAgentContractRates } = this.props
+    fetchAgentContractRates(agent)
+    openContractRateModal(agent._id)
+  }
+
   renderTableBody = () => {
-    const { agents, openContractRateModal, openDeleteAgentModal } = this.props
+    const { agents, openDeleteAgentModal } = this.props
 
     if (!agents) {
       return <tr />
@@ -27,7 +33,7 @@ class AgentDataTable extends PureComponent {
         <td style={{ textAlign: 'center' }}>
           <button
             className="btn btn-info btn-sm"
-            onClick={() => openContractRateModal(agent._id)}
+            onClick={() => this.openContractRateModal(agent)}
           >
             Contract Rate
           </button>
