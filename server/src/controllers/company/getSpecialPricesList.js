@@ -1,11 +1,30 @@
-import Company from '../../models/company'
+import Pkg from '../../models/pkg'
 
 export const getSpecialPricesList = async (req, res, next) => {
   const companyId = req.user._id
+  const agentId = req.params.agentId
 
-  const requestPendings = await Company.findById(companyId, {
-    _id: 0,
-    requestPendings: 1
+  const pkgs = await Pkg.find(
+    { company: companyId },
+    {
+      specialPrices: {
+        $elemMatch: {
+          agent: agentId
+        }
+      },
+      name: 1,
+      priceAdult: 1,
+      priceChild: 1
+    }
+  )
+
+  const resolvedPricePkgs = pkgs.map(pkg => {
+    if (pkg.specialPrices.length) {
+      pkg.priceAdult = pkg.specialPrices[0].priceAdult
+      pkg.priceChild = pkg.specialPrices[0].priceChild
+    }
+    pkg.specialPrices = undefined
+    return pkg
   })
-  return res.send(requestPendings)
+  return res.send(resolvedPricePkgs)
 }

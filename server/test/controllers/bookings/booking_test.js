@@ -129,13 +129,28 @@ describe('Booking', () => {
   })
 
   describe('Company get pkgs list and special price by agentId', () => {
-    it('must show pkgs list', async () => {
+    it('GET /companies/special-prices/:agentId', async () => {
+      const pkg = await Pkg.findOne({
+        company: company1._id,
+        name: 'name_test0'
+      })
+
+      await request(app)
+        .post(`/companies/pkgs/${pkg._id}/special-prices`)
+        .send({
+          agent: agent1._id,
+          priceAdult: 2500,
+          priceChild: 1500
+        })
+        .set('authorization', company1Token)
+
       const res = await request(app)
         .get(`/companies/special-prices/${agent1._id}`)
         .set('authorization', company1Token)
         .expect(200)
 
-      console.log(res.body)
+      expect(res.body.length).to.equal(10)
+      expect(res.body[0].priceAdult).to.equal(2500)
     })
   })
 
