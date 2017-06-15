@@ -11,17 +11,14 @@ export const comparePassword = (candidatePassword, realPassword) =>
   })
 
 export const checkEmailExist = (modelName, email) =>
-  new Promise((resolve, reject) => {
+  new Promise(async (resolve, reject) => {
     const User = mongoose.model(modelName)
-    User.count({ email })
-      .then(exist => {
-        if (exist) {
-          resolve(true)
-        } else {
-          resolve(false)
-        }
-      })
-      .catch(reject)
+    try {
+      const exist = await User.count({ email })
+      resolve(exist)
+    } catch (e) {
+      reject(e)
+    }
   })
 
 export const checkEmployeeEmailExist = (modelName, employerId, email) =>
@@ -37,11 +34,7 @@ export const checkEmployeeEmailExist = (modelName, employerId, email) =>
           }
         }
       })
-      if (exist) {
-        resolve(true)
-      } else {
-        resolve(false)
-      }
+      resolve(exist)
     } catch (e) {
       reject(e)
     }
