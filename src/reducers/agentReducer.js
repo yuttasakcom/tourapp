@@ -11,6 +11,8 @@ import {
   HIDE_AGENT_NOTIFICATION,
   OPEN_CONTRACT_RATE_MODAL,
   CLOSE_CONTRACT_RATE_MODAL,
+  OPEN_OFFER_SPECIAL_PRICE_MODAL,
+  CLOSE_OFFER_SPECIAL_PRICE_MODAL,
   FETCH_AGENT_CONTRACT_RATES_SUCCESS
 } from '../actions/types'
 
@@ -18,8 +20,10 @@ const initialState = {
   agents: {},
   selectedAgent: null,
   selectedAgentContractRates: {},
+  selectedOfferSpecialPricePkg: null,
   showRequestAgentModal: false,
   showContractRateModal: false,
+  showOfferSpecialPriceModal: false,
   showDeleteAgentModal: false,
   notification: { show: false, type: null, message: null }
 }
@@ -100,6 +104,16 @@ export default (state = initialState, action) => {
 
     case CLOSE_CONTRACT_RATE_MODAL:
       return { ...state, showContractRateModal: false }
+
+    case OPEN_OFFER_SPECIAL_PRICE_MODAL:
+      return {
+        ...state,
+        showOfferSpecialPriceModal: true,
+        selectedOfferSpecialPricePkg: action.payload
+      }
+
+    case CLOSE_OFFER_SPECIAL_PRICE_MODAL:
+      return { ...state, showOfferSpecialPriceModal: false }
 
     default:
       return state
