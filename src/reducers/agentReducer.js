@@ -10,12 +10,14 @@ import {
   DELETE_AGENT_SUCCESS,
   HIDE_AGENT_NOTIFICATION,
   OPEN_CONTRACT_RATE_MODAL,
-  CLOSE_CONTRACT_RATE_MODAL
+  CLOSE_CONTRACT_RATE_MODAL,
+  FETCH_AGENT_CONTRACT_RATES_SUCCESS
 } from '../actions/types'
 
 const initialState = {
   agents: {},
   selectedAgent: null,
+  selectedAgentContractRates: {},
   showRequestAgentModal: false,
   showContractRateModal: false,
   showDeleteAgentModal: false,
@@ -26,6 +28,12 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_AGENTS_SUCCESS:
       return { ...state, agents: _.mapKeys(action.payload, '_id') }
+
+    case FETCH_AGENT_CONTRACT_RATES_SUCCESS:
+      return {
+        ...state,
+        selectedAgentContractRates: _.mapKeys(action.payload, '_id')
+      }
 
     case REQUEST_AGENT_SUCCESS:
       return {
