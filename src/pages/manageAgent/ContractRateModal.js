@@ -22,7 +22,7 @@ class ContractRateModal extends PureComponent {
         <td>{contractRate.priceChild}</td>
         <td style={{ textAlign: 'center' }}>
           <button className="btn btn-info btn-sm" onClick={() => ''}>
-            Edit
+            Offer Special Price
           </button>
           <button className="btn btn-danger btn-sm" onClick={() => ''}>
             Reset
