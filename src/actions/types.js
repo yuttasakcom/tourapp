@@ -28,6 +28,8 @@ export const CLOSE_DELETE_AGENT_MODAL = 'close_delete_agent_modal'
 export const FETCH_AGENT_CONTRACT_RATES_SUCCESS = 'fetch_agent_contract_rates_success'
 export const OPEN_CONTRACT_RATE_MODAL = 'open_contract_rate_modal'
 export const CLOSE_CONTRACT_RATE_MODAL = 'close_contract_rate_modal'
+export const OPEN_OFFER_SPECIAL_PRICE_MODAL = 'open_offer_special_price_modal'
+export const CLOSE_OFFER_SPECIAL_PRICE_MODAL = 'close_offer_special_price_modal'
 export const HIDE_AGENT_NOTIFICATION = 'hide_agent_notification'
 
 export const TOGGLE_NOTIFICATION_GEM = 'toggle_notification_gem'

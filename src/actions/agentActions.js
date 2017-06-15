@@ -12,6 +12,8 @@ import {
   HIDE_AGENT_NOTIFICATION,
   OPEN_CONTRACT_RATE_MODAL,
   CLOSE_CONTRACT_RATE_MODAL,
+  OPEN_OFFER_SPECIAL_PRICE_MODAL,
+  CLOSE_OFFER_SPECIAL_PRICE_MODAL,
   FETCH_AGENT_CONTRACT_RATES_SUCCESS
 } from './types'
 
@@ -74,6 +76,14 @@ export const openContractRateModal = _id => {
 
 export const closeContractRateModal = () => {
   return { type: CLOSE_CONTRACT_RATE_MODAL }
+}
+
+export const openOfferSpecialPriceModal = _id => {
+  return { type: OPEN_OFFER_SPECIAL_PRICE_MODAL, payload: _id }
+}
+
+export const closeOfferSpecialPriceModal = () => {
+  return { type: CLOSE_OFFER_SPECIAL_PRICE_MODAL }
 }
 
 export const openDeleteAgentModal = _id => {
