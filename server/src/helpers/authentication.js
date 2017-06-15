@@ -43,12 +43,12 @@ export const checkEmployeeEmailExist = (modelName, employerId, email) =>
 export const hashPassword = password =>
   new Promise((resolve, reject) => {
     bcrypt.genSalt(10, (err, salt) => {
-      if (err) reject(err)
+      if (err) return reject(err)
 
-      bcrypt.hash(password, salt, null, (hashErr, hash) => {
-        if (hashErr) reject(hashErr)
+      return bcrypt.hash(password, salt, null, (hashErr, hash) => {
+        if (hashErr) return reject(hashErr)
 
-        resolve(hash)
+        return resolve(hash)
       })
     })
   })
