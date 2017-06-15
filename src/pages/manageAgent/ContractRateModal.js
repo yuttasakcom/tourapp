@@ -4,11 +4,12 @@ import { connect } from 'react-redux'
 import { Modal, Button } from 'react-bootstrap'
 
 import DataTable from '../../components/dataTable'
+import OfferSpecialPriceModal from './OfferSpecialPriceModal'
 import * as actions from '../../actions'
 
 class ContractRateModal extends PureComponent {
   renderTableBody = () => {
-    const { contractRates } = this.props
+    const { contractRates, openOfferSpecialPriceModal } = this.props
 
     if (!contractRates) {
       return <tr />
@@ -21,7 +22,10 @@ class ContractRateModal extends PureComponent {
         <td>{contractRate.priceAdult}</td>
         <td>{contractRate.priceChild}</td>
         <td style={{ textAlign: 'center' }}>
-          <button className="btn btn-info btn-sm" onClick={() => ''}>
+          <button
+            className="btn btn-info btn-sm"
+            onClick={() => openOfferSpecialPriceModal(contractRate._id)}
+          >
             Offer Special Price
           </button>
           <button className="btn btn-danger btn-sm" onClick={() => ''}>
@@ -55,6 +59,7 @@ class ContractRateModal extends PureComponent {
         <Modal.Footer>
           <Button onClick={closeContractRateModal}>Close</Button>
         </Modal.Footer>
+        <OfferSpecialPriceModal />
       </Modal>
     )
   }
