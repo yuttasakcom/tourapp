@@ -8,13 +8,16 @@ import {
   OPEN_DELETE_AGENT_MODAL,
   CLOSE_DELETE_AGENT_MODAL,
   DELETE_AGENT_SUCCESS,
-  HIDE_AGENT_NOTIFICATION
+  HIDE_AGENT_NOTIFICATION,
+  OPEN_CONTRACT_RATE_MODAL,
+  CLOSE_CONTRACT_RATE_MODAL
 } from '../actions/types'
 
 const initialState = {
   agents: {},
   selectedAgent: null,
   showRequestAgentModal: false,
+  showContractRateModal: false,
   showDeleteAgentModal: false,
   notification: { show: false, type: null, message: null }
 }
@@ -79,6 +82,16 @@ export default (state = initialState, action) => {
 
     case CLOSE_DELETE_AGENT_MODAL:
       return { ...state, showDeleteAgentModal: false }
+
+    case OPEN_CONTRACT_RATE_MODAL:
+      return {
+        ...state,
+        showContractRateModal: true,
+        selectedAgent: action.payload
+      }
+
+    case CLOSE_CONTRACT_RATE_MODAL:
+      return { ...state, showContractRateModal: false }
 
     default:
       return state
