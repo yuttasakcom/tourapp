@@ -9,7 +9,9 @@ import {
   CLOSE_REQUEST_AGENT_MODAL,
   OPEN_DELETE_AGENT_MODAL,
   CLOSE_DELETE_AGENT_MODAL,
-  HIDE_AGENT_NOTIFICATION
+  HIDE_AGENT_NOTIFICATION,
+  OPEN_CONTRACT_RATE_MODAL,
+  CLOSE_CONTRACT_RATE_MODAL
 } from './types'
 
 export const fetchAgents = () => async dispatch => {
@@ -54,6 +56,14 @@ export const openRequestAgentModal = () => {
 
 export const closeRequestAgentModal = () => {
   return { type: CLOSE_REQUEST_AGENT_MODAL }
+}
+
+export const openContractRateModal = () => {
+  return { type: OPEN_CONTRACT_RATE_MODAL }
+}
+
+export const closeContractRateModal = () => {
+  return { type: CLOSE_CONTRACT_RATE_MODAL }
 }
 
 export const openDeleteAgentModal = _id => {
