@@ -58,8 +58,8 @@ export const closeRequestAgentModal = () => {
   return { type: CLOSE_REQUEST_AGENT_MODAL }
 }
 
-export const openContractRateModal = () => {
-  return { type: OPEN_CONTRACT_RATE_MODAL }
+export const openContractRateModal = _id => {
+  return { type: OPEN_CONTRACT_RATE_MODAL, payload: _id }
 }
 
 export const closeContractRateModal = () => {
