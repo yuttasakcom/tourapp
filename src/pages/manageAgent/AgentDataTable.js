@@ -5,11 +5,18 @@ import { connect } from 'react-redux'
 import Card from '../../components/Card'
 import DataTable from '../../components/dataTable'
 import DeleteModal from './DeleteModal'
+import ContractRateModal from './ContractRateModal'
 import * as actions from '../../actions'
 
 class AgentDataTable extends PureComponent {
   componentDidMount() {
     this.props.fetchAgents()
+  }
+
+  openContractRateModal(agent) {
+    const { openContractRateModal, fetchAgentContractRates } = this.props
+    fetchAgentContractRates(agent)
+    openContractRateModal(agent._id)
   }
 
   renderTableBody = () => {
@@ -26,7 +33,7 @@ class AgentDataTable extends PureComponent {
         <td style={{ textAlign: 'center' }}>
           <button
             className="btn btn-info btn-sm"
-            onClick={() => openDeleteAgentModal(agent._id)}
+            onClick={() => this.openContractRateModal(agent)}
           >
             Contract Rate
           </button>
@@ -49,6 +56,7 @@ class AgentDataTable extends PureComponent {
           tableTitles={tableTitles}
           renderTableBody={this.renderTableBody}
         />
+        <ContractRateModal />
         <DeleteModal />
       </Card>
     )

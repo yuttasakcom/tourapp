@@ -4,31 +4,13 @@ import { Button, Modal } from 'react-bootstrap'
 
 import RenderField from '../../components/RenderField'
 
-class TourPkgForm extends PureComponent {
+class OfferSpecialPriceForm extends PureComponent {
   render() {
     const { handleSubmit, closeModal } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
         <Modal.Body>
-          <div className="row">
-            <div className="col-md-12">
-              <Field
-                name="name"
-                component={RenderField}
-                label="Name"
-                type="text"
-              />
-            </div>
-            <div className="col-md-12">
-              <Field
-                name="description"
-                component={RenderField}
-                label="Description"
-                type="text"
-              />
-            </div>
-          </div>
           <div className="row">
             <div className="col-md-6">
               <Field
@@ -57,4 +39,4 @@ class TourPkgForm extends PureComponent {
   }
 }
 
-export default reduxForm({ form: 'tourPkg' })(TourPkgForm)
+export default reduxForm({ form: 'offerSpecialPrice' })(OfferSpecialPriceForm)

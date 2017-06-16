@@ -5,10 +5,6 @@ import { Modal, Button } from 'react-bootstrap'
 import * as actions from '../../actions'
 
 class DeleteModal extends PureComponent {
-  onSubmit = agent => {
-    this.props.deleteAgent(agent)
-  }
-
   render() {
     const { showModal, closeDeleteAgentModal, deleteAgent, agent } = this.props
 
@@ -26,7 +22,9 @@ class DeleteModal extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeDeleteAgentModal}>No</Button>
-          <Button bsStyle="danger" onClick={() => deleteAgent(agent)}>Yes</Button>
+          <Button bsStyle="danger" onClick={() => deleteAgent(agent)}>
+            Yes
+          </Button>
         </Modal.Footer>
       </Modal>
     )

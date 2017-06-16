@@ -36,7 +36,7 @@ export const signUp = values => async dispatch => {
   try {
     const { data: { token } } = await axios.post('/companies/signup', values)
     localStorage.setItem('token', token)
-    return { type: SIGN_UP_SUCCESS }
+    dispatch({ type: SIGN_UP_SUCCESS })
   } catch (e) {
     dispatch({
       type: SIGN_UP_FAIL,

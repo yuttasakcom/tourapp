@@ -5,10 +5,6 @@ import { Modal, Button } from 'react-bootstrap'
 import * as actions from '../../actions'
 
 class DeleteModal extends PureComponent {
-  onSubmit = pkg => {
-    this.props.deletePkg(pkg)
-  }
-
   render() {
     const { showModal, closeDeletePkgModal, deletePkg, pkg } = this.props
 
