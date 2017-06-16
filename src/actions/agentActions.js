@@ -36,10 +36,21 @@ export const fetchAgentContractRates = ({ _id }) => async dispatch => {
   }
 }
 
-export const offerSpecialPrice = (agentId, { _id }) => async dispatch => {
+export const offerSpecialPrice = (
+  agentId,
+  { _id },
+  values
+) => async dispatch => {
   try {
-    const { data } = await axios.post(`/companies/pkgs/${_id}/special-prices`)
-    dispatch({ type: OFFER_SPECIAL_PRICE_SUCCESS, payload: data })
+    const { data } = await axios.post(`/companies/pkgs/${_id}/special-prices`, {
+      agent: agentId,
+      ...values
+    })
+    dispatch({
+      type: OFFER_SPECIAL_PRICE_SUCCESS,
+      payload: { _id, values, ...data }
+    })
+    _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
   }
