@@ -13,7 +13,8 @@ import {
   CLOSE_CONTRACT_RATE_MODAL,
   OPEN_OFFER_SPECIAL_PRICE_MODAL,
   CLOSE_OFFER_SPECIAL_PRICE_MODAL,
-  FETCH_AGENT_CONTRACT_RATES_SUCCESS
+  FETCH_AGENT_CONTRACT_RATES_SUCCESS,
+  OFFER_SPECIAL_PRICE_SUCCESS
 } from '../actions/types'
 
 const initialState = {
@@ -59,6 +60,21 @@ export default (state = initialState, action) => {
           show: true,
           type: 'success',
           message: action.payload.data.message
+        }
+      }
+
+    case OFFER_SPECIAL_PRICE_SUCCESS:
+      return {
+        ...state,
+        selectedAgentContractRates: {
+          ...state.selectedAgentContractRates,
+          [action.payload._id]: action.payload.values
+        },
+        showOfferSpecialPriceModal: false,
+        notification: {
+          show: true,
+          type: 'success',
+          message: action.payload.message
         }
       }
 
