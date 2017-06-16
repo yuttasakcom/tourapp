@@ -5,11 +5,16 @@ import { Modal, Button } from 'react-bootstrap'
 
 import DataTable from '../../components/dataTable'
 import OfferSpecialPriceModal from './OfferSpecialPriceModal'
+import ResetPriceModal from './ResetPriceModal'
 import * as actions from '../../actions'
 
 class ContractRateModal extends PureComponent {
   renderTableBody = () => {
-    const { contractRates, openOfferSpecialPriceModal } = this.props
+    const {
+      contractRates,
+      openOfferSpecialPriceModal,
+      openResetPriceModal
+    } = this.props
 
     if (!contractRates) {
       return <tr />
@@ -28,7 +33,10 @@ class ContractRateModal extends PureComponent {
           >
             Offer Special Price
           </button>
-          <button className="btn btn-danger btn-sm" onClick={() => ''}>
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={() => openResetPriceModal(contractRate._id)}
+          >
             Reset
           </button>
         </td>
@@ -60,6 +68,7 @@ class ContractRateModal extends PureComponent {
           <Button onClick={closeContractRateModal}>Close</Button>
         </Modal.Footer>
         <OfferSpecialPriceModal />
+        <ResetPriceModal />
       </Modal>
     )
   }
