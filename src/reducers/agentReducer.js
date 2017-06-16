@@ -16,7 +16,8 @@ import {
   FETCH_AGENT_CONTRACT_RATES_SUCCESS,
   OFFER_SPECIAL_PRICE_SUCCESS,
   OPEN_RESET_PRICE_MODAL,
-  CLOSE_RESET_PRICE_MODAL
+  CLOSE_RESET_PRICE_MODAL,
+  RESET_PRICE_SUCCESS
 } from '../actions/types'
 
 const initialState = {
@@ -74,6 +75,17 @@ export default (state = initialState, action) => {
           [action.payload._id]: action.payload.values
         },
         showOfferSpecialPriceModal: false,
+        notification: {
+          show: true,
+          type: 'success',
+          message: action.payload.message
+        }
+      }
+
+    case RESET_PRICE_SUCCESS:
+      return {
+        ...state,
+        showResetPriceModal: false,
         notification: {
           show: true,
           type: 'success',
