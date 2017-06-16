@@ -19,8 +19,8 @@ class ContractRateModal extends PureComponent {
       <tr key={contractRate._id}>
         <td>{contractRate._id}</td>
         <td>{contractRate.name}</td>
-        <td>{contractRate.priceAdult}</td>
-        <td>{contractRate.priceChild}</td>
+        <td>{contractRate.priceAdult.toLocaleString()}</td>
+        <td>{contractRate.priceChild.toLocaleString()}</td>
         <td style={{ textAlign: 'center' }}>
           <button
             className="btn btn-info btn-sm"
