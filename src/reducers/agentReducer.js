@@ -14,7 +14,9 @@ import {
   OPEN_OFFER_SPECIAL_PRICE_MODAL,
   CLOSE_OFFER_SPECIAL_PRICE_MODAL,
   FETCH_AGENT_CONTRACT_RATES_SUCCESS,
-  OFFER_SPECIAL_PRICE_SUCCESS
+  OFFER_SPECIAL_PRICE_SUCCESS,
+  OPEN_RESET_PRICE_MODAL,
+  CLOSE_RESET_PRICE_MODAL
 } from '../actions/types'
 
 const initialState = {
@@ -25,6 +27,7 @@ const initialState = {
   showRequestAgentModal: false,
   showContractRateModal: false,
   showOfferSpecialPriceModal: false,
+  showResetPriceModal: false,
   showDeleteAgentModal: false,
   notification: { show: false, type: null, message: null }
 }
@@ -130,6 +133,16 @@ export default (state = initialState, action) => {
 
     case CLOSE_OFFER_SPECIAL_PRICE_MODAL:
       return { ...state, showOfferSpecialPriceModal: false }
+
+    case OPEN_RESET_PRICE_MODAL:
+      return {
+        ...state,
+        showResetPriceModal: true,
+        selectedOfferSpecialPricePkg: action.payload
+      }
+
+    case CLOSE_RESET_PRICE_MODAL:
+      return { ...state, showResetPriceModal: false }
 
     default:
       return state

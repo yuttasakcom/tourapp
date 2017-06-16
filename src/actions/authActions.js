@@ -17,6 +17,7 @@ export const signIn = values => async dispatch => {
       role: 'company'
     })
     localStorage.setItem('token', token)
+    axios.defaults.headers.common['Authorization'] = token
     dispatch({ type: SIGN_IN_SUCCESS })
   } catch (e) {
     dispatch({
@@ -29,6 +30,7 @@ export const signIn = values => async dispatch => {
 
 export const signOut = () => {
   localStorage.removeItem('token')
+  axios.defaults.headers.common['Authorization'] = ''
   return { type: SIGN_OUT_SUCCESS }
 }
 

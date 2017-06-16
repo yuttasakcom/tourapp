@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import axios from './actions/axios'
 
 import registerServiceWorker from './registerServiceWorker'
 import App from './App'
@@ -14,6 +15,7 @@ import './resources/css/material-dashboard.css'
 const token = localStorage.getItem('token')
 
 if (token) {
+  axios.defaults.headers.common['Authorization'] = token
   store.dispatch({ type: SIGN_IN_SUCCESS })
 }
 

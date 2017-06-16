@@ -15,7 +15,9 @@ import {
   OPEN_OFFER_SPECIAL_PRICE_MODAL,
   CLOSE_OFFER_SPECIAL_PRICE_MODAL,
   FETCH_AGENT_CONTRACT_RATES_SUCCESS,
-  OFFER_SPECIAL_PRICE_SUCCESS
+  OFFER_SPECIAL_PRICE_SUCCESS,
+  OPEN_RESET_PRICE_MODAL,
+  CLOSE_RESET_PRICE_MODAL
 } from './types'
 
 export const fetchAgents = () => async dispatch => {
@@ -113,4 +115,12 @@ export const openDeleteAgentModal = _id => {
 
 export const closeDeleteAgentModal = () => {
   return { type: CLOSE_DELETE_AGENT_MODAL }
+}
+
+export const openResetPriceModal = _id => {
+  return { type: OPEN_RESET_PRICE_MODAL, payload: _id }
+}
+
+export const closeResetPriceModal = () => {
+  return { type: CLOSE_RESET_PRICE_MODAL }
 }
