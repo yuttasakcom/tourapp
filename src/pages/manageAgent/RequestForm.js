@@ -1,23 +1,10 @@
 import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
-
 import { Button, Modal } from 'react-bootstrap'
 
-class RequestForm extends PureComponent {
-  renderField = ({ input, label, type, meta: { touched, error, warning } }) => {
-    return (
-      <div className="form-group label-floating">
-        <label className="control-label">{label}</label>
-        <input
-          {...input}
-          placeholder={label}
-          type={type}
-          className="form-control"
-        />
-      </div>
-    )
-  }
+import RenderField from '../../components/RenderField'
 
+class RequestForm extends PureComponent {
   render() {
     const { handleSubmit, closeModal } = this.props
 
@@ -28,7 +15,7 @@ class RequestForm extends PureComponent {
             <div className="col-md-12">
               <Field
                 name="_id"
-                component={this.renderField}
+                component={RenderField}
                 label="_id"
                 type="text"
               />
