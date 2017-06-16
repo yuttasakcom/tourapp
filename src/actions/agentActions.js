@@ -14,7 +14,8 @@ import {
   CLOSE_CONTRACT_RATE_MODAL,
   OPEN_OFFER_SPECIAL_PRICE_MODAL,
   CLOSE_OFFER_SPECIAL_PRICE_MODAL,
-  FETCH_AGENT_CONTRACT_RATES_SUCCESS
+  FETCH_AGENT_CONTRACT_RATES_SUCCESS,
+  OFFER_SPECIAL_PRICE_SUCCESS
 } from './types'
 
 export const fetchAgents = () => async dispatch => {
@@ -30,6 +31,15 @@ export const fetchAgentContractRates = ({ _id }) => async dispatch => {
   try {
     const { data } = await axios.get(`/companies/special-prices/${_id}`)
     dispatch({ type: FETCH_AGENT_CONTRACT_RATES_SUCCESS, payload: data })
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export const offerSpecialPrice = (agentId, { _id }) => async dispatch => {
+  try {
+    const { data } = await axios.post(`/companies/pkgs/${_id}/special-prices`)
+    dispatch({ type: OFFER_SPECIAL_PRICE_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
   }

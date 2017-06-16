@@ -30,6 +30,7 @@ export const OPEN_CONTRACT_RATE_MODAL = 'open_contract_rate_modal'
 export const CLOSE_CONTRACT_RATE_MODAL = 'close_contract_rate_modal'
 export const OPEN_OFFER_SPECIAL_PRICE_MODAL = 'open_offer_special_price_modal'
 export const CLOSE_OFFER_SPECIAL_PRICE_MODAL = 'close_offer_special_price_modal'
+export const OFFER_SPECIAL_PRICE_SUCCESS = 'offer_special_price_success'
 export const HIDE_AGENT_NOTIFICATION = 'hide_agent_notification'
 
 export const TOGGLE_NOTIFICATION_GEM = 'toggle_notification_gem'
