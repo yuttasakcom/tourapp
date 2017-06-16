@@ -179,6 +179,36 @@ describe('Booking', () => {
       expect(pkg1.specialPrices[0].priceAdult).to.equal(2500)
     })
 
+    it('reset price must remove special price', async () => {
+      const pkg = await Pkg.findOne({
+        company: company1._id,
+        name: 'name_test0'
+      })
+
+      await request(app)
+        .post(`/companies/pkgs/${pkg._id}/special-prices`)
+        .send({
+          agent: agent1._id,
+          priceAdult: 2500,
+          priceChild: 1500
+        })
+        .set('authorization', company1Token)
+        .expect(200)
+
+      await request(app)
+        .delete(`/companies/pkgs/${pkg._id}/special-prices/${agent1._id}`)
+        .set('authorization', company1Token)
+        .expect(200)
+
+      const pkg1 = await Pkg.findById(pkg._id, {
+        specialPrices: {
+          $elemMatch: { agent: agent1._id }
+        }
+      })
+
+      expect(pkg1.specialPrices.length).to.equal(0)
+    })
+
     it('offer same pkg again must update', async () => {
       const pkg = await Pkg.findOne({
         company: company1._id,
