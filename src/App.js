@@ -6,6 +6,7 @@ import SignIn from './pages/auth/SignIn'
 import SignUp from './pages/auth/SignUp'
 import PrivateRoute from './components/PrivateRoute'
 import Dashboard from './pages/dashboard'
+import Booking from './pages/booking'
 import Layout from './components/layout'
 import { history } from './store'
 
@@ -18,6 +19,7 @@ class App extends PureComponent {
           <Route path="/signup" component={SignUp} />
           <Layout>
             <PrivateRoute path="/dashboard" component={Dashboard} />
+            <PrivateRoute path="/booking" component={Booking} />
           </Layout>
         </Switch>
       </Router>
