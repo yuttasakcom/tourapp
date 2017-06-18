@@ -5,6 +5,8 @@ export const SIGN_IN_FAIL = 'sign_in_fail'
 export const SIGN_UP_FAIL = 'sign_up_fail'
 export const HIDE_AUTH_NOTIFICATION = 'hide_auth_notification'
 
+export const FETCH_PKGS_SUCCESS = 'fetch_pkgs_success'
+
 export const REQUEST_COMPANY_SUCCESS = 'request_company_success'
 
 export const TOGGLE_NOTIFICATION_GEM = 'toggle_notification_gem'
