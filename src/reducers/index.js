@@ -3,11 +3,11 @@ import { reducer as form } from 'redux-form'
 
 import auth from './authReducer'
 import notification from './notificationReducer'
-import bookingReducer from './bookingReducer'
+import booking from './bookingReducer'
 
 export default combineReducers({
   form,
   auth,
   notification,
-  bookingReducer
+  booking
 })
