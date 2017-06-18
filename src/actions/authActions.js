@@ -12,7 +12,7 @@ import {
 
 export const signIn = values => async dispatch => {
   try {
-    const { data: { token } } = await axios.post('/companies/signin', {
+    const { data: { token } } = await axios.post('/signin', {
       ...values,
       role: 'company'
     })
@@ -36,7 +36,7 @@ export const signOut = () => {
 
 export const signUp = values => async dispatch => {
   try {
-    const { data: { token } } = await axios.post('/companies/signup', values)
+    const { data: { token } } = await axios.post('/signup', values)
     localStorage.setItem('token', token)
     dispatch({ type: SIGN_UP_SUCCESS })
   } catch (e) {
