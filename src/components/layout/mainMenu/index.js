@@ -6,7 +6,7 @@ import MenuList from './MenuList'
 class MainMenu extends PureComponent {
   render() {
     return (
-      <div className="sidebar" data-color="purple">
+      <div className="sidebar" data-color="green">
         <Logo />
         <div className="sidebar-wrapper">
           <MenuList />
