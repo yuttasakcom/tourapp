@@ -7,7 +7,7 @@ class MenuList extends PureComponent {
     return (
       <ul className="nav">
         <MenuItem icon="dashboard" path="/dashboard" />
-        <MenuItem icon="book" path="/book" />
+        <MenuItem icon="book" path="/booking" />
         <MenuItem icon="notifications" path="/notifications" />
         <MenuItem icon="assignment" path="/booking-summary" />
         <MenuItem icon="contact_phone" path="/manage-company" />
