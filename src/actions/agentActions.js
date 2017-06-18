@@ -23,7 +23,7 @@ import {
 
 export const fetchAgents = () => async dispatch => {
   try {
-    const { data } = await axios.get('/companies/agents')
+    const { data } = await axios.get('/agents')
     dispatch({ type: FETCH_AGENTS_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
@@ -32,7 +32,7 @@ export const fetchAgents = () => async dispatch => {
 
 export const fetchAgentContractRates = ({ _id }) => async dispatch => {
   try {
-    const { data } = await axios.get(`/companies/special-prices/${_id}`)
+    const { data } = await axios.get(`/special-prices/${_id}`)
     dispatch({ type: FETCH_AGENT_CONTRACT_RATES_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
@@ -45,7 +45,7 @@ export const offerSpecialPrice = (
   values
 ) => async dispatch => {
   try {
-    const { data } = await axios.post(`/companies/pkgs/${_id}/special-prices`, {
+    const { data } = await axios.post(`/pkgs/${_id}/special-prices`, {
       agent: agentId,
       ...values
     })
@@ -62,10 +62,10 @@ export const offerSpecialPrice = (
 export const resetPrice = (agentId, { _id }) => async dispatch => {
   try {
     const deleteData = await axios.delete(
-      `/companies/pkgs/${_id}/special-prices/${agentId}`
+      `/pkgs/${_id}/special-prices/${agentId}`
     )
     dispatch({ type: RESET_PRICE_SUCCESS, payload: deleteData.data })
-    const { data } = await axios.get(`/companies/special-prices/${_id}`)
+    const { data } = await axios.get(`/special-prices/${_id}`)
     dispatch({ type: FETCH_AGENT_CONTRACT_RATES_SUCCESS, payload: data })
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {
@@ -75,7 +75,7 @@ export const resetPrice = (agentId, { _id }) => async dispatch => {
 
 export const requestAgent = values => async dispatch => {
   try {
-    const { data: { message } } = await axios.post('/companies/request', values)
+    const { data: { message } } = await axios.post('/request', values)
     dispatch({
       type: REQUEST_AGENT_SUCCESS,
       payload: { message, _id: values._id }
@@ -92,7 +92,7 @@ export const requestAgent = values => async dispatch => {
 
 export const deleteAgent = ({ _id }) => async dispatch => {
   try {
-    const { data } = await axios.delete(`/companies/relationship/${_id}`)
+    const { data } = await axios.delete(`/relationship/${_id}`)
     dispatch({ type: DELETE_AGENT_SUCCESS, payload: { data, _id } })
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {

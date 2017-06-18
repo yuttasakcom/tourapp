@@ -16,7 +16,7 @@ import {
 
 export const fetchPkgs = () => async dispatch => {
   try {
-    const { data } = await axios.get('/companies/pkgs')
+    const { data } = await axios.get('/pkgs')
     dispatch({ type: FETCH_PKGS_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
@@ -25,7 +25,7 @@ export const fetchPkgs = () => async dispatch => {
 
 export const addPkg = values => async dispatch => {
   try {
-    const { data } = await axios.post('/companies/pkgs', values)
+    const { data } = await axios.post('/pkgs', values)
     dispatch({ type: ADD_PKG_SUCCESS, payload: data })
     _.delay(() => dispatch({ type: HIDE_PKG_NOTIFICATION }), 4000)
   } catch (e) {
@@ -35,7 +35,7 @@ export const addPkg = values => async dispatch => {
 
 export const editPkg = ({ _id }, values) => async dispatch => {
   try {
-    const { data } = await axios.put(`/companies/pkgs/${_id}`, values)
+    const { data } = await axios.put(`/pkgs/${_id}`, values)
     dispatch({ type: EDIT_PKG_SUCCESS, payload: data })
     _.delay(() => dispatch({ type: HIDE_PKG_NOTIFICATION }), 4000)
   } catch (e) {
@@ -45,7 +45,7 @@ export const editPkg = ({ _id }, values) => async dispatch => {
 
 export const deletePkg = ({ _id }) => async dispatch => {
   try {
-    const { data } = await axios.delete(`/companies/pkgs/${_id}`)
+    const { data } = await axios.delete(`/pkgs/${_id}`)
     dispatch({ type: DELETE_PKG_SUCCESS, payload: { _id, data } })
     _.delay(() => dispatch({ type: HIDE_PKG_NOTIFICATION }), 4000)
   } catch (e) {

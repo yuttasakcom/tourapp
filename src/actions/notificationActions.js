@@ -26,7 +26,7 @@ export const fetchNotifications = () => {
 
 export const fetchRequestPendings = () => async dispatch => {
   try {
-    const { data } = await axios.get('/companies/request-pendings')
+    const { data } = await axios.get('/request-pendings')
     dispatch({
       type: FETCH_REQUEST_PENDINGS_SUCCESS,
       payload: data.requestPendings
