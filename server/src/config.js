@@ -1,3 +1,3 @@
-module.exports = {
-  secret: 'fafsflskjoivzfljrl;wejlekv564',
+export default {
+  secret: 'fafsflskjoivzfljrl;wejlekv564'
 }
