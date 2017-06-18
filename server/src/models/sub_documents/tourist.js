@@ -10,7 +10,7 @@ const touristSchema = new Schema({
   child: Number,
   nationality: String,
   date: Date,
-  note: String,
+  note: String
 })
 
-module.exports = touristSchema
+export default touristSchema
