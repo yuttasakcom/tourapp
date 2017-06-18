@@ -1,21 +1,30 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { PureComponent } from 'react'
+import { ConnectedRouter as Router } from 'connected-react-router'
+import { Route, Switch } from 'react-router-dom'
 
-class App extends Component {
+import SignIn from './pages/auth/SignIn'
+import SignUp from './pages/auth/SignUp'
+import PrivateRoute from './components/PrivateRoute'
+import Dashboard from './pages/dashboard'
+import Booking from './pages/booking'
+import Layout from './components/layout'
+import { history } from './store'
+
+class App extends PureComponent {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+      <Router history={history}>
+        <Switch>
+          <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
+          <Layout>
+            <PrivateRoute path="/dashboard" component={Dashboard} />
+            <PrivateRoute path="/booking" component={Booking} />
+          </Layout>
+        </Switch>
+      </Router>
+    )
   }
 }
 
-export default App;
+export default App
