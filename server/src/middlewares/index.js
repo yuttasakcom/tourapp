@@ -1,3 +1,6 @@
+import winston from 'winston'
+import expressWinston from 'express-winston'
+
 import logger from '../utils/logger'
 
 export const handleNotFound = (req, res, next) => {
@@ -17,3 +20,14 @@ export const hasRole = role => (req, res, next) => {
   err.status = 401
   return next(err)
 }
+
+export const detailLogger = expressWinston.logger({
+  requestWhitelist: ['body'],
+  responseWhitelist: ['body'],
+  transports: [
+    new winston.transports.Console({
+      json: true,
+      colorize: true
+    })
+  ]
+})

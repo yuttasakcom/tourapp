@@ -6,14 +6,14 @@ const logger = new winston.Logger({
       colorize: true,
       timestamp: true,
       prettyPrint: true,
-      label: 'company-api',
-    }),
-  ],
+      label: 'company-api'
+    })
+  ]
 })
 
 // create stream for morgan
 logger.stream = {
-  write: message => logger.info(message),
+  write: message => logger.info(message)
 }
 
 export default logger
