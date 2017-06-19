@@ -1,5 +1,9 @@
 import axios from './axios'
-import { FETCH_PKGS_SUCCESS } from './types'
+import {
+  FETCH_PKGS_SUCCESS,
+  OPEN_ADD_BOOKING_MODAL,
+  CLOSE_ADD_BOOKING_MODAL
+} from './types'
 
 export const fetchPkgs = () => async dispatch => {
   try {
@@ -8,4 +12,12 @@ export const fetchPkgs = () => async dispatch => {
   } catch (e) {
     console.error(e)
   }
+}
+
+export const openAddBookingModal = _id => {
+  return { type: OPEN_ADD_BOOKING_MODAL, payload: _id }
+}
+
+export const closeAddBookingModal = () => {
+  return { type: CLOSE_ADD_BOOKING_MODAL }
 }
