@@ -1,13 +1,12 @@
 import request from 'supertest'
-import chai from 'chai'
+import { expect } from 'chai'
 import mongoose from 'mongoose'
 import app from '../../../src/app'
 import { password } from '../../../src/helpers/mock'
+import { companyRequest, agentAccept } from './helpers'
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
-
-const expect = chai.expect
 
 describe('Agent accept', () => {
   let company1
@@ -47,66 +46,34 @@ describe('Agent accept', () => {
     ])
     company1Token = res1.body.token
     agent1Token = res2.body.token
-    await request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
+    await companyRequest(company1Token, agent1)
   })
 
-  it('must remove agent accept pendings', async () => {
-    await request(app)
-      .post('/agents/accept')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
-      .expect(200)
-
+  it('must remove agent accept pendings and company request pendings', async () => {
+    await agentAccept(agent1Token, company1)
     const agent = await Agent.findById(agent1._id)
     expect(agent.acceptPendings.length).to.equal(0)
   })
 
   it('must remove company request pendings', async () => {
-    await request(app)
-      .post('/agents/accept')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
-      .expect(200)
-
+    await agentAccept(agent1Token, company1)
     const company = await Company.findById(company1._id)
     expect(company.requestPendings.length).to.equal(0)
   })
 
   it('duplicate accept must return status 422', async () => {
-    await request(app)
-      .post('/agents/accept')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
-      .expect(200)
-
-    await request(app)
-      .post('/agents/accept')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
-      .expect(422)
+    await agentAccept(agent1Token, company1).expect(200)
+    await agentAccept(agent1Token, company1).expect(422)
   })
 
   it('completed company must appear in agent.companies', async () => {
-    await request(app)
-      .post('/agents/accept')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
-      .expect(200)
-
+    await agentAccept(agent1Token, company1)
     const agent = await Agent.findById(agent1._id)
     expect(agent.companies.length).to.equal(1)
   })
 
   it('completed agent must appear in company.agents', async () => {
-    await request(app)
-      .post('/agents/accept')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
-      .expect(200)
-
+    await agentAccept(agent1Token, company1)
     const company = await Company.findById(company1._id)
     expect(company.agents.length).to.equal(1)
   })

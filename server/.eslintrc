@@ -5,20 +5,44 @@
     "import/no-extraneous-dependencies": 0,
     "linebreak-style": 0,
     "object-curly-spacing": 0,
-    "no-param-reassign": [2, {
-      "props": false
-    }],
-    "no-underscore-dangle": ["error", {
-      "allow": ["_id"]
-    }],
-    "semi": ["warn", "never"],
-    "arrow-parens": ["warn", "as-needed"],
+    "no-param-reassign": [
+      2,
+      {
+        "props": false
+      }
+    ],
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "_id"
+        ]
+      }
+    ],
+    "semi": [
+      "warn",
+      "never"
+    ],
+    "arrow-parens": [
+      "warn",
+      "as-needed"
+    ],
     "func-names": "off",
-    "space-before-function-paren": ["error", "never"],
-    "max-len": ["error", 120, 4],
-    "no-unused-vars": ["error", {
-      "argsIgnorePattern": "next"
-    }],
+    "space-before-function-paren": [
+      "error",
+      "never"
+    ],
+    "max-len": [
+      "error",
+      120,
+      4
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "next"
+      }
+    ],
     "import/prefer-default-export": "off",
     "comma-dangle": 0
   }
