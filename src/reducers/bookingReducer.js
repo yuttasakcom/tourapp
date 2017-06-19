@@ -7,6 +7,7 @@ import {
 
 const initialState = {
   pkgs: {},
+  selectedPkg: null,
   showAddBookingModal: false
 }
 
@@ -16,7 +17,11 @@ export default (state = initialState, action) => {
       return { ...state, pkgs: _.mapKeys(action.payload, '_id') }
 
     case OPEN_ADD_BOOKING_MODAL:
-      return { ...state, showAddBookingModal: true }
+      return {
+        ...state,
+        showAddBookingModal: true,
+        selectedPkg: action.payload
+      }
 
     case CLOSE_ADD_BOOKING_MODAL:
       return { ...state, showAddBookingModal: false }
