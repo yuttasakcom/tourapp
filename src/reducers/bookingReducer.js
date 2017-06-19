@@ -3,7 +3,8 @@ import {
   FETCH_PKGS_SUCCESS,
   OPEN_ADD_BOOKING_MODAL,
   CLOSE_ADD_BOOKING_MODAL,
-  ADD_BOOKING_SUCCESS
+  ADD_BOOKING_SUCCESS,
+  HIDE_BOOKING_NOTIFICATION
 } from '../actions/types'
 
 const initialState = {
@@ -38,6 +39,12 @@ export default (state = initialState, action) => {
 
     case CLOSE_ADD_BOOKING_MODAL:
       return { ...state, showAddBookingModal: false }
+
+    case HIDE_BOOKING_NOTIFICATION:
+      return {
+        ...state,
+        notification: { show: false }
+      }
 
     default:
       return state
