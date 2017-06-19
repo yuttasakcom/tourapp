@@ -1,6 +1,6 @@
 import request from 'supertest'
 
-import app from '../../../src/app'
+import app from '../../src/app'
 
 export const companyRequest = (token, { _id }) =>
   request(app)

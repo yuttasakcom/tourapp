@@ -3,12 +3,12 @@ import { expect } from 'chai'
 import mongoose from 'mongoose'
 import app from '../../../src/app'
 import { password } from '../../../src/helpers/mock'
-import { companyRequest, agentAccept } from './helpers'
+import { companyRequest, agentAccept } from '../../helpers'
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe('Agent accept', () => {
+describe.only('Agent accept', () => {
   let company1
   let agent1
   let company1Token
