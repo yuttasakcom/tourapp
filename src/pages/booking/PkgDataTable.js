@@ -22,6 +22,7 @@ class PkgDataTable extends PureComponent {
     return _.map(pkgs, pkg =>
       <tr key={pkg._id}>
         <td>{pkg.name}</td>
+        <td>{pkg.company.email}</td>
         <td>{pkg.priceAdult.toLocaleString()}</td>
         <td>{pkg.priceChild.toLocaleString()}</td>
         <td style={{ textAlign: 'center' }}>
@@ -37,7 +38,7 @@ class PkgDataTable extends PureComponent {
   }
 
   render() {
-    const tableTitles = ['Name', 'Adult Price', 'Child Price']
+    const tableTitles = ['Name', 'Company', 'Adult Price', 'Child Price']
     return (
       <Card title="Packages" description="Select package for book">
         <DataTable
