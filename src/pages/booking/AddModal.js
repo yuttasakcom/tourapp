@@ -7,7 +7,9 @@ import * as actions from '../../actions'
 
 class AddModal extends PureComponent {
   onSubmit = values => {
-    this.props.addBooking(values)
+    const { addBooking, pkg } = this.props
+    const bookingProps = { company: pkg.company._id, pkg, tourist: values }
+    addBooking(bookingProps)
   }
 
   render() {
@@ -26,9 +28,10 @@ class AddModal extends PureComponent {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ booking }) => {
   return {
-    showModal: state.booking.showAddBookingModal
+    showModal: booking.showAddBookingModal,
+    pkg: booking.pkgs[booking.selectedPkg]
   }
 }
 
