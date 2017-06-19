@@ -1,8 +1,11 @@
-import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import app from '../../../src/app'
-import { password } from '../../../src/helpers/mock'
+import {
+  password,
+  agentSignIn,
+  agentGetRequestPendings,
+  agentGetAcceptPendings
+} from '../../helpers'
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
@@ -40,28 +43,17 @@ describe('Agent pendings list', () => {
     agent1.acceptPendings.push(company2Stub)
 
     await agent1.save()
-    const res = await request(app)
-      .post('/agents/signin')
-      .send(agent1SigninProps)
-
+    const res = await agentSignIn(agent1SigninProps)
     agent1Token = res.body.token
   })
 
   it('two company must appear on GET /agents/request-pendings', async () => {
-    const res = await request(app)
-      .get('/agents/request-pendings')
-      .set('authorization', agent1Token)
-      .expect(200)
-
+    const res = await agentGetRequestPendings(agent1Token)
     expect(res.body.requestPendings.length).to.equal(2)
   })
 
   it('two company must appear on GET /agents/accept-pendings', async () => {
-    const res = await request(app)
-      .get('/agents/accept-pendings')
-      .set('authorization', agent1Token)
-      .expect(200)
-
+    const res = await agentGetAcceptPendings(agent1Token)
     expect(res.body.acceptPendings.length).to.equal(2)
   })
 })

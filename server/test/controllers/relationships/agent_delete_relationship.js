@@ -1,8 +1,6 @@
-import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import app from '../../../src/app'
-import { password } from '../../../src/helpers/mock'
+import { password, agentSignIn, agentDeleteRelationship } from '../../helpers'
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
@@ -45,19 +43,13 @@ describe('Agent delete relationship', () => {
     company1.agents.push(agent1)
 
     await Promise.all([agent1.save(), company1.save(), company2.save()])
-    const res = await request(app)
-      .post('/agents/signin')
-      .send(agent1SigninProps)
+    const res = await agentSignIn(agent1SigninProps)
 
     agent1Token = res.body.token
   })
 
   it('one relationship', async () => {
-    await request(app)
-      .delete(`/agents/relationship/${company1._id}`)
-      .set('authorization', agent1Token)
-      .expect(200)
-
+    await agentDeleteRelationship(agent1Token, company1)
     const [res1, res2, res3] = await Promise.all([
       Agent.findOne({
         _id: agent1._id,
@@ -79,14 +71,8 @@ describe('Agent delete relationship', () => {
 
   it('two relationship', async () => {
     await Promise.all([
-      request(app)
-        .delete(`/agents/relationship/${company1._id}`)
-        .set('authorization', agent1Token)
-        .expect(200),
-      request(app)
-        .delete(`/agents/relationship/${company2._id}`)
-        .set('authorization', agent1Token)
-        .expect(200)
+      agentDeleteRelationship(agent1Token, company1),
+      agentDeleteRelationship(agent1Token, company2)
     ])
 
     const [res1, res2, res3] = await Promise.all([
