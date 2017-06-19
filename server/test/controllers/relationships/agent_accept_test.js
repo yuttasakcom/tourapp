@@ -1,7 +1,5 @@
-import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import app from '../../../src/app'
 import {
   companyRequest,
   agentAccept,
@@ -13,7 +11,7 @@ import {
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe.only('Agent accept', () => {
+describe('Agent accept', () => {
   let company1
   let agent1
   let company1Token

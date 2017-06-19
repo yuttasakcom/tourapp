@@ -1,8 +1,6 @@
-import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import app from '../../../src/app'
-import { password } from '../../../src/helpers/mock'
+import { password, agentSignIn, agentGetCompanies } from '../../helpers'
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
@@ -43,18 +41,12 @@ describe('Agent get companies list', () => {
     agent1.companies.push(company2)
 
     await Promise.all([agent1.save(), company1.save(), company2.save()])
-    const res = await request(app)
-      .post('/agents/signin')
-      .send(agent1SigninProps)
+    const res = await agentSignIn(agent1SigninProps)
     agent1Token = res.body.token
   })
 
   it('two companies', async () => {
-    const res = await request(app)
-      .get('/agents/companies')
-      .set('authorization', agent1Token)
-      .expect(200)
-
+    const res = await agentGetCompanies(agent1Token).expect(200)
     const companies = res.body
     expect(companies.length).to.equal(2)
     expect(companies[0].email).to.equal(company1Props.email)
