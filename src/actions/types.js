@@ -6,6 +6,10 @@ export const SIGN_UP_FAIL = 'sign_up_fail'
 export const HIDE_AUTH_NOTIFICATION = 'hide_auth_notification'
 
 export const FETCH_PKGS_SUCCESS = 'fetch_pkgs_success'
+export const OPEN_ADD_BOOKING_MODAL = 'open_add_booking_modal'
+export const CLOSE_ADD_BOOKING_MODAL = 'close_add_booking_modal'
+export const ADD_BOOKING_SUCCESS = 'add_booking_success'
+export const HIDE_BOOKING_NOTIFICATION = 'hide_booking_notification'
 
 export const REQUEST_COMPANY_SUCCESS = 'request_company_success'
 
