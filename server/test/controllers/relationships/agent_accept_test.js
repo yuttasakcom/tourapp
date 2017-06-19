@@ -2,8 +2,13 @@ import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
 import app from '../../../src/app'
-import { password } from '../../../src/helpers/mock'
-import { companyRequest, agentAccept } from '../../helpers'
+import {
+  companyRequest,
+  agentAccept,
+  companySignIn,
+  agentSignIn,
+  password
+} from '../../helpers'
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
@@ -41,8 +46,8 @@ describe.only('Agent accept', () => {
 
     await Promise.all([company1.save(), agent1.save()])
     const [res1, res2] = await Promise.all([
-      request(app).post('/companies/signin').send(company1SigninProps),
-      request(app).post('/agents/signin').send(agent1SigninProps)
+      companySignIn(company1SigninProps),
+      agentSignIn(agent1SigninProps)
     ])
     company1Token = res1.body.token
     agent1Token = res2.body.token
