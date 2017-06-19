@@ -21,11 +21,12 @@ export const getPkgsList = async (req, res, next) => {
           agent: agentId
         }
       },
+      company: 1,
       name: 1,
       priceAdult: 1,
       priceChild: 1
     }
-  )
+  ).populate({ path: 'company', select: 'email' })
 
   const resolvedPricePkgs = pkgs.map(pkg => {
     if (pkg.specialPrices.length) {

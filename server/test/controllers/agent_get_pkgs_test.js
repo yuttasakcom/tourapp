@@ -101,6 +101,7 @@ describe('Agent get pkgs', () => {
       .set('authorization', agent1Token)
       .expect(200)
 
+    expect(res.body[0].company.email).to.equal('company1@test.com')
     expect(res.body.length).to.equal(10)
   })
 

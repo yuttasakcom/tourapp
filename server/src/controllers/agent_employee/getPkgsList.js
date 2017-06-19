@@ -25,7 +25,7 @@ export const getPkgsList = async (req, res, next) => {
       priceAdult: 1,
       priceChild: 1
     }
-  )
+  ).populate({ path: 'company', select: 'email' })
 
   const resolvedPricePkgs = pkgs.map(pkg => {
     if (pkg.specialPrices.length) {
