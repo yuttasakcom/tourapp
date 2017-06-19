@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import Card from '../../components/Card'
 import DataTable from '../../components/dataTable'
+import AddModal from './AddModal'
 import * as actions from '../../actions'
 
 class PkgDataTable extends PureComponent {
@@ -12,7 +13,7 @@ class PkgDataTable extends PureComponent {
   }
 
   renderTableBody = () => {
-    const { pkgs } = this.props
+    const { pkgs, openAddBookingModal } = this.props
 
     if (!pkgs) {
       return <tr />
@@ -23,6 +24,14 @@ class PkgDataTable extends PureComponent {
         <td>{pkg.name}</td>
         <td>{pkg.priceAdult.toLocaleString()}</td>
         <td>{pkg.priceChild.toLocaleString()}</td>
+        <td style={{ textAlign: 'center' }}>
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => openAddBookingModal(pkg._id)}
+          >
+            Book
+          </button>
+        </td>
       </tr>
     )
   }
@@ -35,6 +44,7 @@ class PkgDataTable extends PureComponent {
           tableTitles={tableTitles}
           renderTableBody={this.renderTableBody}
         />
+        <AddModal />
       </Card>
     )
   }
