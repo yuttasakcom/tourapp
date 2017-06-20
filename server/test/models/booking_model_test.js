@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import { expect } from 'chai'
 
 const Booking = mongoose.model('Booking')
-const { objectId } = require('../../src/helpers/mock')
+const { objectId } = require('../helpers')
 const { status } = require('../../src/helpers/booking')
 
 describe('Booking model', () => {

@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import { password, agentSignIn, agentDeleteRelationship } from '../../helpers'
+import * as h from '../../helpers'
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
@@ -13,23 +13,23 @@ describe('Agent delete relationship', () => {
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const company2Props = {
     email: 'company2@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const agent1SigninProps = {
     ...agent1Props,
     role: 'agent',
-    password: password.raw
+    password: h.password.raw
   }
 
   beforeEach(async () => {
@@ -43,13 +43,13 @@ describe('Agent delete relationship', () => {
     company1.agents.push(agent1)
 
     await Promise.all([agent1.save(), company1.save(), company2.save()])
-    const res = await agentSignIn(agent1SigninProps)
+    const res = await h.agentSignIn(agent1SigninProps)
 
     agent1Token = res.body.token
   })
 
   it('one relationship', async () => {
-    await agentDeleteRelationship(agent1Token, company1)
+    await h.agentDeleteRelationship(agent1Token, company1)
     const [res1, res2, res3] = await Promise.all([
       Agent.findOne({
         _id: agent1._id,
@@ -71,8 +71,8 @@ describe('Agent delete relationship', () => {
 
   it('two relationship', async () => {
     await Promise.all([
-      agentDeleteRelationship(agent1Token, company1),
-      agentDeleteRelationship(agent1Token, company2)
+      h.agentDeleteRelationship(agent1Token, company1),
+      h.agentDeleteRelationship(agent1Token, company2)
     ])
 
     const [res1, res2, res3] = await Promise.all([

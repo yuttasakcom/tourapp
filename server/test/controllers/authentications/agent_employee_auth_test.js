@@ -1,9 +1,7 @@
-import request from 'supertest'
 import chai from 'chai'
 import mongoose from 'mongoose'
 import dirtyChai from 'dirty-chai'
-import app from '../../../src/app'
-import { password } from '../../../src/helpers/mock'
+import * as h from '../../helpers'
 
 chai.use(dirtyChai)
 
@@ -16,7 +14,7 @@ describe('agent employee authentication', () => {
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const employee1Props = {
@@ -29,7 +27,7 @@ describe('agent employee authentication', () => {
   const agent1SigninProps = {
     ...agent1Props,
     role: 'agent',
-    password: password.raw
+    password: h.password.raw
   }
 
   const employee1SigninProps = {
@@ -41,53 +39,28 @@ describe('agent employee authentication', () => {
   beforeEach(async () => {
     agent1 = new Agent(agent1Props)
     await agent1.save()
-    const res = await request(app)
-      .post('/agents/signin')
-      .send(agent1SigninProps)
-
+    const res = await h.agentSignIn(agent1SigninProps)
     agent1Token = res.body.token
-
-    await request(app)
-      .post('/agents/employees')
-      .send(employee1Props)
-      .set('authorization', agent1Token)
-      .expect(201)
+    await h.agentAddEmployee(agent1Token, employee1Props).expect(201)
   })
 
   it('signin must return token in body', async () => {
-    const res = await request(app)
-      .post('/agents-employees/signin')
-      .send(employee1SigninProps)
-      .expect(200)
-
+    const res = await h.agentEmployeeSignIn(employee1SigninProps).expect(200)
     expect(res.body.token).to.be.exist()
   })
 
   it('return status 401 when dont send role', async () => {
-    await request(app)
-      .post('/agents-employees/signin')
-      .send(employee1Props)
-      .expect(401)
+    await h.agentEmployeeSignIn(employee1Props).expect(401)
   })
 
   it('signin token can get secret route', async () => {
-    const res = await request(app)
-      .post('/agents-employees/signin')
-      .send(employee1SigninProps)
-      .expect(200)
-
+    const res = await h.agentEmployeeSignIn(employee1SigninProps).expect(200)
     const token = res.body.token
-    await request(app)
-      .get('/agents-employees/profile')
-      .set('authorization', token)
-      .expect(200)
+    await h.agentEmployeeGetProfile(token).expect(200)
   })
 
   it('fake token can not get secret route', async () => {
     const token = 'fake token'
-    await request(app)
-      .get('/agents-employees/profile')
-      .set('authorization', token)
-      .expect(401)
+    await h.agentEmployeeGetProfile(token).expect(401)
   })
 })

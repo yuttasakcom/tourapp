@@ -1,9 +1,7 @@
-import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import app from '../../../src/app'
-import { password } from '../../../src/helpers/mock'
 import { comparePassword } from '../../../src/helpers/authentication'
+import * as h from '../../helpers'
 
 const Agent = mongoose.model('Agent')
 
@@ -13,7 +11,7 @@ describe('Agent add employee', () => {
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const employee1Props = {
@@ -26,26 +24,18 @@ describe('Agent add employee', () => {
   const agent1SigninProps = {
     ...agent1Props,
     role: 'agent',
-    password: password.raw
+    password: h.password.raw
   }
 
   beforeEach(async () => {
     agent1 = new Agent(agent1Props)
     await agent1.save()
-    const { body: { token } } = await request(app)
-      .post('/agents/signin')
-      .send(agent1SigninProps)
-
+    const { body: { token } } = await h.agentSignIn(agent1SigninProps)
     agent1Token = token
   })
 
   it('one employee', async () => {
-    await request(app)
-      .post('/agents/employees')
-      .send(employee1Props)
-      .set('authorization', agent1Token)
-      .expect(201)
-
+    await h.agentAddEmployee(agent1Token, employee1Props).expect(201)
     const agent = await Agent.findById(agent1._id)
     expect(agent.employees.length).to.equal(1)
   })
@@ -59,18 +49,13 @@ describe('Agent add employee', () => {
       email: 'employee1@test.com',
       password: undefined
     }
-    const res = await request(app)
-      .post('/agents/employees')
-      .send(employeeWithoutEmail)
-      .set('authorization', agent1Token)
+    const res = await h
+      .agentAddEmployee(agent1Token, employeeWithoutEmail)
       .expect(422)
 
     expect(res.body.error).to.equal('Must provide email and password')
-
-    const res1 = await request(app)
-      .post('/agents/employees')
-      .send(employeeWithoutPassword)
-      .set('authorization', agent1Token)
+    const res1 = await h
+      .agentAddEmployee(agent1Token, employeeWithoutPassword)
       .expect(422)
 
     expect(res1.body.error).to.equal('Must provide email and password')
@@ -79,40 +64,23 @@ describe('Agent add employee', () => {
   })
 
   it('can not be use a duplicate email', async () => {
-    await request(app)
-      .post('/agents/employees')
-      .send(employee1Props)
-      .set('authorization', agent1Token)
-      .expect(201)
-
-    const res = await request(app)
-      .post('/agents/employees')
-      .send(employee1Props)
-      .set('authorization', agent1Token)
+    await h.agentAddEmployee(agent1Token, employee1Props).expect(201)
+    const res = await h
+      .agentAddEmployee(agent1Token, employee1Props)
       .expect(422)
-
     expect(res.body.error).to.equal('Email is in use')
     const agent = await Agent.findById(agent1._id)
     expect(agent.employees.length).to.equal(1)
   })
 
   it('password must be hash', async () => {
-    await request(app)
-      .post('/agents/employees')
-      .send(employee1Props)
-      .set('authorization', agent1Token)
-      .expect(201)
-
+    await h.agentAddEmployee(agent1Token, employee1Props).expect(201)
     const agent = await Agent.findOne({ email: agent1Props.email })
     expect(agent.employees[0].password).to.not.equal(employee1Props.password)
   })
 
   it('comparePassword must be valid', async () => {
-    await request(app)
-      .post('/agents/employees')
-      .send(employee1Props)
-      .set('authorization', agent1Token)
-
+    await h.agentAddEmployee(agent1Token, employee1Props)
     const agent = await Agent.findById(agent1._id)
     const employee = agent.employees[0]
     const isMatch = await comparePassword('1234', employee.password)

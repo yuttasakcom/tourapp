@@ -1,8 +1,6 @@
-import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import app from '../../../src/app'
-import { password } from '../../../src/helpers/mock'
+import * as h from '../../helpers'
 import { status } from '../../../src/helpers/booking'
 
 const Agent = mongoose.model('Agent')
@@ -20,31 +18,31 @@ describe('Booking', () => {
 
   const agentEmployee1Props = {
     email: 'agentemployee1@test.com',
-    password: password.hash,
+    password: h.password.hash,
     name: 'name_test',
     phoneNumber: '024283192'
   }
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash,
+    password: h.password.hash,
     employees: [agentEmployee1Props]
   }
 
   const agentEmployee1SigninProps = {
     email: 'agent1@test.com..agentemployee1@test.com',
-    password: password.raw,
+    password: h.password.raw,
     role: 'agentEmployee'
   }
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const company2Props = {
     email: 'company2@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const touristProps = {
@@ -61,17 +59,17 @@ describe('Booking', () => {
   const company1SigninProps = {
     ...company1Props,
     role: 'company',
-    password: password.raw
+    password: h.password.raw
   }
   const company2SigninProps = {
     ...company2Props,
     role: 'company',
-    password: password.raw
+    password: h.password.raw
   }
   const agent1SigninProps = {
     ...agent1Props,
     role: 'agent',
-    password: password.raw
+    password: h.password.raw
   }
 
   beforeEach(async () => {
@@ -105,27 +103,18 @@ describe('Booking', () => {
     ])
 
     const [res1, res2, res3] = await Promise.all([
-      request(app).post('/companies/signin').send(company1SigninProps),
-      request(app).post('/agents/signin').send(agent1SigninProps),
-      request(app)
-        .post('/agents-employees/signin')
-        .send(agentEmployee1SigninProps),
-      request(app).post('/companies/signin').send(company2SigninProps)
+      h.companySignIn(company1SigninProps),
+      h.agentSignIn(agent1SigninProps),
+      h.agentEmployeeSignIn(agentEmployee1SigninProps),
+      h.companySignIn(company2SigninProps)
     ])
 
     company1Token = res1.body.token
     agent1Token = res2.body.token
     agentEmployee1Token = res3.body.token
 
-    await request(app)
-      .post('/agents/request')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
-
-    await request(app)
-      .post('/companies/accept')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
+    await h.agentRequest(agent1Token, company1)
+    await h.companyAccept(company1Token, agent1)
   })
 
   describe('Company get pkgs list and special price by agentId', () => {
@@ -135,18 +124,14 @@ describe('Booking', () => {
         name: 'name_test0'
       })
 
-      await request(app)
-        .post(`/companies/pkgs/${pkg._id}/special-prices`)
-        .send({
-          agent: agent1._id,
-          priceAdult: 2500,
-          priceChild: 1500
-        })
-        .set('authorization', company1Token)
+      await h.companyOfferSpecialPrice(company1Token, pkg._id, {
+        agent: agent1._id,
+        priceAdult: 2500,
+        priceChild: 1500
+      })
 
-      const res = await request(app)
-        .get(`/companies/special-prices/${agent1._id}`)
-        .set('authorization', company1Token)
+      const res = await h
+        .companyGetSpecialPrices(company1Token, agent1._id)
         .expect(200)
 
       expect(res.body.length).to.equal(10)
@@ -160,15 +145,12 @@ describe('Booking', () => {
         company: company1._id,
         name: 'name_test0'
       })
-      await request(app)
-        .post(`/companies/pkgs/${pkg._id}/special-prices`)
-        .send({
-          agent: agent1._id,
-          priceAdult: 2500,
-          priceChild: 1500
-        })
-        .set('authorization', company1Token)
-        .expect(200)
+
+      await h.companyOfferSpecialPrice(company1Token, pkg._id, {
+        agent: agent1._id,
+        priceAdult: 2500,
+        priceChild: 1500
+      })
 
       const pkg1 = await Pkg.findById(pkg._id, {
         specialPrices: {
@@ -185,19 +167,16 @@ describe('Booking', () => {
         name: 'name_test0'
       })
 
-      await request(app)
-        .post(`/companies/pkgs/${pkg._id}/special-prices`)
-        .send({
+      await h
+        .companyOfferSpecialPrice(company1Token, pkg._id, {
           agent: agent1._id,
           priceAdult: 2500,
           priceChild: 1500
         })
-        .set('authorization', company1Token)
         .expect(200)
 
-      await request(app)
-        .delete(`/companies/pkgs/${pkg._id}/special-prices/${agent1._id}`)
-        .set('authorization', company1Token)
+      await h
+        .companyResetSpecialPrice(company1Token, pkg._id, agent1._id)
         .expect(200)
 
       const pkg1 = await Pkg.findById(pkg._id, {
@@ -215,32 +194,23 @@ describe('Booking', () => {
         name: 'name_test0'
       })
 
-      await request(app)
-        .post(`/companies/pkgs/${pkg._id}/special-prices`)
-        .send({
-          agent: agent1._id,
-          priceAdult: 2500,
-          priceChild: 1500
-        })
-        .set('authorization', company1Token)
+      await h.companyOfferSpecialPrice(company1Token, pkg._id, {
+        agent: agent1._id,
+        priceAdult: 2500,
+        priceChild: 1500
+      })
 
-      await request(app)
-        .post(`/companies/pkgs/${pkg._id}/special-prices`)
-        .send({
-          agent: company1._id,
-          priceAdult: 5555,
-          priceChild: 4444
-        })
-        .set('authorization', company1Token)
+      await h.companyOfferSpecialPrice(company1Token, pkg._id, {
+        agent: company1._id,
+        priceAdult: 5555,
+        priceChild: 4444
+      })
 
-      await request(app)
-        .post(`/companies/pkgs/${pkg._id}/special-prices`)
-        .send({
-          agent: agent1._id,
-          priceAdult: 2000,
-          priceChild: 1000
-        })
-        .set('authorization', company1Token)
+      await h.companyOfferSpecialPrice(company1Token, pkg._id, {
+        agent: agent1._id,
+        priceAdult: 2000,
+        priceChild: 1000
+      })
 
       const pkg1 = await Pkg.findById(pkg._id)
       expect(pkg1.specialPrices[0].priceAdult).to.equal(2000)
@@ -250,11 +220,7 @@ describe('Booking', () => {
 
   describe('Agent employee get pkgs list', () => {
     it('one member', async () => {
-      const res = await request(app)
-        .get('/agents-employees/pkgs')
-        .set('authorization', agentEmployee1Token)
-        .expect(200)
-
+      const res = await h.agentEmployeeGetPkgs(agentEmployee1Token).expect(200)
       expect(res.body.length).to.equal(10)
     })
 
@@ -275,11 +241,7 @@ describe('Booking', () => {
       })
 
       await pkg.save()
-      const res = await request(app)
-        .get('/agents-employees/pkgs')
-        .set('authorization', agentEmployee1Token)
-        .expect(200)
-
+      const res = await h.agentEmployeeGetPkgs(agentEmployee1Token).expect(200)
       expect(res.body[0].priceAdult).to.equal(2500)
     })
   })
@@ -300,84 +262,51 @@ describe('Booking', () => {
     })
 
     it('agent one booking', async () => {
-      await request(app)
-        .post('/agents/bookings')
-        .send(booking1Props)
-        .set('authorization', agent1Token)
-        .expect(200)
-
+      await h.agentAddBooking(agent1Token, booking1Props).expect(200)
       const count = await Booking.count()
       expect(count).to.equal(1)
     })
 
     it('agent employee one booking', async () => {
-      await request(app)
-        .post('/agents-employees/bookings')
-        .send(booking1Props)
-        .set('authorization', agentEmployee1Token)
+      await h
+        .agentEmployeeAddBooking(agentEmployee1Token, booking1Props)
         .expect(200)
-
       const count = await Booking.count()
       expect(count).to.equal(1)
     })
 
     it('agent employee not member must return status 401', async () => {
       booking1Props.company = company2._id
-      await request(app)
-        .post('/agents-employees/bookings')
-        .send(booking1Props)
-        .set('authorization', agentEmployee1Token)
+      await h
+        .agentEmployeeAddBooking(agentEmployee1Token, booking1Props)
         .expect(401)
-
       const count = await Booking.count()
       expect(count).to.equal(0)
     })
 
     it('Company get bookings list', async () => {
-      await request(app)
-        .post('/agents-employees/bookings')
-        .send(booking1Props)
-        .set('authorization', agentEmployee1Token)
-        .expect(200)
-
-      const res = await request(app)
-        .get('/companies/bookings')
-        .set('authorization', company1Token)
-        .expect(200)
-
+      await h.agentEmployeeAddBooking(agentEmployee1Token, booking1Props)
+      const res = await h.companyGetBookings(company1Token).expect(200)
       expect(res.body.length).to.equal(1)
     })
   })
 
   describe('Company change booking status', () => {
     it('accept', async () => {
-      const res = await request(app)
-        .get('/agents-employees/pkgs')
-        .set('authorization', agentEmployee1Token)
-
+      const res = await h.agentEmployeeGetPkgs(agentEmployee1Token)
       const pkg = res.body[0]
       const booking1Props = {
         company: company1._id,
         pkg,
         tourist: touristProps
       }
-
-      await request(app)
-        .post('/agents-employees/bookings')
-        .send(booking1Props)
-        .set('authorization', agentEmployee1Token)
-
-      const res1 = await request(app)
-        .get('/companies/bookings')
-        .set('authorization', company1Token)
+      await h.agentEmployeeAddBooking(agentEmployee1Token, booking1Props)
+      const res1 = await h.companyGetBookings(company1Token)
 
       const bookingId = res1.body[0]._id
-      await request(app)
-        .put(`/companies/bookings/${bookingId}`)
-        .send({ status: status.accepted })
-        .set('authorization', company1Token)
+      await h
+        .companyEditBookingStatus(company1Token, bookingId, status.accepted)
         .expect(200)
-
       const booking = await Booking.findById(bookingId)
       expect(booking.status).to.equal(status.accepted)
     })

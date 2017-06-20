@@ -1,9 +1,8 @@
-import request from 'supertest'
 import dirtyChai from 'dirty-chai'
 import chai from 'chai'
 import mongoose from 'mongoose'
-import app from '../../../src/app'
 import { comparePassword } from '../../../src/helpers/authentication'
+import * as h from '../../helpers'
 
 chai.use(dirtyChai)
 
@@ -21,7 +20,7 @@ describe('agent authentication', () => {
   describe('signup', () => {
     it('create a new agent', async () => {
       const count = await Agent.count()
-      await request(app).post('/agents/signup').send(agentProps).expect(201)
+      await h.agentSignUp(agentProps).expect(201)
       const newCount = await Agent.count()
       expect(count + 1).to.equal(newCount)
     })
@@ -35,46 +34,27 @@ describe('agent authentication', () => {
         email: 'agent1@test.com',
         password: undefined
       }
-
-      const res = await request(app)
-        .post('/agents/signup')
-        .send(agentWithoutEmail)
-        .expect(422)
-
+      const res = await h.agentSignUp(agentWithoutEmail).expect(422)
       expect(res.body.error).to.equal('Must provide email and password')
-
-      const res1 = await request(app)
-        .post('/agents/signup')
-        .send(agentWithoutPassword)
-        .expect(422)
-
+      const res1 = await h.agentSignUp(agentWithoutPassword).expect(422)
       expect(res1.body.error).to.equal('Must provide email and password')
     })
 
     it('can not be use a duplicate email', async () => {
       const agent = new Agent(agentProps)
-
       await agent.save()
-      const res = await request(app)
-        .post('/agents/signup')
-        .send(agentProps)
-        .expect(422)
-
+      const res = await h.agentSignUp(agentProps).expect(422)
       expect(res.body.error).to.equal('Email is in use')
     })
 
     it('password must be hash', async () => {
-      await request(app).post('/agents/signup').send(agentProps).expect(201)
+      await h.agentSignUp(agentProps).expect(201)
       const agent = await Agent.findOne({ email: agentProps.email })
       expect(agent.password).to.not.equal(agentProps.password)
     })
 
     it('return token in body', async () => {
-      const res = await request(app)
-        .post('/agents/signup')
-        .send(agentProps)
-        .expect(201)
-
+      const res = await h.agentSignUp(agentProps).expect(201)
       expect(res.body.token).to.be.exist()
     })
   })
@@ -83,7 +63,7 @@ describe('agent authentication', () => {
     let testAgent
 
     beforeEach(async () => {
-      await request(app).post('/agents/signup').send(agentProps)
+      await h.agentSignUp(agentProps)
       const agent = await Agent.findOne({ email: agentProps.email })
       testAgent = agent
     })
@@ -102,47 +82,32 @@ describe('agent authentication', () => {
     })
 
     it('return token in body', async () => {
-      const res = await request(app)
-        .post('/agents/signin')
-        .send(agentSigninProps)
-        .expect(200)
-
+      const res = await h.agentSignIn(agentSigninProps).expect(200)
       expect(res.body.token).to.be.exist()
     })
 
     it('return status 401 when dont send role', async () => {
-      await request(app).post('/agents/signin').send(agentProps).expect(401)
+      await h.agentSignIn(agentProps).expect(401)
     })
   })
 
   describe('auth with jwt', () => {
     it('signup token can get secret route', async () => {
-      const res = await request(app).post('/agents/signup').send(agentProps)
+      const res = await h.agentSignUp(agentProps)
       const token = res.body.token
-      await request(app)
-        .get('/agents/profile')
-        .set('authorization', token)
-        .expect(200)
+      await h.agentGetProfile(token).expect(200)
     })
 
     it('signin token can get secret route', async () => {
-      await request(app).post('/agents/signup').send(agentProps)
-      const res = await request(app)
-        .post('/agents/signin')
-        .send(agentSigninProps)
+      await h.agentSignUp(agentProps)
+      const res = await h.agentSignIn(agentSigninProps)
       const token = res.body.token
-      await request(app)
-        .get('/agents/profile')
-        .set('authorization', token)
-        .expect(200)
+      await h.agentGetProfile(token).expect(200)
     })
 
     it('fake token can not get secret route', async () => {
       const token = 'fake token'
-      await request(app)
-        .get('/agents/profile')
-        .set('authorization', token)
-        .expect(401)
+      await h.agentGetProfile(token).expect(401)
     })
 
     it('company token can not get secret route', async () => {
@@ -150,17 +115,9 @@ describe('agent authentication', () => {
         email: 'company1@test.com',
         password: '1234'
       }
-
-      const res = await request(app)
-        .post('/companies/signup')
-        .send(companyProps)
-        .expect(201)
-
+      const res = await h.companySignUp(companyProps).expect(201)
       const companyToken = res.body.token
-      await request(app)
-        .get('/agents/profile')
-        .set('authorization', companyToken)
-        .expect(401)
+      await h.agentGetProfile(companyToken).expect(401)
     })
   })
 })

@@ -1,8 +1,6 @@
-import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import app from '../../../src/app'
-import { password } from '../../../src/helpers/mock'
+import * as h from '../../helpers'
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
@@ -15,23 +13,23 @@ describe('Company delete relationship', () => {
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const agent2Props = {
     email: 'agent2@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const company1SigninProps = {
     ...company1Props,
     role: 'company',
-    password: password.raw
+    password: h.password.raw
   }
 
   beforeEach(async () => {
@@ -45,19 +43,12 @@ describe('Company delete relationship', () => {
     agent2.companies.push(company1)
 
     await Promise.all([company1.save(), agent1.save(), agent2.save()])
-    const res = await request(app)
-      .post('/companies/signin')
-      .send(company1SigninProps)
-
+    const res = await h.companySignIn(company1SigninProps)
     company1Token = res.body.token
   })
 
   it('one relationship', async () => {
-    await request(app)
-      .delete(`/companies/relationship/${agent1._id}`)
-      .set('authorization', company1Token)
-      .expect(200)
-
+    await h.companyDeleteRelationship(company1Token, agent1).expect(200)
     const [res1, res2, res3] = await Promise.all([
       Company.findOne({
         _id: company1._id,
@@ -78,16 +69,8 @@ describe('Company delete relationship', () => {
   })
 
   it('two relationship', async () => {
-    await request(app)
-      .delete(`/companies/relationship/${agent1._id}`)
-      .set('authorization', company1Token)
-      .expect(200)
-
-    await request(app)
-      .delete(`/companies/relationship/${agent2._id}`)
-      .set('authorization', company1Token)
-      .expect(200)
-
+    await h.companyDeleteRelationship(company1Token, agent1).expect(200)
+    await h.companyDeleteRelationship(company1Token, agent2).expect(200)
     const [res1, res2, res3] = await Promise.all([
       Company.findOne({
         _id: company1._id,

@@ -1,8 +1,6 @@
-import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import app from '../../../src/app'
-import { password } from '../../../src/helpers/mock'
+import * as h from '../../helpers'
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
@@ -15,28 +13,28 @@ describe('Company request', () => {
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const agent2Props = {
     email: 'agent2@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const company1SigninProps = {
     ...company1Props,
     role: 'company',
-    password: password.raw
+    password: h.password.raw
   }
   const agent1SigninProps = {
     ...agent1Props,
     role: 'agent',
-    password: password.raw
+    password: h.password.raw
   }
 
   beforeEach(async () => {
@@ -45,20 +43,12 @@ describe('Company request', () => {
     agent2 = new Agent(agent2Props)
 
     await Promise.all([company1.save(), agent1.save(), agent2.save()])
-    const res = await request(app)
-      .post('/companies/signin')
-      .send(company1SigninProps)
-
+    const res = await h.companySignIn(company1SigninProps)
     company1Token = res.body.token
   })
 
   it('must be appear on company request pendings', async () => {
-    await request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
-      .expect(200)
-
+    await h.companyRequest(company1Token, agent1).expect(200)
     const company = await Company.findById(company1._id)
     expect(company.requestPendings.length).to.equal(1)
     expect(company.requestPendings[0].toString()).to.equal(
@@ -67,17 +57,8 @@ describe('Company request', () => {
   })
 
   it('cancel request must remove company requestPendings and agent acceptPendings', async () => {
-    await request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
-      .expect(200)
-
-    await request(app)
-      .delete(`/companies/cancel-request/${agent1._id}`)
-      .set('authorization', company1Token)
-      .expect(200)
-
+    await h.companyRequest(company1Token, agent1).expect(200)
+    await h.companyCancelRequest(company1Token, agent1).expect(200)
     const [res1, res2] = await Promise.all([
       Company.findById(company1._id),
       Agent.findById(agent1._id)
@@ -87,20 +68,11 @@ describe('Company request', () => {
   })
 
   it('reject request must remove company acceptPendings and agent requestPendings', async () => {
-    const res = await request(app)
-      .post('/agents/signin')
-      .send(agent1SigninProps)
+    const res = await h.agentSignIn(agent1SigninProps)
     const agent1Token = res.body.token
 
-    await request(app)
-      .post('/agents/request')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
-
-    await request(app)
-      .delete(`/companies/reject-request/${agent1._id}`)
-      .set('authorization', company1Token)
-      .expect(200)
+    await h.agentRequest(agent1Token, company1)
+    await h.companyRejectRequest(company1Token, agent1)
 
     const [res1, res2] = await Promise.all([
       Company.findById(company1._id),
@@ -111,30 +83,15 @@ describe('Company request', () => {
   })
 
   it('must be appear on agent accept pendings', async () => {
-    await request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
-      .expect(200)
-
+    await h.companyRequest(company1Token, agent1)
     const agent = await Agent.findById(agent1._id)
     expect(agent.acceptPendings.length).to.equal(1)
     expect(agent.acceptPendings[0].toString()).to.equal(company1._id.toString())
   })
 
   it('duplicate agent must return status 422 and not insert', async () => {
-    await request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
-      .expect(200)
-
-    await request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
-      .expect(422)
-
+    await h.companyRequest(company1Token, agent1).expect(200)
+    await h.companyRequest(company1Token, agent1).expect(422)
     const [res1, res2] = await Promise.all([
       Company.findById(company1._id),
       Agent.findById(agent1._id)
@@ -144,18 +101,8 @@ describe('Company request', () => {
   })
 
   it('two agent', async () => {
-    await request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
-      .expect(200)
-
-    await request(app)
-      .post('/companies/request')
-      .send({ _id: agent2._id })
-      .set('authorization', company1Token)
-      .expect(200)
-
+    await h.companyRequest(company1Token, agent1).expect(200)
+    await h.companyRequest(company1Token, agent2).expect(200)
     const [res1, res2, res3] = await Promise.all([
       Company.findById(company1._id),
       Agent.findById(agent1._id),
@@ -167,28 +114,10 @@ describe('Company request', () => {
   })
 
   it('already member must return status 422', async () => {
-    await request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
-      .expect(200)
-
-    const res = await request(app)
-      .post('/agents/signin')
-      .send(agent1SigninProps)
-      .expect(200)
-
+    await h.companyRequest(company1Token, agent1).expect(200)
+    const res = await h.agentSignIn(agent1SigninProps)
     const agent1Token = res.body.token
-    await request(app)
-      .post('/agents/accept')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
-      .expect(200)
-
-    await request(app)
-      .post('/companies/request')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
-      .expect(422)
+    await h.agentAccept(agent1Token, company1).expect(200)
+    await h.companyRequest(company1Token, agent1).expect(422)
   })
 })

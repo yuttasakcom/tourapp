@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import { password, agentSignIn, agentGetCompanies } from '../../helpers'
+import * as h from '../../helpers'
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
@@ -13,23 +13,23 @@ describe('Agent get companies list', () => {
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const company2Props = {
     email: 'company2@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const agent1SigninProps = {
     ...agent1Props,
     role: 'agent',
-    password: password.raw
+    password: h.password.raw
   }
 
   beforeEach(async () => {
@@ -41,12 +41,12 @@ describe('Agent get companies list', () => {
     agent1.companies.push(company2)
 
     await Promise.all([agent1.save(), company1.save(), company2.save()])
-    const res = await agentSignIn(agent1SigninProps)
+    const res = await h.agentSignIn(agent1SigninProps)
     agent1Token = res.body.token
   })
 
   it('two companies', async () => {
-    const res = await agentGetCompanies(agent1Token).expect(200)
+    const res = await h.agentGetCompanies(agent1Token).expect(200)
     const companies = res.body
     expect(companies.length).to.equal(2)
     expect(companies[0].email).to.equal(company1Props.email)

@@ -1,7 +1,6 @@
-import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import app from '../../src/app'
+import * as h from '../helpers'
 
 const Company = mongoose.model('Company')
 const Pkg = mongoose.model('Pkg')
@@ -15,57 +14,34 @@ describe('Company CRUD pkg', () => {
     password: '1234'
   }
 
+  const pkg1Props = {
+    name: 'name_test',
+    description: 'description_test',
+    priceAdult: '3000',
+    priceChild: '2000'
+  }
+
   const company1SigninProps = { ...company1Props, role: 'company' }
 
   beforeEach(async () => {
-    await request(app).post('/companies/signup').send(company1Props)
+    await h.companySignUp(company1Props)
     const company = await Company.findOne({ email: company1Props.email })
     company1 = company
-    const res = await request(app)
-      .post('/companies/signin')
-      .send(company1SigninProps)
+    const res = await h.companySignIn(company1SigninProps)
     company1Token = res.body.token
   })
 
   describe('Create pkg', () => {
     it('one pkg', async () => {
-      await request(app)
-        .post('/companies/pkgs')
-        .send({
-          name: 'name_test',
-          description: 'description_test',
-          priceAdult: '3000',
-          priceChild: '2000'
-        })
-        .set('authorization', company1Token)
-        .expect(201)
-
+      await h.companyAddPkg(company1Token, pkg1Props).expect(201)
       const pkgs = await Pkg.find({ company: company1._id })
       expect(pkgs.length).to.equal(1)
     })
 
     it('two pkg', async () => {
       await Promise.all([
-        request(app)
-          .post('/companies/pkgs')
-          .send({
-            name: 'name_test1',
-            description: 'description_test1',
-            priceAdult: '3000',
-            priceChild: '2000'
-          })
-          .set('authorization', company1Token)
-          .expect(201),
-        request(app)
-          .post('/companies/pkgs')
-          .send({
-            name: 'name_test2',
-            description: 'description_test2',
-            priceAdult: '3000',
-            priceChild: '2000'
-          })
-          .set('authorization', company1Token)
-          .expect(201)
+        h.companyAddPkg(company1Token, pkg1Props),
+        h.companyAddPkg(company1Token, pkg1Props)
       ])
 
       const pkgs = await Pkg.find({ company: company1._id })
@@ -87,11 +63,7 @@ describe('Company CRUD pkg', () => {
     })
 
     it('GET /companies/pkgs', async () => {
-      const res = await request(app)
-        .get('/companies/pkgs')
-        .set('authorization', company1Token)
-        .expect(200)
-
+      const res = await h.companyGetPkgs(company1Token).expect(200)
       expect(res.body.length).to.equal(10)
     })
 
@@ -101,11 +73,7 @@ describe('Company CRUD pkg', () => {
         name: 'name_test0'
       })
       const pkgId = pkg._id
-      const res = await request(app)
-        .get(`/companies/pkgs/${pkgId}`)
-        .set('authorization', company1Token)
-        .expect(200)
-
+      const res = await h.companyGetPkg(company1Token, pkgId).expect(200)
       expect(res.body.name).to.equal('name_test0')
     })
 
@@ -115,11 +83,7 @@ describe('Company CRUD pkg', () => {
         name: 'name_test0'
       })
       const pkgId = pkg._id
-      await request(app)
-        .delete(`/companies/pkgs/${pkgId}`)
-        .set('authorization', company1Token)
-        .expect(200)
-
+      await h.companyDeletePkg(company1Token, pkgId).expect(200)
       const count = await Pkg.count({ _id: pkgId })
       expect(count).to.equal(0)
     })
@@ -131,10 +95,8 @@ describe('Company CRUD pkg', () => {
       })
       const pkgId = pkg._id
 
-      const res = await request(app)
-        .put(`/companies/pkgs/${pkgId}`)
-        .set('authorization', company1Token)
-        .send({
+      const res = await h
+        .companyEditPkg(company1Token, pkgId, {
           name: 'updated_name',
           description: 'updated_description',
           priceAdult: 4000,
