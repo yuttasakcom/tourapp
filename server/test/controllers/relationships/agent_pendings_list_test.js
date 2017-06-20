@@ -1,11 +1,6 @@
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import {
-  password,
-  agentSignIn,
-  agentGetRequestPendings,
-  agentGetAcceptPendings
-} from '../../helpers'
+import * as h from '../../helpers'
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
@@ -16,23 +11,23 @@ describe('Agent pendings list', () => {
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const company1Stub = new Company({
     email: 'company1stub@test.com',
-    password: password.hash
+    password: h.password.hash
   })
 
   const company2Stub = new Company({
     email: 'company2Stub@test.com',
-    password: password.hash
+    password: h.password.hash
   })
 
   const agent1SigninProps = {
     ...agent1Props,
     role: 'agent',
-    password: password.raw
+    password: h.password.raw
   }
 
   beforeEach(async () => {
@@ -43,17 +38,17 @@ describe('Agent pendings list', () => {
     agent1.acceptPendings.push(company2Stub)
 
     await agent1.save()
-    const res = await agentSignIn(agent1SigninProps)
+    const res = await h.agentSignIn(agent1SigninProps)
     agent1Token = res.body.token
   })
 
   it('two company must appear on GET /agents/request-pendings', async () => {
-    const res = await agentGetRequestPendings(agent1Token)
+    const res = await h.agentGetRequestPendings(agent1Token)
     expect(res.body.requestPendings.length).to.equal(2)
   })
 
   it('two company must appear on GET /agents/accept-pendings', async () => {
-    const res = await agentGetAcceptPendings(agent1Token)
+    const res = await h.agentGetAcceptPendings(agent1Token)
     expect(res.body.acceptPendings.length).to.equal(2)
   })
 })

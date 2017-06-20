@@ -1,8 +1,6 @@
-import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import app from '../../../src/app'
-import { password } from '../../../src/helpers/mock'
+import * as h from '../../helpers'
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
@@ -13,23 +11,23 @@ describe('Company pendings list', () => {
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const agent1Stub = new Agent({
     email: 'agent1stub@test.com',
-    password: password.hash
+    password: h.password.hash
   })
 
   const agent2Stub = new Agent({
     email: 'agent2stub@test.com',
-    password: password.hash
+    password: h.password.hash
   })
 
   const company1SigninProps = {
     ...company1Props,
     role: 'company',
-    password: password.raw
+    password: h.password.raw
   }
 
   beforeEach(async () => {
@@ -39,28 +37,17 @@ describe('Company pendings list', () => {
     company1.acceptPendings.push(agent1Stub)
     company1.acceptPendings.push(agent2Stub)
     await company1.save()
-    const res = await request(app)
-      .post('/companies/signin')
-      .send(company1SigninProps)
-
+    const res = await h.companySignIn(company1SigninProps)
     company1Token = res.body.token
   })
 
   it('two agent must appear on GET /companies/request-pendings', async () => {
-    const res = await request(app)
-      .get('/companies/request-pendings')
-      .set('authorization', company1Token)
-      .expect(200)
-
+    const res = await h.companyGetRequestPendings(company1Token)
     expect(res.body.requestPendings.length).to.equal(2)
   })
 
   it('two agent must appear on GET /companies/accept-pendings', async () => {
-    const res = await request(app)
-      .get('/companies/accept-pendings')
-      .set('authorization', company1Token)
-      .expect(200)
-
+    const res = await h.companyGetAcceptPendings(company1Token)
     expect(res.body.acceptPendings.length).to.equal(2)
   })
 })

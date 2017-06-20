@@ -1,8 +1,6 @@
-import request from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
-import app from '../../src/app'
-import { password } from '../../src/helpers/mock'
+import * as h from '../helpers'
 
 const Company = mongoose.model('Company')
 const Agent = mongoose.model('Agent')
@@ -18,33 +16,33 @@ describe('Agent get pkgs', () => {
 
   const company1Props = {
     email: 'company1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const company2Props = {
     email: 'company2@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: password.hash
+    password: h.password.hash
   }
 
   const company1SigninProps = {
     ...company1Props,
     role: 'company',
-    password: password.raw
+    password: h.password.raw
   }
   const company2SigninProps = {
     ...company2Props,
     role: 'company',
-    password: password.raw
+    password: h.password.raw
   }
   const agent1SigninProps = {
     ...agent1Props,
     role: 'agent',
-    password: password.raw
+    password: h.password.raw
   }
 
   beforeEach(async () => {
@@ -77,50 +75,27 @@ describe('Agent get pkgs', () => {
       Pkg.insertMany(pkgsStubs)
     ])
     const [res1, res2, res3] = await Promise.all([
-      request(app).post('/companies/signin').send(company1SigninProps),
-      request(app).post('/companies/signin').send(company2SigninProps),
-      request(app).post('/agents/signin').send(agent1SigninProps)
+      h.companySignIn(company1SigninProps),
+      h.companySignIn(company2SigninProps),
+      h.agentSignIn(agent1SigninProps)
     ])
     company1Token = res1.body.token
     company2Token = res2.body.token
     agent1Token = res3.body.token
-    await request(app)
-      .post('/agents/request')
-      .send({ _id: company1._id })
-      .set('authorization', agent1Token)
-
-    await request(app)
-      .post('/companies/accept')
-      .send({ _id: agent1._id })
-      .set('authorization', company1Token)
+    await h.agentRequest(agent1Token, company1)
+    await h.companyAccept(company1Token, agent1)
   })
 
   it('one member', async () => {
-    const res = await request(app)
-      .get('/agents/pkgs')
-      .set('authorization', agent1Token)
-      .expect(200)
-
+    const res = await h.agentGetPkgs(agent1Token)
     expect(res.body[0].company.email).to.equal('company1@test.com')
     expect(res.body.length).to.equal(10)
   })
 
   it('two member', async () => {
-    await request(app)
-      .post('/agents/request')
-      .send({ _id: company2._id })
-      .set('authorization', agent1Token)
-
-    await request(app)
-      .post('/companies/accept')
-      .send({ _id: agent1._id })
-      .set('authorization', company2Token)
-
-    const res = await request(app)
-      .get('/agents/pkgs')
-      .set('authorization', agent1Token)
-      .expect(200)
-
+    await h.agentRequest(agent1Token, company2)
+    await h.companyAccept(company2Token, agent1)
+    const res = await h.agentGetPkgs(agent1Token)
     expect(res.body.length).to.equal(20)
   })
 
@@ -138,11 +113,7 @@ describe('Agent get pkgs', () => {
     })
 
     await pkg.save()
-    const res = await request(app)
-      .get('/agents/pkgs')
-      .set('authorization', agent1Token)
-      .expect(200)
-
+    const res = await h.agentGetPkgs(agent1Token)
     expect(res.body[0].priceAdult).to.equal(2500)
   })
 })
