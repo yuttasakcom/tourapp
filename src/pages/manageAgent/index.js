@@ -16,19 +16,17 @@ class ManageAgent extends PureComponent {
 
   render() {
     return (
-      <div>
-        <div className="container-fluid">
-          {this.renderNotification()}
-          <button
-            className="btn btn-primary pull-right"
-            onClick={this.props.openRequestAgentModal}
-          >
-            Request Agent
-          </button>
-          <div className="row">
-            <div className="col-md-12">
-              <AgentDataTable />
-            </div>
+      <div className="container-fluid">
+        {this.renderNotification()}
+        <button
+          className="btn btn-primary pull-right"
+          onClick={this.props.openRequestAgentModal}
+        >
+          Request Agent
+        </button>
+        <div className="row">
+          <div className="col-md-12">
+            <AgentDataTable />
           </div>
         </div>
         <RequestModal />
