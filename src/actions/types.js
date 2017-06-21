@@ -5,6 +5,8 @@ export const SIGN_IN_FAIL = 'sign_in_fail'
 export const SIGN_UP_FAIL = 'sign_up_fail'
 export const HIDE_AUTH_NOTIFICATION = 'hide_auth_notification'
 
+export const FETCH_BOOKINGS_SUCCESS = 'fetch_bookings_success'
+
 export const FETCH_PKGS_SUCCESS = 'fetch_pkgs_success'
 export const DELETE_PKG_SUCCESS = 'delete_pkg_success'
 export const ADD_PKG_SUCCESS = 'add_pkg_success'
@@ -27,7 +29,8 @@ export const OPEN_DELETE_AGENT_MODAL = 'open_delete_agent_modal'
 export const CLOSE_DELETE_AGENT_MODAL = 'close_delete_agent_modal'
 export const OPEN_RESET_PRICE_MODAL = 'open_reset_price_modal'
 export const CLOSE_RESET_PRICE_MODAL = 'close_reset_price_modal'
-export const FETCH_AGENT_CONTRACT_RATES_SUCCESS = 'fetch_agent_contract_rates_success'
+export const FETCH_AGENT_CONTRACT_RATES_SUCCESS =
+  'fetch_agent_contract_rates_success'
 export const OPEN_CONTRACT_RATE_MODAL = 'open_contract_rate_modal'
 export const CLOSE_CONTRACT_RATE_MODAL = 'close_contract_rate_modal'
 export const OPEN_OFFER_SPECIAL_PRICE_MODAL = 'open_offer_special_price_modal'
