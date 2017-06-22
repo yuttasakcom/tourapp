@@ -25,7 +25,7 @@ describe('company authentication', () => {
       expect(count + 1).to.equal(newCount)
     })
 
-    it.only('signup must return company id', async () => {
+    it('signup must return company id', async () => {
       const res = await h.companySignUp(companyProps)
       const company = await Company.findOne({ email: companyProps.email })
       expect(res.body._id).to.equal(company._id.toString())
@@ -72,6 +72,11 @@ describe('company authentication', () => {
       await h.companySignUp(companyProps)
       const company = await Company.findOne({ email: companyProps.email })
       testCompany = company
+    })
+
+    it('sign in must return company id', async () => {
+      const res = await h.companySignIn(companySigninProps)
+      expect(res.body._id).to.equal(testCompany._id.toString())
     })
 
     it('comparePassword must be valid', async () => {
