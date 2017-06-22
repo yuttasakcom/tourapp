@@ -25,6 +25,12 @@ describe('company authentication', () => {
       expect(count + 1).to.equal(newCount)
     })
 
+    it.only('signup must return company id', async () => {
+      const res = await h.companySignUp(companyProps)
+      const company = await Company.findOne({ email: companyProps.email })
+      expect(res.body._id).to.equal(company._id.toString())
+    })
+
     it('must provide email and password', async () => {
       const companyWithoutEmail = {
         email: undefined,
