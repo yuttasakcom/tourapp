@@ -9,19 +9,20 @@ import {
 
 const initialState = {
   authenticated: false,
+  _id: null,
   notification: { show: false, type: null, message: null }
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SIGN_IN_SUCCESS:
-      return { ...state, authenticated: true }
+      return { ...state, authenticated: true, _id: action.payload }
 
     case SIGN_IN_FAIL:
       return { ...state, notification: { ...action.payload, show: true } }
 
     case SIGN_UP_SUCCESS:
-      return { ...state, authenticated: true }
+      return { ...state, authenticated: true, _id: action.payload }
 
     case SIGN_UP_FAIL:
       return { ...state, notification: { ...action.payload, show: true } }
