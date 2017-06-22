@@ -5,11 +5,13 @@ import auth from './authReducer'
 import pkg from './pkgReducer'
 import agent from './agentReducer'
 import notification from './notificationReducer'
+import booking from './bookingReducer'
 
 export default combineReducers({
   form,
   auth,
   pkg,
   agent,
-  notification
+  notification,
+  booking
 })

@@ -16,19 +16,17 @@ class ManageTourPkg extends PureComponent {
 
   render() {
     return (
-      <div>
-        <div className="container-fluid">
-          {this.renderNotification()}
-          <button
-            className="btn btn-primary pull-right"
-            onClick={this.props.openAddPkgModal}
-          >
-            Add
-          </button>
-          <div className="row">
-            <div className="col-md-12">
-              <TourPkgDataTable />
-            </div>
+      <div className="container-fluid">
+        {this.renderNotification()}
+        <button
+          className="btn btn-primary pull-right"
+          onClick={this.props.openAddPkgModal}
+        >
+          Add
+        </button>
+        <div className="row">
+          <div className="col-md-12">
+            <TourPkgDataTable />
           </div>
         </div>
         <AddModal />

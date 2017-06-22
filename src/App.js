@@ -8,6 +8,7 @@ import PrivateRoute from './components/PrivateRoute'
 import Dashboard from './pages/dashboard'
 import Notifications from './pages/notifications'
 import BoogkingSummary from './pages/bookingSummary'
+import ManageBooking from './pages/manageBooking'
 import ManageTourPkg from './pages/manageTourPkg'
 import ManageAgent from './pages/manageAgent'
 import ContractRate from './pages/contractRate'
@@ -24,6 +25,7 @@ class App extends PureComponent {
           <Layout>
             <PrivateRoute path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/notifications" component={Notifications} />
+            <PrivateRoute path="/manage-booking" component={ManageBooking} />
             <PrivateRoute path="/booking-summary" component={BoogkingSummary} />
             <PrivateRoute
               path="/manage-tour-package"
