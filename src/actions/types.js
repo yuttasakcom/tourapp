@@ -13,6 +13,7 @@ export const HIDE_BOOKING_NOTIFICATION = 'hide_booking_notification'
 
 export const REQUEST_COMPANY_SUCCESS = 'request_company_success'
 
+export const TOGGLE_PROFILE_MENU = 'toggle_profile_menu'
 export const TOGGLE_NOTIFICATION_GEM = 'toggle_notification_gem'
 export const TOGGLE_ACCEPT_PENDING_GEM = 'toggle_accept_pending_gem'
 export const TOGGLE_REQUEST_PENDING_GEM = 'toggle_request_pending_gem'

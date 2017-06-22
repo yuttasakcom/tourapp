@@ -7,8 +7,13 @@ import {
   SIGN_UP_SUCCESS,
   SIGN_IN_FAIL,
   SIGN_UP_FAIL,
-  HIDE_AUTH_NOTIFICATION
+  HIDE_AUTH_NOTIFICATION,
+  TOGGLE_PROFILE_MENU
 } from './types'
+
+export const toggleProfileMenu = () => {
+  return { type: TOGGLE_PROFILE_MENU }
+}
 
 export const signIn = values => async dispatch => {
   try {
