@@ -1,6 +1,7 @@
 import express from 'express'
 import { createServer } from 'http'
 import createIo from 'socket.io'
+import redis from 'socket.io-redis'
 import cors from 'cors'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
@@ -17,6 +18,7 @@ const corsOptions = {
 const app = express()
 const server = createServer(app)
 const io = createIo(server)
+io.adapter(redis({ host: 'localhost', port: 6379 }))
 
 socket(io)
 
