@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import axios from './axios'
+import socket from './socket'
 import {
   FETCH_PKGS_SUCCESS,
   OPEN_ADD_BOOKING_MODAL,
@@ -21,6 +22,7 @@ export const addBooking = bookingProps => async dispatch => {
   try {
     const { data } = await axios.post('/bookings', bookingProps)
     dispatch({ type: ADD_BOOKING_SUCCESS, payload: data })
+    socket.emit('book', data)
     _.delay(() => dispatch({ type: HIDE_BOOKING_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
