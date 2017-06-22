@@ -25,7 +25,7 @@ describe('agent authentication', () => {
       expect(count + 1).to.equal(newCount)
     })
 
-    it.only('signup must return agent id', async () => {
+    it('signup must return agent id', async () => {
       const res = await h.agentSignUp(agentProps)
       const agent = await Agent.findOne({ email: agentProps.email })
       expect(res.body._id).to.equal(agent._id.toString())
@@ -72,6 +72,11 @@ describe('agent authentication', () => {
       await h.agentSignUp(agentProps)
       const agent = await Agent.findOne({ email: agentProps.email })
       testAgent = agent
+    })
+
+    it('sign in must return agent id', async () => {
+      const res = await h.agentSignIn(agentSigninProps)
+      expect(res.body._id).to.equal(testAgent._id.toString())
     })
 
     it('comparePassword must be valid', async () => {
