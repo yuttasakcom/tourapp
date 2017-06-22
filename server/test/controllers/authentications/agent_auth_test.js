@@ -25,6 +25,12 @@ describe('agent authentication', () => {
       expect(count + 1).to.equal(newCount)
     })
 
+    it.only('signup must return agent id', async () => {
+      const res = await h.agentSignUp(agentProps)
+      const agent = await Agent.findOne({ email: agentProps.email })
+      expect(res.body._id).to.equal(agent._id.toString())
+    })
+
     it('must provide email and password', async () => {
       const agentWithoutEmail = {
         email: undefined,
