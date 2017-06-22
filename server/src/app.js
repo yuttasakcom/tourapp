@@ -1,9 +1,13 @@
 import express from 'express'
+import { createServer } from 'http'
+import createIo from 'socket.io'
 import cors from 'cors'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
+
 import mongoose from './models/mongoose'
 import router from './routes'
+import socket from './socket'
 import { handleNotFound, handleAnotherError, detailLogger } from './middlewares'
 
 const corsOptions = {
@@ -11,6 +15,10 @@ const corsOptions = {
 }
 
 const app = express()
+const server = createServer(app)
+const io = createIo(server)
+
+socket(io)
 
 app.use(cors(corsOptions))
 app.use(bodyParser.json())
@@ -26,4 +34,4 @@ router(app)
 app.use(handleNotFound)
 app.use(handleAnotherError)
 
-export default app
+export default server
