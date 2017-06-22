@@ -4,5 +4,9 @@ export default io => {
     socket.on('message', data => {
       socket.broadcast.emit('message', data)
     })
+
+    socket.on('book', data => {
+      socket.broadcast.emit('book', data)
+    })
   })
 }
