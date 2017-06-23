@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
@@ -10,10 +11,14 @@ class RequestPending extends PureComponent {
   }
 
   renderListItem = () => {
-    return this.props.requestPendings.map((requestPending, index) =>
-      <li key={index}>
-        <a>{requestPending}</a>
-        <button className="btn btn-danger btn-sm pull-right" onClick={() => ''}>
+    const { requestPendings, cancelRequestAgent } = this.props
+    return _.map(requestPendings, requestPending =>
+      <li key={requestPending._id}>
+        <a>{requestPending.email}</a>
+        <button
+          className="btn btn-danger btn-sm pull-right"
+          onClick={() => cancelRequestAgent(requestPending)}
+        >
           Cancel
         </button>
       </li>
@@ -29,7 +34,7 @@ class RequestPending extends PureComponent {
     return (
       <Gem
         icon="arrow_upward"
-        length={requestPendings.length}
+        length={Object.keys(requestPendings).length}
         renderListItem={this.renderListItem}
         show={showRequestPendingGem}
         toggle={toggleRequestPendingGem}
