@@ -12,6 +12,8 @@ export const ADD_BOOKING_SUCCESS = 'add_booking_success'
 export const HIDE_BOOKING_NOTIFICATION = 'hide_booking_notification'
 
 export const REQUEST_COMPANY_SUCCESS = 'request_company_success'
+export const OPEN_REQUEST_COMPANY_MODAL = 'open_request_company_modal'
+export const CLOSE_REQUEST_COMPANY_MODAL = 'close_request_company_modal'
 
 export const TOGGLE_PROFILE_MENU = 'toggle_profile_menu'
 export const TOGGLE_NOTIFICATION_GEM = 'toggle_notification_gem'
