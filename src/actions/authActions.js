@@ -17,13 +17,14 @@ export const toggleProfileMenu = () => {
 
 export const signIn = values => async dispatch => {
   try {
-    const { data: { token } } = await axios.post('/signin', {
+    const { data: { token, _id } } = await axios.post('/signin', {
       ...values,
       role: 'company'
     })
     localStorage.setItem('token', token)
+    localStorage.setItem('_id', _id)
     axios.defaults.headers.common['Authorization'] = token
-    dispatch({ type: SIGN_IN_SUCCESS })
+    dispatch({ type: SIGN_IN_SUCCESS, payload: _id })
   } catch (e) {
     dispatch({
       type: SIGN_IN_FAIL,
@@ -41,9 +42,10 @@ export const signOut = () => {
 
 export const signUp = values => async dispatch => {
   try {
-    const { data: { token } } = await axios.post('/signup', values)
+    const { data: { token, _id } } = await axios.post('/signup', values)
     localStorage.setItem('token', token)
-    dispatch({ type: SIGN_UP_SUCCESS })
+    localStorage.setItem('_id', _id)
+    dispatch({ type: SIGN_UP_SUCCESS, payload: _id })
   } catch (e) {
     dispatch({
       type: SIGN_UP_FAIL,
