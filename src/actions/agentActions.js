@@ -3,6 +3,7 @@ import axios from './axios'
 import {
   FETCH_AGENTS_SUCCESS,
   REQUEST_AGENT_SUCCESS,
+  CANCEL_REQUEST_AGENT_SUCCESS,
   REQUEST_AGENT_FAIL,
   DELETE_AGENT_SUCCESS,
   OPEN_REQUEST_AGENT_MODAL,
@@ -87,6 +88,15 @@ export const requestAgent = values => async dispatch => {
       payload: { type: 'danger', message: e.response.data.error }
     })
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
+  }
+}
+
+export const cancelRequestAgent = _id => async dispatch => {
+  try {
+    await axios.delete(`/cancel-request/${_id}`)
+    dispatch({ type: CANCEL_REQUEST_AGENT_SUCCESS, payload: _id })
+  } catch (e) {
+    console.error(e)
   }
 }
 
