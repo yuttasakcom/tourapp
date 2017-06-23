@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
@@ -10,9 +11,11 @@ class AcceptPending extends PureComponent {
   }
 
   renderListItem = () => {
-    return this.props.acceptPendings.map((acceptPending, index) =>
-      <li key={index}>
-        <a>{acceptPending}</a>
+    const { acceptPendings } = this.props
+
+    return _.map(acceptPendings, acceptPending =>
+      <li key={acceptPending._id}>
+        <a>{acceptPending.email}</a>
         <button className="btn btn-danger btn-sm" onClick={() => ''}>
           Delete
         </button>
@@ -29,7 +32,7 @@ class AcceptPending extends PureComponent {
     return (
       <Gem
         icon="arrow_downward"
-        length={acceptPendings.length}
+        length={Object.keys(acceptPendings).length}
         renderListItem={this.renderListItem}
         show={showAcceptPendingGem}
         toggle={toggleAcceptPendingGem}
