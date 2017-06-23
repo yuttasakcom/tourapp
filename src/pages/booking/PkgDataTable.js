@@ -16,7 +16,7 @@ class PkgDataTable extends PureComponent {
     const { pkgs, openAddBookingModal } = this.props
 
     if (!pkgs) {
-      return <tr />
+      return null
     }
 
     return _.map(pkgs, pkg =>
