@@ -11,7 +11,7 @@ import {
 
 const initialState = {
   authenticated: false,
-  _id: null,
+  _id: '',
   showProfileMenu: false,
   notification: { show: false, type: null, message: null }
 }
