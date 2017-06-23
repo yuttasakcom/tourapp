@@ -9,6 +9,17 @@ class Notification extends PureComponent {
     this.props.fetchNotifications()
   }
 
+  renderListItem = () => {
+    return this.props.notifications.map((notification, index) =>
+      <li key={index}>
+        <a>{notification}</a>
+        <button className="btn btn-danger btn-sm" onClick={() => ''}>
+          Delete
+        </button>
+      </li>
+    )
+  }
+
   render() {
     const {
       showNotificationGem,
@@ -18,7 +29,8 @@ class Notification extends PureComponent {
     return (
       <Gem
         icon="notifications"
-        items={notifications}
+        length={notifications.length}
+        renderListItem={this.renderListItem}
         show={showNotificationGem}
         toggle={toggleNotificationGem}
       />

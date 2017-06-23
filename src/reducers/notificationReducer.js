@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {
   TOGGLE_NOTIFICATION_GEM,
   TOGGLE_ACCEPT_PENDING_GEM,
@@ -13,8 +14,8 @@ const initialState = {
   showNotificationGem: false,
   showRequestPendingGem: false,
   showAcceptPendingGem: false,
-  requestPendings: [],
-  acceptPendings: [],
+  requestPendings: {},
+  acceptPendings: {},
   notifications: []
 }
 
@@ -29,13 +30,13 @@ export default (state = initialState, action) => {
     case FETCH_REQUEST_PENDINGS_SUCCESS:
       return {
         ...state,
-        requestPendings: action.payload
+        requestPendings: _.mapKeys(action.payload, '_id')
       }
 
     case FETCH_ACCEPT_PENDINGS_SUCCESS:
       return {
         ...state,
-        acceptPendings: action.payload
+        acceptPendings: _.mapKeys(action.payload, '_id')
       }
 
     case FETCH_NOTIFICATIONS_SUCCESS:
