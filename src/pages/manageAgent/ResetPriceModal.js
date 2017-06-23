@@ -10,6 +10,7 @@ class ResetPriceModal extends PureComponent {
       showModal,
       closeResetPriceModal,
       resetPrice,
+      fetchAgentContractRates,
       pkg,
       agentId
     } = this.props
@@ -28,7 +29,10 @@ class ResetPriceModal extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeResetPriceModal}>No</Button>
-          <Button bsStyle="danger" onClick={() => resetPrice(agentId, pkg)}>
+          <Button
+            bsStyle="danger"
+            onClick={() => resetPrice(agentId, pkg, fetchAgentContractRates)}
+          >
             Yes
           </Button>
         </Modal.Footer>

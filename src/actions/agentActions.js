@@ -60,14 +60,13 @@ export const offerSpecialPrice = (
   }
 }
 
-export const resetPrice = (agentId, { _id }) => async dispatch => {
+export const resetPrice = (agentId, { _id }, callback) => async dispatch => {
   try {
     const deleteData = await axios.delete(
       `/pkgs/${_id}/special-prices/${agentId}`
     )
     dispatch({ type: RESET_PRICE_SUCCESS, payload: deleteData.data })
-    const { data } = await axios.get(`/special-prices/${_id}`)
-    dispatch({ type: FETCH_AGENT_CONTRACT_RATES_SUCCESS, payload: data })
+    callback({ _id })
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
