@@ -40,7 +40,7 @@ export default (state = initialState, action) => {
       return { ...state, notification: { show: false } }
 
     case SIGN_OUT_SUCCESS:
-      return { ...state, authenticated: false }
+      return { ...state, authenticated: false, showProfileMenu: false }
 
     default:
       return state
