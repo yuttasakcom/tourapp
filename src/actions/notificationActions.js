@@ -10,10 +10,15 @@ import {
   FETCH_ACCEPT_PENDINGS_SUCCESS
 } from './types'
 
-export const fetchAcceptPendings = () => {
-  return {
-    type: FETCH_ACCEPT_PENDINGS_SUCCESS,
-    payload: ['test1', 'test2', 'test3']
+export const fetchAcceptPendings = () => async dispatch => {
+  try {
+    const { data } = await axios.get('/accept-pendings')
+    dispatch({
+      type: FETCH_ACCEPT_PENDINGS_SUCCESS,
+      payload: data.acceptPendings
+    })
+  } catch (e) {
+    console.error(e)
   }
 }
 
