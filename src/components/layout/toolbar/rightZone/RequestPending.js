@@ -13,8 +13,8 @@ class RequestPending extends PureComponent {
     return this.props.requestPendings.map((requestPending, index) =>
       <li key={index}>
         <a>{requestPending}</a>
-        <button className="btn btn-danger btn-sm" onClick={() => ''}>
-          Delete
+        <button className="btn btn-danger btn-sm pull-right" onClick={() => ''}>
+          Cancel
         </button>
       </li>
     )
