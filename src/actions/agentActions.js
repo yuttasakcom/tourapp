@@ -74,13 +74,14 @@ export const resetPrice = (agentId, { _id }) => async dispatch => {
   }
 }
 
-export const requestAgent = values => async dispatch => {
+export const requestAgent = (values, callback) => async dispatch => {
   try {
     const { data: { message } } = await axios.post('/request', values)
     dispatch({
       type: REQUEST_AGENT_SUCCESS,
       payload: { message, _id: values._id }
     })
+    callback()
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {
     dispatch({
@@ -91,7 +92,7 @@ export const requestAgent = values => async dispatch => {
   }
 }
 
-export const cancelRequestAgent = _id => async dispatch => {
+export const cancelRequestAgent = ({ _id }) => async dispatch => {
   try {
     await axios.delete(`/cancel-request/${_id}`)
     dispatch({ type: CANCEL_REQUEST_AGENT_SUCCESS, payload: _id })
