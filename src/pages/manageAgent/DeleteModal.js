@@ -9,7 +9,7 @@ class DeleteModal extends PureComponent {
     const { showModal, closeDeleteAgentModal, deleteAgent, agent } = this.props
 
     if (!agent) {
-      return <div />
+      return null
     }
 
     return (

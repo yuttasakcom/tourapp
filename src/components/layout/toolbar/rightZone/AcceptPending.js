@@ -16,8 +16,8 @@ class AcceptPending extends PureComponent {
     return _.map(acceptPendings, acceptPending =>
       <li key={acceptPending._id}>
         <a>{acceptPending.email}</a>
-        <button className="btn btn-danger btn-sm" onClick={() => ''}>
-          Delete
+        <button className="btn btn-info btn-sm pull-right" onClick={() => ''}>
+          Accept
         </button>
       </li>
     )

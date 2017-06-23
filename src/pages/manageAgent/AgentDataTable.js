@@ -23,7 +23,7 @@ class AgentDataTable extends PureComponent {
     const { agents, openDeleteAgentModal } = this.props
 
     if (!agents) {
-      return <tr />
+      return null
     }
 
     return _.map(agents, agent =>

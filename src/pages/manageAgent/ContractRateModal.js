@@ -17,7 +17,7 @@ class ContractRateModal extends PureComponent {
     } = this.props
 
     if (!contractRates) {
-      return <tr />
+      return null
     }
 
     return _.map(contractRates, contractRate =>
@@ -48,7 +48,7 @@ class ContractRateModal extends PureComponent {
     const { showModal, closeContractRateModal, agent } = this.props
 
     if (!agent) {
-      return <div />
+      return null
     }
 
     const tableTitles = ['_id', 'Name', 'Adult Price', 'Child Price']

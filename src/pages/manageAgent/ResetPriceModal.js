@@ -16,7 +16,7 @@ class ResetPriceModal extends PureComponent {
     } = this.props
 
     if (!pkg) {
-      return <div />
+      return null
     }
 
     return (

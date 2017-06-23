@@ -15,7 +15,7 @@ class OfferSpecialPriceModal extends PureComponent {
     const { showModal, closeOfferSpecialPriceModal, pkg } = this.props
 
     if (!pkg) {
-      return <div />
+      return null
     }
 
     return (
