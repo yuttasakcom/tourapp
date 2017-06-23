@@ -9,6 +9,17 @@ class RequestPending extends PureComponent {
     this.props.fetchRequestPendings()
   }
 
+  renderListItem = () => {
+    return this.props.requestPendings.map((requestPending, index) =>
+      <li key={index}>
+        <a>{requestPending}</a>
+        <button className="btn btn-danger btn-sm" onClick={() => ''}>
+          Delete
+        </button>
+      </li>
+    )
+  }
+
   render() {
     const {
       showRequestPendingGem,
@@ -18,7 +29,8 @@ class RequestPending extends PureComponent {
     return (
       <Gem
         icon="arrow_upward"
-        items={requestPendings}
+        length={requestPendings.length}
+        renderListItem={this.renderListItem}
         show={showRequestPendingGem}
         toggle={toggleRequestPendingGem}
       />

@@ -1,34 +1,20 @@
 import React, { PureComponent } from 'react'
 
 class Gem extends PureComponent {
-  renderListItem() {
-    return this.props.items.map((item, index) =>
-      <li key={index}><a>{item}</a></li>
-    )
-  }
-
-  renderGemNumber() {
-    const { items } = this.props
-    if (!items.length) {
-      return
-    }
-    return <span className="notification">{items.length}</span>
-  }
-
   render() {
-    const { icon, items, show, toggle } = this.props
+    const { icon, show, toggle, renderListItem, length } = this.props
 
     return (
-      <li className={`dropdown${show && items.length ? ' open' : ''}`}>
+      <li className={`dropdown${show && length ? ' open' : ''}`}>
         <a
           style={{ cursor: 'pointer' }}
           className="dropdown-toggle"
           onClick={toggle}
         >
           <i className="material-icons">{icon}</i>
-          {this.renderGemNumber()}
+          {length > 0 && <span className="notification">{length}</span>}
         </a>
-        <ul className="dropdown-menu">{this.renderListItem()}</ul>
+        <ul className="dropdown-menu">{renderListItem()}</ul>
       </li>
     )
   }

@@ -9,6 +9,17 @@ class AcceptPending extends PureComponent {
     this.props.fetchAcceptPendings()
   }
 
+  renderListItem = () => {
+    return this.props.acceptPendings.map((acceptPending, index) =>
+      <li key={index}>
+        <a>{acceptPending}</a>
+        <button className="btn btn-danger btn-sm" onClick={() => ''}>
+          Delete
+        </button>
+      </li>
+    )
+  }
+
   render() {
     const {
       showAcceptPendingGem,
@@ -18,7 +29,8 @@ class AcceptPending extends PureComponent {
     return (
       <Gem
         icon="arrow_downward"
-        items={acceptPendings}
+        length={acceptPendings.length}
+        renderListItem={this.renderListItem}
         show={showAcceptPendingGem}
         toggle={toggleAcceptPendingGem}
       />
