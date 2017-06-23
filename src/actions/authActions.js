@@ -35,7 +35,7 @@ export const signIn = values => async dispatch => {
 }
 
 export const signOut = () => {
-  localStorage.removeItem('token')
+  localStorage.clear()
   axios.defaults.headers.common['Authorization'] = ''
   return { type: SIGN_OUT_SUCCESS }
 }
