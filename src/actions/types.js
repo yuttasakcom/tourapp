@@ -13,8 +13,10 @@ export const HIDE_BOOKING_NOTIFICATION = 'hide_booking_notification'
 
 export const FETCH_COMPANIES_SUCCESS = 'fetch_companies_success'
 export const REQUEST_COMPANY_SUCCESS = 'request_company_success'
+export const ACCEPT_COMPANY_SUCCESS = 'accept_company_success'
 export const OPEN_REQUEST_COMPANY_MODAL = 'open_request_company_modal'
 export const CLOSE_REQUEST_COMPANY_MODAL = 'close_request_company_modal'
+export const HIDE_COMPANY_NOTIFICATION = 'hide_company_notification'
 
 export const TOGGLE_PROFILE_MENU = 'toggle_profile_menu'
 export const TOGGLE_NOTIFICATION_GEM = 'toggle_notification_gem'
