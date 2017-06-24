@@ -105,8 +105,8 @@ export default (state = initialState, action) => {
         showRequestAgentModal: false,
         notification: {
           show: true,
-          type: action.payload.type,
-          message: action.payload.message
+          type: 'danger',
+          message: action.payload
         }
       }
 

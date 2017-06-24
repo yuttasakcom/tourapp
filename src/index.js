@@ -16,7 +16,10 @@ const token = localStorage.getItem('token')
 
 if (token) {
   axios.defaults.headers.common['Authorization'] = token
-  store.dispatch({ type: SIGN_IN_SUCCESS })
+  store.dispatch({
+    type: SIGN_IN_SUCCESS,
+    payload: localStorage.getItem('_id')
+  })
 }
 
 ReactDOM.render(

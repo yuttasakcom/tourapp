@@ -3,6 +3,7 @@ import axios from './axios'
 import {
   FETCH_AGENTS_SUCCESS,
   REQUEST_AGENT_SUCCESS,
+  CANCEL_REQUEST_AGENT_SUCCESS,
   REQUEST_AGENT_FAIL,
   DELETE_AGENT_SUCCESS,
   OPEN_REQUEST_AGENT_MODAL,
@@ -18,13 +19,27 @@ import {
   OFFER_SPECIAL_PRICE_SUCCESS,
   RESET_PRICE_SUCCESS,
   OPEN_RESET_PRICE_MODAL,
-  CLOSE_RESET_PRICE_MODAL
+  CLOSE_RESET_PRICE_MODAL,
+  ACCEPT_AGENT_SUCCESS
 } from './types'
 
 export const fetchAgents = () => async dispatch => {
   try {
     const { data } = await axios.get('/agents')
     dispatch({ type: FETCH_AGENTS_SUCCESS, payload: data })
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export const acceptAgent = (_id, callback) => async dispatch => {
+  try {
+    await axios.post('/accept', { _id })
+    dispatch({
+      type: ACCEPT_AGENT_SUCCESS,
+      payload: _id
+    })
+    callback()
   } catch (e) {
     console.error(e)
   }
@@ -59,34 +74,43 @@ export const offerSpecialPrice = (
   }
 }
 
-export const resetPrice = (agentId, { _id }) => async dispatch => {
+export const resetPrice = (agentId, { _id }, callback) => async dispatch => {
   try {
     const deleteData = await axios.delete(
       `/pkgs/${_id}/special-prices/${agentId}`
     )
     dispatch({ type: RESET_PRICE_SUCCESS, payload: deleteData.data })
-    const { data } = await axios.get(`/special-prices/${_id}`)
-    dispatch({ type: FETCH_AGENT_CONTRACT_RATES_SUCCESS, payload: data })
+    callback({ _id })
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
   }
 }
 
-export const requestAgent = values => async dispatch => {
+export const requestAgent = (values, callback) => async dispatch => {
   try {
     const { data: { message } } = await axios.post('/request', values)
     dispatch({
       type: REQUEST_AGENT_SUCCESS,
       payload: { message, _id: values._id }
     })
+    callback()
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {
     dispatch({
       type: REQUEST_AGENT_FAIL,
-      payload: { type: 'danger', message: e.response.data.error }
+      payload: e.response.data.error
     })
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
+  }
+}
+
+export const cancelRequestAgent = ({ _id }) => async dispatch => {
+  try {
+    await axios.delete(`/cancel-request/${_id}`)
+    dispatch({ type: CANCEL_REQUEST_AGENT_SUCCESS, payload: _id })
+  } catch (e) {
+    console.error(e)
   }
 }
 

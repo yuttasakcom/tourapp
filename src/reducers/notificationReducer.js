@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {
   TOGGLE_NOTIFICATION_GEM,
   TOGGLE_ACCEPT_PENDING_GEM,
@@ -6,36 +7,43 @@ import {
   FETCH_REQUEST_PENDINGS_SUCCESS,
   FETCH_ACCEPT_PENDINGS_SUCCESS,
   FETCH_NOTIFICATIONS_SUCCESS,
-  REQUEST_AGENT_SUCCESS
+  CANCEL_REQUEST_AGENT_SUCCESS,
+  ACCEPT_AGENT_SUCCESS
 } from '../actions/types'
 
 const initialState = {
   showNotificationGem: false,
   showRequestPendingGem: false,
   showAcceptPendingGem: false,
-  requestPendings: [],
-  acceptPendings: [],
+  requestPendings: {},
+  acceptPendings: {},
   notifications: []
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_AGENT_SUCCESS:
+    case ACCEPT_AGENT_SUCCESS:
       return {
         ...state,
-        requestPendings: [...state.requestPendings, action.payload._id]
+        acceptPendings: _.omit(state.acceptPendings, action.payload)
+      }
+
+    case CANCEL_REQUEST_AGENT_SUCCESS:
+      return {
+        ...state,
+        requestPendings: _.omit(state.requestPendings, action.payload)
       }
 
     case FETCH_REQUEST_PENDINGS_SUCCESS:
       return {
         ...state,
-        requestPendings: action.payload
+        requestPendings: _.mapKeys(action.payload, '_id')
       }
 
     case FETCH_ACCEPT_PENDINGS_SUCCESS:
       return {
         ...state,
-        acceptPendings: action.payload
+        acceptPendings: _.mapKeys(action.payload, '_id')
       }
 
     case FETCH_NOTIFICATIONS_SUCCESS:

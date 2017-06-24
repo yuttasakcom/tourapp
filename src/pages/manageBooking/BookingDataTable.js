@@ -15,7 +15,7 @@ class BookingDataTable extends PureComponent {
     const { bookings } = this.props
 
     if (!bookings) {
-      return <tr />
+      return null
     }
 
     return _.map(bookings, booking =>

@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
@@ -9,6 +10,22 @@ class AcceptPending extends PureComponent {
     this.props.fetchAcceptPendings()
   }
 
+  renderListItem = () => {
+    const { acceptPendings, acceptAgent, fetchAgents } = this.props
+
+    return _.map(acceptPendings, acceptPending =>
+      <li key={acceptPending._id}>
+        <a>{acceptPending.email}</a>
+        <button
+          className="btn btn-info btn-sm pull-right"
+          onClick={() => acceptAgent(acceptPending._id, fetchAgents)}
+        >
+          Accept
+        </button>
+      </li>
+    )
+  }
+
   render() {
     const {
       showAcceptPendingGem,
@@ -18,7 +35,8 @@ class AcceptPending extends PureComponent {
     return (
       <Gem
         icon="arrow_downward"
-        items={acceptPendings}
+        length={Object.keys(acceptPendings).length}
+        renderListItem={this.renderListItem}
         show={showAcceptPendingGem}
         toggle={toggleAcceptPendingGem}
       />

@@ -7,7 +7,8 @@ import * as actions from '../../actions'
 
 class RequestModal extends PureComponent {
   onSubmit = values => {
-    this.props.requestAgent(values)
+    const { requestAgent, fetchRequestPendings } = this.props
+    requestAgent(values, fetchRequestPendings)
   }
 
   render() {
@@ -17,7 +18,10 @@ class RequestModal extends PureComponent {
         <Modal.Header closeButton>
           <Modal.Title>Request Agent</Modal.Title>
         </Modal.Header>
-        <RequestForm onSubmit={this.onSubmit} closeModal={closeRequestAgentModal} />
+        <RequestForm
+          onSubmit={this.onSubmit}
+          closeModal={closeRequestAgentModal}
+        />
       </Modal>
     )
   }

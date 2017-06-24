@@ -7,42 +7,49 @@ import {
   SIGN_UP_SUCCESS,
   SIGN_IN_FAIL,
   SIGN_UP_FAIL,
-  HIDE_AUTH_NOTIFICATION
+  HIDE_AUTH_NOTIFICATION,
+  TOGGLE_PROFILE_MENU
 } from './types'
+
+export const toggleProfileMenu = () => {
+  return { type: TOGGLE_PROFILE_MENU }
+}
 
 export const signIn = values => async dispatch => {
   try {
-    const { data: { token } } = await axios.post('/signin', {
+    const { data: { token, _id } } = await axios.post('/signin', {
       ...values,
       role: 'company'
     })
     localStorage.setItem('token', token)
+    localStorage.setItem('_id', _id)
     axios.defaults.headers.common['Authorization'] = token
-    dispatch({ type: SIGN_IN_SUCCESS })
+    dispatch({ type: SIGN_IN_SUCCESS, payload: _id })
   } catch (e) {
     dispatch({
       type: SIGN_IN_FAIL,
-      payload: { type: 'danger', message: e.response.data }
+      payload: e.response.data
     })
     _.delay(() => dispatch({ type: HIDE_AUTH_NOTIFICATION }), 4000)
   }
 }
 
 export const signOut = () => {
-  localStorage.removeItem('token')
+  localStorage.clear()
   axios.defaults.headers.common['Authorization'] = ''
   return { type: SIGN_OUT_SUCCESS }
 }
 
 export const signUp = values => async dispatch => {
   try {
-    const { data: { token } } = await axios.post('/signup', values)
+    const { data: { token, _id } } = await axios.post('/signup', values)
     localStorage.setItem('token', token)
-    dispatch({ type: SIGN_UP_SUCCESS })
+    localStorage.setItem('_id', _id)
+    dispatch({ type: SIGN_UP_SUCCESS, payload: _id })
   } catch (e) {
     dispatch({
       type: SIGN_UP_FAIL,
-      payload: { type: 'danger', message: e.response.data.error }
+      payload: e.response.data.error
     })
     _.delay(() => dispatch({ type: HIDE_AUTH_NOTIFICATION }), 4000)
   }

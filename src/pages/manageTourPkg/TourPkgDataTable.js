@@ -17,7 +17,7 @@ class TourPkgDataTable extends PureComponent {
     const { pkgs, openDeletePkgModal, openEditPkgModal } = this.props
 
     if (!pkgs) {
-      return <tr />
+      return null
     }
 
     return _.map(pkgs, pkg =>

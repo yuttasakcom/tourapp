@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 
 import MainMenu from './mainMenu'
 import Toolbar from './toolbar'
+import Socket from './Socket'
 import * as actions from '../../actions'
 
 class Layout extends PureComponent {
@@ -11,6 +12,7 @@ class Layout extends PureComponent {
     const { hideAllGem, children } = this.props
     return (
       <div className="wrapper">
+        <Socket />
         <MainMenu />
         <div className="main-panel">
           <Toolbar />
