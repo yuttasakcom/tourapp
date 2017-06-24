@@ -4,10 +4,12 @@ import { reducer as form } from 'redux-form'
 import auth from './authReducer'
 import notification from './notificationReducer'
 import booking from './bookingReducer'
+import company from './companyReducer'
 
 export default combineReducers({
   form,
   auth,
   notification,
-  booking
+  booking,
+  company
 })

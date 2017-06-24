@@ -11,7 +11,7 @@ import {
 
 const initialState = {
   authenticated: false,
-  _id: null,
+  _id: '',
   showProfileMenu: false,
   notification: { show: false, type: null, message: null }
 }
@@ -28,13 +28,27 @@ export default (state = initialState, action) => {
       return { ...state, authenticated: true, _id: action.payload }
 
     case SIGN_IN_FAIL:
-      return { ...state, notification: { ...action.payload, show: true } }
+      return {
+        ...state,
+        notification: {
+          show: true,
+          type: 'danger',
+          message: action.payload
+        }
+      }
 
     case SIGN_UP_SUCCESS:
       return { ...state, authenticated: true, _id: action.payload }
 
     case SIGN_UP_FAIL:
-      return { ...state, notification: { ...action.payload, show: true } }
+      return {
+        ...state,
+        notification: {
+          show: true,
+          type: 'danger',
+          message: action.payload
+        }
+      }
 
     case HIDE_AUTH_NOTIFICATION:
       return { ...state, notification: { show: false } }
