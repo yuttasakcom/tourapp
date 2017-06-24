@@ -10,6 +10,7 @@ import {
   DELETE_COMPANY_SUCCESS,
   REQUEST_COMPANY_SUCCESS,
   REQUEST_COMPANY_FAIL,
+  CANCEL_REQUEST_COMPANY_SUCCESS,
   HIDE_COMPANY_NOTIFICATION
 } from './types'
 
@@ -37,6 +38,15 @@ export const requestCompany = (values, callback) => async dispatch => {
       payload: e.response.data.error
     })
     _.delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
+  }
+}
+
+export const cancelRequestCompany = ({ _id }) => async dispatch => {
+  try {
+    await axios.delete(`/cancel-request/${_id}`)
+    dispatch({ type: CANCEL_REQUEST_COMPANY_SUCCESS, payload: _id })
+  } catch (e) {
+    console.erroe(e)
   }
 }
 
