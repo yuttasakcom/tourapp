@@ -1,5 +1,7 @@
 import _ from 'lodash'
 import {
+  REQUEST_COMPANY_SUCCESS,
+  REQUEST_COMPANY_FAIL,
   OPEN_DELETE_COMPANY_MODAL,
   CLOSE_DELETE_COMPANY_MODAL,
   OPEN_REQUEST_COMPANY_MODAL,
@@ -20,6 +22,28 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_COMPANIES_SUCCESS:
       return { ...state, companies: _.mapKeys(action.payload, '_id') }
+
+    case REQUEST_COMPANY_SUCCESS:
+      return {
+        ...state,
+        showRequestCompanyModal: false,
+        notification: {
+          show: true,
+          type: 'success',
+          message: action.payload.message
+        }
+      }
+
+    case REQUEST_COMPANY_FAIL:
+      return {
+        ...state,
+        showRequestCompanyModal: false,
+        notification: {
+          show: true,
+          type: 'danger',
+          message: action.payload
+        }
+      }
 
     case DELETE_COMPANY_SUCCESS:
       return {
