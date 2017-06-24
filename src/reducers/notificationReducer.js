@@ -7,7 +7,7 @@ import {
   FETCH_REQUEST_PENDINGS_SUCCESS,
   FETCH_ACCEPT_PENDINGS_SUCCESS,
   FETCH_NOTIFICATIONS_SUCCESS,
-  REQUEST_COMPANY_SUCCESS
+  ACCEPT_COMPANY_SUCCESS
 } from '../actions/types'
 
 const initialState = {
@@ -21,10 +21,10 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_COMPANY_SUCCESS:
+    case ACCEPT_COMPANY_SUCCESS:
       return {
         ...state,
-        requestPendings: [...state.requestPendings, action.payload._id]
+        acceptPendings: _.omit(state.acceptPendings, action.payload)
       }
 
     case FETCH_REQUEST_PENDINGS_SUCCESS:
