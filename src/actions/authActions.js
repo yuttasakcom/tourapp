@@ -28,7 +28,7 @@ export const signIn = values => async dispatch => {
   } catch (e) {
     dispatch({
       type: SIGN_IN_FAIL,
-      payload: { type: 'danger', message: e.response.data }
+      payload: e.response.data
     })
     _.delay(() => dispatch({ type: HIDE_AUTH_NOTIFICATION }), 4000)
   }
@@ -49,7 +49,7 @@ export const signUp = values => async dispatch => {
   } catch (e) {
     dispatch({
       type: SIGN_UP_FAIL,
-      payload: { type: 'danger', message: e.response.data.error }
+      payload: e.response.data.error
     })
     _.delay(() => dispatch({ type: HIDE_AUTH_NOTIFICATION }), 4000)
   }

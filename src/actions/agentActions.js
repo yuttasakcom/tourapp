@@ -85,7 +85,7 @@ export const requestAgent = (values, callback) => async dispatch => {
   } catch (e) {
     dispatch({
       type: REQUEST_AGENT_FAIL,
-      payload: { type: 'danger', message: e.response.data.error }
+      payload: e.response.data.error
     })
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   }
