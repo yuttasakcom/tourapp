@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import axios from './axios'
 import {
+  OPEN_DELETE_COMPANY_MODAL,
+  CLOSE_DELETE_COMPANY_MODAL,
   OPEN_REQUEST_COMPANY_MODAL,
   CLOSE_REQUEST_COMPANY_MODAL,
   FETCH_COMPANIES_SUCCESS,
@@ -36,4 +38,12 @@ export const openRequestCompanyModal = () => {
 
 export const closeRequestCompanyModal = () => {
   return { type: CLOSE_REQUEST_COMPANY_MODAL }
+}
+
+export const openDeleteCompanyModal = _id => {
+  return { type: OPEN_DELETE_COMPANY_MODAL, payload: _id }
+}
+
+export const closeDeleteCompanyModal = () => {
+  return { type: CLOSE_DELETE_COMPANY_MODAL }
 }

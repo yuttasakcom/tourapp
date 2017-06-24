@@ -16,6 +16,8 @@ export const REQUEST_COMPANY_SUCCESS = 'request_company_success'
 export const ACCEPT_COMPANY_SUCCESS = 'accept_company_success'
 export const OPEN_REQUEST_COMPANY_MODAL = 'open_request_company_modal'
 export const CLOSE_REQUEST_COMPANY_MODAL = 'close_request_company_modal'
+export const OPEN_DELETE_COMPANY_MODAL = 'open_delete_company_modal'
+export const CLOSE_DELETE_COMPANY_MODAL = 'close_delete_company_modal'
 export const HIDE_COMPANY_NOTIFICATION = 'hide_company_notification'
 
 export const TOGGLE_PROFILE_MENU = 'toggle_profile_menu'
