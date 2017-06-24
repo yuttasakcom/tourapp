@@ -4,6 +4,7 @@ import {
   CLOSE_DELETE_COMPANY_MODAL,
   OPEN_REQUEST_COMPANY_MODAL,
   CLOSE_REQUEST_COMPANY_MODAL,
+  DELETE_COMPANY_SUCCESS,
   FETCH_COMPANIES_SUCCESS
 } from '../actions/types'
 
@@ -19,6 +20,18 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_COMPANIES_SUCCESS:
       return { ...state, companies: _.mapKeys(action.payload, '_id') }
+
+    case DELETE_COMPANY_SUCCESS:
+      return {
+        ...state,
+        companies: _.omit(state.companies, action.payload._id),
+        showDeleteCompanyModal: false,
+        notification: {
+          show: true,
+          type: 'success',
+          message: action.payload.data.message
+        }
+      }
 
     case OPEN_REQUEST_COMPANY_MODAL:
       return { ...state, showRequestCompanyModal: true }
