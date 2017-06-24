@@ -8,6 +8,8 @@ import {
   FETCH_COMPANIES_SUCCESS,
   ACCEPT_COMPANY_SUCCESS,
   DELETE_COMPANY_SUCCESS,
+  REQUEST_COMPANY_SUCCESS,
+  REQUEST_COMPANY_FAIL,
   HIDE_COMPANY_NOTIFICATION
 } from './types'
 
@@ -17,6 +19,24 @@ export const fetchCompanies = () => async dispatch => {
     dispatch({ type: FETCH_COMPANIES_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
+  }
+}
+
+export const requestCompany = (values, callback) => async dispatch => {
+  try {
+    const { data: { message } } = await axios.post('/request', values)
+    dispatch({
+      type: REQUEST_COMPANY_SUCCESS,
+      payload: { message, _id: values._id }
+    })
+    _.delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
+    callback()
+  } catch (e) {
+    dispatch({
+      type: REQUEST_COMPANY_FAIL,
+      payload: e.response.data.error
+    })
+    _.delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
   }
 }
 
