@@ -19,13 +19,27 @@ import {
   OFFER_SPECIAL_PRICE_SUCCESS,
   RESET_PRICE_SUCCESS,
   OPEN_RESET_PRICE_MODAL,
-  CLOSE_RESET_PRICE_MODAL
+  CLOSE_RESET_PRICE_MODAL,
+  ACCEPT_AGENT_SUCCESS
 } from './types'
 
 export const fetchAgents = () => async dispatch => {
   try {
     const { data } = await axios.get('/agents')
     dispatch({ type: FETCH_AGENTS_SUCCESS, payload: data })
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export const acceptAgent = (_id, callback) => async dispatch => {
+  try {
+    await axios.post('/accept', { _id })
+    dispatch({
+      type: ACCEPT_AGENT_SUCCESS,
+      payload: _id
+    })
+    callback()
   } catch (e) {
     console.error(e)
   }
