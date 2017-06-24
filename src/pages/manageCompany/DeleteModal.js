@@ -38,7 +38,7 @@ class DeleteModal extends PureComponent {
 
 const mapStateToProps = ({ company }) => ({
   showModal: company.showDeleteCompanyModal,
-  company: company.agents[company.selectedCompany]
+  company: company.companies[company.selectedCompany]
 })
 
 export default connect(mapStateToProps, actions)(DeleteModal)
