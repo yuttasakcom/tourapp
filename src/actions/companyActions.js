@@ -7,6 +7,7 @@ import {
   CLOSE_REQUEST_COMPANY_MODAL,
   FETCH_COMPANIES_SUCCESS,
   ACCEPT_COMPANY_SUCCESS,
+  DELETE_COMPANY_SUCCESS,
   HIDE_COMPANY_NOTIFICATION
 } from './types'
 
@@ -14,6 +15,16 @@ export const fetchCompanies = () => async dispatch => {
   try {
     const { data } = await axios.get('/companies')
     dispatch({ type: FETCH_COMPANIES_SUCCESS, payload: data })
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export const deleteCompany = ({ _id }) => async dispatch => {
+  try {
+    const { data } = await axios.delete(`/relationship/${_id}`)
+    dispatch({ type: DELETE_COMPANY_SUCCESS, payload: { data, _id } })
+    _.delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
   }
