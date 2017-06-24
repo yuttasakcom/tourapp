@@ -7,7 +7,9 @@ import {
 
 const initialState = {
   companies: {},
-  showRequestCompanyModal: false
+  selectedCompany: null,
+  showRequestCompanyModal: false,
+  notification: { show: false, type: null, message: null }
 }
 
 export default (state = initialState, action) => {
