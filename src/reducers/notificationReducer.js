@@ -7,7 +7,8 @@ import {
   FETCH_REQUEST_PENDINGS_SUCCESS,
   FETCH_ACCEPT_PENDINGS_SUCCESS,
   FETCH_NOTIFICATIONS_SUCCESS,
-  CANCEL_REQUEST_AGENT_SUCCESS
+  CANCEL_REQUEST_AGENT_SUCCESS,
+  ACCEPT_AGENT_SUCCESS
 } from '../actions/types'
 
 const initialState = {
@@ -21,6 +22,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case ACCEPT_AGENT_SUCCESS:
+      return {
+        ...state,
+        acceptPendings: _.omit(state.acceptPendings, action.payload)
+      }
+
     case CANCEL_REQUEST_AGENT_SUCCESS:
       return {
         ...state,
