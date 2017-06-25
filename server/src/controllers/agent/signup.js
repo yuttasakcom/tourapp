@@ -26,7 +26,8 @@ export const signup = async (req, res, next) => {
     const resAgent = await agent.save()
 
     return res.status(201).send({
-      token: generateToken(resAgent)
+      token: generateToken(resAgent),
+      _id: resAgent._id
     })
   } catch (e) {
     return next(e)

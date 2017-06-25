@@ -14,16 +14,6 @@ describe('Agent pendings list', () => {
     password: h.password.hash
   }
 
-  const company1Stub = new Company({
-    email: 'company1stub@test.com',
-    password: h.password.hash
-  })
-
-  const company2Stub = new Company({
-    email: 'company2Stub@test.com',
-    password: h.password.hash
-  })
-
   const agent1SigninProps = {
     ...agent1Props,
     role: 'agent',
@@ -31,13 +21,22 @@ describe('Agent pendings list', () => {
   }
 
   beforeEach(async () => {
+    const company1Stub = new Company({
+      email: 'company1stub@test.com',
+      password: h.password.hash
+    })
+
+    const company2Stub = new Company({
+      email: 'company2Stub@test.com',
+      password: h.password.hash
+    })
     agent1 = new Agent(agent1Props)
     agent1.requestPendings.push(company1Stub)
     agent1.requestPendings.push(company2Stub)
     agent1.acceptPendings.push(company1Stub)
     agent1.acceptPendings.push(company2Stub)
 
-    await agent1.save()
+    await Promise.all([agent1.save(), company1Stub.save(), company2Stub.save()])
     const res = await h.agentSignIn(agent1SigninProps)
     agent1Token = res.body.token
   })

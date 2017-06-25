@@ -26,7 +26,9 @@ export const signup = async (req, res, next) => {
     company.password = hash
     const resCompany = await company.save()
 
-    return res.status(201).send({ token: generateToken(resCompany) })
+    return res
+      .status(201)
+      .send({ token: generateToken(resCompany), _id: resCompany._id })
   } catch (e) {
     return next(e)
   }
