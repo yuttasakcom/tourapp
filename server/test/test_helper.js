@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 
 before(done => {
   // mockgoose.prepareStorage().then(() => {
-  console.log('prepare storage ok', mongoose.mocked)
+  // console.log('prepare storage ok', mongoose.mocked)
   mongoose.connect('mongodb://localhost/tourapp_test')
   mongoose.connection
     .once('open', () => done())
