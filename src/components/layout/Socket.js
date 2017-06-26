@@ -5,7 +5,11 @@ import socket from '../../actions/socket'
 import * as actions from '../../actions'
 
 class Socket extends PureComponent {
-  componentDidMount() {}
+  componentDidMount() {
+    socket.on('request', () => {
+      this.props.fetchAcceptPendings()
+    })
+  }
 
   render() {
     return null
