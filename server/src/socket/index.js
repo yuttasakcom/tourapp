@@ -1,7 +1,7 @@
-import _ from 'lodash'
 import socketIoJwt from 'socketio-jwt'
-import logger from '../utils/logger'
+
 import config from '../config'
+import * as h from './handler'
 
 export default io => {
   io.use(
@@ -11,20 +11,14 @@ export default io => {
     })
   )
 
-  io.on('connection', socket => {
-    const { _id, sub, role } = socket.decoded_token
-    logger.info(`${role} ${sub} has connected!`)
-
-    socket.on('message', data => {
-      socket.broadcast.emit('message', data)
-    })
-
-    socket.on('book', data => {
-      socket.broadcast.emit(data.company, data)
-    })
-
-    socket.on('disconnect', () => {
-      logger.info(`${role} S${sub} has disconnected!`)
-    })
+  io.on('connection', async socket => {
+    await h.onConnection(socket)
+    socket.on('request', ({ _id }) => h.onRequest(socket, _id))
+    socket.on('accept', ({ _id }) => h.onAccept(socket, _id))
+    socket.on('cancelRequest', ({ _id }) => h.onCancelRequest(socket, _id))
+    socket.on('deleteRelationship', ({ _id }) =>
+      h.onDeleteRelationship(socket, _id)
+    )
+    socket.on('disconnect', () => h.onDisconnect(socket))
   })
 }
