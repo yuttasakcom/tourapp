@@ -88,8 +88,7 @@ export const resetPrice = (agentId, { _id }, callback) => async dispatch => {
   }
 }
 
-export const requestAgent = (values, callback) => async dispatch => {
-  const { _id } = values
+export const requestAgent = ({ _id }, callback) => async dispatch => {
   try {
     const { data: { message } } = await axios.post('/request', { _id })
     dispatch({
