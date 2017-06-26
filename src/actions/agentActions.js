@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import axios from './axios'
+import socket from './socket'
 import {
   FETCH_AGENTS_SUCCESS,
   REQUEST_AGENT_SUCCESS,
@@ -88,14 +89,17 @@ export const resetPrice = (agentId, { _id }, callback) => async dispatch => {
 }
 
 export const requestAgent = (values, callback) => async dispatch => {
+  const { _id } = values
   try {
-    const { data: { message } } = await axios.post('/request', values)
+    const { data: { message } } = await axios.post('/request', { _id })
     dispatch({
       type: REQUEST_AGENT_SUCCESS,
-      payload: { message, _id: values._id }
+      payload: { message, _id }
     })
-    callback()
+
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
+    socket.emit('request', { _id })
+    callback()
   } catch (e) {
     dispatch({
       type: REQUEST_AGENT_FAIL,
