@@ -1,7 +1,13 @@
 import socketIoJwt from 'socketio-jwt'
 
 import config from '../config'
-import { onDisconnect, onConnection, onRequest, onAccept } from './handler'
+import {
+  onDisconnect,
+  onConnection,
+  onRequest,
+  onAccept,
+  onCancelRequest
+} from './handler'
 
 export default io => {
   io.use(
@@ -15,6 +21,7 @@ export default io => {
     await onConnection(socket)
     socket.on('request', ({ _id }) => onRequest(socket, _id))
     socket.on('accept', ({ _id }) => onAccept(socket, _id))
+    socket.on('cancelRequest', ({ _id }) => onCancelRequest(socket, _id))
     socket.on('disconnect', () => onDisconnect(socket))
   })
 }
