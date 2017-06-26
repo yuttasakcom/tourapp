@@ -70,4 +70,11 @@ describe.only('redis', () => {
     const res = await client.lrangeAsync('queue', 0, -1)
     expect(res.length).to.equal(4)
   })
+
+  it('lrem example', async () => {
+    await client.lpushAsync('queue', ['one', 'two', 'three'])
+    await client.lremAsync('queue', 0, 'two')
+    const res = await client.lrangeAsync('queue', 0, -1)
+    expect(res).to.not.include('two')
+  })
 })
