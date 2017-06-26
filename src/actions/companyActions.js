@@ -69,6 +69,7 @@ export const acceptCompany = (_id, callback) => async dispatch => {
       type: ACCEPT_COMPANY_SUCCESS,
       payload: _id
     })
+    socket.emit('accept', { _id })
     callback()
   } catch (e) {
     console.error(e)
