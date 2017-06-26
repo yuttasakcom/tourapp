@@ -9,6 +9,11 @@ class Socket extends PureComponent {
     socket.on('request', () => {
       this.props.fetchAcceptPendings()
     })
+
+    socket.on('accept', () => {
+      this.props.fetchRequestPendings()
+      this.props.fetchAgents()
+    })
   }
 
   render() {
