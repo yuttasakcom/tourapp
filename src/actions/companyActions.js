@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import axios from './axios'
+import socket from './socket'
 import {
   OPEN_DELETE_COMPANY_MODAL,
   CLOSE_DELETE_COMPANY_MODAL,
@@ -23,14 +24,15 @@ export const fetchCompanies = () => async dispatch => {
   }
 }
 
-export const requestCompany = (values, callback) => async dispatch => {
+export const requestCompany = ({ _id }, callback) => async dispatch => {
   try {
-    const { data: { message } } = await axios.post('/request', values)
+    const { data: { message } } = await axios.post('/request', { _id })
     dispatch({
       type: REQUEST_COMPANY_SUCCESS,
-      payload: { message, _id: values._id }
+      payload: { message, _id }
     })
     _.delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
+    socket.emit('request', { _id })
     callback()
   } catch (e) {
     dispatch({
@@ -45,6 +47,7 @@ export const cancelRequestCompany = ({ _id }) => async dispatch => {
   try {
     await axios.delete(`/cancel-request/${_id}`)
     dispatch({ type: CANCEL_REQUEST_COMPANY_SUCCESS, payload: _id })
+    socket.emit('cancelRequest', { _id })
   } catch (e) {
     console.erroe(e)
   }
@@ -54,6 +57,7 @@ export const deleteCompany = ({ _id }) => async dispatch => {
   try {
     const { data } = await axios.delete(`/relationship/${_id}`)
     dispatch({ type: DELETE_COMPANY_SUCCESS, payload: { data, _id } })
+    socket.emit('deleteRelationship', { _id })
     _.delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
@@ -67,6 +71,7 @@ export const acceptCompany = (_id, callback) => async dispatch => {
       type: ACCEPT_COMPANY_SUCCESS,
       payload: _id
     })
+    socket.emit('accept', { _id })
     callback()
   } catch (e) {
     console.error(e)

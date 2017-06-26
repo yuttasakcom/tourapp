@@ -27,7 +27,10 @@ class ProfileMenu extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ auth: { _id, showProfileMenu } }) => {
+const mapStateToProps = ({
+  auth: { _id },
+  notification: { showProfileMenu }
+}) => {
   return { _id, showProfileMenu }
 }
 

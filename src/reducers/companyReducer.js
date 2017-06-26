@@ -7,7 +7,8 @@ import {
   OPEN_REQUEST_COMPANY_MODAL,
   CLOSE_REQUEST_COMPANY_MODAL,
   DELETE_COMPANY_SUCCESS,
-  FETCH_COMPANIES_SUCCESS
+  FETCH_COMPANIES_SUCCESS,
+  HIDE_COMPANY_NOTIFICATION
 } from '../actions/types'
 
 const initialState = {
@@ -55,6 +56,12 @@ export default (state = initialState, action) => {
           type: 'success',
           message: action.payload.data.message
         }
+      }
+
+    case HIDE_COMPANY_NOTIFICATION:
+      return {
+        ...state,
+        notification: { show: false }
       }
 
     case OPEN_REQUEST_COMPANY_MODAL:
