@@ -113,6 +113,7 @@ export const cancelRequestAgent = ({ _id }) => async dispatch => {
   try {
     await axios.delete(`/cancel-request/${_id}`)
     dispatch({ type: CANCEL_REQUEST_AGENT_SUCCESS, payload: _id })
+    socket.emit('cancelRequest', { _id })
   } catch (e) {
     console.error(e)
   }
