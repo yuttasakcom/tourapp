@@ -3,7 +3,9 @@ import {
   TOGGLE_NOTIFICATION_GEM,
   TOGGLE_ACCEPT_PENDING_GEM,
   TOGGLE_REQUEST_PENDING_GEM,
+  TOGGLE_PROFILE_MENU,
   HIDE_ALL_GEM,
+  SIGN_OUT_SUCCESS,
   FETCH_REQUEST_PENDINGS_SUCCESS,
   FETCH_ACCEPT_PENDINGS_SUCCESS,
   FETCH_NOTIFICATIONS_SUCCESS,
@@ -15,6 +17,7 @@ const initialState = {
   showNotificationGem: false,
   showRequestPendingGem: false,
   showAcceptPendingGem: false,
+  showProfileMenu: false,
   requestPendings: {},
   acceptPendings: {},
   notifications: []
@@ -57,7 +60,8 @@ export default (state = initialState, action) => {
         ...state,
         showNotificationGem: !state.showNotificationGem,
         showRequestPendingGem: false,
-        showAcceptPendingGem: false
+        showAcceptPendingGem: false,
+        showProfileMenu: false
       }
 
     case TOGGLE_REQUEST_PENDING_GEM:
@@ -65,13 +69,24 @@ export default (state = initialState, action) => {
         ...state,
         showRequestPendingGem: !state.showRequestPendingGem,
         showNotificationGem: false,
-        showAcceptPendingGem: false
+        showAcceptPendingGem: false,
+        showProfileMenu: false
       }
 
     case TOGGLE_ACCEPT_PENDING_GEM:
       return {
         ...state,
         showAcceptPendingGem: !state.showAcceptPendingGem,
+        showRequestPendingGem: false,
+        showNotificationGem: false,
+        showProfileMenu: false
+      }
+
+    case TOGGLE_PROFILE_MENU:
+      return {
+        ...state,
+        showProfileMenu: !state.showProfileMenu,
+        showAcceptPendingGem: false,
         showRequestPendingGem: false,
         showNotificationGem: false
       }
@@ -81,7 +96,14 @@ export default (state = initialState, action) => {
         ...state,
         showNotificationGem: false,
         showRequestPendingGem: false,
-        showAcceptPendingGem: false
+        showAcceptPendingGem: false,
+        showProfileMenu: false
+      }
+
+    case SIGN_OUT_SUCCESS:
+      return {
+        ...state,
+        showProfileMenu: false
       }
 
     default:
