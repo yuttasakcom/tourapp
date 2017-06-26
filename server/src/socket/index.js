@@ -1,5 +1,6 @@
-import _ from 'lodash'
 import socketIoJwt from 'socketio-jwt'
+import redis from './redis'
+
 import logger from '../utils/logger'
 import config from '../config'
 
@@ -11,9 +12,10 @@ export default io => {
     })
   )
 
-  io.on('connection', socket => {
+  io.on('connection', async socket => {
     const { _id, sub, role } = socket.decoded_token
     logger.info(`${role} ${sub} has connected!`)
+    await redis.lpushAsync(`socketId:${_id}`, socket.id)
 
     socket.on('message', data => {
       socket.broadcast.emit('message', data)
@@ -23,8 +25,9 @@ export default io => {
       socket.broadcast.emit(data.company, data)
     })
 
-    socket.on('disconnect', () => {
-      logger.info(`${role} S${sub} has disconnected!`)
+    socket.on('disconnect', async () => {
+      logger.info(`${role} ${sub} has disconnected!`)
+      await redis.lremAsync(`socketId:${_id}`, 0, socket.id)
     })
   })
 }
