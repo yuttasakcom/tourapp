@@ -1,13 +1,32 @@
 import { PureComponent } from 'react'
+import { connect } from 'react-redux'
 
 import socket from '../../actions/socket'
+import * as actions from '../../actions'
 
 class Socket extends PureComponent {
-  componentDidMount() {}
+  componentDidMount() {
+    socket.on('request', () => {
+      this.props.fetchAcceptPendings()
+    })
+
+    socket.on('accept', () => {
+      this.props.fetchRequestPendings()
+      this.props.fetchAgents()
+    })
+
+    socket.on('cancelRequest', () => {
+      this.props.fetchAcceptPendings()
+    })
+
+    socket.on('deleteRelationship', () => {
+      this.props.fetchAgents()
+    })
+  }
 
   render() {
     return null
   }
 }
 
-export default Socket
+export default connect(null, actions)(Socket)

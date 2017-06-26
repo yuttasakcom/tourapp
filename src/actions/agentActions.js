@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import axios from './axios'
+import socket from './socket'
 import {
   FETCH_AGENTS_SUCCESS,
   REQUEST_AGENT_SUCCESS,
@@ -39,6 +40,7 @@ export const acceptAgent = (_id, callback) => async dispatch => {
       type: ACCEPT_AGENT_SUCCESS,
       payload: _id
     })
+    socket.emit('accept', { _id })
     callback()
   } catch (e) {
     console.error(e)
@@ -87,15 +89,17 @@ export const resetPrice = (agentId, { _id }, callback) => async dispatch => {
   }
 }
 
-export const requestAgent = (values, callback) => async dispatch => {
+export const requestAgent = ({ _id }, callback) => async dispatch => {
   try {
-    const { data: { message } } = await axios.post('/request', values)
+    const { data: { message } } = await axios.post('/request', { _id })
     dispatch({
       type: REQUEST_AGENT_SUCCESS,
-      payload: { message, _id: values._id }
+      payload: { message, _id }
     })
-    callback()
+
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
+    socket.emit('request', { _id })
+    callback()
   } catch (e) {
     dispatch({
       type: REQUEST_AGENT_FAIL,
@@ -109,6 +113,7 @@ export const cancelRequestAgent = ({ _id }) => async dispatch => {
   try {
     await axios.delete(`/cancel-request/${_id}`)
     dispatch({ type: CANCEL_REQUEST_AGENT_SUCCESS, payload: _id })
+    socket.emit('cancelRequest', { _id })
   } catch (e) {
     console.error(e)
   }
@@ -118,6 +123,7 @@ export const deleteAgent = ({ _id }) => async dispatch => {
   try {
     const { data } = await axios.delete(`/relationship/${_id}`)
     dispatch({ type: DELETE_AGENT_SUCCESS, payload: { data, _id } })
+    socket.emit('deleteRelationship', { _id })
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
