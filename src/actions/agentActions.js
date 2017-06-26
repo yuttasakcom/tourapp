@@ -123,6 +123,7 @@ export const deleteAgent = ({ _id }) => async dispatch => {
   try {
     const { data } = await axios.delete(`/relationship/${_id}`)
     dispatch({ type: DELETE_AGENT_SUCCESS, payload: { data, _id } })
+    socket.emit('deleteRelationship', { _id })
     _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)

@@ -18,6 +18,10 @@ class Socket extends PureComponent {
     socket.on('cancelRequest', () => {
       this.props.fetchAcceptPendings()
     })
+
+    socket.on('deleteRelationship', () => {
+      this.props.fetchAgents()
+    })
   }
 
   render() {
