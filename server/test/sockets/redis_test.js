@@ -50,6 +50,28 @@ describe.only('redis', () => {
     expect(obj.home).to.equal('1234')
   })
 
+  it('hmset again', async () => {
+    await redis.hmsetAsync('hosts', {
+      mjr: 1,
+      another: 23,
+      home: 1234
+    })
+    await redis.hmsetAsync('hosts', { home: 1 })
+    const obj = await redis.hgetallAsync('hosts')
+    expect(obj.home).to.equal('1')
+  })
+
+  it('remove key', async () => {
+    await redis.hmsetAsync('hosts', {
+      mjr: 1,
+      another: 23,
+      home: 1234
+    })
+    await redis.delAsync('hosts')
+    const obj = await redis.hgetallAsync('hosts')
+    expect(obj).to.equal(null)
+  })
+
   it('lpush async await example', async () => {
     await redis.lpushAsync('queue', [1, 2, 3])
     await redis.lpushAsync('queue', 4)
