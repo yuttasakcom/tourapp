@@ -31,15 +31,7 @@ describe.only('redis', () => {
   })
 
   it('hmset async await example', async () => {
-    await redis.hmsetAsync(
-      'hosts',
-      'mjr',
-      '1',
-      'another',
-      '23',
-      'home',
-      '1234'
-    )
+    await redis.hmsetAsync('hosts', 'mjr', '1', 'another', '23', 'home', '1234')
     const obj = await redis.hgetallAsync('hosts')
     expect(obj.mjr).to.equal('1')
     expect(obj.another).to.equal('23')
@@ -70,5 +62,10 @@ describe.only('redis', () => {
     await redis.lremAsync('queue', 0, 'two')
     const res = await redis.lrangeAsync('queue', 0, -1)
     expect(res).to.not.include('two')
+  })
+
+  it('lrange blank', async () => {
+    const res = await redis.lrangeAsync('blank', 0, -1)
+    expect(res.length).to.equal(0)
   })
 })
