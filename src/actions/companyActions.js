@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import axios from './axios'
+import socket from './socket'
 import {
   OPEN_DELETE_COMPANY_MODAL,
   CLOSE_DELETE_COMPANY_MODAL,
@@ -23,14 +24,15 @@ export const fetchCompanies = () => async dispatch => {
   }
 }
 
-export const requestCompany = (values, callback) => async dispatch => {
+export const requestCompany = ({ _id }, callback) => async dispatch => {
   try {
-    const { data: { message } } = await axios.post('/request', values)
+    const { data: { message } } = await axios.post('/request', { _id })
     dispatch({
       type: REQUEST_COMPANY_SUCCESS,
-      payload: { message, _id: values._id }
+      payload: { message, _id }
     })
     _.delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
+    socket.emit('request', { _id })
     callback()
   } catch (e) {
     dispatch({
