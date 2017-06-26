@@ -57,6 +57,7 @@ export const deleteCompany = ({ _id }) => async dispatch => {
   try {
     const { data } = await axios.delete(`/relationship/${_id}`)
     dispatch({ type: DELETE_COMPANY_SUCCESS, payload: { data, _id } })
+    socket.emit('deleteRelationship', { _id })
     _.delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
