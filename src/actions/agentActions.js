@@ -40,6 +40,7 @@ export const acceptAgent = (_id, callback) => async dispatch => {
       type: ACCEPT_AGENT_SUCCESS,
       payload: _id
     })
+    socket.emit('accept', { _id })
     callback()
   } catch (e) {
     console.error(e)
