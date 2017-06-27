@@ -11,11 +11,22 @@ class AcceptPending extends PureComponent {
   }
 
   renderListItem = () => {
-    const { acceptPendings, acceptAgent, fetchAgents } = this.props
+    const {
+      acceptPendings,
+      acceptAgent,
+      rejectRequestAgent,
+      fetchAgents
+    } = this.props
 
     return _.map(acceptPendings, acceptPending =>
       <li key={acceptPending._id}>
         <a>{acceptPending.email}</a>
+        <button
+          className="btn btn-danger btn-sm pull-right"
+          onClick={() => rejectRequestAgent(acceptPending._id)}
+        >
+          Reject
+        </button>
         <button
           className="btn btn-info btn-sm pull-right"
           onClick={() => acceptAgent(acceptPending._id, fetchAgents)}
