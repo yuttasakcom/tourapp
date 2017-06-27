@@ -19,6 +19,7 @@ export default io => {
     socket.on('deleteRelationship', ({ _id }) =>
       h.onDeleteRelationship(socket, _id)
     )
+    socket.on('rejectRequest', ({ _id }) => h.onRejectRequest(socket, _id))
     socket.on('disconnect', () => h.onDisconnect(socket))
   })
 }
