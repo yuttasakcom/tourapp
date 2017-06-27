@@ -86,6 +86,7 @@ export const rejectRequestCompany = _id => async dispatch => {
       type: REJECT_REQUEST_COMPANY_SUCCESS,
       payload: _id
     })
+    socket.emit('rejectRequest', { _id })
   } catch (e) {
     console.error(e)
   }
