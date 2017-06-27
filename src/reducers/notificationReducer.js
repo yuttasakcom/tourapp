@@ -10,6 +10,7 @@ import {
   FETCH_ACCEPT_PENDINGS_SUCCESS,
   FETCH_NOTIFICATIONS_SUCCESS,
   CANCEL_REQUEST_COMPANY_SUCCESS,
+  REJECT_REQUEST_COMPANY_SUCCESS,
   ACCEPT_COMPANY_SUCCESS
 } from '../actions/types'
 
@@ -35,6 +36,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         requestPendings: _.omit(state.requestPendings, action.payload)
+      }
+
+    case REJECT_REQUEST_COMPANY_SUCCESS:
+      return {
+        ...state,
+        acceptPendings: _.omit(state.acceptPendings, action.payload)
       }
 
     case FETCH_REQUEST_PENDINGS_SUCCESS:
