@@ -25,12 +25,13 @@ class BookingDataTable extends PureComponent {
         <td>{booking.tourist.name}</td>
         <td>{booking.tourist.adult}</td>
         <td>{booking.tourist.child}</td>
+        <td>{booking.status}</td>
       </tr>
     )
   }
 
   render() {
-    const tableTitles = ['Agent', 'Package', 'Tourist', 'Adult', 'Child']
+    const tableTitles = ['Agent', 'Package', 'Tourist', 'Adult', 'Child', 'Status']
     return (
       <Card title="Bookings" description="Manage booking">
         <DataTable
