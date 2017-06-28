@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import Card from '../../../components/Card'
 import DataTable from '../../../components/dataTable'
+import ManageModal from './ManageModal'
 import FilterLinks from './FilterLinks'
 import * as actions from '../../../actions'
 
@@ -13,7 +14,7 @@ class BookingDataTable extends PureComponent {
   }
 
   renderTableBody = () => {
-    const { bookings } = this.props
+    const { bookings, openManageBookingModal } = this.props
 
     if (!bookings) {
       return null
@@ -27,6 +28,15 @@ class BookingDataTable extends PureComponent {
         <td>{booking.tourist.adult}</td>
         <td>{booking.tourist.child}</td>
         <td>{booking.status}</td>
+        <td style={{ textAlign: 'center' }}>
+          <button
+            className="btn btn-info btn-sm"
+            style={{ margin: 0 }}
+            onClick={() => openManageBookingModal(booking._id)}
+          >
+            View
+          </button>
+        </td>
       </tr>
     )
   }
@@ -47,6 +57,7 @@ class BookingDataTable extends PureComponent {
           tableTitles={tableTitles}
           renderTableBody={this.renderTableBody}
         />
+        <ManageModal />
       </Card>
     )
   }
