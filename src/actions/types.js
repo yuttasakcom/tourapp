@@ -6,6 +6,7 @@ export const SIGN_UP_FAIL = 'sign_up_fail'
 export const HIDE_AUTH_NOTIFICATION = 'hide_auth_notification'
 
 export const FETCH_BOOKINGS_SUCCESS = 'fetch_bookings_success'
+export const SET_BOOKINGS_VISIBILITY_FILTER = 'set_bookings_visibility_filter'
 export const BOOKING_NOTIFY = 'booking_notify'
 
 export const FETCH_PKGS_SUCCESS = 'fetch_pkgs_success'

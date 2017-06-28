@@ -1,5 +1,5 @@
 import axios from './axios'
-import { FETCH_BOOKINGS_SUCCESS } from './types'
+import { FETCH_BOOKINGS_SUCCESS, SET_BOOKINGS_VISIBILITY_FILTER } from './types'
 
 export const fetchBookings = () => async dispatch => {
   try {
@@ -7,5 +7,12 @@ export const fetchBookings = () => async dispatch => {
     dispatch({ type: FETCH_BOOKINGS_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
+  }
+}
+
+export const setBookingsVisibilityFilter = filter => {
+  return {
+    type: SET_BOOKINGS_VISIBILITY_FILTER,
+    payload: filter
   }
 }
