@@ -1,10 +1,17 @@
 import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Button, Modal } from 'react-bootstrap'
+import { SingleDatePicker } from 'react-dates'
 
-import RenderField from '../../components/RenderField'
+import renderField from '../../components/renderField'
+import 'react-dates/lib/css/_datepicker.css'
 
 class BookingForm extends PureComponent {
+  state = {
+    date: null,
+    focused: false
+  }
+
   render() {
     const { handleSubmit, closeModal } = this.props
 
@@ -15,7 +22,7 @@ class BookingForm extends PureComponent {
             <div className="col-md-6">
               <Field
                 name="name"
-                component={RenderField}
+                component={renderField}
                 label="Name"
                 type="text"
               />
@@ -23,7 +30,7 @@ class BookingForm extends PureComponent {
             <div className="col-md-6">
               <Field
                 name="phoneNumber"
-                component={RenderField}
+                component={renderField}
                 label="Phone"
                 type="text"
               />
@@ -31,7 +38,7 @@ class BookingForm extends PureComponent {
             <div className="col-md-12">
               <Field
                 name="hotel"
-                component={RenderField}
+                component={renderField}
                 label="Hotel Name/Address"
                 type="text"
               />
@@ -39,7 +46,7 @@ class BookingForm extends PureComponent {
             <div className="col-md-3">
               <Field
                 name="adult"
-                component={RenderField}
+                component={renderField}
                 label="Adult"
                 type="text"
               />
@@ -47,7 +54,7 @@ class BookingForm extends PureComponent {
             <div className="col-md-3">
               <Field
                 name="child"
-                component={RenderField}
+                component={renderField}
                 label="Child"
                 type="text"
               />
@@ -55,23 +62,24 @@ class BookingForm extends PureComponent {
             <div className="col-md-3">
               <Field
                 name="nationality"
-                component={RenderField}
+                component={renderField}
                 label="Nationality"
                 type="text"
               />
             </div>
             <div className="col-md-3">
-              <Field
-                name="date"
-                component={RenderField}
-                label="Date"
-                type="text"
+              <SingleDatePicker
+                id="date_input"
+                date={this.state.date}
+                onDateChange={date => this.setState({ date })}
+                focused={this.state.focused}
+                onFocusChange={({ focused }) => this.setState({ focused })}
               />
             </div>
             <div className="col-md-12">
               <Field
                 name="note"
-                component={RenderField}
+                component={renderField}
                 label="Note"
                 type="text"
               />
