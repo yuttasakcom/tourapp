@@ -6,6 +6,7 @@ import { Button } from 'react-bootstrap'
 
 import Card from '../../components/Card'
 import Notification from '../../components/Notification'
+import renderField from '../../components/renderField'
 
 class AuthForm extends PureComponent {
   renderNotification() {
@@ -13,20 +14,6 @@ class AuthForm extends PureComponent {
     if (show) {
       return <Notification type={type} message={message} />
     }
-  }
-
-  renderField = ({ input, label, type, meta: { touched, error, warning } }) => {
-    return (
-      <div className="form-group label-floating">
-        <label className="control-label">{label}</label>
-        <input
-          {...input}
-          placeholder={label}
-          type={type}
-          className="form-control"
-        />
-      </div>
-    )
   }
 
   renderAlternativeLink() {
@@ -68,13 +55,13 @@ class AuthForm extends PureComponent {
             <div className="row">
               <Field
                 name="email"
-                component={this.renderField}
+                component={renderField}
                 label="Email"
                 type="text"
               />
               <Field
                 name="password"
-                component={this.renderField}
+                component={renderField}
                 label="Password"
                 type="password"
               />

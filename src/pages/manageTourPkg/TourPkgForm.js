@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Button, Modal } from 'react-bootstrap'
 
-import RenderField from '../../components/RenderField'
+import renderField from '../../components/renderField'
 
 class TourPkgForm extends PureComponent {
   render() {
@@ -15,7 +15,7 @@ class TourPkgForm extends PureComponent {
             <div className="col-md-12">
               <Field
                 name="name"
-                component={RenderField}
+                component={renderField}
                 label="Name"
                 type="text"
               />
@@ -23,7 +23,7 @@ class TourPkgForm extends PureComponent {
             <div className="col-md-12">
               <Field
                 name="description"
-                component={RenderField}
+                component={renderField}
                 label="Description"
                 type="text"
               />
@@ -33,7 +33,7 @@ class TourPkgForm extends PureComponent {
             <div className="col-md-6">
               <Field
                 name="priceAdult"
-                component={RenderField}
+                component={renderField}
                 label="Adult Price"
                 type="text"
               />
@@ -41,7 +41,7 @@ class TourPkgForm extends PureComponent {
             <div className="col-md-6">
               <Field
                 name="priceChild"
-                component={RenderField}
+                component={renderField}
                 label="Child Price"
                 type="text"
               />

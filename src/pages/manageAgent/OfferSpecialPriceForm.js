@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Button, Modal } from 'react-bootstrap'
 
-import RenderField from '../../components/RenderField'
+import renderField from '../../components/renderField'
 
 class OfferSpecialPriceForm extends PureComponent {
   render() {
@@ -15,7 +15,7 @@ class OfferSpecialPriceForm extends PureComponent {
             <div className="col-md-6">
               <Field
                 name="priceAdult"
-                component={RenderField}
+                component={renderField}
                 label="Adult Price"
                 type="text"
               />
@@ -23,7 +23,7 @@ class OfferSpecialPriceForm extends PureComponent {
             <div className="col-md-6">
               <Field
                 name="priceChild"
-                component={RenderField}
+                component={renderField}
                 label="Child Price"
                 type="text"
               />
