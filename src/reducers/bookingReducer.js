@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-import bookingStatus from '../actions/bookingStatus'
+import { waiting } from '../actions/bookingStatus'
 import {
   FETCH_BOOKINGS_SUCCESS,
   SET_BOOKINGS_VISIBILITY_FILTER
@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   bookings: {},
-  visibilityFilter: bookingStatus.waiting
+  visibilityFilter: waiting
 }
 
 export default (state = initialState, action) => {
