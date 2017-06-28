@@ -8,6 +8,7 @@ import {
   CLOSE_REQUEST_COMPANY_MODAL,
   FETCH_COMPANIES_SUCCESS,
   ACCEPT_COMPANY_SUCCESS,
+  REJECT_REQUEST_COMPANY_SUCCESS,
   DELETE_COMPANY_SUCCESS,
   REQUEST_COMPANY_SUCCESS,
   REQUEST_COMPANY_FAIL,
@@ -73,6 +74,19 @@ export const acceptCompany = (_id, callback) => async dispatch => {
     })
     socket.emit('accept', { _id })
     callback()
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export const rejectRequestCompany = _id => async dispatch => {
+  try {
+    await axios.delete(`/reject-request/${_id}`)
+    dispatch({
+      type: REJECT_REQUEST_COMPANY_SUCCESS,
+      payload: _id
+    })
+    socket.emit('rejectRequest', { _id })
   } catch (e) {
     console.error(e)
   }

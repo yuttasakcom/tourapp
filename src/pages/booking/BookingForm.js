@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Button, Modal } from 'react-bootstrap'
 
-import RenderField from '../../components/RenderField'
+import renderField from '../../components/renderField'
 
 class BookingForm extends PureComponent {
   render() {
@@ -15,7 +15,7 @@ class BookingForm extends PureComponent {
             <div className="col-md-6">
               <Field
                 name="name"
-                component={RenderField}
+                component={renderField}
                 label="Name"
                 type="text"
               />
@@ -23,7 +23,7 @@ class BookingForm extends PureComponent {
             <div className="col-md-6">
               <Field
                 name="phoneNumber"
-                component={RenderField}
+                component={renderField}
                 label="Phone"
                 type="text"
               />
@@ -31,7 +31,7 @@ class BookingForm extends PureComponent {
             <div className="col-md-12">
               <Field
                 name="hotel"
-                component={RenderField}
+                component={renderField}
                 label="Hotel Name/Address"
                 type="text"
               />
@@ -39,7 +39,7 @@ class BookingForm extends PureComponent {
             <div className="col-md-3">
               <Field
                 name="adult"
-                component={RenderField}
+                component={renderField}
                 label="Adult"
                 type="text"
               />
@@ -47,7 +47,7 @@ class BookingForm extends PureComponent {
             <div className="col-md-3">
               <Field
                 name="child"
-                component={RenderField}
+                component={renderField}
                 label="Child"
                 type="text"
               />
@@ -55,7 +55,7 @@ class BookingForm extends PureComponent {
             <div className="col-md-3">
               <Field
                 name="nationality"
-                component={RenderField}
+                component={renderField}
                 label="Nationality"
                 type="text"
               />
@@ -63,15 +63,15 @@ class BookingForm extends PureComponent {
             <div className="col-md-3">
               <Field
                 name="date"
-                component={RenderField}
+                component={renderField}
                 label="Date"
-                type="text"
+                type="date"
               />
             </div>
             <div className="col-md-12">
               <Field
                 name="note"
-                component={RenderField}
+                component={renderField}
                 label="Note"
                 type="text"
               />

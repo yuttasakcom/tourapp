@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Modal } from 'react-bootstrap'
+import moment from 'moment'
 
 import BookingForm from './BookingForm'
 import * as actions from '../../actions'
@@ -8,7 +9,11 @@ import * as actions from '../../actions'
 class AddModal extends PureComponent {
   onSubmit = values => {
     const { addBooking, pkg } = this.props
-    const bookingProps = { company: pkg.company._id, pkg, tourist: values }
+    const bookingProps = {
+      company: pkg.company._id,
+      pkg,
+      tourist: values
+    }
     addBooking(bookingProps)
   }
 
@@ -20,6 +25,7 @@ class AddModal extends PureComponent {
           <Modal.Title>Add Booking Detail</Modal.Title>
         </Modal.Header>
         <BookingForm
+          initialValues={{ date: moment() }}
           onSubmit={this.onSubmit}
           closeModal={closeAddBookingModal}
         />
