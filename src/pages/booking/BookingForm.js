@@ -2,21 +2,9 @@ import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Button, Modal } from 'react-bootstrap'
 
-import DatePicker from '../../components/DatePicker'
 import renderField from '../../components/renderField'
 
 class BookingForm extends PureComponent {
-  renderSingleDatePicker = props => {
-    const { label, input, meta: { touched, error, warning } } = props
-    return (
-      <div className="form-group label-floating">
-        <label className="control-label">{label}</label>
-        <DatePicker date={input.value} onDateChange={input.onChange} />
-        {touched && error && warning}
-      </div>
-    )
-  }
-
   render() {
     const { handleSubmit, closeModal } = this.props
 
@@ -75,8 +63,9 @@ class BookingForm extends PureComponent {
             <div className="col-md-3">
               <Field
                 name="date"
-                component={this.renderSingleDatePicker}
+                component={renderField}
                 label="Date"
+                type="date"
               />
             </div>
             <div className="col-md-12">
