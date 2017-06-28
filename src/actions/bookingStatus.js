@@ -1,7 +1,5 @@
-export default {
-  waiting: 0,
-  readed: 1,
-  accepted: 2,
-  completed: 3,
-  rejected: 4
-}
+export const waiting = 0
+export const readed = 1
+export const accepted = 2
+export const completed = 3
+export const rejected = 4
