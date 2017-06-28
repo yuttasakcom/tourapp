@@ -52,8 +52,10 @@ class BookingDataTable extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ booking: { bookings } }) => ({
-  bookings
-})
+const mapStateToProps = ({ booking: { bookings, visibilityFilter } }) => {
+  return {
+    bookings: _.filter(bookings, ({ status }) => status === visibilityFilter)
+  }
+}
 
 export default connect(mapStateToProps, actions)(BookingDataTable)
