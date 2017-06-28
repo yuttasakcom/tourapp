@@ -13,6 +13,7 @@ class DatePicker extends PureComponent {
     return (
       <SingleDatePicker
         date={date}
+        displayFormat="DD/MM/YYYY"
         onDateChange={onDateChange}
         focused={this.state.focused}
         onFocusChange={({ focused }) => this.setState({ focused })}
