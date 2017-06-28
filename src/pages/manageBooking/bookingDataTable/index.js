@@ -2,9 +2,10 @@ import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import Card from '../../components/Card'
-import DataTable from '../../components/dataTable'
-import * as actions from '../../actions'
+import Card from '../../../components/Card'
+import DataTable from '../../../components/dataTable'
+import FilterLinks from './FilterLinks'
+import * as actions from '../../../actions'
 
 class BookingDataTable extends PureComponent {
   componentDidMount() {
@@ -31,9 +32,19 @@ class BookingDataTable extends PureComponent {
   }
 
   render() {
-    const tableTitles = ['Agent', 'Package', 'Tourist', 'Adult', 'Child', 'Status']
+    const tableTitles = [
+      'Agent',
+      'Package',
+      'Tourist',
+      'Adult',
+      'Child',
+      'Status'
+    ]
     return (
       <Card title="Bookings" description="Manage booking">
+        <div className="pull-right">
+          <FilterLinks />
+        </div>
         <DataTable
           tableTitles={tableTitles}
           renderTableBody={this.renderTableBody}
