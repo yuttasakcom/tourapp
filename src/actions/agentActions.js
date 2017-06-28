@@ -5,6 +5,7 @@ import {
   FETCH_AGENTS_SUCCESS,
   REQUEST_AGENT_SUCCESS,
   CANCEL_REQUEST_AGENT_SUCCESS,
+  REJECT_REQUEST_AGENT_SUCCESS,
   REQUEST_AGENT_FAIL,
   DELETE_AGENT_SUCCESS,
   OPEN_REQUEST_AGENT_MODAL,
@@ -42,6 +43,19 @@ export const acceptAgent = (_id, callback) => async dispatch => {
     })
     socket.emit('accept', { _id })
     callback()
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export const rejectRequestAgent = _id => async dispatch => {
+  try {
+    await axios.delete(`/reject-request/${_id}`)
+    dispatch({
+      type: REJECT_REQUEST_AGENT_SUCCESS,
+      payload: _id
+    })
+    socket.emit('rejectRequest', { _id })
   } catch (e) {
     console.error(e)
   }

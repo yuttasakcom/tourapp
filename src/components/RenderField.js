@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-class RenderField extends PureComponent {
+class renderField extends PureComponent {
   render() {
     const { input, label, type, meta: { touched, error, warning } } = this.props
     return (
@@ -18,4 +18,4 @@ class RenderField extends PureComponent {
   }
 }
 
-export default RenderField
+export default renderField

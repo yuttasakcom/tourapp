@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Button, Modal } from 'react-bootstrap'
 
-import RenderField from '../../components/RenderField'
+import renderField from '../../components/renderField'
 
 class RequestForm extends PureComponent {
   render() {
@@ -15,7 +15,7 @@ class RequestForm extends PureComponent {
             <div className="col-md-12">
               <Field
                 name="_id"
-                component={RenderField}
+                component={renderField}
                 label="_id"
                 type="text"
               />

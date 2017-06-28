@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import BookingDataTable from './BookingDataTable'
+import BookingDataTable from './bookingDataTable'
 
 class ManageBooking extends PureComponent {
   render() {
