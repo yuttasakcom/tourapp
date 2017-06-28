@@ -42,9 +42,7 @@ class BookingDataTable extends PureComponent {
     ]
     return (
       <Card title="Bookings" description="Manage booking">
-        <div className="pull-right">
-          <FilterLinks />
-        </div>
+        <FilterLinks />
         <DataTable
           tableTitles={tableTitles}
           renderTableBody={this.renderTableBody}
