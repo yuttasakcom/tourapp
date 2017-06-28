@@ -1,15 +1,20 @@
 import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Button, Modal } from 'react-bootstrap'
-import { SingleDatePicker } from 'react-dates'
 
+import DatePicker from '../../components/DatePicker'
 import renderField from '../../components/renderField'
-import 'react-dates/lib/css/_datepicker.css'
 
 class BookingForm extends PureComponent {
-  state = {
-    date: null,
-    focused: false
+  renderSingleDatePicker = props => {
+    const { label, input, meta: { touched, error, warning } } = props
+    return (
+      <div className="form-group label-floating">
+        <label className="control-label">{label}</label>
+        <DatePicker date={input.value} onDateChange={input.onChange} />
+        {touched && error && warning}
+      </div>
+    )
   }
 
   render() {
@@ -68,12 +73,10 @@ class BookingForm extends PureComponent {
               />
             </div>
             <div className="col-md-3">
-              <SingleDatePicker
-                id="date_input"
-                date={this.state.date}
-                onDateChange={date => this.setState({ date })}
-                focused={this.state.focused}
-                onFocusChange={({ focused }) => this.setState({ focused })}
+              <Field
+                name="date"
+                component={this.renderSingleDatePicker}
+                label="Date"
               />
             </div>
             <div className="col-md-12">
