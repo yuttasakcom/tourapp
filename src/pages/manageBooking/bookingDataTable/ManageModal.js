@@ -6,10 +6,6 @@ import DisplayField from './DisplayField'
 import * as actions from '../../../actions'
 
 class ManageModal extends PureComponent {
-  onSubmit = values => {
-    this.props.editPkg(this.props.pkg, values)
-  }
-
   render() {
     const { showModal, closeManageBookingModal, booking } = this.props
     if (!booking) {
@@ -41,7 +37,8 @@ class ManageModal extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeManageBookingModal}>Close</Button>
-          <Button bsStyle="primary" type="submit">Save</Button>
+          <Button onClick={() => ''} bsStyle="danger">Reject</Button>
+          <Button onClick={() => ''} bsStyle="primary">Accept</Button>
         </Modal.Footer>
       </Modal>
     )
