@@ -1,15 +1,18 @@
 import express from 'express'
 import { createServer } from 'http'
 import createIo from 'socket.io'
-import redis from 'socket.io-redis'
+import socketIoRedis from 'socket.io-redis'
 import cors from 'cors'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
 
+import redis from './socket/redis'
 import mongoose from './models/mongoose'
 import router from './routes'
 import socket from './socket'
 import { handleNotFound, handleAnotherError, detailLogger } from './middlewares'
+
+redis.flushdb()
 
 const corsOptions = {
   exposedHeaders: ['Content-Range']
@@ -18,7 +21,7 @@ const corsOptions = {
 const app = express()
 const server = createServer(app)
 const io = createIo(server)
-io.adapter(redis({ host: 'localhost', port: 6379 }))
+io.adapter(socketIoRedis({ host: 'localhost', port: 6379 }))
 
 socket(io)
 

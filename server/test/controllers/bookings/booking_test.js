@@ -305,7 +305,7 @@ describe('Booking', () => {
 
       const bookingId = res1.body[0]._id
       await h
-        .companyEditBookingStatus(company1Token, bookingId, status.accepted)
+        .companyUpdateBookingStatus(company1Token, bookingId, status.accepted)
         .expect(200)
       const booking = await Booking.findById(bookingId)
       expect(booking.status).to.equal(status.accepted)
