@@ -32,7 +32,7 @@ class BookingDataTable extends PureComponent {
           <button
             className="btn btn-info btn-sm"
             style={{ margin: 0 }}
-            onClick={() => openManageBookingModal(booking._id)}
+            onClick={() => openManageBookingModal(booking._id, booking.status)}
           >
             View
           </button>

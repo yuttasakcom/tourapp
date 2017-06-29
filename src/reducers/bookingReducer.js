@@ -26,8 +26,15 @@ export default (state = initialState, action) => {
     case OPEN_MANAGE_BOOKING_MODAL:
       return {
         ...state,
+        bookings: {
+          ...state.bookings,
+          [action.payload._id]: {
+            ...state.bookings[action.payload._id],
+            status: action.payload.status
+          }
+        },
         showManageBookingModal: true,
-        selectedBooking: action.payload
+        selectedBooking: action.payload._id
       }
 
     case CLOSE_MANAGE_BOOKING_MODAL:
