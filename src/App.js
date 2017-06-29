@@ -6,7 +6,6 @@ import SignIn from './pages/auth/SignIn'
 import SignUp from './pages/auth/SignUp'
 import PrivateRoute from './components/PrivateRoute'
 import Dashboard from './pages/dashboard'
-import Notifications from './pages/notifications'
 import BoogkingSummary from './pages/bookingSummary'
 import ManageBooking from './pages/manageBooking'
 import ManageTourPkg from './pages/manageTourPkg'
@@ -23,7 +22,6 @@ class App extends PureComponent {
           <Route path="/signup" component={SignUp} />
           <Layout>
             <PrivateRoute path="/dashboard" component={Dashboard} />
-            <PrivateRoute path="/notifications" component={Notifications} />
             <PrivateRoute path="/manage-booking" component={ManageBooking} />
             <PrivateRoute path="/booking-summary" component={BoogkingSummary} />
             <PrivateRoute
