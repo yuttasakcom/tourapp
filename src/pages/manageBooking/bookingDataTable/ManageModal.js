@@ -4,16 +4,60 @@ import { Modal, Button } from 'react-bootstrap'
 
 import DisplayField from './DisplayField'
 import * as actions from '../../../actions'
+import {
+  waiting,
+  readed,
+  accepted,
+  rejected
+} from '../../../actions/bookingStatus'
 
 class ManageModal extends PureComponent {
-  render() {
+  renderBookingAction() {
     const {
-      showModal,
-      closeManageBookingModal,
-      booking,
+      booking: { _id, status },
       acceptBooking,
-      rejectBooking
+      rejectBooking,
+      completeBooking
     } = this.props
+    const reject = (
+      <Button key="1" onClick={() => rejectBooking(_id)} bsStyle="danger">
+        Reject
+      </Button>
+    )
+    const accept = (
+      <Button key="2" onClick={() => acceptBooking(_id)} bsStyle="primary">
+        Accept
+      </Button>
+    )
+    const complete = (
+      <Button key="3" onClick={() => completeBooking(_id)} bsStyle="info">
+        Complete
+      </Button>
+    )
+    const actions = []
+    switch (status) {
+      case waiting:
+      case readed:
+        actions.push(reject, accept)
+        break
+
+      case accepted:
+        actions.push(reject, complete)
+        break
+
+      case rejected:
+        actions.push(accept)
+        break
+
+      default:
+        actions.push(reject)
+        break
+    }
+    return actions
+  }
+
+  render() {
+    const { showModal, closeManageBookingModal, booking } = this.props
 
     if (!booking) {
       return null
@@ -44,12 +88,7 @@ class ManageModal extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeManageBookingModal}>Close</Button>
-          <Button onClick={() => rejectBooking(booking._id)} bsStyle="danger">
-            Reject
-          </Button>
-          <Button onClick={() => acceptBooking(booking._id)} bsStyle="primary">
-            Accept
-          </Button>
+          {this.renderBookingAction()}
         </Modal.Footer>
       </Modal>
     )
