@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-import { waiting } from '../actions/bookingStatus'
+import { waiting, readed } from '../actions/bookingStatus'
 import {
   FETCH_BOOKINGS_SUCCESS,
   SET_BOOKINGS_VISIBILITY_FILTER,
@@ -24,17 +24,25 @@ export default (state = initialState, action) => {
       return { ...state, visibilityFilter: action.payload }
 
     case OPEN_MANAGE_BOOKING_MODAL:
-      return {
-        ...state,
-        bookings: {
-          ...state.bookings,
-          [action.payload._id]: {
-            ...state.bookings[action.payload._id],
-            status: action.payload.status
-          }
-        },
-        showManageBookingModal: true,
-        selectedBooking: action.payload._id
+      if (state.bookings[action.payload].status === waiting) {
+        return {
+          ...state,
+          bookings: {
+            ...state.bookings,
+            [action.payload]: {
+              ...state.bookings[action.payload],
+              status: readed
+            }
+          },
+          showManageBookingModal: true,
+          selectedBooking: action.payload
+        }
+      } else {
+        return {
+          ...state,
+          showManageBookingModal: true,
+          selectedBooking: action.payload
+        }
       }
 
     case CLOSE_MANAGE_BOOKING_MODAL:
