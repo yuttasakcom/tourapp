@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import redis from '../../src/socket/redis'
 
-describe.only('redis', () => {
+describe('redis', () => {
   beforeEach(() => {
     redis.flushdb()
   })
