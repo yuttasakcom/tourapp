@@ -7,7 +7,14 @@ import * as actions from '../../../actions'
 
 class ManageModal extends PureComponent {
   render() {
-    const { showModal, closeManageBookingModal, booking } = this.props
+    const {
+      showModal,
+      closeManageBookingModal,
+      booking,
+      acceptBooking,
+      rejectBooking
+    } = this.props
+
     if (!booking) {
       return null
     }
@@ -37,8 +44,12 @@ class ManageModal extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeManageBookingModal}>Close</Button>
-          <Button onClick={() => ''} bsStyle="danger">Reject</Button>
-          <Button onClick={() => ''} bsStyle="primary">Accept</Button>
+          <Button onClick={() => rejectBooking(booking._id)} bsStyle="danger">
+            Reject
+          </Button>
+          <Button onClick={() => acceptBooking(booking._id)} bsStyle="primary">
+            Accept
+          </Button>
         </Modal.Footer>
       </Modal>
     )
