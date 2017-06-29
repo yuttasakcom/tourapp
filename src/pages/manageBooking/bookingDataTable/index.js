@@ -2,9 +2,9 @@ import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import Card from '../../components/Card'
-import DataTable from '../../components/dataTable'
-import * as actions from '../../actions'
+import Card from '../../../components/Card'
+import DataTable from '../../../components/dataTable'
+import * as actions from '../../../actions'
 
 class BookingDataTable extends PureComponent {
   componentDidMount() {
@@ -20,7 +20,7 @@ class BookingDataTable extends PureComponent {
 
     return _.map(bookings, booking =>
       <tr key={booking._id}>
-        <td>{booking.agent.email}</td>
+        <td>{booking.company.email}</td>
         <td>{booking.pkg.name}</td>
         <td>{booking.tourist.name}</td>
         <td>{booking.tourist.adult}</td>
@@ -32,7 +32,7 @@ class BookingDataTable extends PureComponent {
 
   render() {
     const tableTitles = [
-      'Agent',
+      'Company',
       'Package',
       'Tourist',
       'Adult',
@@ -50,7 +50,7 @@ class BookingDataTable extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ booking: { bookings } }) => ({
+const mapStateToProps = ({ manageBooking: { bookings } }) => ({
   bookings
 })
 
