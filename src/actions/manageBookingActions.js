@@ -1,6 +1,5 @@
 import axios from './axios'
 
-import { waiting, readed, accepted, rejected, completed } from './bookingStatus'
 import {
   FETCH_BOOKINGS_SUCCESS,
   OPEN_MANAGE_BOOKING_MODAL,
