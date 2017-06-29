@@ -8,10 +8,8 @@ class MenuList extends PureComponent {
       <ul className="nav">
         <MenuItem icon="dashboard" path="/dashboard" />
         <MenuItem icon="book" path="/booking" />
-        <MenuItem icon="notifications" path="/notifications" />
         <MenuItem icon="assignment" path="/manage-booking" />
         <MenuItem icon="contact_phone" path="/manage-company" />
-        <MenuItem icon="attach_money" path="/contract-rate" />
       </ul>
     )
   }
