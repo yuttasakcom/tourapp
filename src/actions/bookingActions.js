@@ -1,13 +1,14 @@
 import axios from './axios'
 
-import { waiting, readed, accepted, rejected } from './bookingStatus'
+import { waiting, readed, accepted, rejected, completed } from './bookingStatus'
 import {
   FETCH_BOOKINGS_SUCCESS,
   SET_BOOKINGS_VISIBILITY_FILTER,
   OPEN_MANAGE_BOOKING_MODAL,
   CLOSE_MANAGE_BOOKING_MODAL,
   ACCEPT_BOOKING_SUCCESS,
-  REJECT_BOOKING_SUCCESS
+  REJECT_BOOKING_SUCCESS,
+  COMPLETE_BOOKING_SUCCESS
 } from './types'
 
 const updateBookingStatus = (_id, status) =>
@@ -57,6 +58,15 @@ export const rejectBooking = _id => async dispatch => {
   try {
     await updateBookingStatus(_id, rejected)
     dispatch({ type: REJECT_BOOKING_SUCCESS, payload: _id })
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export const completeBooking = _id => async dispatch => {
+  try {
+    await updateBookingStatus(_id, completed)
+    dispatch({ type: COMPLETE_BOOKING_SUCCESS, payload: _id })
   } catch (e) {
     console.error(e)
   }
