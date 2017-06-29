@@ -11,6 +11,8 @@ export const CLOSE_ADD_BOOKING_MODAL = 'close_add_booking_modal'
 export const ADD_BOOKING_SUCCESS = 'add_booking_success'
 export const HIDE_BOOKING_NOTIFICATION = 'hide_booking_notification'
 
+export const FETCH_BOOKINGS_SUCCESS = 'fetch_bookings_success'
+
 export const FETCH_COMPANIES_SUCCESS = 'fetch_companies_success'
 export const REQUEST_COMPANY_SUCCESS = 'request_company_success'
 export const REQUEST_COMPANY_FAIL = 'request_company_fail'
