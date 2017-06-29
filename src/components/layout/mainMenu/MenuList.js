@@ -12,7 +12,6 @@ class MenuList extends PureComponent {
         <MenuItem icon="assignment" path="/booking-summary" />
         <MenuItem icon="widgets" path="/manage-tour-package" />
         <MenuItem icon="contact_phone" path="/manage-agent" />
-        <MenuItem icon="attach_money" path="/contract-rate" />
       </ul>
     )
   }

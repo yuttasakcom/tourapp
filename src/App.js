@@ -11,7 +11,6 @@ import BoogkingSummary from './pages/bookingSummary'
 import ManageBooking from './pages/manageBooking'
 import ManageTourPkg from './pages/manageTourPkg'
 import ManageAgent from './pages/manageAgent'
-import ContractRate from './pages/contractRate'
 import Layout from './components/layout'
 import { history } from './store'
 
@@ -32,7 +31,6 @@ class App extends PureComponent {
               component={ManageTourPkg}
             />
             <PrivateRoute path="/manage-agent" component={ManageAgent} />
-            <PrivateRoute path="/contract-rate" component={ContractRate} />
           </Layout>
         </Switch>
       </Router>
