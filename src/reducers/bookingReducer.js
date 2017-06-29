@@ -1,13 +1,20 @@
 import _ from 'lodash'
 
-import { waiting, readed, accepted, rejected } from '../actions/bookingStatus'
+import {
+  waiting,
+  readed,
+  accepted,
+  rejected,
+  completed
+} from '../actions/bookingStatus'
 import {
   FETCH_BOOKINGS_SUCCESS,
   SET_BOOKINGS_VISIBILITY_FILTER,
   OPEN_MANAGE_BOOKING_MODAL,
   CLOSE_MANAGE_BOOKING_MODAL,
   ACCEPT_BOOKING_SUCCESS,
-  REJECT_BOOKING_SUCCESS
+  REJECT_BOOKING_SUCCESS,
+  COMPLETE_BOOKING_SUCCESS
 } from '../actions/types'
 
 const initialState = {
@@ -68,6 +75,19 @@ export default (state = initialState, action) => {
           [action.payload]: {
             ...state.bookings[action.payload],
             status: rejected
+          }
+        },
+        showManageBookingModal: false
+      }
+
+    case COMPLETE_BOOKING_SUCCESS:
+      return {
+        ...state,
+        bookings: {
+          ...state.bookings,
+          [action.payload]: {
+            ...state.bookings[action.payload],
+            status: completed
           }
         },
         showManageBookingModal: false
