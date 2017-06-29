@@ -246,7 +246,7 @@ describe('Booking', () => {
     })
   })
 
-  describe('Add booking', () => {
+  describe.only('Add booking', () => {
     let booking1Props
 
     beforeEach(async () => {
@@ -287,6 +287,12 @@ describe('Booking', () => {
     it('Company get bookings list', async () => {
       await h.agentEmployeeAddBooking(agentEmployee1Token, booking1Props)
       const res = await h.companyGetBookings(company1Token).expect(200)
+      expect(res.body.length).to.equal(1)
+    })
+
+    it('Agent get bookings list', async () => {
+      await h.agentEmployeeAddBooking(agentEmployee1Token, booking1Props)
+      const res = await h.agentGetBookings(agent1Token).expect(200)
       expect(res.body.length).to.equal(1)
     })
   })
