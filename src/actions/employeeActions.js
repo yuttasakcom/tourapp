@@ -3,7 +3,9 @@ import axios from './axios'
 import {
   FETCH_EMPLOYEES_SUCCESS,
   OPEN_ADD_EMPLOYEE_MODAL,
-  CLOSE_ADD_EMPLOYEE_MODAL
+  CLOSE_ADD_EMPLOYEE_MODAL,
+  OPEN_EDIT_EMPLOYEE_MODAL,
+  CLOSE_EDIT_EMPLOYEE_MODAL
 } from './types'
 
 export const fetchEmployees = () => {
@@ -27,4 +29,12 @@ export const openAddEmployeeModal = () => {
 
 export const closeAddEmployeeModal = () => {
   return { type: CLOSE_ADD_EMPLOYEE_MODAL }
+}
+
+export const openEditEmployeeModal = _id => {
+  return { type: OPEN_EDIT_EMPLOYEE_MODAL, payload: _id }
+}
+
+export const closeEditEmployeeModal = () => {
+  return { type: CLOSE_EDIT_EMPLOYEE_MODAL }
 }
