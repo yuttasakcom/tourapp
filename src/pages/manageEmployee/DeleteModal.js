@@ -37,7 +37,7 @@ class DeleteModal extends PureComponent {
 }
 
 const mapStateToProps = ({ employee }) => ({
-  showModal: employee.showDeletePkgModal,
+  showModal: employee.showDeleteEmployeeModal,
   employee: employee.employees[employee.selectedEmployee]
 })
 
