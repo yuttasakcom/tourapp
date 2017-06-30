@@ -5,7 +5,9 @@ import {
   OPEN_ADD_EMPLOYEE_MODAL,
   CLOSE_ADD_EMPLOYEE_MODAL,
   OPEN_EDIT_EMPLOYEE_MODAL,
-  CLOSE_EDIT_EMPLOYEE_MODAL
+  CLOSE_EDIT_EMPLOYEE_MODAL,
+  OPEN_DELETE_EMPLOYEE_MODAL,
+  CLOSE_DELETE_EMPLOYEE_MODAL
 } from './types'
 
 export const fetchEmployees = () => {
@@ -37,4 +39,12 @@ export const openEditEmployeeModal = _id => {
 
 export const closeEditEmployeeModal = () => {
   return { type: CLOSE_EDIT_EMPLOYEE_MODAL }
+}
+
+export const openDeleteEmployeeModal = _id => {
+  return { type: OPEN_DELETE_EMPLOYEE_MODAL, payload: _id }
+}
+
+export const closeDeleteEmployeeModal = () => {
+  return { type: CLOSE_DELETE_EMPLOYEE_MODAL }
 }

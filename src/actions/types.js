@@ -16,6 +16,8 @@ export const OPEN_ADD_EMPLOYEE_MODAL = 'open_add_employee_modal'
 export const CLOSE_ADD_EMPLOYEE_MODAL = 'close_add_employee_modal'
 export const OPEN_EDIT_EMPLOYEE_MODAL = 'open_edit_employee_modal'
 export const CLOSE_EDIT_EMPLOYEE_MODAL = 'close_edit_employee_modal'
+export const OPEN_DELETE_EMPLOYEE_MODAL = 'open_delete_employee_modal'
+export const CLOSE_DELETE_EMPLOYEE_MODAL = 'close_delete_employee_modal'
 
 export const FETCH_BOOKINGS_SUCCESS = 'fetch_bookings_success'
 export const OPEN_MANAGE_BOOKING_MODAL = 'open_manage_booking_modal'
