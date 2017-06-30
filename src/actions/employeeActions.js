@@ -1,5 +1,5 @@
-import _ from 'lodash'
-import axios from './axios'
+// import _ from 'lodash'
+// import axios from './axios'
 import {
   FETCH_EMPLOYEES_SUCCESS,
   OPEN_ADD_EMPLOYEE_MODAL,
