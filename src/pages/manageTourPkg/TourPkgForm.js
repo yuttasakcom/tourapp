@@ -28,8 +28,6 @@ class TourPkgForm extends PureComponent {
                 type="text"
               />
             </div>
-          </div>
-          <div className="row">
             <div className="col-md-6">
               <Field
                 name="priceAdult"

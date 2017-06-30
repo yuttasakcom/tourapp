@@ -5,7 +5,6 @@ import FilterLink from './FilterLink'
 import * as actions from '../../../actions'
 import {
   waiting,
-  readed,
   accepted,
   completed,
   rejected
@@ -22,12 +21,6 @@ class FilterLinks extends PureComponent {
             text="Waiting"
             active={visibilityFilter === waiting}
             onClick={() => setBookingsVisibilityFilter(waiting)}
-          />
-          <FilterLink
-            icon="done"
-            text="Readed"
-            active={visibilityFilter === readed}
-            onClick={() => setBookingsVisibilityFilter(readed)}
           />
           <FilterLink
             icon="done_all"

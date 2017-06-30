@@ -7,6 +7,7 @@ import DataTable from '../../../components/dataTable'
 import ManageModal from './ManageModal'
 import FilterLinks from './FilterLinks'
 import * as actions from '../../../actions'
+import { waiting, readed } from '../../../actions/bookingStatus'
 
 class BookingDataTable extends PureComponent {
   componentDidMount() {
@@ -32,7 +33,7 @@ class BookingDataTable extends PureComponent {
           <button
             className="btn btn-info btn-sm"
             style={{ margin: 0 }}
-            onClick={() => openManageBookingModal(booking._id)}
+            onClick={() => openManageBookingModal(booking._id, booking.status)}
           >
             View
           </button>
@@ -64,6 +65,14 @@ class BookingDataTable extends PureComponent {
 }
 
 const mapStateToProps = ({ booking: { bookings, visibilityFilter } }) => {
+  if (visibilityFilter === waiting) {
+    return {
+      bookings: _.filter(
+        bookings,
+        ({ status }) => status === waiting || status === readed
+      )
+    }
+  }
   return {
     bookings: _.filter(bookings, ({ status }) => status === visibilityFilter)
   }
