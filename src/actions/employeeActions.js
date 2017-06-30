@@ -25,6 +25,22 @@ export const fetchEmployees = () => {
   }
 }
 
+export const addEmployee = () => {
+  return {
+    type: 'stub'
+  }
+}
+export const editEmployee = () => {
+  return {
+    type: 'stub'
+  }
+}
+export const deleteEmployee = () => {
+  return {
+    type: 'stub'
+  }
+}
+
 export const openAddEmployeeModal = () => {
   return { type: OPEN_ADD_EMPLOYEE_MODAL }
 }
