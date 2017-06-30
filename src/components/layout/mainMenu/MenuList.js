@@ -9,6 +9,7 @@ class MenuList extends PureComponent {
         <MenuItem icon="dashboard" path="/dashboard" />
         <MenuItem icon="book" path="/booking" />
         <MenuItem icon="assignment" path="/manage-booking" />
+        <MenuItem icon="group" path="/manage-employee" />
         <MenuItem icon="contact_phone" path="/manage-company" />
       </ul>
     )
