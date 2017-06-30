@@ -4,7 +4,9 @@ import {
   OPEN_ADD_EMPLOYEE_MODAL,
   CLOSE_ADD_EMPLOYEE_MODAL,
   OPEN_EDIT_EMPLOYEE_MODAL,
-  CLOSE_EDIT_EMPLOYEE_MODAL
+  CLOSE_EDIT_EMPLOYEE_MODAL,
+  OPEN_DELETE_EMPLOYEE_MODAL,
+  CLOSE_DELETE_EMPLOYEE_MODAL
 } from '../actions/types'
 
 const initialState = {
@@ -36,6 +38,16 @@ export default (state = initialState, action) => {
 
     case CLOSE_EDIT_EMPLOYEE_MODAL:
       return { ...state, showEditEmployeeModal: false }
+
+    case OPEN_DELETE_EMPLOYEE_MODAL:
+      return {
+        ...state,
+        showDeleteEmployeeModal: true,
+        selectedEmployee: action.payload
+      }
+
+    case CLOSE_DELETE_EMPLOYEE_MODAL:
+      return { ...state, showDeleteEmployeeModal: false }
 
     default:
       return state
