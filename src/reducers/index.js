@@ -6,6 +6,7 @@ import notification from './notificationReducer'
 import booking from './bookingReducer'
 import manageBooking from './manageBookingReducer'
 import company from './companyReducer'
+import employee from './employeeReducer'
 
 export default combineReducers({
   form,
@@ -13,5 +14,6 @@ export default combineReducers({
   notification,
   booking,
   company,
-  manageBooking
+  manageBooking,
+  employee
 })
