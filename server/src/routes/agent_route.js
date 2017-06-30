@@ -24,5 +24,6 @@ router.get('/pkgs', c.getPkgsList)
 router.get('/companies', c.getCompaniesList)
 router.post('/employees', c.addEmployee)
 router.post('/bookings', c.addBooking)
+router.get('/bookings', c.getBookingsList)
 
 export default router

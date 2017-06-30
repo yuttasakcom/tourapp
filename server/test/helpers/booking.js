@@ -13,6 +13,9 @@ export const agentEmployeeAddBooking = (token, props) =>
 export const companyGetBookings = token =>
   request(app).get('/companies/bookings').set('authorization', token)
 
+export const agentGetBookings = token =>
+  request(app).get('/agents/bookings').set('authorization', token)
+
 export const companyUpdateBookingStatus = (token, bookingId, status) =>
   request(app)
     .put(`/companies/bookings/${bookingId}`)
