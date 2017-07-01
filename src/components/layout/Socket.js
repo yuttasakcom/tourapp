@@ -26,6 +26,11 @@ class Socket extends PureComponent {
     socket.on('deleteRelationship', () => {
       this.props.fetchAgents()
     })
+
+    socket.on('book', booking => {
+      this.props.fetchBookings()
+      this.props.addNotification(booking)
+    })
   }
 
   render() {
