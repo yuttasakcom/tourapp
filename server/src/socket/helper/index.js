@@ -1,6 +1,6 @@
 import redis from '../redis'
 
-const getSocketIds = _id => redis.lrangeAsync(`socketId:${_id}`, 0, -1)
+export const getSocketIds = _id => redis.lrangeAsync(`socketId:${_id}`, 0, -1)
 
 export const getUserDetail = ({ id }) => redis.hgetallAsync(`userDetail:${id}`)
 

@@ -54,11 +54,7 @@
     "supertest": "^3.0.0"
   },
   "babel": {
-    "presets": [
-      "es2015-node"
-    ],
-    "plugins": [
-      "transform-object-rest-spread"
-    ]
+    "presets": ["es2015-node"],
+    "plugins": ["transform-object-rest-spread"]
   }
 }
