@@ -6,7 +6,7 @@ import renderField from '../../components/renderField'
 
 class TourPkgForm extends PureComponent {
   render() {
-    const { handleSubmit, closeModal } = this.props
+    const { handleSubmit, reset, pristine, submitting, closeModal } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
@@ -48,11 +48,38 @@ class TourPkgForm extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeModal}>Close</Button>
-          <Button bsStyle="primary" type="submit">Save</Button>
+          <Button
+            bsStyle="info"
+            onClick={reset}
+            disabled={pristine || submitting}
+          >
+            Reset
+          </Button>
+          <Button bsStyle="primary" disabled={submitting} type="submit">
+            Save
+          </Button>
         </Modal.Footer>
       </form>
     )
   }
 }
 
-export default reduxForm({ form: 'tourPkg' })(TourPkgForm)
+const validate = values => {
+  const errors = {}
+  if (!values.name) {
+    errors.name = 'Required'
+  }
+  if (!values.priceAdult) {
+    errors.priceAdult = 'Required'
+  } else if (isNaN(Number(values.priceAdult))) {
+    errors.priceAdult = 'Must be a number'
+  }
+  if (!values.priceChild) {
+    errors.priceChild = 'Required'
+  } else if (isNaN(Number(values.priceChild))) {
+    errors.priceChild = 'Must be a number'
+  }
+  return errors
+}
+
+export default reduxForm({ form: 'tourPkg', validate })(TourPkgForm)

@@ -6,7 +6,7 @@ import renderField from '../../components/renderField'
 
 class RequestForm extends PureComponent {
   render() {
-    const { handleSubmit, closeModal } = this.props
+    const { handleSubmit, pristine, reset, submitting, closeModal } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
@@ -24,11 +24,30 @@ class RequestForm extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeModal}>Close</Button>
-          <Button bsStyle="primary" type="submit">Request</Button>
+          <Button
+            bsStyle="info"
+            disabled={pristine || submitting}
+            onClick={reset}
+          >
+            Reset
+          </Button>
+          <Button bsStyle="primary" type="submit" disabled={submitting}>
+            Request
+          </Button>
         </Modal.Footer>
       </form>
     )
   }
 }
 
-export default reduxForm({ form: 'requestAgent' })(RequestForm)
+const validate = values => {
+  const errors = {}
+  if (!values._id) {
+    errors._id = 'Required'
+  } else if (!/^[0-9a-fA-F]{24}$/.test(values._id)) {
+    errors._id = 'Invalid code'
+  }
+  return errors
+}
+
+export default reduxForm({ form: 'requestAgent', validate })(RequestForm)

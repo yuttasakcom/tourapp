@@ -26,7 +26,9 @@ class Notification extends PureComponent {
       <div className={`alert alert-${type}`}>
         <div className="container-fluid">
           <div className="alert-icon">
-            <i className="material-icons">{icon}</i>
+            <i className="material-icons">
+              {icon}
+            </i>
           </div>
           <button type="button" className="close">
             <span>

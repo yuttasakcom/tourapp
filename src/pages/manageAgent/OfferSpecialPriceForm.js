@@ -6,7 +6,7 @@ import renderField from '../../components/renderField'
 
 class OfferSpecialPriceForm extends PureComponent {
   render() {
-    const { handleSubmit, closeModal } = this.props
+    const { handleSubmit, pristine, reset, submitting, closeModal } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
@@ -32,11 +32,37 @@ class OfferSpecialPriceForm extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeModal}>Close</Button>
-          <Button bsStyle="primary" type="submit">Save</Button>
+          <Button
+            bsStyle="info"
+            disabled={pristine || submitting}
+            onClick={reset}
+          >
+            Reset
+          </Button>
+          <Button bsStyle="primary" type="submit" disabled={submitting}>
+            Save
+          </Button>
         </Modal.Footer>
       </form>
     )
   }
 }
 
-export default reduxForm({ form: 'offerSpecialPrice' })(OfferSpecialPriceForm)
+const validate = values => {
+  const errors = {}
+  if (!values.priceAdult) {
+    errors.priceAdult = 'Required'
+  } else if (isNaN(Number(values.priceAdult))) {
+    errors.priceAdult = 'Must be a Number'
+  }
+  if (!values.priceChild) {
+    errors.priceChild = 'Required'
+  } else if (isNaN(Number(values.priceChild))) {
+    errors.priceChild = 'Must be a Number'
+  }
+  return errors
+}
+
+export default reduxForm({ form: 'offerSpecialPrice', validate })(
+  OfferSpecialPriceForm
+)

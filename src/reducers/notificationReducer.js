@@ -11,6 +11,7 @@ import {
   FETCH_NOTIFICATIONS_SUCCESS,
   CANCEL_REQUEST_AGENT_SUCCESS,
   REJECT_REQUEST_AGENT_SUCCESS,
+  ADD_NOTIFICATION_SUCCESS,
   ACCEPT_AGENT_SUCCESS
 } from '../actions/types'
 
@@ -60,6 +61,15 @@ export default (state = initialState, action) => {
       return {
         ...state,
         notifications: action.payload
+      }
+
+    case ADD_NOTIFICATION_SUCCESS:
+      return {
+        ...state,
+        notifications: [
+          ...state.notifications,
+          `Book by ${action.payload.agent} package ${action.payload.pkg.name}`
+        ]
       }
 
     case TOGGLE_NOTIFICATION_GEM:
