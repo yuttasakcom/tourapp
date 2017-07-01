@@ -21,12 +21,21 @@ class PkgDataTable extends PureComponent {
 
     return _.map(pkgs, pkg =>
       <tr key={pkg._id}>
-        <td>{pkg.name}</td>
-        <td>{pkg.company.email}</td>
-        <td>{pkg.priceAdult.toLocaleString()}</td>
-        <td>{pkg.priceChild.toLocaleString()}</td>
+        <td>
+          {pkg.name}
+        </td>
+        <td>
+          {pkg.company.email}
+        </td>
+        <td>
+          {pkg.priceAdult.toLocaleString()}
+        </td>
+        <td>
+          {pkg.priceChild.toLocaleString()}
+        </td>
         <td style={{ textAlign: 'center' }}>
           <button
+            style={{ margin: 0 }}
             className="btn btn-primary btn-sm"
             onClick={() => openAddBookingModal(pkg._id)}
           >
