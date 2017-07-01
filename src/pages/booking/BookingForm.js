@@ -6,7 +6,7 @@ import renderField from '../../components/renderField'
 
 class BookingForm extends PureComponent {
   render() {
-    const { handleSubmit, closeModal } = this.props
+    const { handleSubmit, reset, pristine, submitting, closeModal } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
@@ -80,11 +80,42 @@ class BookingForm extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeModal}>Close</Button>
-          <Button bsStyle="primary" type="submit">Save</Button>
+          <Button
+            bsStyle="info"
+            onClick={reset}
+            disabled={pristine || submitting}
+          >
+            Reset
+          </Button>
+          <Button bsStyle="primary" disabled={submitting} type="submit">
+            Save
+          </Button>
         </Modal.Footer>
       </form>
     )
   }
 }
 
-export default reduxForm({ form: 'booking ' })(BookingForm)
+const validate = values => {
+  const errors = {}
+  if (!values.name) {
+    errors.name = 'Required'
+  }
+  if (!values.phoneNumber) {
+    errors.phoneNumber = 'Required'
+  }
+  if (!values.hotel) {
+    errors.hotel = 'Required'
+  }
+  if (!values.adult) {
+    errors.adult = 'Required'
+  } else if (isNaN(Number(values.adult))) {
+    errors.adult = 'Must be a number'
+  }
+  if (values.child && isNaN(Number(values.child))) {
+    errors.child = 'Must be a number'
+  }
+  return errors
+}
+
+export default reduxForm({ form: 'booking', validate })(BookingForm)

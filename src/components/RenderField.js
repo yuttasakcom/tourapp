@@ -23,10 +23,24 @@ class renderField extends PureComponent {
   render() {
     const { label, meta: { touched, error, warning } } = this.props
     return (
-      <div className="form-group label-floating">
-        <label className="control-label">{label}</label>
+      <div
+        className={`form-group label-floating ${touched &&
+          error &&
+          'has-error'}`}
+      >
+        <label className="control-label">
+          {label}
+        </label>
         {this.renderInput()}
-        {touched && error && warning}
+        {touched &&
+          ((error &&
+            <span style={{ color: 'red' }}>
+              {error}
+            </span>) ||
+            (warning &&
+              <span>
+                {warning}
+              </span>))}
       </div>
     )
   }

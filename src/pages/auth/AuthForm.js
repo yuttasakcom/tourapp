@@ -28,7 +28,9 @@ class AuthForm extends PureComponent {
 
     return (
       <Link to={path}>
-        <Button bsStyle="info">{text}</Button>
+        <Button bsStyle="info">
+          {text}
+        </Button>
       </Link>
     )
   }
@@ -36,6 +38,7 @@ class AuthForm extends PureComponent {
   render() {
     const {
       handleSubmit,
+      submitting,
       title,
       description,
       authenticated,
@@ -67,7 +70,7 @@ class AuthForm extends PureComponent {
               />
             </div>
             <div className="row pull-right">
-              <Button bsStyle="primary" type="submit">
+              <Button bsStyle="primary" type="submit" disabled={submitting}>
                 Submit
               </Button>
               {this.renderAlternativeLink()}
@@ -79,8 +82,23 @@ class AuthForm extends PureComponent {
   }
 }
 
+const validate = values => {
+  const errors = {}
+  if (!values.email) {
+    errors.email = 'Required'
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address'
+  }
+  if (!values.password) {
+    errors.password = 'Required'
+  }
+  return errors
+}
+
 const mapStateToProps = ({ auth: { notification, authenticated } }) => {
   return { authenticated, notification }
 }
 
-export default reduxForm({ form: 'auth' })(connect(mapStateToProps)(AuthForm))
+export default reduxForm({ form: 'auth', validate })(
+  connect(mapStateToProps)(AuthForm)
+)
