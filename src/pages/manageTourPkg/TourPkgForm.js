@@ -6,7 +6,7 @@ import renderField from '../../components/renderField'
 
 class TourPkgForm extends PureComponent {
   render() {
-    const { handleSubmit, closeModal } = this.props
+    const { handleSubmit, reset, closeModal } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
@@ -48,7 +48,12 @@ class TourPkgForm extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeModal}>Close</Button>
-          <Button bsStyle="primary" type="submit">Save</Button>
+          <Button bsStyle="info" onClick={reset}>
+            Reset
+          </Button>
+          <Button bsStyle="primary" type="submit">
+            Save
+          </Button>
         </Modal.Footer>
       </form>
     )
