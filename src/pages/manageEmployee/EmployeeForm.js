@@ -6,7 +6,7 @@ import renderField from '../../components/renderField'
 
 class EmployeeForm extends PureComponent {
   render() {
-    const { handleSubmit, closeModal } = this.props
+    const { handleSubmit, pristine, reset, submitting, closeModal } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
@@ -48,11 +48,39 @@ class EmployeeForm extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeModal}>Close</Button>
-          <Button bsStyle="primary" type="submit">Save</Button>
+          <Button
+            bsStyle="info"
+            disabled={pristine || submitting}
+            onClick={reset}
+          >
+            Reset
+          </Button>
+          <Button bsStyle="primary" type="submit" disabled={submitting}>
+            Save
+          </Button>
         </Modal.Footer>
       </form>
     )
   }
 }
 
-export default reduxForm({ form: 'employee' })(EmployeeForm)
+const validate = values => {
+  const errors = {}
+  if (!values.name) {
+    errors.name = 'Required'
+  }
+  if (!values.phoneNumber) {
+    errors.phoneNumber = 'Required'
+  }
+  if (!values.email) {
+    errors.email = 'Required'
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address'
+  }
+  if (!values.password) {
+    errors.password = 'Required'
+  }
+  return errors
+}
+
+export default reduxForm({ form: 'employee', validate })(EmployeeForm)
