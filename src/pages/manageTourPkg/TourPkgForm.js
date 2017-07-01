@@ -60,4 +60,22 @@ class TourPkgForm extends PureComponent {
   }
 }
 
-export default reduxForm({ form: 'tourPkg' })(TourPkgForm)
+const validate = values => {
+  const errors = {}
+  if (!values.name) {
+    errors.name = 'Required'
+  }
+  if (!values.priceAdult) {
+    errors.priceAdult = 'Required'
+  } else if (isNaN(Number(values.priceAdult))) {
+    errors.priceAdult = 'Must be a number'
+  }
+  if (!values.priceChild) {
+    errors.priceChild = 'Required'
+  } else if (isNaN(Number(values.priceChild))) {
+    errors.priceChild = 'Must be a number'
+  }
+  return errors
+}
+
+export default reduxForm({ form: 'tourPkg', validate })(TourPkgForm)
