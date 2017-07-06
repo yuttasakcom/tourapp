@@ -1,2 +1,1 @@
-export const getProfile = (req, res, next) =>
-  res.send({ message: 'realy secret' })
+module.exports = (req, res, next) => res.send({ message: 'realy secret' })

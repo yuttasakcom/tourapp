@@ -1,8 +1,8 @@
-import redis from '../redis'
-import logger from '../../utils/logger'
-import { getUserDetail } from '../helper'
+const redis = require('../redis')
+const logger = require('../../utils/logger')
+const { getUserDetail } = require('../helper')
 
-export const onConnection = async socket => {
+module.exports = async socket => {
   const { _id, sub, role } = socket.decoded_token
   const { id } = socket
   logger.info(`${role} ${sub} has connected!`)

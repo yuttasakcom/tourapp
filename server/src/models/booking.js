@@ -1,5 +1,5 @@
-import mongoose from './mongoose'
-import touristSchema from './sub_documents/tourist'
+const mongoose = require('./mongoose')
+const touristSchema = require('./sub_documents/tourist')
 
 const Schema = mongoose.Schema
 
@@ -28,4 +28,4 @@ const bookingSchema = new Schema({
 
 const Booking = mongoose.model('Booking', bookingSchema)
 
-export default Booking
+module.exports = Booking

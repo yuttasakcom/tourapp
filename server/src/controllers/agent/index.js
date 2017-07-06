@@ -1,15 +1,15 @@
-export * from './accept'
-export * from './addBooking'
-export * from './addEmployee'
-export * from './cancelRequest'
-export * from './deleteRelationship'
-export * from './getAcceptPendingsList'
-export * from './getCompaniesList'
-export * from './getPkgsList'
-export * from './getProfile'
-export * from './getRequestPendingsList'
-export * from './getBookingsList'
-export * from './rejectRequest'
-export * from './request'
-export * from './signin'
-export * from './signup'
+exports.accept = require('./accept')
+exports.addBooking = require('./addBooking')
+exports.addEmployee = require('./addEmployee')
+exports.cancelRequest = require('./cancelRequest')
+exports.deleteRelationship = require('./deleteRelationship')
+exports.getAcceptPendingsList = require('./getAcceptPendingsList')
+exports.getCompaniesList = require('./getCompaniesList')
+exports.getPkgsList = require('./getPkgsList')
+exports.getProfile = require('./getProfile')
+exports.getRequestPendingsList = require('./getRequestPendingsList')
+exports.getBookingsList = require('./getBookingsList')
+exports.rejectRequest = require('./rejectRequest')
+exports.request = require('./request')
+exports.signin = require('./signin')
+exports.signup = require('./signup')

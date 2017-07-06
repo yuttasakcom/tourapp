@@ -1,5 +1,5 @@
-import { notify } from '../helper'
+const { notify } = require('../helper')
 
-export const onRequest = async (socket, _id) => {
+module.exports = async (socket, _id) => {
   notify(socket, 'request', _id)
 }

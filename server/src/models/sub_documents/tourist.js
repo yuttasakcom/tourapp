@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
@@ -13,4 +13,4 @@ const touristSchema = new Schema({
   note: String
 })
 
-export default touristSchema
+module.exports = touristSchema

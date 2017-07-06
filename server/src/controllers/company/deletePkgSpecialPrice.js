@@ -1,6 +1,6 @@
-import Pkg from '../../models/pkg'
+const Pkg = require('../../models/pkg')
 
-export const deletePkgSpecialPrice = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const { pkgId, agentId } = req.params
   await Pkg.update(
     { _id: pkgId },

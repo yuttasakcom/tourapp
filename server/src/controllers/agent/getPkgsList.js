@@ -1,7 +1,7 @@
-import Agent from '../../models/agent'
-import Pkg from '../../models/pkg'
+const Agent = require('../../models/agent')
+const Pkg = require('../../models/pkg')
 
-export const getPkgsList = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const agentId = req.user._id
 
   const agent = await Agent.findById(agentId, {

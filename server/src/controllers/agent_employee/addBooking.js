@@ -1,7 +1,7 @@
-import Agent from '../../models/agent'
-import Booking from '../../models/booking'
+const Agent = require('../../models/agent')
+const Booking = require('../../models/booking')
 
-export const addBooking = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const user = req.user
   const bookingProps = req.body
 

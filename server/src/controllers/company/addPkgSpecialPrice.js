@@ -1,6 +1,6 @@
-import Pkg from '../../models/pkg'
+const Pkg = require('../../models/pkg')
 
-export const addPkgSpecialPrice = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const pkgId = req.params.pkgId
   const specialPriceProps = req.body
 

@@ -1,11 +1,10 @@
-import express from 'express'
-import passport from 'passport'
-import * as c from '../controllers/agent'
-import { hasRole } from '../middlewares'
+const router = require('express').Router()
+const passport = require('passport')
+const c = require('../controllers/agent')
+const { hasRole } = require('../middlewares')
 
 const requireSignin = passport.authenticate('local', { session: false })
 const requireAuth = passport.authenticate('jwt', { session: false })
-const router = express.Router()
 
 router.post('/signup', c.signup)
 router.post('/signin', requireSignin, c.signin)
@@ -26,4 +25,4 @@ router.post('/employees', c.addEmployee)
 router.post('/bookings', c.addBooking)
 router.get('/bookings', c.getBookingsList)
 
-export default router
+module.exports = router

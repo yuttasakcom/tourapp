@@ -1,5 +1,5 @@
-import app from './app'
-import logger from './utils/logger'
+const app = require('./app')
+const logger = require('./utils/logger')
 
 const port = process.env.PORT || 4000
 app.listen(port, () => {

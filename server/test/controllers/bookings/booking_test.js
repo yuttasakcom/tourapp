@@ -246,7 +246,7 @@ describe('Booking', () => {
     })
   })
 
-  describe.only('Add booking', () => {
+  describe('Add booking', () => {
     let booking1Props
 
     beforeEach(async () => {

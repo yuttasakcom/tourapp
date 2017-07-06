@@ -1,7 +1,7 @@
-import Company from '../../models/company'
-import Agent from '../../models/agent'
+const Company = require('../../models/company')
+const Agent = require('../../models/agent')
 
-export const cancelRequest = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const companyId = req.user._id
   const agentId = req.params.id
 

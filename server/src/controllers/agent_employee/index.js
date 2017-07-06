@@ -1,4 +1,4 @@
-export * from './addBooking'
-export * from './getPkgsList'
-export * from './getProfile'
-export * from './signin'
+exports.addBooking = require('./addBooking')
+exports.getPkgsList = require('./getPkgsList')
+exports.getProfile = require('./getProfile')
+exports.signin = require('./signin')

@@ -1,6 +1,6 @@
-import Booking from '../../models/booking'
+const Booking = require('../../models/booking')
 
-export const getBookingsList = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const companyId = req.user._id
 
   const bookings = await Booking.find({ company: companyId }).populate(

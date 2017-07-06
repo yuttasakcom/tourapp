@@ -1,15 +1,18 @@
-import jwt from 'jwt-simple'
-import config from '../../config'
+const jwt = require('jwt-simple')
+const config = require('../../config')
 
-export default agent => {
+module.exports = agent => {
   const timestamp = new Date().getTime()
   const employee = agent.employees[0]
 
-  return jwt.encode({
-    _id: employee._id,
-    agentId: agent._id,
-    sub: employee.email,
-    role: 'agentEmployee',
-    iat: timestamp,
-  }, config.secret)
+  return jwt.encode(
+    {
+      _id: employee._id,
+      agentId: agent._id,
+      sub: employee.email,
+      role: 'agentEmployee',
+      iat: timestamp
+    },
+    config.secret
+  )
 }

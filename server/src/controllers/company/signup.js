@@ -1,8 +1,11 @@
-import Company from '../../models/company'
-import generateToken from './generateToken'
-import { checkEmailExist, hashPassword } from '../../helpers/authentication'
+const Company = require('../../models/company')
+const generateToken = require('./generateToken')
+const {
+  checkEmailExist,
+  hashPassword
+} = require('../../helpers/authentication')
 
-export const signup = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const companyProps = req.body
   const company = new Company(companyProps)
   const validationErr = company.validateSync()
