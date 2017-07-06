@@ -1,7 +1,7 @@
-import bcrypt from 'bcrypt-nodejs'
-import mongoose from '../models/mongoose'
+const bcrypt = require('bcrypt-nodejs')
+const mongoose = require('../models/mongoose')
 
-export const comparePassword = (candidatePassword, realPassword) =>
+exports.comparePassword = (candidatePassword, realPassword) =>
   new Promise((resolve, reject) => {
     bcrypt.compare(candidatePassword, realPassword, (err, isMatch) => {
       if (err) return reject(err)
@@ -10,7 +10,7 @@ export const comparePassword = (candidatePassword, realPassword) =>
     })
   })
 
-export const checkEmailExist = (modelName, email) =>
+exports.checkEmailExist = (modelName, email) =>
   new Promise(async (resolve, reject) => {
     const User = mongoose.model(modelName)
     try {
@@ -21,7 +21,7 @@ export const checkEmailExist = (modelName, email) =>
     }
   })
 
-export const checkEmployeeEmailExist = (modelName, employerId, email) =>
+exports.checkEmployeeEmailExist = (modelName, employerId, email) =>
   new Promise(async (resolve, reject) => {
     const Employer = mongoose.model(modelName)
 
@@ -40,7 +40,7 @@ export const checkEmployeeEmailExist = (modelName, employerId, email) =>
     }
   })
 
-export const hashPassword = password =>
+exports.hashPassword = password =>
   new Promise((resolve, reject) => {
     bcrypt.genSalt(10, (err, salt) => {
       if (err) return reject(err)

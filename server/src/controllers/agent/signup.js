@@ -1,8 +1,11 @@
-import Agent from '../../models/agent'
-import generateToken from './generateToken'
-import { hashPassword, checkEmailExist } from '../../helpers/authentication'
+const Agent = require('../../models/agent')
+const generateToken = require('./generateToken')
+const {
+  hashPassword,
+  checkEmailExist
+} = require('../../helpers/authentication')
 
-export const signup = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const agentProps = req.body
   const agent = new Agent(agentProps)
   const validationErr = agent.validateSync()

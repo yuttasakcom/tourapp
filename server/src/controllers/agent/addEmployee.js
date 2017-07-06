@@ -1,10 +1,10 @@
-import Agent from '../../models/agent'
-import {
+const Agent = require('../../models/agent')
+const {
   hashPassword,
   checkEmployeeEmailExist
-} from '../../helpers/authentication'
+} = require('../../helpers/authentication')
 
-export const addEmployee = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const agentId = req.user._id
   const employeeProps = req.body
 

@@ -1,18 +1,18 @@
-import winston from 'winston'
-import expressWinston from 'express-winston'
+const winston = require('winston')
+const expressWinston = require('express-winston')
 
-import logger from '../utils/logger'
+const logger = require('../utils/logger')
 
-export const handleNotFound = (req, res, next) => {
+exports.handleNotFound = (req, res, next) => {
   res.status(404).send("Sorry can't find that!")
 }
 
-export const handleAnotherError = (err, req, res, next) => {
+exports.handleAnotherError = (err, req, res, next) => {
   logger.warn(err.message)
   res.status(err.status || 500).send({ error: err.message })
 }
 
-export const hasRole = role => (req, res, next) => {
+exports.hasRole = role => (req, res, next) => {
   if (role === req.user.role) {
     return next()
   }
@@ -21,7 +21,7 @@ export const hasRole = role => (req, res, next) => {
   return next(err)
 }
 
-export const detailLogger = expressWinston.logger({
+exports.detailLogger = expressWinston.logger({
   requestWhitelist: ['body'],
   responseWhitelist: ['body'],
   transports: [

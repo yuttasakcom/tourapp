@@ -1,16 +1,20 @@
-import express from 'express'
-import { createServer } from 'http'
-import createIo from 'socket.io'
-import socketIoRedis from 'socket.io-redis'
-import cors from 'cors'
-import morgan from 'morgan'
-import bodyParser from 'body-parser'
+const express = require('express')
+const { createServer } = require('http')
+const createIo = require('socket.io')
+const socketIoRedis = require('socket.io-redis')
+const cors = require('cors')
+const morgan = require('morgan')
+const bodyParser = require('body-parser')
 
-import redis from './socket/redis'
-import mongoose from './models/mongoose'
-import router from './routes'
-import socket from './socket'
-import { handleNotFound, handleAnotherError, detailLogger } from './middlewares'
+const redis = require('./socket/redis')
+const mongoose = require('./models/mongoose')
+const router = require('./routes')
+const socket = require('./socket')
+const {
+  handleNotFound,
+  handleAnotherError,
+  detailLogger
+} = require('./middlewares')
 
 redis.flushdb()
 
@@ -39,4 +43,4 @@ router(app)
 app.use(handleNotFound)
 app.use(handleAnotherError)
 
-export default server
+module.exports = server

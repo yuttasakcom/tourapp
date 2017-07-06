@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema
 
@@ -17,4 +17,4 @@ const employeeSchema = new Schema({
   phoneNumber: String
 })
 
-export default employeeSchema
+module.exports = employeeSchema

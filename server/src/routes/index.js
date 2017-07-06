@@ -1,9 +1,9 @@
-import '../services/passport'
-import companyRoute from './company_route'
-import agentRoute from './agent_route'
-import agentEmployeeRoute from './agent_employee_route'
+require('../services/passport')
+const companyRoute = require('./company_route')
+const agentRoute = require('./agent_route')
+const agentEmployeeRoute = require('./agent_employee_route')
 
-export default app => {
+module.exports = app => {
   app.use('/companies', companyRoute)
   app.use('/agents', agentRoute)
   app.use('/agents-employees', agentEmployeeRoute)

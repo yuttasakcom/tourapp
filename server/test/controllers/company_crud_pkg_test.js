@@ -1,6 +1,6 @@
-import { expect } from 'chai'
-import mongoose from 'mongoose'
-import * as h from '../helpers'
+const { expect } = require('chai')
+const mongoose = require('mongoose')
+const h = require('../helpers')
 
 const Company = mongoose.model('Company')
 const Pkg = mongoose.model('Pkg')
@@ -21,7 +21,9 @@ describe('Company CRUD pkg', () => {
     priceChild: '2000'
   }
 
-  const company1SigninProps = { ...company1Props, role: 'company' }
+  const company1SigninProps = Object.assign({}, company1Props, {
+    role: 'company'
+  })
 
   beforeEach(async () => {
     await h.companySignUp(company1Props)

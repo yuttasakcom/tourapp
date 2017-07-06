@@ -1,21 +1,21 @@
-export * from './accept'
-export * from './addPkg'
-export * from './addPkgSpecialPrice'
-export * from './cancelRequest'
-export * from './deletePkg'
-export * from './deleteRelationship'
-export * from './getAcceptPendingsList'
-export * from './getAgentsList'
-export * from './getBookingsList'
-export * from './getPkg'
-export * from './getPkgsList'
-export * from './getProfile'
-export * from './getRequestPendingsList'
-export * from './rejectRequest'
-export * from './request'
-export * from './signin'
-export * from './signup'
-export * from './updateBooking'
-export * from './updatePkg'
-export * from './getSpecialPricesList'
-export * from './deletePkgSpecialPrice'
+exports.accept = require('./accept')
+exports.addPkg = require('./addPkg')
+exports.addPkgSpecialPrice = require('./addPkgSpecialPrice')
+exports.cancelRequest = require('./cancelRequest')
+exports.deletePkg = require('./deletePkg')
+exports.deleteRelationship = require('./deleteRelationship')
+exports.getAcceptPendingsList = require('./getAcceptPendingsList')
+exports.getAgentsList = require('./getAgentsList')
+exports.getBookingsList = require('./getBookingsList')
+exports.getPkg = require('./getPkg')
+exports.getPkgsList = require('./getPkgsList')
+exports.getProfile = require('./getProfile')
+exports.getRequestPendingsList = require('./getRequestPendingsList')
+exports.rejectRequest = require('./rejectRequest')
+exports.request = require('./request')
+exports.signin = require('./signin')
+exports.signup = require('./signup')
+exports.updateBooking = require('./updateBooking')
+exports.updatePkg = require('./updatePkg')
+exports.getSpecialPricesList = require('./getSpecialPricesList')
+exports.deletePkgSpecialPrice = require('./deletePkgSpecialPrice')

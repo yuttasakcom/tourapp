@@ -1,6 +1,6 @@
-import Pkg from '../../models/pkg'
+const Pkg = require('../../models/pkg')
 
-export const deletePkg = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const pkgId = req.params.id
 
   await Pkg.remove({ _id: pkgId })

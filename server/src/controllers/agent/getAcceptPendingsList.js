@@ -1,6 +1,6 @@
-import Agent from '../../models/agent'
+const Agent = require('../../models/agent')
 
-export const getAcceptPendingsList = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const agentId = req.user._id
 
   const acceptPendings = await Agent.findById(agentId, {

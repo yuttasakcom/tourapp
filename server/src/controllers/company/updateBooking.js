@@ -1,6 +1,6 @@
-import Booking from '../../models/booking'
+const Booking = require('../../models/booking')
 
-export const updateBooking = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const bookingId = req.params.id
   const bookingProps = req.body
 

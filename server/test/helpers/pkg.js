@@ -1,42 +1,42 @@
-import request from 'supertest'
-import app from '../../src/app'
+const request = require('supertest')
+const app = require('../../src/app')
 
-export const agentGetPkgs = token =>
+exports.agentGetPkgs = token =>
   request(app).get('/agents/pkgs').set('authorization', token)
 
-export const agentEmployeeGetPkgs = token =>
+exports.agentEmployeeGetPkgs = token =>
   request(app).get('/agents-employees/pkgs').set('authorization', token)
 
-export const companyGetPkgs = token =>
+exports.companyGetPkgs = token =>
   request(app).get('/companies/pkgs').set('authorization', token)
 
-export const companyGetPkg = (token, pkgId) =>
+exports.companyGetPkg = (token, pkgId) =>
   request(app).get(`/companies/pkgs/${pkgId}`).set('authorization', token)
 
-export const companyAddPkg = (token, props) =>
+exports.companyAddPkg = (token, props) =>
   request(app).post('/companies/pkgs').send(props).set('authorization', token)
 
-export const companyDeletePkg = (token, pkgId) =>
+exports.companyDeletePkg = (token, pkgId) =>
   request(app).delete(`/companies/pkgs/${pkgId}`).set('authorization', token)
 
-export const companyEditPkg = (token, pkgId, props) =>
+exports.companyEditPkg = (token, pkgId, props) =>
   request(app)
     .put(`/companies/pkgs/${pkgId}`)
     .set('authorization', token)
     .send(props)
 
-export const companyOfferSpecialPrice = (token, pkgId, props) =>
+exports.companyOfferSpecialPrice = (token, pkgId, props) =>
   request(app)
     .post(`/companies/pkgs/${pkgId}/special-prices`)
     .send(props)
     .set('authorization', token)
 
-export const companyGetSpecialPrices = (token, agentId) =>
+exports.companyGetSpecialPrices = (token, agentId) =>
   request(app)
     .get(`/companies/special-prices/${agentId}`)
     .set('authorization', token)
 
-export const companyResetSpecialPrice = (token, pkgId, agentId) =>
+exports.companyResetSpecialPrice = (token, pkgId, agentId) =>
   request(app)
     .delete(`/companies/pkgs/${pkgId}/special-prices/${agentId}`)
     .set('authorization', token)

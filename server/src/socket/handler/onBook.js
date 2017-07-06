@@ -1,6 +1,6 @@
-import { getSocketIds } from '../helper'
+const { getSocketIds } = require('../helper')
 
-export const onBook = async (socket, data) => {
+module.exports = async (socket, data) => {
   const socketIds = await getSocketIds(data.company)
   socketIds.forEach(socketId => {
     socket.broadcast.to(socketId).emit('book', data)

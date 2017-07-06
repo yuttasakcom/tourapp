@@ -1,9 +1,9 @@
-import socketIoJwt from 'socketio-jwt'
+const socketIoJwt = require('socketio-jwt')
 
-import config from '../config'
-import * as h from './handler'
+const config = require('../config')
+const h = require('./handler')
 
-export default io => {
+module.exports = io => {
   io.use(
     socketIoJwt.authorize({
       secret: config.secret,

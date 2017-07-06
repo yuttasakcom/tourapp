@@ -1,8 +1,8 @@
-export * from './onDisconnect'
-export * from './onConnection'
-export * from './onRequest'
-export * from './onAccept'
-export * from './onCancelRequest'
-export * from './onDeleteRelationship'
-export * from './onRejectRequest'
-export * from './onBook'
+exports.onDisconnect = require('./onDisconnect')
+exports.onConnection = require('./onConnection')
+exports.onRequest = require('./onRequest')
+exports.onAccept = require('./onAccept')
+exports.onCancelRequest = require('./onCancelRequest')
+exports.onDeleteRelationship = require('./onDeleteRelationship')
+exports.onRejectRequest = require('./onRejectRequest')
+exports.onBook = require('./onBook')

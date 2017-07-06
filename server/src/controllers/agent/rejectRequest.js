@@ -1,7 +1,7 @@
-import Agent from '../../models/agent'
-import Company from '../../models/company'
+const Agent = require('../../models/agent')
+const Company = require('../../models/company')
 
-export const rejectRequest = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const agentId = req.user._id
   const companyId = req.params.id
 

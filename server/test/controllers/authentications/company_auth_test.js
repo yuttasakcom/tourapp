@@ -1,8 +1,8 @@
-import chai from 'chai'
-import dirtyChai from 'dirty-chai'
-import mongoose from 'mongoose'
-import { comparePassword } from '../../../src/helpers/authentication'
-import * as h from '../../helpers'
+const chai = require('chai')
+const dirtyChai = require('dirty-chai')
+const mongoose = require('mongoose')
+const { comparePassword } = require('../../../src/helpers/authentication')
+const h = require('../../helpers')
 
 chai.use(dirtyChai)
 
@@ -15,7 +15,9 @@ describe('company authentication', () => {
     password: '1234'
   }
 
-  const companySigninProps = { ...companyProps, role: 'company' }
+  const companySigninProps = Object.assign({}, companyProps, {
+    role: 'company'
+  })
 
   describe('signup', () => {
     it('create a new company', async () => {

@@ -1,30 +1,30 @@
-import request from 'supertest'
-import app from '../../src/app'
+const request = require('supertest')
+const app = require('../../src/app')
 
-export const agentRequest = (token, { _id }) =>
+exports.agentRequest = (token, { _id }) =>
   request(app).post('/agents/request').send({ _id }).set('authorization', token)
 
-export const agentCancelRequest = (token, { _id }) =>
+exports.agentCancelRequest = (token, { _id }) =>
   request(app)
     .delete(`/agents/cancel-request/${_id}`)
     .set('authorization', token)
 
-export const agentAccept = (token, { _id }) =>
+exports.agentAccept = (token, { _id }) =>
   request(app).post('/agents/accept').send({ _id }).set('authorization', token)
 
-export const agentDeleteRelationship = (token, { _id }) =>
+exports.agentDeleteRelationship = (token, { _id }) =>
   request(app).delete(`/agents/relationship/${_id}`).set('authorization', token)
 
-export const agentRejectRequest = (token, { _id }) =>
+exports.agentRejectRequest = (token, { _id }) =>
   request(app)
     .delete(`/agents/reject-request/${_id}`)
     .set('authorization', token)
 
-export const agentGetRequestPendings = token =>
+exports.agentGetRequestPendings = token =>
   request(app).get('/agents/request-pendings').set('authorization', token)
 
-export const agentGetAcceptPendings = token =>
+exports.agentGetAcceptPendings = token =>
   request(app).get('/agents/accept-pendings').set('authorization', token)
 
-export const agentGetCompanies = token =>
+exports.agentGetCompanies = token =>
   request(app).get('/agents/companies').set('authorization', token)

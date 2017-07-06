@@ -1,6 +1,6 @@
-import Company from '../../models/company'
+const Company = require('../../models/company')
 
-export const getAgentsList = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   const companyId = req.user._id
   try {
     const company = await Company.findById(companyId, {

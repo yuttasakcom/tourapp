@@ -1,4 +1,4 @@
-import generateToken from './generateToken'
+const generateToken = require('./generateToken')
 
-export const signin = (req, res, next) =>
+module.exports = (req, res, next) =>
   res.send({ token: generateToken(req.user), _id: req.user._id })

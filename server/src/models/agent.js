@@ -1,5 +1,5 @@
-import mongoose from './mongoose'
-import employeeSchema from './sub_documents/employee'
+const mongoose = require('./mongoose')
+const employeeSchema = require('./sub_documents/employee')
 
 const Schema = mongoose.Schema
 
@@ -37,4 +37,4 @@ const agentSchema = new Schema({
 
 const Agent = mongoose.model('Agent', agentSchema)
 
-export default Agent
+module.exports = Agent

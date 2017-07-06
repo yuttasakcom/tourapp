@@ -1,6 +1,6 @@
-import mongoose from 'mongoose'
-import { expect } from 'chai'
-import { objectId } from '../helpers'
+const mongoose = require('mongoose')
+const { expect } = require('chai')
+const { objectId } = require('../helpers')
 
 const Pkg = mongoose.model('Pkg')
 
