@@ -32,13 +32,6 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.0",
-    "babel-core": "^6.24.0",
-    "babel-eslint": "^7.2.1",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-es2015-node": "^6.1.1",
-    "babel-preset-stage-0": "^6.22.0",
-    "babel-register": "^6.24.0",
     "chai": "^3.5.0",
     "cross-env": "^3.1.4",
     "dirty-chai": "^1.2.2",
@@ -48,12 +41,7 @@
     "eslint-plugin-mocha": "^4.9.0",
     "eslint-plugin-react": "^6.10.0",
     "mocha": "^3.2.0",
-    "mockgoose": "^7.0.7",
     "nodemon": "^1.11.0",
     "supertest": "^3.0.0"
-  },
-  "babel": {
-    "presets": ["es2015-node"],
-    "plugins": ["transform-object-rest-spread"]
   }
 }
