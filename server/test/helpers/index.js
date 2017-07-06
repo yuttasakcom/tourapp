@@ -1,6 +1,8 @@
-export * from './mock'
-export * from './authentication'
-export * from './companyRelationship'
-export * from './agentRelationship'
-export * from './pkg'
-export * from './booking'
+module.exports = Object.assign(
+  require('./mock'),
+  require('./authentication'),
+  require('./companyRelationship'),
+  require('./agentRelationship'),
+  require('./pkg'),
+  require('./booking')
+)

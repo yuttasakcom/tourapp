@@ -1,7 +1,7 @@
-import { expect } from 'chai'
-import mongoose from 'mongoose'
-import { comparePassword } from '../../../src/helpers/authentication'
-import * as h from '../../helpers'
+const { expect } = require('chai')
+const mongoose = require('mongoose')
+const { comparePassword } = require('../../../src/helpers/authentication')
+const h = require('../../helpers')
 
 const Agent = mongoose.model('Agent')
 
@@ -21,11 +21,10 @@ describe('Agent add employee', () => {
     phoneNumber: '024283192'
   }
 
-  const agent1SigninProps = {
-    ...agent1Props,
+  const agent1SigninProps = Object.assign({}, agent1Props, {
     role: 'agent',
     password: h.password.raw
-  }
+  })
 
   beforeEach(async () => {
     agent1 = new Agent(agent1Props)

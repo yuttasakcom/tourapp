@@ -1,5 +1,5 @@
-import { expect } from 'chai'
-import mongoose from 'mongoose'
+const { expect } = require('chai')
+const mongoose = require('mongoose')
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')

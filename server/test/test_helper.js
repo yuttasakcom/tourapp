@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 // import { Mockgoose } from 'mockgoose'
 
 // const mockgoose = new Mockgoose(mongoose)

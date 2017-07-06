@@ -1,4 +1,4 @@
-export const status = {
+exports.status = {
   waiting: 0,
   readed: 1,
   accepted: 2,

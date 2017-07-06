@@ -1,6 +1,6 @@
-import { expect } from 'chai'
-import mongoose from 'mongoose'
-import * as h from '../../helpers'
+const { expect } = require('chai')
+const mongoose = require('mongoose')
+const h = require('../../helpers')
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
@@ -14,11 +14,10 @@ describe('Company get empty agents list', () => {
     password: h.password.hash
   }
 
-  const company1SigninProps = {
-    ...company1Props,
+  const company1SigninProps = Object.assign({}, company1Props, {
     role: 'company',
     password: h.password.raw
-  }
+  })
 
   beforeEach(async () => {
     company1 = new Company(company1Props)
@@ -55,11 +54,10 @@ describe('Company get agents list', () => {
     password: h.password.hash
   }
 
-  const company1SigninProps = {
-    ...company1Props,
+  const company1SigninProps = Object.assign({}, company1Props, {
     role: 'company',
     password: h.password.raw
-  }
+  })
 
   beforeEach(async () => {
     company1 = new Company(company1Props)

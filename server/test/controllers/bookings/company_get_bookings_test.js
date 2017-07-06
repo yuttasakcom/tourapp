@@ -1,7 +1,6 @@
-import { expect } from 'chai'
-import mongoose from 'mongoose'
-import * as h from '../../helpers'
-import { status } from '../../../src/helpers/booking'
+const { expect } = require('chai')
+const mongoose = require('mongoose')
+const h = require('../../helpers')
 
 const Booking = mongoose.model('Booking')
 const Company = mongoose.model('Company')

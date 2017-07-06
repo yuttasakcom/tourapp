@@ -1,8 +1,8 @@
-import dirtyChai from 'dirty-chai'
-import chai from 'chai'
-import mongoose from 'mongoose'
-import { comparePassword } from '../../../src/helpers/authentication'
-import * as h from '../../helpers'
+const dirtyChai = require('dirty-chai')
+const chai = require('chai')
+const mongoose = require('mongoose')
+const { comparePassword } = require('../../../src/helpers/authentication')
+const h = require('../../helpers')
 
 chai.use(dirtyChai)
 
@@ -15,7 +15,7 @@ describe('agent authentication', () => {
     password: '1234'
   }
 
-  const agentSigninProps = { ...agentProps, role: 'agent' }
+  const agentSigninProps = Object.assign({}, agentProps, { role: 'agent' })
 
   describe('signup', () => {
     it('create a new agent', async () => {

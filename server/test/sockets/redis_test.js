@@ -1,5 +1,5 @@
-import { expect } from 'chai'
-import redis from '../../src/socket/redis'
+const { expect } = require('chai')
+const redis = require('../../src/socket/redis')
 
 describe('redis', () => {
   beforeEach(() => {

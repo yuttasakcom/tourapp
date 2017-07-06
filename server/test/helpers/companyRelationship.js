@@ -1,38 +1,38 @@
-import request from 'supertest'
-import app from '../../src/app'
+const request = require('supertest')
+const app = require('../../src/app')
 
-export const companyRequest = (token, { _id }) =>
+exports.companyRequest = (token, { _id }) =>
   request(app)
     .post('/companies/request')
     .send({ _id })
     .set('authorization', token)
 
-export const companyAccept = (token, { _id }) =>
+exports.companyAccept = (token, { _id }) =>
   request(app)
     .post('/companies/accept')
     .send({ _id })
     .set('authorization', token)
 
-export const companyDeleteRelationship = (token, { _id }) =>
+exports.companyDeleteRelationship = (token, { _id }) =>
   request(app)
     .delete(`/companies/relationship/${_id}`)
     .set('authorization', token)
 
-export const companyCancelRequest = (token, { _id }) =>
+exports.companyCancelRequest = (token, { _id }) =>
   request(app)
     .delete(`/companies/cancel-request/${_id}`)
     .set('authorization', token)
 
-export const companyRejectRequest = (token, { _id }) =>
+exports.companyRejectRequest = (token, { _id }) =>
   request(app)
     .delete(`/companies/reject-request/${_id}`)
     .set('authorization', token)
 
-export const companyGetAgents = token =>
+exports.companyGetAgents = token =>
   request(app).get('/companies/agents').set('authorization', token)
 
-export const companyGetRequestPendings = token =>
+exports.companyGetRequestPendings = token =>
   request(app).get('/companies/request-pendings').set('authorization', token)
 
-export const companyGetAcceptPendings = token =>
+exports.companyGetAcceptPendings = token =>
   request(app).get('/companies/accept-pendings').set('authorization', token)

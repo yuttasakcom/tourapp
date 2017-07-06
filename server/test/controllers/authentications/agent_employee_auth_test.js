@@ -1,7 +1,7 @@
-import chai from 'chai'
-import mongoose from 'mongoose'
-import dirtyChai from 'dirty-chai'
-import * as h from '../../helpers'
+const chai = require('chai')
+const mongoose = require('mongoose')
+const dirtyChai = require('dirty-chai')
+const h = require('../../helpers')
 
 chai.use(dirtyChai)
 
@@ -24,11 +24,10 @@ describe('agent employee authentication', () => {
     phoneNumber: '024283192'
   }
 
-  const agent1SigninProps = {
-    ...agent1Props,
+  const agent1SigninProps = Object.assign({}, agent1Props, {
     role: 'agent',
     password: h.password.raw
-  }
+  })
 
   const employee1SigninProps = {
     email: 'agent1@test.com..employee1@test.com',
