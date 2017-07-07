@@ -1,14 +1,14 @@
 const { expect } = require('chai')
 const mongoose = require('mongoose')
 const h = require('../../helpers')
-const { status } = require('../../../src/helpers/booking')
+const { status } = require('../../../../src/helpers/booking')
 
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 const Booking = mongoose.model('Booking')
 const Pkg = mongoose.model('Pkg')
 
-describe('Booking', () => {
+describe.only('Booking', () => {
   let company1
   let company2
   let company1Token

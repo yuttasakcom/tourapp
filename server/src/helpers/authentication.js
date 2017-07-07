@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt-nodejs')
-const mongoose = require('../models/mongoose')
+const mongoose = require('mongoose')
 
 exports.comparePassword = (candidatePassword, realPassword) =>
   new Promise((resolve, reject) => {

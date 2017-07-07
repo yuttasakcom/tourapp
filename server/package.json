@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "deploy:test": "cross-env NODE_ENV=test mocha --timeout 2000 --recursive test/",
-    "test": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/",
-    "start": "cross-env NODE_ENV=production nodemon src/index.js",
+    "test:d": "cross-env NODE_ENV=test mocha --timeout 2000 --recursive test/",
+    "test:i": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/integration",
+    "test:e": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/experiment",
+    "test:u": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/unit",
+    "start": "cross-env NODE_ENV=production node src/index.js",
+    "dev": "cross-env NODE_ENV=production nodemon src/index.js",
     "eslint": "nodemon --exec eslint src/ test/"
   },
   "author": "Paiboon Auengkongkatong",
@@ -43,6 +46,7 @@
     "eslint-plugin-react": "^6.10.0",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
+    "sinon": "^2.3.6",
     "supertest": "^3.0.0"
   }
 }

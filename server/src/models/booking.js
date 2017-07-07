@@ -1,4 +1,4 @@
-const mongoose = require('./mongoose')
+const mongoose = require('mongoose')
 const touristSchema = require('./sub_documents/tourist')
 
 const Schema = mongoose.Schema

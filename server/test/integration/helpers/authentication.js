@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('../../src/app')
+const app = require('../../../src/app')
 
 exports.agentSignIn = props => request(app).post('/agents/signin').send(props)
 

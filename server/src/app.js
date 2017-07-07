@@ -7,7 +7,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 
 const redis = require('./socket/redis')
-const mongoose = require('./models/mongoose')
+const mongoose = require('mongoose')
 const router = require('./routes')
 const socket = require('./socket')
 const {
@@ -16,6 +16,7 @@ const {
   detailLogger
 } = require('./middlewares')
 
+mongoose.Promise = global.Promise
 redis.flushdb()
 
 const corsOptions = {
