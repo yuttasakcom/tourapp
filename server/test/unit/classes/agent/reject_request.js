@@ -7,7 +7,7 @@ describe('Agent.rejectRequest', () => {
   let agent
   const companyId = 'companyId'
 
-  before(() => {
+  beforeEach(() => {
     agent = new Agent('agentId')
     agentRejectRequest = sinon.stub(repo, 'agentRejectRequest').resolves(true)
   })
@@ -22,7 +22,7 @@ describe('Agent.rejectRequest', () => {
     sinon.assert.calledWith(agentRejectRequest, 'agentId', 'companyId')
   })
 
-  after(() => {
+  afterEach(() => {
     agentRejectRequest.restore()
   })
 })
