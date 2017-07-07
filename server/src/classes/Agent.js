@@ -14,8 +14,18 @@ class Agent {
     return exist
   }
 
+  async checkMemberExist(companyId) {
+    const exist = await repo.agentCheckMemberExist(this._id, companyId)
+    return exist
+  }
+
   async accept(companyId) {
     await repo.agentAccept(this._id, companyId)
+  }
+
+  book(bookingProps) {
+    bookingProps.agent = this._id
+    return repo.book(bookingProps)
   }
 }
 
