@@ -13,6 +13,10 @@ class Agent {
     const exist = await repo.agentCheckRequestExist(this._id, companyId)
     return exist
   }
+
+  async accept(companyId) {
+    await repo.agentAccept(this._id, companyId)
+  }
 }
 
 module.exports = Agent
