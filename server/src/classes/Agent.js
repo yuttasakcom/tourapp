@@ -9,11 +9,6 @@ class Agent {
     await repo.agentRejectRequest(this._id, companyId)
   }
 
-  async checkMemberExist(companyId) {
-    const exist = await repo.agentCheckMemberExist(this._id, companyId)
-    return exist
-  }
-
   async accept(companyId) {
     const exist = await repo.agentCheckRequestExist(this._id, companyId)
 
@@ -26,7 +21,18 @@ class Agent {
     await repo.agentAccept(this._id, companyId)
   }
 
-  book(bookingProps) {
+  async book(bookingProps) {
+    const exist = await repo.agentCheckMemberExist(
+      this._id,
+      bookingProps.company
+    )
+
+    if (!exist) {
+      const err = new Error('This company is not member')
+      err.status = 401
+      throw err
+    }
+
     bookingProps.agent = this._id
     return repo.book(bookingProps)
   }

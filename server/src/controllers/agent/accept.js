@@ -6,11 +6,10 @@ module.exports = async (req, res, next) => {
 
   try {
     await agent.accept(companyId)
+    return res.send({
+      message: 'Accept request completed'
+    })
   } catch (e) {
     return next(e)
   }
-
-  return res.send({
-    message: 'Accept request completed'
-  })
 }
