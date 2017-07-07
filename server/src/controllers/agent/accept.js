@@ -1,65 +1,18 @@
-const Agent = require('../../models/agent')
-const Company = require('../../models/company')
+const repo = require('../../repositories')
 
 module.exports = async (req, res, next) => {
   const companyId = req.body._id
   const agentId = req.user._id
 
-  const { nModified } = await Agent.update(
-    {
-      _id: agentId
-    },
-    {
-      $pull: {
-        acceptPendings: companyId
-      }
-    }
-  )
+  const exist = await repo.agentCheckRequestExist(agentId, companyId)
 
-  if (!nModified) {
+  if (!exist) {
     const err = new Error('Request not found')
     err.status = 422
     return next(err)
   }
 
-  const removeCompannyRequestPendings = Company.update(
-    {
-      _id: companyId
-    },
-    {
-      $pull: {
-        requestPendings: agentId
-      }
-    }
-  )
-
-  const addAgentToCompany = Company.update(
-    {
-      _id: companyId
-    },
-    {
-      $addToSet: {
-        agents: agentId
-      }
-    }
-  )
-
-  const addCompanyToAgent = Agent.update(
-    {
-      _id: agentId
-    },
-    {
-      $addToSet: {
-        companies: companyId
-      }
-    }
-  )
-
-  await Promise.all([
-    removeCompannyRequestPendings,
-    addAgentToCompany,
-    addCompanyToAgent
-  ])
+  await repo.agentAccept(agentId, companyId)
 
   return res.send({
     message: 'Accept request completed'

@@ -1,6 +1,47 @@
 const Agent = require('../models/agent')
 const Company = require('../models/company')
 
+exports.agentAccept = async (agentId, companyId) => {
+  const removeCompannyRequestPendings = Company.update(
+    {
+      _id: companyId
+    },
+    {
+      $pull: {
+        requestPendings: agentId
+      }
+    }
+  )
+
+  const addAgentToCompany = Company.update(
+    {
+      _id: companyId
+    },
+    {
+      $addToSet: {
+        agents: agentId
+      }
+    }
+  )
+
+  const addCompanyToAgent = Agent.update(
+    {
+      _id: agentId
+    },
+    {
+      $addToSet: {
+        companies: companyId
+      }
+    }
+  )
+
+  await Promise.all([
+    removeCompannyRequestPendings,
+    addAgentToCompany,
+    addCompanyToAgent
+  ])
+}
+
 exports.agentRejectRequest = (agentId, companyId) =>
   Promise.all([
     Agent.update(
@@ -17,3 +58,16 @@ exports.agentRejectRequest = (agentId, companyId) =>
     )
   ])
 
+exports.agentCheckRequestExist = async (agentId, companyId) => {
+  const { nModified } = await Agent.update(
+    {
+      _id: agentId
+    },
+    {
+      $pull: {
+        acceptPendings: companyId
+      }
+    }
+  )
+  return nModified
+}
