@@ -21,4 +21,8 @@ describe('Agent.rejectRequest', () => {
     await agent.rejectRequest(companyId)
     sinon.assert.calledWith(agentRejectRequest, 'agentId', 'companyId')
   })
+
+  after(() => {
+    agentRejectRequest.restore()
+  })
 })

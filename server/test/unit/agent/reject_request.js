@@ -26,4 +26,8 @@ describe('agent reject request', () => {
     await rejectRequest(req, res)
     sinon.assert.calledWith(send, { message: 'Reject request completed' })
   })
+
+  after(() => {
+    agentRejectRequest.restore()
+  })
 })
