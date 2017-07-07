@@ -8,7 +8,7 @@ const Company = mongoose.model('Company')
 const Booking = mongoose.model('Booking')
 const Pkg = mongoose.model('Pkg')
 
-describe('Booking', () => {
+describe.only('Booking', () => {
   let company1
   let company2
   let company1Token

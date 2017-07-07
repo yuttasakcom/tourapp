@@ -1,6 +1,12 @@
 const Agent = require('../models/agent')
 const Company = require('../models/company')
 
+exports.agentCheckMemberExist = async (agentId, companyId) =>
+  Agent.count({
+    _id: agentId,
+    companies: companyId
+  })
+
 exports.agentAccept = async (agentId, companyId) => {
   const removeCompannyRequestPendings = Company.update(
     {

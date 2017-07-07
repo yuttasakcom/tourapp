@@ -1,1 +1,5 @@
-module.exports = Object.assign({}, require('./agentRelationship'))
+module.exports = Object.assign(
+  {},
+  require('./agentRelationship'),
+  require('./booking')
+)
