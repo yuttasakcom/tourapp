@@ -1,3 +1,3 @@
-const Booking = require('../models/booking')
+const Booking = require('../../models/booking')
 
 exports.book = bookingProps => Booking.create(bookingProps)

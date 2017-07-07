@@ -1,5 +1,5 @@
-const Agent = require('../models/agent')
-const Company = require('../models/company')
+const Agent = require('../../models/agent')
+const Company = require('../../models/company')
 
 exports.agentCheckMemberExist = async (agentId, companyId) =>
   Agent.count({

@@ -1,20 +1,15 @@
-const repo = require('../../repositories')
+const Agent = require('../../classes/Agent')
 
 module.exports = async (req, res, next) => {
+  const agent = new Agent(req.user._id)
   const companyId = req.body._id
-  const agentId = req.user._id
 
-  const exist = await repo.agentCheckRequestExist(agentId, companyId)
-
-  if (!exist) {
-    const err = new Error('Request not found')
-    err.status = 422
-    return next(err)
+  try {
+    await agent.accept(companyId)
+    return res.send({
+      message: 'Accept request completed'
+    })
+  } catch (e) {
+    return next(e)
   }
-
-  await repo.agentAccept(agentId, companyId)
-
-  return res.send({
-    message: 'Accept request completed'
-  })
 }
