@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('../../src/app')
+const app = require('../../../src/app')
 
 exports.agentRequest = (token, { _id }) =>
   request(app).post('/agents/request').send({ _id }).set('authorization', token)

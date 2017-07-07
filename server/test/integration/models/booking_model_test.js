@@ -3,7 +3,7 @@ const { expect } = require('chai')
 
 const Booking = mongoose.model('Booking')
 const { objectId } = require('../helpers')
-const { status } = require('../../src/helpers/booking')
+const { status } = require('../../../src/helpers/booking')
 
 describe('Booking model', () => {
   it('add booking', async () => {

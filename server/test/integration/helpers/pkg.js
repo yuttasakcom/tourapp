@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('../../src/app')
+const app = require('../../../src/app')
 
 exports.agentGetPkgs = token =>
   request(app).get('/agents/pkgs').set('authorization', token)

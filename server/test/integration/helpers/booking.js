@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('../../src/app')
+const app = require('../../../src/app')
 
 exports.agentAddBooking = (token, props) =>
   request(app).post('/agents/bookings').send(props).set('authorization', token)

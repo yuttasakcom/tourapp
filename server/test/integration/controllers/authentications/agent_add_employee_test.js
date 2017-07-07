@@ -1,6 +1,6 @@
 const { expect } = require('chai')
 const mongoose = require('mongoose')
-const { comparePassword } = require('../../../src/helpers/authentication')
+const { comparePassword } = require('../../../../src/helpers/authentication')
 const h = require('../../helpers')
 
 const Agent = mongoose.model('Agent')

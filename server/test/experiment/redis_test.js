@@ -1,7 +1,7 @@
 const { expect } = require('chai')
 const redis = require('../../src/socket/redis')
 
-describe('redis', () => {
+describe.only('redis', () => {
   beforeEach(() => {
     redis.flushdb()
   })

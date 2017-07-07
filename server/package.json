@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "deploy:test": "cross-env NODE_ENV=test mocha --timeout 2000 --recursive test/",
-    "test": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/",
+    "test:i": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/integration",
+    "test:e": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/experiment",
     "start": "cross-env NODE_ENV=production nodemon src/index.js",
     "eslint": "nodemon --exec eslint src/ test/"
   },

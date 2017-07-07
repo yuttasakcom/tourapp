@@ -1,7 +1,7 @@
 const dirtyChai = require('dirty-chai')
 const chai = require('chai')
 const mongoose = require('mongoose')
-const { comparePassword } = require('../../../src/helpers/authentication')
+const { comparePassword } = require('../../../../src/helpers/authentication')
 const h = require('../../helpers')
 
 chai.use(dirtyChai)
