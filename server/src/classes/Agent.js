@@ -9,17 +9,20 @@ class Agent {
     await repo.agentRejectRequest(this._id, companyId)
   }
 
-  async checkRequestExist(companyId) {
-    const exist = await repo.agentCheckRequestExist(this._id, companyId)
-    return exist
-  }
-
   async checkMemberExist(companyId) {
     const exist = await repo.agentCheckMemberExist(this._id, companyId)
     return exist
   }
 
   async accept(companyId) {
+    const exist = await repo.agentCheckRequestExist(this._id, companyId)
+
+    if (!exist) {
+      const err = new Error('Request not found')
+      err.status = 422
+      throw err
+    }
+
     await repo.agentAccept(this._id, companyId)
   }
 
