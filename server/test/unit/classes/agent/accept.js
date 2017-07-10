@@ -10,15 +10,15 @@ const expect = chai.expect
 describe('Agent.accept', () => {
   let agent
   const companyId = 'companyId'
-  let agentCheckRequestExist
-  let agentAccept
+  let agentCheckRequestExistStub
+  let agentAcceptStub
 
   beforeEach(() => {
     agent = new Agent('agentId')
-    agentCheckRequestExist = sinon
+    agentCheckRequestExistStub = sinon
       .stub(repo, 'agentCheckRequestExist')
       .resolves(true)
-    agentAccept = sinon.stub(repo, 'agentAccept').resolves(true)
+    agentAcceptStub = sinon.stub(repo, 'agentAccept').resolves(true)
   })
 
   it('init object must be set to _id', async () => {
@@ -27,32 +27,32 @@ describe('Agent.accept', () => {
 
   it('agentCheckRequestExist must be called once', async () => {
     await agent.accept(companyId)
-    sinon.assert.calledOnce(agentCheckRequestExist)
+    sinon.assert.calledOnce(agentCheckRequestExistStub)
   })
 
   it('agentAccept must be called once if request exist', async () => {
     await agent.accept(companyId)
-    sinon.assert.calledOnce(agentAccept)
+    sinon.assert.calledOnce(agentAcceptStub)
   })
 
   it('must throw error if agentCheckRequestExist return false', async () => {
-    agentCheckRequestExist.resolves(false)
+    agentCheckRequestExistStub.resolves(false)
     return expect(agent.accept(companyId)).to.be.rejectedWith(
       'Request not found'
     )
   })
 
   it('agentAccept must be not call if request not exist', async () => {
-    agentCheckRequestExist.resolves(false)
+    agentCheckRequestExistStub.resolves(false)
     try {
       await agent.accept(companyId)
     } catch (e) {
-      expect(agentAccept.callCount).to.equal(0)
+      expect(agentAcceptStub.callCount).to.equal(0)
     }
   })
 
   afterEach(() => {
-    agentCheckRequestExist.restore()
-    agentAccept.restore()
+    agentCheckRequestExistStub.restore()
+    agentAcceptStub.restore()
   })
 })
