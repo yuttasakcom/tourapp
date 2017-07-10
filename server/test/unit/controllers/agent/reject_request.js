@@ -24,10 +24,10 @@ describe('agent reject request controller', () => {
   })
 
   it('res.send must be called with Reject request completed message', async () => {
-    const send = sinon.spy(res, 'send')
+    const sendStub = sinon.spy(res, 'send')
     await rejectRequest(req, res)
-    send.restore()
-    sinon.assert.calledWith(send, { message: 'Reject request completed' })
+    sendStub.restore()
+    sinon.assert.calledWith(sendStub, { message: 'Reject request completed' })
   })
 
   afterEach(() => {
