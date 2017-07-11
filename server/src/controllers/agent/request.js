@@ -15,25 +15,26 @@ module.exports = async (req, res, next) => {
       return next(err)
     }
 
-    const { nModified } = await Agent.update(
-      { _id: agentId },
-      {
-        $addToSet: { requestPendings: companyId }
-      }
-    )
+    const [{ nModified }] = await Promise.all([
+      Agent.update(
+        { _id: agentId },
+        {
+          $addToSet: { requestPendings: companyId }
+        }
+      ),
+      Company.update(
+        { _id: companyId },
+        {
+          $addToSet: { acceptPendings: agentId }
+        }
+      )
+    ])
 
     if (!nModified) {
       const err = new Error('This company is already request')
       err.status = 422
       return next(err)
     }
-
-    await Company.update(
-      { _id: companyId },
-      {
-        $addToSet: { acceptPendings: agentId }
-      }
-    )
 
     return res.send({ message: 'Send request completed' })
   } catch (e) {
