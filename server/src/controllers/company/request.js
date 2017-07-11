@@ -1,15 +1,11 @@
-const Company = require('../../models/company')
-const Agent = require('../../models/agent')
+const repo = require('../../repositories')
 
 module.exports = async (req, res, next) => {
   const agentId = req.body._id
   const companyId = req.user._id
 
   try {
-    const exist = await Company.count({
-      _id: companyId,
-      agents: agentId
-    })
+    const exist = await repo.companyCheckMemberExist(companyId, agentId)
 
     if (exist) {
       const err = new Error('This agent is already member')
@@ -17,25 +13,13 @@ module.exports = async (req, res, next) => {
       return next(err)
     }
 
-    const { nModified } = await Company.update(
-      { _id: companyId },
-      {
-        $addToSet: { requestPendings: agentId }
-      }
-    )
-
-    if (!nModified) {
+    const success = await repo.companyRequest(companyId, agentId)
+    
+    if (!success) {
       const err = new Error('This agent is already request')
       err.status = 422
       return next(err)
     }
-
-    await Agent.update(
-      { _id: agentId },
-      {
-        $addToSet: { acceptPendings: companyId }
-      }
-    )
 
     return res.send({ message: 'Send request completed' })
   } catch (e) {

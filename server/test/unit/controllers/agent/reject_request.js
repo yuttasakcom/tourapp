@@ -1,36 +1,29 @@
 const sinon = require('sinon')
 const rejectRequest = require('../../../../src/controllers/agent/rejectRequest')
-const Agent = require('../../../../src/classes/Agent')
+const repo = require('../../../../src/repositories')
 
 describe('agent reject request controller', () => {
   const req = { user: { _id: 'agentId' }, params: { id: 'companyId' } }
   const res = { send: () => '' }
-  let rejectRequestStub
+  let agentRejectRequestStub
 
   beforeEach(() => {
-    rejectRequestStub = sinon
-      .stub(Agent.prototype, 'rejectRequest')
+    agentRejectRequestStub = sinon
+      .stub(repo, 'agentRejectRequest')
       .resolves(true)
   })
 
-  it('agent.rejectRequest must be called once', async () => {
+  it('agentRejectRequest must be called once', async () => {
     await rejectRequest(req, res)
-    sinon.assert.calledOnce(rejectRequestStub)
+    sinon.assert.calledOnce(agentRejectRequestStub)
   })
 
-  it('agent.rejectRequest must be called with companyId', async () => {
+  it('agentRejectRequest must be called with agentId and companyId', async () => {
     await rejectRequest(req, res)
-    sinon.assert.calledWith(rejectRequestStub, 'companyId')
-  })
-
-  it('res.send must be called with Reject request completed message', async () => {
-    const sendStub = sinon.spy(res, 'send')
-    await rejectRequest(req, res)
-    sendStub.restore()
-    sinon.assert.calledWith(sendStub, { message: 'Reject request completed' })
+    sinon.assert.calledWith(agentRejectRequestStub, 'agentId', 'companyId')
   })
 
   afterEach(() => {
-    rejectRequestStub.restore()
+    agentRejectRequestStub.restore()
   })
 })

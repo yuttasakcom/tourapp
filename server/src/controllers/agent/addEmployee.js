@@ -1,4 +1,4 @@
-const Agent = require('../../models/agent')
+const repo = require('../../repositories')
 const {
   hashPassword,
   checkEmployeeEmailExist
@@ -29,13 +29,7 @@ module.exports = async (req, res, next) => {
   try {
     const hash = await hashPassword(employeeProps.password)
     employeeProps.password = hash
-
-    await Agent.update(
-      { _id: agentId },
-      {
-        $push: { employees: employeeProps }
-      }
-    )
+    await repo.agentAddEmployee(agentId, employeeProps)
     return res.status(201).send({ message: 'Create employee completed' })
   } catch (e) {
     return next(e)

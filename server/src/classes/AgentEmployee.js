@@ -20,7 +20,7 @@ class AgentEmployee {
 
     bookingProps.agent = this.agentId
     bookingProps.employee = this._id
-    return repo.book(bookingProps)
+    return repo.agentAddBooking(bookingProps)
   }
 }
 

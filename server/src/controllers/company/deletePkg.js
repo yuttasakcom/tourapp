@@ -1,8 +1,7 @@
-const Pkg = require('../../models/pkg')
+const repo = require('../../repositories')
 
 module.exports = async (req, res, next) => {
   const pkgId = req.params.id
-
-  await Pkg.remove({ _id: pkgId })
+  await repo.companyDeletePkg(pkgId)
   return res.send({ message: 'Delete package completed' })
 }

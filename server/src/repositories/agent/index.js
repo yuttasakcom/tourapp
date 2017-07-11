@@ -1,5 +1,14 @@
-module.exports = Object.assign(
-  {},
-  require('./booking'),
-  require('./relationship')
-)
+exports.agentAddBooking = require('./agentAddBooking')
+exports.agentCheckMemberExist = require('./agentCheckMemberExist')
+exports.agentAccept = require('./agentAccept')
+exports.agentRejectRequest = require('./agentRejectRequest')
+exports.agentCheckRequestExist = require('./agentCheckRequestExist')
+exports.agentAddEmployee = require('./agentAddEmployee')
+exports.agentCancelRequest = require('./agentCancelRequest')
+exports.agentDeleteRelationship = require('./agentDeleteRelationship')
+exports.agentGetAcceptPendingsList = require('./agentGetAcceptPendingsList')
+exports.agentGetBookingsList = require('./agentGetBookingsList')
+exports.agentGetCompaniesList = require('./agentGetCompaniesList')
+exports.agentGetPkgsList = require('./agentGetPkgsList')
+exports.agentGetRequestPendingsList = require('./agentGetRequestPendingsList')
+exports.agentRequest = require('./agentRequest')

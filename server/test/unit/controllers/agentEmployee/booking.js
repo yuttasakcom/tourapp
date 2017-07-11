@@ -1,37 +1,56 @@
 const sinon = require('sinon')
+const { expect } = require('chai')
 const addBooking = require('../../../../src/controllers/agent_employee/addBooking')
-const AgentEmployee = require('../../../../src/classes/AgentEmployee')
+const repo = require('../../../../src/repositories')
 
 describe('agent_employee addBooking controller', () => {
   const req = {
     user: { _id: 'agentEmployeeId', agentId: 'agentId' },
-    body: { _id: 'companyId' }
+    body: { company: 'companyId' }
   }
   const res = { send: () => '' }
-  let book
+  let agentCheckMemberExistStub
+  let agentAddBookingStub
 
   beforeEach(() => {
-    book = sinon.stub(AgentEmployee.prototype, 'book').resolves(req.body)
+    agentCheckMemberExistStub = sinon
+      .stub(repo, 'agentCheckMemberExist')
+      .resolves(true)
+    agentAddBookingStub = sinon.stub(repo, 'agentAddBooking').resolves(true)
   })
 
-  it('agentEmployee.book must be called once', async () => {
+  it('agentCheckMemberExist must be called once', async () => {
     await addBooking(req, res)
-    sinon.assert.calledOnce(book)
+    sinon.assert.calledOnce(agentCheckMemberExistStub)
   })
 
-  it('agentEmployee.book must be called with bookProps', async () => {
+  it('agentCheckMemberExist must be called with agentId and companyId', async () => {
     await addBooking(req, res)
-    sinon.assert.calledWith(book, { _id: 'companyId' })
+    sinon.assert.calledWith(agentCheckMemberExistStub, 'agentId', 'companyId')
   })
 
-  it('res.send must be called with bookProps', async () => {
-    const sendStub = sinon.spy(res, 'send')
+  it('agentBook must be called once if request exist', async () => {
     await addBooking(req, res)
-    sendStub.restore()
-    sinon.assert.calledWith(sendStub, { _id: 'companyId' })
+    sinon.assert.calledOnce(agentAddBookingStub)
+  })
+
+  it('agentBook must be not call if member not exist', async () => {
+    agentCheckMemberExistStub.resolves(false)
+    try {
+      await addBooking(req, res)
+    } catch (e) {
+      expect(agentAddBookingStub.callCount).to.equal(0)
+    }
+  })
+
+  it('bookingProps.agent and employee must be set', async () => {
+    await addBooking(req, res)
+    expect(req.body.agent).to.equal('agentId')
+    expect(req.body.employee).to.equal('agentEmployeeId')
   })
 
   afterEach(() => {
-    book.restore()
+    agentCheckMemberExistStub.restore()
+    agentAddBookingStub.restore()
   })
 })

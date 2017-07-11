@@ -11,14 +11,14 @@ describe('Agent.book', () => {
   let agent
   const bookingProps = { company: 'companyId' }
   let agentCheckMemberExistStub
-  let bookStub
+  let agentAddBookingStub
 
   beforeEach(() => {
     agent = new Agent('agentId')
     agentCheckMemberExistStub = sinon
       .stub(repo, 'agentCheckMemberExist')
       .resolves(true)
-    bookStub = sinon.stub(repo, 'book').resolves(true)
+    agentAddBookingStub = sinon.stub(repo, 'agentAddBooking').resolves(true)
   })
 
   it('init object must be set to _id', async () => {
@@ -37,7 +37,7 @@ describe('Agent.book', () => {
 
   it('agentBook must be called once if request exist', async () => {
     await agent.book(bookingProps)
-    sinon.assert.calledOnce(bookStub)
+    sinon.assert.calledOnce(agentAddBookingStub)
   })
 
   it('must throw error if agentCheckMemberExist return false', async () => {
@@ -52,7 +52,7 @@ describe('Agent.book', () => {
     try {
       await agent.book(bookingProps)
     } catch (e) {
-      expect(bookStub.callCount).to.equal(0)
+      expect(agentAddBookingStub.callCount).to.equal(0)
     }
   })
 
@@ -63,6 +63,6 @@ describe('Agent.book', () => {
 
   afterEach(() => {
     agentCheckMemberExistStub.restore()
-    bookStub.restore()
+    agentAddBookingStub.restore()
   })
 })

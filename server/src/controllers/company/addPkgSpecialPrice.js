@@ -1,30 +1,9 @@
-const Pkg = require('../../models/pkg')
+const repo = require('../../repositories')
 
 module.exports = async (req, res, next) => {
-  const pkgId = req.params.pkgId
+  const { pkgId } = req.params
   const specialPriceProps = req.body
-
-  let find = {
-    _id: pkgId,
-    'specialPrices.agent': specialPriceProps.agent
-  }
-  let update = {
-    $set: {
-      'specialPrices.$': specialPriceProps
-    }
-  }
-  const exist = await Pkg.count(find)
-  if (!exist) {
-    find = {
-      _id: pkgId
-    }
-    update = {
-      $push: {
-        specialPrices: specialPriceProps
-      }
-    }
-  }
-  await Pkg.update(find, update)
+  await repo.companyAddPkgSpecialPrice(pkgId, specialPriceProps)
   return res.send({
     message: 'Offer special price completed'
   })

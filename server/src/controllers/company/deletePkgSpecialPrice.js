@@ -1,14 +1,7 @@
-const Pkg = require('../../models/pkg')
+const repo = require('../../repositories')
 
 module.exports = async (req, res, next) => {
   const { pkgId, agentId } = req.params
-  await Pkg.update(
-    { _id: pkgId },
-    {
-      $pull: {
-        specialPrices: { agent: agentId }
-      }
-    }
-  )
+  await repo.companyDeletePkgSpecialPrice(pkgId, agentId)
   res.send({ message: 'Reset price completed' })
 }

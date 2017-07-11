@@ -1,11 +1,7 @@
-const Booking = require('../../models/booking')
+const repo = require('../../repositories')
 
 module.exports = async (req, res, next) => {
   const companyId = req.user._id
-
-  const bookings = await Booking.find({ company: companyId }).populate(
-    'agent',
-    'email'
-  )
+  const bookings = await repo.companyGetBookingsList(companyId)
   return res.send(bookings)
 }
