@@ -13,8 +13,8 @@ module.exports = async (req, res, next) => {
       return next(err)
     }
 
-    const success = repo.companyRequest(companyId, agentId)
-
+    const success = await repo.companyRequest(companyId, agentId)
+    
     if (!success) {
       const err = new Error('This agent is already request')
       err.status = 422
