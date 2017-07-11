@@ -1,5 +1,5 @@
+const repo = require('../../repositories')
 const Company = require('../../models/company')
-const Agent = require('../../models/agent')
 
 module.exports = async (req, res, next) => {
   const agentId = req.body._id
@@ -17,22 +17,9 @@ module.exports = async (req, res, next) => {
       return next(err)
     }
 
-    const [{ nModified }] = await Promise.all([
-      Company.update(
-        { _id: companyId },
-        {
-          $addToSet: { requestPendings: agentId }
-        }
-      ),
-      Agent.update(
-        { _id: agentId },
-        {
-          $addToSet: { acceptPendings: companyId }
-        }
-      )
-    ])
+    const success = repo.companyRequest(companyId, agentId)
 
-    if (!nModified) {
+    if (!success) {
       const err = new Error('This agent is already request')
       err.status = 422
       return next(err)
