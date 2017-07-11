@@ -13,6 +13,6 @@ module.exports = async (req, res, next) => {
   }
 
   bookingProps.agent = agentId
-  const booking = await repo.book(bookingProps)
+  const booking = await repo.agentAddBooking(bookingProps)
   return res.send(booking)
 }

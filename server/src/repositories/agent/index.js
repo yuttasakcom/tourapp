@@ -1,4 +1,4 @@
-exports.book = require('./booking')
+exports.agentAddBooking = require('./agentAddBooking')
 exports.agentCheckMemberExist = require('./agentCheckMemberExist')
 exports.agentAccept = require('./agentAccept')
 exports.agentRejectRequest = require('./agentRejectRequest')
