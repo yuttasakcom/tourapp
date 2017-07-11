@@ -7,7 +7,7 @@ module.exports = async agentId => {
     companies: 1
   })
 
-  return Pkg.find(
+  const pkgs = await Pkg.find(
     {
       company: {
         $in: agent.companies
@@ -25,4 +25,13 @@ module.exports = async agentId => {
       priceChild: 1
     }
   ).populate({ path: 'company', select: 'email' })
+  const resolvedPricePkgs = pkgs.map(pkg => {
+    if (pkg.specialPrices.length) {
+      pkg.priceAdult = pkg.specialPrices[0].priceAdult
+      pkg.priceChild = pkg.specialPrices[0].priceChild
+    }
+    pkg.specialPrices = undefined
+    return pkg
+  })
+  return resolvedPricePkgs
 }

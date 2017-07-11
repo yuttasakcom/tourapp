@@ -1,12 +1,13 @@
+const repo = require('../../repositories')
 const Agent = require('../../models/agent')
 const Company = require('../../models/company')
 
 module.exports = async (req, res, next) => {
-  const companyId = req.body._id
   const agentId = req.user._id
+  const companyId = req.body._id
 
   try {
-    const exist = await Agent.count({ _id: agentId, companies: companyId })
+    const exist = await repo.agentCheckMemberExist(agentId, companyId)
 
     if (exist) {
       const err = new Error('This company is already member')
