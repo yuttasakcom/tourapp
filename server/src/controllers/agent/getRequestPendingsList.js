@@ -1,11 +1,7 @@
-const Agent = require('../../models/agent')
+const repo = require('../../repositories')
 
 module.exports = async (req, res, next) => {
   const agentId = req.user._id
-
-  const requestPendings = await Agent.findById(agentId, {
-    _id: 0,
-    requestPendings: 1
-  }).populate('requestPendings', 'email')
+  const requestPendings = await repo.agentGetRequestPendingsList(agentId)
   return res.send(requestPendings)
 }
