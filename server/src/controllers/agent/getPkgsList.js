@@ -1,33 +1,8 @@
-const Agent = require('../../models/agent')
-const Pkg = require('../../models/pkg')
+const repo = require('../../repositories')
 
 module.exports = async (req, res, next) => {
   const agentId = req.user._id
-
-  const agent = await Agent.findById(agentId, {
-    _id: 0,
-    companies: 1
-  })
-
-  const pkgs = await Pkg.find(
-    {
-      company: {
-        $in: agent.companies
-      }
-    },
-    {
-      specialPrices: {
-        $elemMatch: {
-          agent: agentId
-        }
-      },
-      company: 1,
-      name: 1,
-      priceAdult: 1,
-      priceChild: 1
-    }
-  ).populate({ path: 'company', select: 'email' })
-
+  const pkgs = await repo.agentGetPkgsList(agentId)
   const resolvedPricePkgs = pkgs.map(pkg => {
     if (pkg.specialPrices.length) {
       pkg.priceAdult = pkg.specialPrices[0].priceAdult
