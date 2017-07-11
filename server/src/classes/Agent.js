@@ -34,7 +34,7 @@ class Agent {
     }
 
     bookingProps.agent = this._id
-    return repo.book(bookingProps)
+    return repo.agentAddBooking(bookingProps)
   }
 }
 

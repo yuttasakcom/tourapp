@@ -10,13 +10,13 @@ describe('agent_employee addBooking controller', () => {
   }
   const res = { send: () => '' }
   let agentCheckMemberExistStub
-  let bookStub
+  let agentAddBookingStub
 
   beforeEach(() => {
     agentCheckMemberExistStub = sinon
       .stub(repo, 'agentCheckMemberExist')
       .resolves(true)
-    bookStub = sinon.stub(repo, 'book').resolves(true)
+    agentAddBookingStub = sinon.stub(repo, 'agentAddBooking').resolves(true)
   })
 
   it('agentCheckMemberExist must be called once', async () => {
@@ -31,7 +31,7 @@ describe('agent_employee addBooking controller', () => {
 
   it('agentBook must be called once if request exist', async () => {
     await addBooking(req, res)
-    sinon.assert.calledOnce(bookStub)
+    sinon.assert.calledOnce(agentAddBookingStub)
   })
 
   it('agentBook must be not call if member not exist', async () => {
@@ -39,7 +39,7 @@ describe('agent_employee addBooking controller', () => {
     try {
       await addBooking(req, res)
     } catch (e) {
-      expect(bookStub.callCount).to.equal(0)
+      expect(agentAddBookingStub.callCount).to.equal(0)
     }
   })
 
@@ -51,6 +51,6 @@ describe('agent_employee addBooking controller', () => {
 
   afterEach(() => {
     agentCheckMemberExistStub.restore()
-    bookStub.restore()
+    agentAddBookingStub.restore()
   })
 })
