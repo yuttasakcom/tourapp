@@ -3,7 +3,7 @@ const { expect } = require('chai')
 const accept = require('../../../../src/controllers/agent/accept')
 const repo = require('../../../../src/repositories')
 
-describe.only('agent accept controller', () => {
+describe('agent accept controller', () => {
   const req = { user: { _id: 'agentId' }, body: { _id: 'companyId' } }
   const res = { send: () => '' }
   let agentCheckRequestExistStub

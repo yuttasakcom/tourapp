@@ -3,7 +3,7 @@ const { expect } = require('chai')
 const addBooking = require('../../../../src/controllers/agent/addBooking')
 const repo = require('../../../../src/repositories')
 
-describe.only('agent addBooking controller', () => {
+describe('agent addBooking controller', () => {
   const req = { user: { _id: 'agentId' }, body: { company: 'companyId' } }
   const res = { send: () => '' }
   let agentCheckMemberExistStub
