@@ -1,5 +1,5 @@
-module.exports = Object.assign(
-  {},
-  require('./booking'),
-  require('./relationship')
-)
+exports.book = require('./booking')
+exports.agentCheckMemberExist = require('./agentCheckMemberExist')
+exports.agentAccept = require('./agentAccept')
+exports.agentRejectRequest = require('./agentRejectRequest')
+exports.agentCheckRequestExist = require('./agentCheckRequestExist')
