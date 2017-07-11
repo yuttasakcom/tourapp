@@ -30,6 +30,11 @@ describe('Agent.book', () => {
     sinon.assert.calledOnce(agentCheckMemberExistStub)
   })
 
+  it('agentCheckMemberExist must be called with agentId and companyId', async () => {
+    await agent.book(bookingProps)
+    sinon.assert.calledWith(agentCheckMemberExistStub, 'agentId', 'companyId')
+  })
+
   it('agentBook must be called once if request exist', async () => {
     await agent.book(bookingProps)
     sinon.assert.calledOnce(bookStub)
@@ -49,6 +54,11 @@ describe('Agent.book', () => {
     } catch (e) {
       expect(bookStub.callCount).to.equal(0)
     }
+  })
+
+  it('bookingProps.agent must be set', async () => {
+    await agent.book(bookingProps)
+    expect(bookingProps.agent).to.equal('agentId')
   })
 
   afterEach(() => {
