@@ -2,7 +2,7 @@ const sinon = require('sinon')
 const rejectRequest = require('../../../../src/controllers/agent/rejectRequest')
 const Agent = require('../../../../src/classes/Agent')
 
-describe('agent reject request', () => {
+describe('agent reject request controller', () => {
   const req = { user: { _id: 'agentId' }, params: { id: 'companyId' } }
   const res = { send: () => '' }
   let rejectRequestStub
@@ -24,10 +24,10 @@ describe('agent reject request', () => {
   })
 
   it('res.send must be called with Reject request completed message', async () => {
-    const send = sinon.spy(res, 'send')
+    const sendStub = sinon.spy(res, 'send')
     await rejectRequest(req, res)
-    send.restore()
-    sinon.assert.calledWith(send, { message: 'Reject request completed' })
+    sendStub.restore()
+    sinon.assert.calledWith(sendStub, { message: 'Reject request completed' })
   })
 
   afterEach(() => {

@@ -1,24 +1,13 @@
-const Agent = require('../../models/agent')
-const Booking = require('../../models/booking')
+const AgentEmployee = require('../../classes/AgentEmployee')
 
 module.exports = async (req, res, next) => {
-  const user = req.user
+  const { _id, agentId } = req.user
+  const agentEmployee = new AgentEmployee(_id, agentId)
   const bookingProps = req.body
-
-  const exist = await Agent.count({
-    _id: user.agentId,
-    companies: bookingProps.company
-  })
-
-  if (!exist) {
-    const err = new Error('This company is not member')
-    err.status = 401
-    return next(err)
+  try {
+    const booking = await agentEmployee.book(bookingProps)
+    return res.send(booking)
+  } catch (e) {
+    return next(e)
   }
-
-  bookingProps.agent = user.agentId
-  bookingProps.employee = user._id
-
-  const booking = await Booking.create(bookingProps)
-  return res.send(booking)
 }
