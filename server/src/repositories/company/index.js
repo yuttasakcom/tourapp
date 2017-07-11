@@ -15,3 +15,4 @@ exports.companyGetRequestPendingsList = require('./companyGetRequestPendingsList
 exports.companyGetSpecialPricesList = require('./companyGetSpecialPricesList')
 exports.companyRejectRequest = require('./companyRejectRequest')
 exports.companyUpdateBooking = require('./companyUpdateBooking')
+exports.companyUpdatePkg = require('./companyUpdatePkg')
