@@ -1,11 +1,7 @@
-const Company = require('../../models/company')
+const repo = require('../../repositories')
 
 module.exports = async (req, res, next) => {
   const companyId = req.user._id
-
-  const requestPendings = await Company.findById(companyId, {
-    _id: 0,
-    requestPendings: 1
-  }).populate('requestPendings', 'email')
+  const requestPendings = await repo.companyGetRequestPendingsList(companyId)
   return res.send(requestPendings)
 }
