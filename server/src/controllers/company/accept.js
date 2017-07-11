@@ -1,6 +1,4 @@
 const repo = require('../../repositories')
-const Company = require('../../models/company')
-const Agent = require('../../models/agent')
 
 module.exports = async (req, res, next) => {
   const companyId = req.user._id
@@ -14,32 +12,6 @@ module.exports = async (req, res, next) => {
     return next(err)
   }
 
-  const removeAgentRequestPendings = Agent.update(
-    { _id: agentId },
-    {
-      $pull: { requestPendings: companyId }
-    }
-  )
-
-  const addAgentToCompany = Company.update(
-    { _id: companyId },
-    {
-      $addToSet: { agents: agentId }
-    }
-  )
-
-  const addCompanyToAgent = Agent.update(
-    { _id: agentId },
-    {
-      $addToSet: { companies: companyId }
-    }
-  )
-
-  await Promise.all([
-    removeAgentRequestPendings,
-    addAgentToCompany,
-    addCompanyToAgent
-  ])
-
+  await repo.companyAccept(companyId, agentId)
   return res.send({ message: 'Accept request completed' })
 }
