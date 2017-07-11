@@ -1,34 +1,42 @@
 const sinon = require('sinon')
+const { expect } = require('chai')
 const accept = require('../../../../src/controllers/agent/accept')
-const Agent = require('../../../../src/classes/Agent')
+const repo = require('../../../../src/repositories')
 
-describe('agent accept controller', () => {
+describe.only('agent accept controller', () => {
   const req = { user: { _id: 'agentId' }, body: { _id: 'companyId' } }
   const res = { send: () => '' }
-  let acceptStub
+  let agentCheckRequestExistStub
+  let agentAcceptStub
 
   beforeEach(() => {
-    acceptStub = sinon.stub(Agent.prototype, 'accept').resolves(true)
+    agentCheckRequestExistStub = sinon
+      .stub(repo, 'agentCheckRequestExist')
+      .resolves(true)
+    agentAcceptStub = sinon.stub(repo, 'agentAccept').resolves(true)
   })
 
-  it('agent.accept must be called once', async () => {
+  it('agentCheckRequestExist must be called once', async () => {
     await accept(req, res)
-    sinon.assert.calledOnce(acceptStub)
+    sinon.assert.calledOnce(agentCheckRequestExistStub)
   })
 
-  it('agent.accept must be called with companyId', async () => {
+  it('agentAccept must be called once if request exist', async () => {
     await accept(req, res)
-    sinon.assert.calledWith(acceptStub, 'companyId')
+    sinon.assert.calledOnce(agentAcceptStub)
   })
 
-  it('res.send must be called with Accept request completed message', async () => {
-    const send = sinon.spy(res, 'send')
-    await accept(req, res)
-    send.restore()
-    sinon.assert.calledWith(send, { message: 'Accept request completed' })
+  it('agentAccept must be not call if request not exist', async () => {
+    agentCheckRequestExistStub.resolves(false)
+    try {
+      await accept(req, res)
+    } catch (e) {
+      expect(agentAcceptStub.callCount).to.equal(0)
+    }
   })
 
   afterEach(() => {
-    acceptStub.restore()
+    agentCheckRequestExistStub.restore()
+    agentAcceptStub.restore()
   })
 })
