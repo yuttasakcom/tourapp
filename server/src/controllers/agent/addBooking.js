@@ -1,13 +1,18 @@
-const Agent = require('../../classes/Agent')
+const repo = require('../../repositories')
 
 module.exports = async (req, res, next) => {
-  const agent = new Agent(req.user._id)
+  const agentId = req.user._id
   const bookingProps = req.body
 
-  try {
-    const booking = await agent.book(bookingProps)
-    return res.send(booking)
-  } catch (e) {
-    return next(e)
+  const exist = await repo.agentCheckMemberExist(agentId, bookingProps.company)
+
+  if (!exist) {
+    const err = new Error('This company is not member')
+    err.status = 401
+    return next(err)
   }
+
+  bookingProps.agent = agentId
+  const booking = await repo.book(bookingProps)
+  return res.send(booking)
 }

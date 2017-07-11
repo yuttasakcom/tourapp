@@ -1,8 +1,8 @@
-const Agent = require('../../classes/Agent')
+const repo = require('../../repositories')
 
 module.exports = async (req, res, next) => {
-  const agent = new Agent(req.user._id)
+  const agentId = req.user._id
   const companyId = req.params.id
-  await agent.rejectRequest(companyId)
+  await repo.agentRejectRequest(agentId, companyId)
   return res.send({ message: 'Reject request completed' })
 }
