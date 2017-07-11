@@ -1,13 +1,10 @@
-const Company = require('../../models/company')
+const repo = require('../../repositories')
 
 module.exports = async (req, res, next) => {
   const companyId = req.user._id
   try {
-    const company = await Company.findById(companyId, {
-      _id: 0,
-      agents: 1
-    }).populate('agents')
-    return res.send(company.agents)
+    const agents = await repo.companyGetAgentsList(companyId)
+    return res.send(agents)
   } catch (e) {
     return next(e)
   }
