@@ -1,5 +1,5 @@
 const express = require('express')
-const { createServer } = require('http')
+const { createServer } = require('spdy')
 const createIo = require('socket.io')
 const socketIoRedis = require('socket.io-redis')
 const cors = require('cors')
@@ -10,6 +10,8 @@ const redis = require('./socket/redis')
 const mongoose = require('mongoose')
 const router = require('./routes')
 const socket = require('./socket')
+const ssl = require('./config/ssl')
+
 const {
   handleNotFound,
   handleAnotherError,
@@ -24,7 +26,7 @@ const corsOptions = {
 }
 
 const app = express()
-const server = createServer(app)
+const server = createServer(ssl, app)
 const io = createIo(server)
 io.adapter(socketIoRedis({ host: 'localhost', port: 6379 }))
 
