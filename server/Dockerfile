@@ -1,4 +1,4 @@
-FROM kkarczmarczyk/node-yarn:latest
+FROM node:alpine
 
 # Create app folder
 RUN mkdir -p /app
