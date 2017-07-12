@@ -2,7 +2,7 @@
   "name": "tourapp-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test:d": "cross-env NODE_ENV=test mocha --timeout 2000 --recursive test/",
     "test:i": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/integration",
@@ -32,6 +32,7 @@
     "socket.io": "^2.0.3",
     "socket.io-redis": "^5.1.0",
     "socketio-jwt": "^4.5.0",
+    "spdy": "^3.4.7",
     "winston": "^2.3.1"
   },
   "devDependencies": {

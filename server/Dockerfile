@@ -1,4 +1,4 @@
-FROM kkarczmarczyk/node-yarn:latest
+FROM node:alpine
 
 # Create app folder
 RUN mkdir -p /app
@@ -12,9 +12,6 @@ RUN yarn
 # Copy application files
 COPY . /app
 
-# Precompile javascript
-RUN ./node_modules/.bin/babel src --out-dir lib
-
 EXPOSE 8080
 
-CMD ["node", "lib/index.js"]
+CMD ["node", "src/index.js"]
