@@ -16,7 +16,7 @@ describe('add_employee controller', () => {
       send: () => ''
     })
   }
-  let resStub
+  let resStatusStub
   let hashPasswordStub
   let checkEmployeeEmailExistStub
   let agentAddEmployeeStub
@@ -24,7 +24,7 @@ describe('add_employee controller', () => {
   beforeEach(() => {
     req.body.email = 'test@test.com'
     req.body.password = '1234'
-    resStub = sinon.spy(res, 'status')
+    resStatusStub = sinon.spy(res, 'status')
     hashPasswordStub = sinon
       .stub(auth, 'hashPassword')
       .resolves('hashed password')
@@ -77,11 +77,11 @@ describe('add_employee controller', () => {
 
   it('add employee completed must be return status 201', async () => {
     await addEmployee(req, res)
-    sinon.assert.calledWith(resStub, 201)
+    sinon.assert.calledWith(resStatusStub, 201)
   })
 
   afterEach(() => {
-    resStub.restore()
+    resStatusStub.restore()
     hashPasswordStub.restore()
     checkEmployeeEmailExistStub.restore()
     agentAddEmployeeStub.restore()
