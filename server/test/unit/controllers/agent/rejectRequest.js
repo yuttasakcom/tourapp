@@ -2,7 +2,7 @@ const sinon = require('sinon')
 const rejectRequest = require('../../../../src/controllers/agent/rejectRequest')
 const repo = require('../../../../src/repositories')
 
-describe('agent reject_request controller', () => {
+describe('agent rejectRequest controller', () => {
   const req = { user: { _id: 'agentId' }, params: { id: 'companyId' } }
   const res = { send: () => '' }
   let resSendStub

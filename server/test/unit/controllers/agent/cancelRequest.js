@@ -2,7 +2,7 @@ const sinon = require('sinon')
 const cancelRequest = require('../../../../src/controllers/agent/cancelRequest')
 const repo = require('../../../../src/repositories')
 
-describe('agent cancel_request controller', () => {
+describe('agent cancelRequest controller', () => {
   const req = { user: { _id: 'agentId' }, params: { id: 'companyId' } }
   const res = { send: () => '' }
   let resSendStub

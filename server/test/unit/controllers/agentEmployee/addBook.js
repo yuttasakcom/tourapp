@@ -1,10 +1,13 @@
 const sinon = require('sinon')
 const { expect } = require('chai')
-const addBooking = require('../../../../src/controllers/agent/addBooking')
+const addBooking = require('../../../../src/controllers/agent_employee/addBooking')
 const repo = require('../../../../src/repositories')
 
-describe('agent add_booking controller', () => {
-  const req = { user: { _id: 'agentId' }, body: { company: 'companyId' } }
+describe('agentEmployee addBooking controller', () => {
+  const req = {
+    user: { _id: 'agentEmployeeId', agentId: 'agentId' },
+    body: { company: 'companyId' }
+  }
   const res = { send: () => '' }
   let resSendStub
   let agentCheckMemberExistStub
@@ -39,7 +42,7 @@ describe('agent add_booking controller', () => {
     expect(agentAddBookingStub.callCount).to.equal(0)
   })
 
-  it('if member not exist must send error to middleware', async () => {
+  it('if member not exist must be send error to middleware', async () => {
     agentCheckMemberExistStub.resolves(false)
     await addBooking(req, res, err => {
       expect(err.message).to.equal('This company is not member')
@@ -47,9 +50,10 @@ describe('agent add_booking controller', () => {
     })
   })
 
-  it('bookingProps.agent must be set', async () => {
+  it('bookingProps.agent and employee must be set', async () => {
     await addBooking(req, res)
     expect(req.body.agent).to.equal('agentId')
+    expect(req.body.employee).to.equal('agentEmployeeId')
   })
 
   it('book complete must be send message', async () => {
