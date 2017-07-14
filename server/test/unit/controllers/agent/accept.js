@@ -30,11 +30,16 @@ describe('agent accept controller', () => {
 
   it('agentAccept must be not call if request not exist', async () => {
     agentCheckRequestExistStub.resolves(false)
-    try {
-      await accept(req, res)
-    } catch (e) {
-      expect(agentAcceptStub.callCount).to.equal(0)
-    }
+    await accept(req, res, () => '')
+    expect(agentAcceptStub.callCount).to.equal(0)
+  })
+
+  it('request not exist must be send error to middleware', async () => {
+    agentCheckRequestExistStub.resolves(false)
+    await accept(req, res, err => {
+      expect(err.message).to.equal('Request not found')
+      expect(err.status).to.equal(422)
+    })
   })
 
   it('accept complete must be send Accept request completed message', async () => {
