@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
+    "test:a": "npm-run-all --parallel test:i test:e test:u",
     "test:d": "cross-env NODE_ENV=test mocha --timeout 2000 --recursive test/",
     "test:i": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/integration",
     "test:e": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/experiment",
@@ -48,6 +49,7 @@
     "eslint-plugin-react": "^6.10.0",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
+    "npm-run-all": "^4.0.2",
     "nyc": "^11.0.3",
     "sinon": "^2.3.6",
     "supertest": "^3.0.0"

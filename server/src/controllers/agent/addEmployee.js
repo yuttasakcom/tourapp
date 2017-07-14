@@ -1,8 +1,5 @@
 const repo = require('../../repositories')
-const {
-  hashPassword,
-  checkEmployeeEmailExist
-} = require('../../helpers/authentication')
+const auth = require('../../helpers/authentication')
 
 module.exports = async (req, res, next) => {
   const agentId = req.user._id
@@ -14,7 +11,7 @@ module.exports = async (req, res, next) => {
     return next(err)
   }
 
-  const exist = await checkEmployeeEmailExist(
+  const exist = await auth.checkEmployeeEmailExist(
     'Agent',
     agentId,
     employeeProps.email
@@ -27,7 +24,7 @@ module.exports = async (req, res, next) => {
   }
 
   try {
-    const hash = await hashPassword(employeeProps.password)
+    const hash = await auth.hashPassword(employeeProps.password)
     employeeProps.password = hash
     await repo.agentAddEmployee(agentId, employeeProps)
     return res.status(201).send({ message: 'Create employee completed' })
