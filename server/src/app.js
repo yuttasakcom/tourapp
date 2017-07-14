@@ -11,6 +11,7 @@ const mongoose = require('mongoose')
 const router = require('./routes')
 const socket = require('./socket')
 const ssl = require('./config/ssl')
+const { MONGO_DB_HOST, REDIS_HOST } = require('./config')
 
 const {
   handleNotFound,
@@ -28,7 +29,7 @@ const corsOptions = {
 const app = express()
 const server = createServer(ssl, app)
 const io = createIo(server)
-io.adapter(socketIoRedis({ host: 'localhost', port: 6379 }))
+io.adapter(socketIoRedis({ host: REDIS_HOST, port: 6379 }))
 
 socket(io)
 
@@ -38,7 +39,7 @@ app.use(bodyParser.json())
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'))
   // app.use(detailLogger)
-  mongoose.connect('mongodb://localhost/tourapp')
+  mongoose.connect(`mongodb://${MONGO_DB_HOST}/tourapp`)
 }
 
 router(app)
