@@ -5,9 +5,11 @@ const repo = require('../../../../src/repositories')
 describe('agent cancel request controller', () => {
   const req = { user: { _id: 'agentId' }, params: { id: 'companyId' } }
   const res = { send: () => '' }
+  let resSendStub
   let agentCancelRequestStub
 
   beforeEach(() => {
+    resSendStub = sinon.spy(res, 'send')
     agentCancelRequestStub = sinon
       .stub(repo, 'agentCancelRequest')
       .resolves(true)
@@ -23,7 +25,15 @@ describe('agent cancel request controller', () => {
     sinon.assert.calledWith(agentCancelRequestStub, 'agentId', 'companyId')
   })
 
+  it('cancel request complete must be send message', async () => {
+    await cancelRequest(req, res)
+    sinon.assert.calledWith(resSendStub, {
+      message: 'Cancel request completed'
+    })
+  })
+
   afterEach(() => {
+    resSendStub.restore()
     agentCancelRequestStub.restore()
   })
 })
