@@ -5,9 +5,11 @@ const repo = require('../../../../src/repositories')
 describe('agent reject request controller', () => {
   const req = { user: { _id: 'agentId' }, params: { id: 'companyId' } }
   const res = { send: () => '' }
+  let resSendStub
   let agentRejectRequestStub
 
   beforeEach(() => {
+    resSendStub = sinon.spy(res, 'send')
     agentRejectRequestStub = sinon
       .stub(repo, 'agentRejectRequest')
       .resolves(true)
@@ -23,7 +25,15 @@ describe('agent reject request controller', () => {
     sinon.assert.calledWith(agentRejectRequestStub, 'agentId', 'companyId')
   })
 
+  it('request completed must be send message', async () => {
+    await rejectRequest(req, res)
+    sinon.assert.calledWith(resSendStub, {
+      message: 'Reject request completed'
+    })
+  })
+
   afterEach(() => {
+    resSendStub.restore()
     agentRejectRequestStub.restore()
   })
 })
