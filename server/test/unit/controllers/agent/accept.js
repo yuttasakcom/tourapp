@@ -6,10 +6,12 @@ const repo = require('../../../../src/repositories')
 describe('agent accept controller', () => {
   const req = { user: { _id: 'agentId' }, body: { _id: 'companyId' } }
   const res = { send: () => '' }
+  let resSendStub
   let agentCheckRequestExistStub
   let agentAcceptStub
 
   beforeEach(() => {
+    resSendStub = sinon.spy(res, 'send')
     agentCheckRequestExistStub = sinon
       .stub(repo, 'agentCheckRequestExist')
       .resolves(true)
@@ -35,7 +37,15 @@ describe('agent accept controller', () => {
     }
   })
 
+  it('accept complete must be send Accept request completed message', async () => {
+    await accept(req, res)
+    sinon.assert.calledWith(resSendStub, {
+      message: 'Accept request completed'
+    })
+  })
+
   afterEach(() => {
+    resSendStub.restore()
     agentCheckRequestExistStub.restore()
     agentAcceptStub.restore()
   })
