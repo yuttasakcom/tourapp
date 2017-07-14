@@ -5,7 +5,7 @@ const addEmployee = require('../../../../src/controllers/agent/addEmployee')
 const auth = require('../../../../src/helpers/authentication')
 const repo = require('../../../../src/repositories')
 
-describe('add_employee controller', () => {
+describe('agent add_employee controller', () => {
   const req = {
     user: { _id: 'agentId' },
     params: { id: 'companyId' },
