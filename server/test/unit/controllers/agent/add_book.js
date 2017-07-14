@@ -6,10 +6,12 @@ const repo = require('../../../../src/repositories')
 describe('agent addBooking controller', () => {
   const req = { user: { _id: 'agentId' }, body: { company: 'companyId' } }
   const res = { send: () => '' }
+  let resSendStub
   let agentCheckMemberExistStub
   let agentAddBookingStub
 
   beforeEach(() => {
+    resSendStub = sinon.spy(res, 'send')
     agentCheckMemberExistStub = sinon
       .stub(repo, 'agentCheckMemberExist')
       .resolves(true)
@@ -33,11 +35,16 @@ describe('agent addBooking controller', () => {
 
   it('agentBook must be not call if member not exist', async () => {
     agentCheckMemberExistStub.resolves(false)
-    try {
-      await addBooking(req, res)
-    } catch (e) {
-      expect(agentAddBookingStub.callCount).to.equal(0)
-    }
+    await addBooking(req, res, () => '')
+    expect(agentAddBookingStub.callCount).to.equal(0)
+  })
+
+  it('if member not exist must send error to middleware', async () => {
+    agentCheckMemberExistStub.resolves(false)
+    await addBooking(req, res, err => {
+      expect(err.message).to.equal('This company is not member')
+      expect(err.status).to.equal(401)
+    })
   })
 
   it('bookingProps.agent must be set', async () => {
@@ -45,7 +52,13 @@ describe('agent addBooking controller', () => {
     expect(req.body.agent).to.equal('agentId')
   })
 
+  it('book complete must be send message', async () => {
+    await addBooking(req, res)
+    sinon.assert.calledWith(resSendStub, true)
+  })
+
   afterEach(() => {
+    resSendStub.restore()
     agentCheckMemberExistStub.restore()
     agentAddBookingStub.restore()
   })
