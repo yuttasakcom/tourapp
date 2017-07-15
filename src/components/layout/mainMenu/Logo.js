@@ -5,7 +5,7 @@ class Logo extends PureComponent {
     return (
       <div className="logo">
         <a className="simple-text">
-          App
+          Company App
         </a>
       </div>
     )
