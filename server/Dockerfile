@@ -5,8 +5,8 @@ RUN mkdir -p /app
 WORKDIR /app
 
 # Cache npm dependencies
-COPY package.json /app/
-COPY yarn.lock /app/
+COPY package.json yarn.lock /app/
+
 RUN yarn
 
 # Copy application files

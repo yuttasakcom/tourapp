@@ -1,0 +1,16 @@
+version: '3.2'
+services:
+  api:
+    build: .
+    depends_on:
+      - redis
+      - mongo
+    ports:
+      - '4000:4000'
+    environment:
+      - MONGO_DB_HOST=mongo
+      - REDIS_HOST=redis
+  redis:
+    image: redis:alpine
+  mongo:
+    image: mongo
