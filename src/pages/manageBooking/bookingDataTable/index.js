@@ -22,7 +22,7 @@ class BookingDataTable extends PureComponent {
 
     return _.map(bookings, booking =>
       <tr key={booking._id}>
-        <td>{booking.company.email}</td>
+        <td>{booking.company.name}</td>
         <td>{booking.pkg.name}</td>
         <td>{booking.tourist.name}</td>
         <td>{booking.tourist.adult}</td>
@@ -43,7 +43,7 @@ class BookingDataTable extends PureComponent {
 
   render() {
     const tableTitles = [
-      'Company',
+      'Company Name',
       'Package',
       'Tourist',
       'Adult',
