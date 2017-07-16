@@ -25,6 +25,9 @@ class PkgDataTable extends PureComponent {
           {pkg.name}
         </td>
         <td>
+          {pkg.company.name}
+        </td>
+        <td>
           {pkg.company.email}
         </td>
         <td>
@@ -47,7 +50,13 @@ class PkgDataTable extends PureComponent {
   }
 
   render() {
-    const tableTitles = ['Name', 'Company', 'Adult Price', 'Child Price']
+    const tableTitles = [
+      'Name',
+      'Company Name',
+      'Company Email',
+      'Adult Price',
+      'Child Price'
+    ]
     return (
       <Card title="Packages" description="Select package for book">
         <DataTable
