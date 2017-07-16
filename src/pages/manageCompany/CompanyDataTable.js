@@ -21,7 +21,7 @@ class CompanyDataTable extends PureComponent {
 
     return _.map(companies, company =>
       <tr key={company._id}>
-        <td>{company._id}</td>
+        <td>{company.name}</td>
         <td>{company.email}</td>
         <td style={{ textAlign: 'center' }}>
           <button
@@ -36,7 +36,7 @@ class CompanyDataTable extends PureComponent {
   }
 
   render() {
-    const tableTitles = ['_id', 'Email']
+    const tableTitles = ['Name', 'Email']
     return (
       <Card title="Companies" description="Manage companies">
         <DataTable

@@ -13,9 +13,6 @@ class Notification extends PureComponent {
     return this.props.notifications.map((notification, index) =>
       <li key={index}>
         <a>{notification}</a>
-        <button className="btn btn-danger btn-sm" onClick={() => ''}>
-          Delete
-        </button>
       </li>
     )
   }

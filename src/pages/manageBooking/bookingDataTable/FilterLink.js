@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 
 class FilterLink extends PureComponent {
   render() {
-    const { icon, text, active, onClick } = this.props
+    const { icon, text, active, onClick, style } = this.props
     return (
       <li className={active ? 'active' : ''}>
         <a
@@ -11,7 +11,9 @@ class FilterLink extends PureComponent {
           role="tab"
           data-toggle="tab"
         >
-          <i className="material-icons">{icon}</i>
+          <i className="material-icons" style={style}>
+            {icon}
+          </i>
           {text}
         </a>
       </li>

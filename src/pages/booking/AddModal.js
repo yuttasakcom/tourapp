@@ -18,11 +18,20 @@ class AddModal extends PureComponent {
   }
 
   render() {
-    const { showModal, closeAddBookingModal } = this.props
+    const { showModal, closeAddBookingModal, pkg } = this.props
+
+    if (!pkg) {
+      return null
+    }
+
     return (
       <Modal show={showModal} onHide={closeAddBookingModal} bsSize="lg">
         <Modal.Header closeButton>
-          <Modal.Title>Add Booking Detail</Modal.Title>
+          <Modal.Title>
+            Add Booking Detail
+            <br />
+            Package: {pkg.name} Company: {pkg.company.name}
+          </Modal.Title>
         </Modal.Header>
         <BookingForm
           initialValues={{ date: moment() }}
