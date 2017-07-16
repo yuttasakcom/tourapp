@@ -1,4 +1,6 @@
 import _ from 'lodash'
+
+import * as bookingStatus from '../actions/bookingStatus'
 import {
   TOGGLE_NOTIFICATION_GEM,
   TOGGLE_ACCEPT_PENDING_GEM,
@@ -11,7 +13,8 @@ import {
   FETCH_NOTIFICATIONS_SUCCESS,
   CANCEL_REQUEST_COMPANY_SUCCESS,
   REJECT_REQUEST_COMPANY_SUCCESS,
-  ACCEPT_COMPANY_SUCCESS
+  ACCEPT_COMPANY_SUCCESS,
+  ADD_NOTIFICATION_SUCCESS
 } from '../actions/types'
 
 const initialState = {
@@ -60,6 +63,19 @@ export default (state = initialState, action) => {
       return {
         ...state,
         notifications: action.payload
+      }
+
+    case ADD_NOTIFICATION_SUCCESS:
+      const bookingStatusKeys = Object.keys(bookingStatus)
+      return {
+        ...state,
+        notifications: [
+          ...state.notifications,
+          `Pkg: ${action.payload.pkg.name} Company: ${action.payload.company
+            .name} Update status from: ${bookingStatusKeys[
+            action.payload.status
+          ]} to: ${bookingStatusKeys[action.payload.updatedStatus]}`
+        ]
       }
 
     case TOGGLE_NOTIFICATION_GEM:
