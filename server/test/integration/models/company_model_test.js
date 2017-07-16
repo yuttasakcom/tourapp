@@ -4,7 +4,7 @@ const { expect } = require('chai')
 const Agent = mongoose.model('Agent')
 const Company = mongoose.model('Company')
 
-describe.only('Company model', () => {
+describe('Company model', () => {
   describe('relationship', () => {
     let agent1
     let company1
