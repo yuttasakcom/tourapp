@@ -1,4 +1,5 @@
 import axios from './axios'
+import socket from './socket'
 
 import { waiting, readed, accepted, rejected, completed } from './bookingStatus'
 import {
@@ -11,8 +12,11 @@ import {
   COMPLETE_BOOKING_SUCCESS
 } from './types'
 
-const updateBookingStatus = (_id, status) =>
-  axios.put(`/bookings/${_id}`, { status })
+const updateBookingStatus = async (_id, status) => {
+  const { data } = await axios.put(`/bookings/${_id}`, { status })
+  data.updatedStatus = status
+  socket.emit('bookingStatusUpdate', data)
+}
 
 export const fetchBookings = () => async dispatch => {
   try {
