@@ -21,6 +21,7 @@ module.exports = io => {
     )
     socket.on('rejectRequest', ({ _id }) => h.onRejectRequest(socket, _id))
     socket.on('book', data => h.onBook(socket, data))
+    socket.on('bookingStatusUpdate', data => h.onBookingStatusUpdate(socket, data))
     socket.on('disconnect', () => h.onDisconnect(socket))
   })
 }

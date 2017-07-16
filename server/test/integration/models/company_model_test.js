@@ -12,10 +12,12 @@ describe('Company model', () => {
     beforeEach(async () => {
       agent1 = new Agent({
         email: 'agent1@test.com',
+        name: 'agent1',
         password: '1234'
       })
       company1 = new Company({
         email: 'company1@test.com',
+        name: 'company1',
         password: '1234'
       })
 
@@ -32,6 +34,11 @@ describe('Company model', () => {
       )
       const company = await Company.findById(company1._id).populate('agents')
       expect(company.agents[0].email).to.equal(agent1.email)
+    })
+
+    it('can get company name', async () => {
+      const company = await Company.findById(company1._id)
+      expect(company.name).to.equal('company1')
     })
 
     it('add agent to an existing company, and agent can list company too', async () => {
