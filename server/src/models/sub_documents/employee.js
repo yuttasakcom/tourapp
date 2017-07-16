@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 const employeeSchema = new Schema({
   email: {
     type: String,
-    unique: true,
+    // unique: true,
     lowercase: true,
     required: [true, 'Email is required']
   },
