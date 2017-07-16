@@ -23,12 +23,27 @@ class BookingDataTable extends PureComponent {
 
     return _.map(bookings, booking =>
       <tr key={booking._id}>
-        <td>{booking.agent.email}</td>
-        <td>{booking.pkg.name}</td>
-        <td>{booking.tourist.name}</td>
-        <td>{booking.tourist.adult}</td>
-        <td>{booking.tourist.child}</td>
-        <td>{booking.status}</td>
+        <td>
+          {booking.agent.name}
+        </td>
+        <td>
+          {booking.agent.email}
+        </td>
+        <td>
+          {booking.pkg.name}
+        </td>
+        <td>
+          {booking.tourist.name}
+        </td>
+        <td>
+          {booking.tourist.adult}
+        </td>
+        <td>
+          {booking.tourist.child}
+        </td>
+        <td>
+          {booking.status}
+        </td>
         <td style={{ textAlign: 'center' }}>
           <button
             className="btn btn-info btn-sm"
@@ -44,7 +59,8 @@ class BookingDataTable extends PureComponent {
 
   render() {
     const tableTitles = [
-      'Agent',
+      'Agent Name',
+      'Agent Email',
       'Package',
       'Tourist',
       'Adult',
