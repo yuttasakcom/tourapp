@@ -68,7 +68,7 @@ export default (state = initialState, action) => {
         ...state,
         notifications: [
           ...state.notifications,
-          `Book by ${action.payload.agent} package ${action.payload.pkg.name}`
+          `Book by ${action.payload.agent.name} package ${action.payload.pkg.name}`
         ]
       }
 

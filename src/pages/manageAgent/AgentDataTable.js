@@ -28,7 +28,7 @@ class AgentDataTable extends PureComponent {
 
     return _.map(agents, agent =>
       <tr key={agent._id}>
-        <td>{agent._id}</td>
+        <td>{agent.name}</td>
         <td>{agent.email}</td>
         <td style={{ textAlign: 'center' }}>
           <button
@@ -49,7 +49,7 @@ class AgentDataTable extends PureComponent {
   }
 
   render() {
-    const tableTitles = ['_id', 'Email']
+    const tableTitles = ['Name', 'Email']
     return (
       <Card title="Agents" description="Manage agents">
         <DataTable

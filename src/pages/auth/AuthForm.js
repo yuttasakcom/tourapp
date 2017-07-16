@@ -68,6 +68,14 @@ class AuthForm extends PureComponent {
                 label="Password"
                 type="password"
               />
+              {title === 'Sign Up'
+                ? <Field
+                    name="name"
+                    component={renderField}
+                    label="Name"
+                    type="text"
+                  />
+                : null}
             </div>
             <div className="row pull-right">
               <Button bsStyle="primary" type="submit" disabled={submitting}>
