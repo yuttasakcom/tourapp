@@ -2,7 +2,7 @@ import React from 'react'
 
 export default () =>
   <form className="navbar-form navbar-right" role="search">
-    <div className="form-group  is-empty">
+    <div className="form-group is-empty">
       <input type="text" className="form-control" placeholder="Search" />
       <span className="material-input" />
     </div>
