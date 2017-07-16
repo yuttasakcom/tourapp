@@ -41,9 +41,6 @@ class BookingDataTable extends PureComponent {
         <td>
           {booking.tourist.child}
         </td>
-        <td>
-          {booking.status}
-        </td>
         <td style={{ textAlign: 'center' }}>
           <button
             className="btn btn-info btn-sm"
@@ -64,8 +61,7 @@ class BookingDataTable extends PureComponent {
       'Package',
       'Tourist',
       'Adult',
-      'Child',
-      'Status'
+      'Child'
     ]
     return (
       <Card title="Bookings" description="Manage booking">
