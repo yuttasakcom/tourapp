@@ -33,7 +33,7 @@ export const addNotification = booking => {
 export const fetchNotifications = () => {
   return {
     type: FETCH_NOTIFICATIONS_SUCCESS,
-    payload: ['noti1', 'noti2']
+    payload: []
   }
 }
 
