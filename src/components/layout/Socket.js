@@ -28,6 +28,7 @@ class Socket extends PureComponent {
     })
 
     socket.on('bookingStatusUpdate', booking => {
+      this.props.fetchBookings()
       this.props.addNotification(booking)
     })
   }
