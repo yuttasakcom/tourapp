@@ -13,8 +13,10 @@ class RequestPending extends PureComponent {
   renderListItem = () => {
     const { requestPendings, cancelRequestAgent } = this.props
     return _.map(requestPendings, requestPending =>
-      <li key={requestPending._id}>
-        <a>{requestPending.email}</a>
+      <li key={requestPending._id} style={{ width: '200px' }}>
+        <a>
+          {requestPending.email}
+        </a>
         <button
           className="btn btn-danger btn-sm pull-right"
           onClick={() => cancelRequestAgent(requestPending)}

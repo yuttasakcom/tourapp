@@ -19,8 +19,10 @@ class AcceptPending extends PureComponent {
     } = this.props
 
     return _.map(acceptPendings, acceptPending =>
-      <li key={acceptPending._id}>
-        <a>{acceptPending.email}</a>
+      <li key={acceptPending._id} style={{ width: '200px' }}>
+        <a>
+          {acceptPending.email}
+        </a>
         <button
           className="btn btn-danger btn-sm pull-right"
           onClick={() => rejectRequestAgent(acceptPending._id)}
