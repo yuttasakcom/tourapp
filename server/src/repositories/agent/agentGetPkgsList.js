@@ -24,7 +24,7 @@ module.exports = async agentId => {
       priceAdult: 1,
       priceChild: 1
     }
-  ).populate({ path: 'company', select: 'email' })
+  ).populate({ path: 'company', select: 'email name' })
   const resolvedPricePkgs = pkgs.map(pkg => {
     if (pkg.specialPrices.length) {
       pkg.priceAdult = pkg.specialPrices[0].priceAdult
