@@ -1,11 +1,12 @@
 const mongoose = require('mongoose')
+const { MONGO_DB_HOST } = require('../src/config')
 const Company = require('../src/models/company')
 const Agent = require('../src/models/agent')
 const Pkg = require('../src/models/pkg')
 const { password } = require('../test/integration/helpers/mock')
 
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost/tourapp')
+mongoose.connect(`mongodb://${MONGO_DB_HOST}/tourapp`)
 mongoose.connection.once('open', () => {
   mongoose.connection.db.dropDatabase().then(() => {
     const company1 = new Company({
