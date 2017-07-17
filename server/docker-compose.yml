@@ -3,14 +3,14 @@ services:
   api:
     build: .
     depends_on:
-      - redis
-      - mongo
+      - redis-db
+      - mongo-db
     ports:
       - '4000:4000'
     environment:
-      - MONGO_DB_HOST=mongo
-      - REDIS_HOST=redis
-  redis:
+      - MONGO_DB_HOST=mongo-db
+      - REDIS_HOST=redis-db
+  redis-db:
     image: redis:alpine
-  mongo:
+  mongo-db:
     image: mongo
