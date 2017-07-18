@@ -7,11 +7,11 @@ WORKDIR /app
 # Cache npm dependencies
 COPY package.json yarn.lock /app/
 
-RUN yarn
+RUN yarn install --production
 
 # Copy application files
 COPY . /app
 
 EXPOSE 8080
 
-CMD ["node", "src/index.js"]
+CMD ["yarn", "startdocker"]

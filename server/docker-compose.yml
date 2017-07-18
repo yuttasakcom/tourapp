@@ -1,16 +1,23 @@
 version: '3.2'
 services:
-  api:
+  tourapp-api:
     build: .
     depends_on:
-      - redis
-      - mongo
+      - redis-db
+      - mongo-db
     ports:
       - '4000:4000'
     environment:
-      - MONGO_DB_HOST=mongo
-      - REDIS_HOST=redis
-  redis:
+      - MONGO_DB_HOST=mongo-db
+      - REDIS_HOST=redis-db
+  redis-db:
     image: redis:alpine
-  mongo:
+    volumes:
+      - redis-data:/data
+  mongo-db:
     image: mongo
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  mongo-data:
+  redis-data:
