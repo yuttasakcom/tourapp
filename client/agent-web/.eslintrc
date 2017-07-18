@@ -1,0 +1,10 @@
+{
+  "extends": "react-app",
+  "rules": {
+    "semi": [
+      "warn",
+      "never"
+    ],
+    "import/no-unresolved": "error"
+  }
+}
