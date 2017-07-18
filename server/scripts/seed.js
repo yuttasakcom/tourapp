@@ -3,7 +3,11 @@ const { MONGO_DB_HOST } = require('../src/config')
 const Company = require('../src/models/company')
 const Agent = require('../src/models/agent')
 const Pkg = require('../src/models/pkg')
-const { password } = require('../test/integration/helpers/mock')
+
+const password = {
+  raw: '1234',
+  hash: '$2a$10$sQRgGWOoCXEHwzfiCAsAcOVRfTi3SDMjIOcRvCd0p2MSMndyLSdjS'
+}
 
 mongoose.Promise = global.Promise
 mongoose.connect(`mongodb://${MONGO_DB_HOST}/tourapp`)
