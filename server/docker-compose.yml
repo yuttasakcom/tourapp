@@ -1,6 +1,6 @@
 version: '3.2'
 services:
-  api:
+  tourapp-api:
     build: .
     depends_on:
       - redis-db
@@ -12,5 +12,12 @@ services:
       - REDIS_HOST=redis-db
   redis-db:
     image: redis:alpine
+    volumes:
+      - redis-data:/data
   mongo-db:
     image: mongo
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  mongo-data:
+  redis-data:
