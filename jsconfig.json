@@ -4,6 +4,12 @@
     "module": "commonjs"
   },
   "exclude": [
-    "node_modules"
+    "server/node_modules",
+    "client/agent-web/node_modules",
+    "client/company-web/node_modules",
+    "client/agent-web/build",
+    "client/company-web/build",
+    "client/agent-web/public",
+    "client/company-web/public"
   ]
 }
