@@ -1,5 +1,9 @@
 version: '3.2'
 services:
+  frontend:
+    build: ./client
+    ports:
+      - '8080:80'
   tourapp-api:
     build: ./server
     depends_on:
