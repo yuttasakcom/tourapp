@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+import { API_BASE_URL } from '../config'
+
 const instance = axios.create({
-  baseURL: 'https://localhost:4000/companies'
+  baseURL: `${API_BASE_URL}/companies`
 })
 
 export default instance
