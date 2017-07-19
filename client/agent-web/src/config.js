@@ -1,1 +1,1 @@
-export const API_BASE_URL = 'https://tourapp:4000'
+export const API_BASE_URL = 'http://api.tourapp:4000'
