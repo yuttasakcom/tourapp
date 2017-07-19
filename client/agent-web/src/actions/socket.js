@@ -1,7 +1,7 @@
 import io from 'socket.io-client'
 
-import { API_HOST_NAME } from '../config'
+import { API_BASE_URL } from '../config'
 
-export default io(`https://${API_HOST_NAME}`, {
+export default io(API_BASE_URL, {
   query: `token=${localStorage.getItem('token')}`
 })
