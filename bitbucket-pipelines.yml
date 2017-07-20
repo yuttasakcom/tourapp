@@ -15,3 +15,4 @@ pipelines:
             - node -v
             - docker -v
             - docker-compose -v
+            - yarn check
