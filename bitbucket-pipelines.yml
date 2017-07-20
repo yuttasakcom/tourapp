@@ -5,10 +5,12 @@
 # You can specify a custom docker image from Docker Hub as your build environment.
 # image: docker-image:tag
 
+immage: node:alpine
 pipelines:
   branches:
     production:
       - step:
           script:
             - echo "Everything is awesome on production!"
+            - docker -v
             - docker-compose -v
