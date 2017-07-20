@@ -10,4 +10,4 @@ pipelines:
     production:
       - step:
           script:
-            - echo "Everything is awesome!"
+            - echo "Everything is awesome on production!"
