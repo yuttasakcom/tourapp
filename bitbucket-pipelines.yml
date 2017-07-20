@@ -6,7 +6,8 @@
 # image: docker-image:tag
 
 pipelines:
-  default:
-    - step:
-        script:
-          - echo "Everything is awesome!"
+  branches:
+    production:
+      - step:
+          script:
+            - echo "Everything is awesome!"
