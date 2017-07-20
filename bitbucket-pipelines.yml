@@ -17,3 +17,6 @@ pipelines:
             - docker-compose build
             - docker-compose push
             - docker logout
+
+options:
+  docker: true
