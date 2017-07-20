@@ -2,6 +2,7 @@ version: '3.2'
 services:
   frontend:
     build: ./client
+    image: paiboon15721/frontend
     depends_on:
       - tourapp-api
     ports:
@@ -9,6 +10,7 @@ services:
       - '4000:4000'
   tourapp-api:
     build: ./server
+    image: paiboon15721/tourapp-api
     depends_on:
       - redis-db
       - mongo-db
