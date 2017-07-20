@@ -5,7 +5,7 @@
 # You can specify a custom docker image from Docker Hub as your build environment.
 # image: docker-image:tag
 
-image: gomoto/node-docker-compose
+image: paiboon15721/node-docker-compose
 pipelines:
   branches:
     production:
