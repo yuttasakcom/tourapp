@@ -11,6 +11,8 @@ pipelines:
     production:
       - step:
           script:
+            - docker -v
+            - docker version
             - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
             - docker-compose build
             - docker-compose push
