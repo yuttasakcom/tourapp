@@ -11,8 +11,7 @@ pipelines:
     production:
       - step:
           script:
-            - echo "Everything is awesome on production!"
-            - node -v
-            - docker -v
-            - docker-compose -v
-            - yarn check
+            - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+            - docker-compose build
+            - docker-compose push
+            - docker logout
