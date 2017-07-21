@@ -1,0 +1,28 @@
+version: '3.2'
+services:
+  frontend:
+    image: paiboon15721/frontend
+    depends_on:
+      - tourapp-api
+    ports:
+      - '8080:80'
+      - '4000:4000'
+  tourapp-api:
+    image: paiboon15721/tourapp-api
+    depends_on:
+      - redis-db
+      - mongo-db
+    environment:
+      - MONGO_DB_HOST=mongo-db
+      - REDIS_HOST=redis-db
+  redis-db:
+    image: redis:alpine
+    volumes:
+      - redis-data:/data
+  mongo-db:
+    image: mongo
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  mongo-data:
+  redis-data:
