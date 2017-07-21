@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cd tourapp
 date > last-deploy
 docker-compose pull
