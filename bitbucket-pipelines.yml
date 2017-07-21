@@ -11,10 +11,11 @@ pipelines:
     production:
       - step:
           script:
-            - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-            - docker-compose build
-            - docker-compose push
-            - docker logout
+            - ssh
+            # - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+            # - docker-compose build
+            # - docker-compose push
+            # - docker logout
 
 options:
   docker: true
