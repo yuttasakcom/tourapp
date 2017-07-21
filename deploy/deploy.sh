@@ -1,3 +1,4 @@
+cd tourapp
 date > last-deploy
 docker-compose pull
 docker-compose up --remove-orphans -d
