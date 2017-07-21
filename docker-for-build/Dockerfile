@@ -31,4 +31,6 @@ RUN set -x && \
     # Clean-up
     apk del .deps
 
+RUN apk --no-cache add openssh-client
+
 # ENTRYPOINT ["/usr/local/bin/docker-compose"]
