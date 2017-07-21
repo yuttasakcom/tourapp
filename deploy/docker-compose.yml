@@ -5,8 +5,7 @@ services:
     depends_on:
       - tourapp-api
     ports:
-      - '8080:80'
-      - '4000:4000'
+      - '80:80'
   tourapp-api:
     image: paiboon15721/tourapp-api
     depends_on:
