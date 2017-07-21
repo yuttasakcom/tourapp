@@ -11,7 +11,7 @@ pipelines:
     production:
       - step:
           script:
-            - ssh
+            - ssh root@139.59.118.149
             # - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
             # - docker-compose build
             # - docker-compose push
