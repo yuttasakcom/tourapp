@@ -14,4 +14,4 @@ COPY . /app
 
 EXPOSE 8080
 
-CMD ["yarn", "startdocker"]
+CMD ["yarn", "start"]
