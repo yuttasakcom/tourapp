@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import axios from './actions/axios'
+import jwtDecode from 'jwt-decode'
 
+import axios from './actions/axios'
 import registerServiceWorker from './registerServiceWorker'
 import App from './App'
 import store from './store'
@@ -17,9 +18,10 @@ const token = localStorage.getItem('token')
 
 if (token) {
   axios.defaults.headers.common['Authorization'] = token
+  const user = jwtDecode(token)
   store.dispatch({
     type: SIGN_IN_SUCCESS,
-    payload: localStorage.getItem('_id')
+    payload: user
   })
 }
 
