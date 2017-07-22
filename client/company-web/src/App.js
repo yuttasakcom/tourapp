@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react'
 import { ConnectedRouter as Router } from 'connected-react-router'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
+import NoMatch from './components/NoMatch'
 import SignIn from './pages/auth/SignIn'
 import SignUp from './pages/auth/SignUp'
-import PrivateRoute from './components/PrivateRoute'
 import Dashboard from './pages/dashboard'
 import BoogkingSummary from './pages/bookingSummary'
 import ManageBooking from './pages/manageBooking'
@@ -21,19 +21,19 @@ class App extends PureComponent {
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
           <Layout>
-            <PrivateRoute
-              path="/"
-              exact
-              component={() => <Redirect to="/dashboard" />}
-            />
-            <PrivateRoute path="/dashboard" component={Dashboard} />
-            <PrivateRoute path="/manage-booking" component={ManageBooking} />
-            <PrivateRoute path="/booking-summary" component={BoogkingSummary} />
-            <PrivateRoute
-              path="/manage-tour-package"
-              component={ManageTourPkg}
-            />
-            <PrivateRoute path="/manage-agent" component={ManageAgent} />
+            <Switch>
+              <Route
+                path="/"
+                exact
+                component={() => <Redirect to="/dashboard" />}
+              />
+              <Route path="/dashboard" component={Dashboard} />
+              <Route path="/manage-booking" component={ManageBooking} />
+              <Route path="/booking-summary" component={BoogkingSummary} />
+              <Route path="/manage-tour-package" component={ManageTourPkg} />
+              <Route path="/manage-agent" component={ManageAgent} />
+              <Route component={NoMatch} />
+            </Switch>
           </Layout>
         </Switch>
       </Router>
