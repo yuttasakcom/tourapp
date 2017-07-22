@@ -18,9 +18,21 @@ class ProfileMenu extends PureComponent {
           <p className="hidden-lg hidden-md">Profile</p>
         </a>
         <ul className="dropdown-menu">
-          <li><a><QRCode value={_id} /></a></li>
-          <li><a>{_id}</a></li>
-          <li><a onClick={signOut}>Sign Out</a></li>
+          <li>
+            <a>
+              <QRCode value={_id} />
+            </a>
+          </li>
+          <li>
+            <a>
+              {_id}
+            </a>
+          </li>
+          <li>
+            <a style={{ cursor: 'pointer' }} onClick={signOut}>
+              Sign Out
+            </a>
+          </li>
         </ul>
       </li>
     )
