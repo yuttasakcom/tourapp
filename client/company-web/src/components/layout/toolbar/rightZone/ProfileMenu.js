@@ -6,7 +6,8 @@ import * as actions from '../../../../actions'
 
 class ProfileMenu extends PureComponent {
   render() {
-    const { _id, signOut, showProfileMenu, toggleProfileMenu } = this.props
+    const { user, signOut, showProfileMenu, toggleProfileMenu } = this.props
+    const { _id, sub, role } = user
     return (
       <li className={`dropdown${showProfileMenu ? ' open' : ''}`}>
         <a
@@ -25,7 +26,17 @@ class ProfileMenu extends PureComponent {
           </li>
           <li>
             <a>
-              {_id}
+              ROLE: {role}
+            </a>
+          </li>
+          <li>
+            <a>
+              EMAIL: {sub}
+            </a>
+          </li>
+          <li>
+            <a>
+              ID: {_id}
             </a>
           </li>
           <li>
@@ -40,10 +51,10 @@ class ProfileMenu extends PureComponent {
 }
 
 const mapStateToProps = ({
-  auth: { _id },
+  auth: { user },
   notification: { showProfileMenu }
 }) => {
-  return { _id, showProfileMenu }
+  return { user, showProfileMenu }
 }
 
 export default connect(mapStateToProps, actions)(ProfileMenu)
