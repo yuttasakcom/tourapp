@@ -11,7 +11,8 @@ describe('Company pendings list', () => {
 
   const company1Props = {
     email: 'company1@test.com',
-    password: h.password.hash
+    password: h.password.hash,
+    name: 'company1'
   }
 
   const company1SigninProps = Object.assign({}, company1Props, {
@@ -22,12 +23,14 @@ describe('Company pendings list', () => {
   beforeEach(async () => {
     const agent1Stub = new Agent({
       email: 'agent1stub@test.com',
-      password: h.password.hash
+      password: h.password.hash,
+      name: 'agent1'
     })
 
     const agent2Stub = new Agent({
       email: 'agent2stub@test.com',
-      password: h.password.hash
+      password: h.password.hash,
+      name: 'agent2'
     })
     company1 = new Company(company1Props)
     company1.requestPendings.push(agent1Stub)

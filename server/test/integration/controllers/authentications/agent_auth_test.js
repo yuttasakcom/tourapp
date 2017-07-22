@@ -12,7 +12,8 @@ const Agent = mongoose.model('Agent')
 describe('agent authentication', () => {
   const agentProps = {
     email: 'agent1@test.com',
-    password: '1234'
+    password: '1234',
+    name: 'agent1'
   }
 
   const agentSigninProps = Object.assign({}, agentProps, { role: 'agent' })
@@ -25,20 +26,16 @@ describe('agent authentication', () => {
       expect(count + 1).to.equal(newCount)
     })
 
-    it('signup must return agent id', async () => {
-      const res = await h.agentSignUp(agentProps)
-      const agent = await Agent.findOne({ email: agentProps.email })
-      expect(res.body._id).to.equal(agent._id.toString())
-    })
-
     it('must provide email and password', async () => {
       const agentWithoutEmail = {
         email: undefined,
-        password: '1234'
+        password: '1234',
+        name: 'agent1'
       }
       const agentWithoutPassword = {
         email: 'agent1@test.com',
-        password: undefined
+        password: undefined,
+        name: 'agent1'
       }
       const res = await h.agentSignUp(agentWithoutEmail).expect(422)
       expect(res.body.error).to.equal('Must provide email and password')
@@ -72,11 +69,6 @@ describe('agent authentication', () => {
       await h.agentSignUp(agentProps)
       const agent = await Agent.findOne({ email: agentProps.email })
       testAgent = agent
-    })
-
-    it('sign in must return agent id', async () => {
-      const res = await h.agentSignIn(agentSigninProps)
-      expect(res.body._id).to.equal(testAgent._id.toString())
     })
 
     it('comparePassword must be valid', async () => {
@@ -124,7 +116,8 @@ describe('agent authentication', () => {
     it('company token can not get secret route', async () => {
       const companyProps = {
         email: 'company1@test.com',
-        password: '1234'
+        password: '1234',
+        name: 'company1'
       }
       const res = await h.companySignUp(companyProps).expect(201)
       const companyToken = res.body.token

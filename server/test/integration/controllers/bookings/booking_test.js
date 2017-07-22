@@ -26,6 +26,7 @@ describe('Booking', () => {
   const agent1Props = {
     email: 'agent1@test.com',
     password: h.password.hash,
+    name: 'agent1',
     employees: [agentEmployee1Props]
   }
 
@@ -37,12 +38,14 @@ describe('Booking', () => {
 
   const company1Props = {
     email: 'company1@test.com',
-    password: h.password.hash
+    password: h.password.hash,
+    name: 'company1'
   }
 
   const company2Props = {
     email: 'company2@test.com',
-    password: h.password.hash
+    password: h.password.hash,
+    name: 'company2'
   }
 
   const touristProps = {

@@ -11,7 +11,8 @@ describe('Agent add employee', () => {
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: h.password.hash
+    password: h.password.hash,
+    name: 'agent1'
   }
 
   const employee1Props = {

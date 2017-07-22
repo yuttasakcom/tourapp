@@ -11,7 +11,8 @@ describe('Company CRUD pkg', () => {
 
   const company1Props = {
     email: 'company1@test.com',
-    password: '1234'
+    password: '1234',
+    name: 'company1'
   }
 
   const pkg1Props = {

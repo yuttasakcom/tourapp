@@ -12,7 +12,8 @@ describe('Get Bookings', () => {
 
   const company1Props = {
     email: 'company1@test.com',
-    password: '1234'
+    password: '1234',
+    name: 'company1'
   }
 
   const touristProps = {
@@ -29,7 +30,8 @@ describe('Get Bookings', () => {
   beforeEach(async () => {
     const agent1 = new Agent({
       email: 'agent1stub@test.com',
-      password: h.password.hash
+      password: h.password.hash,
+      name: 'agent1'
     })
     const res = await h.companySignUp(company1Props)
     company1 = await Company.findOne({ email: company1Props.email })

@@ -16,17 +16,20 @@ describe('Agent get pkgs', () => {
 
   const company1Props = {
     email: 'company1@test.com',
-    password: h.password.hash
+    password: h.password.hash,
+    name: 'company1'
   }
 
   const company2Props = {
     email: 'company2@test.com',
-    password: h.password.hash
+    password: h.password.hash,
+    name: 'company2'
   }
 
   const agent1Props = {
     email: 'agent1@test.com',
-    password: h.password.hash
+    password: h.password.hash,
+    name: 'agent1'
   }
 
   const company1SigninProps = Object.assign({}, company1Props, {

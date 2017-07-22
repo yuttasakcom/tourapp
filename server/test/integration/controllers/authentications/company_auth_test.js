@@ -12,7 +12,8 @@ const expect = chai.expect
 describe('company authentication', () => {
   const companyProps = {
     email: 'company1@test.com',
-    password: '1234'
+    password: '1234',
+    name: 'company1'
   }
 
   const companySigninProps = Object.assign({}, companyProps, {
@@ -27,20 +28,16 @@ describe('company authentication', () => {
       expect(count + 1).to.equal(newCount)
     })
 
-    it('signup must return company id', async () => {
-      const res = await h.companySignUp(companyProps)
-      const company = await Company.findOne({ email: companyProps.email })
-      expect(res.body._id).to.equal(company._id.toString())
-    })
-
     it('must provide email and password', async () => {
       const companyWithoutEmail = {
         email: undefined,
-        password: '1234'
+        password: '1234',
+        name: 'company1'
       }
       const companyWithoutPassword = {
         email: 'company1@test.com',
-        password: undefined
+        password: undefined,
+        name: 'company1'
       }
       const res = await h.companySignUp(companyWithoutEmail).expect(422)
       expect(res.body.error).to.equal('Must provide email and password')
@@ -74,11 +71,6 @@ describe('company authentication', () => {
       await h.companySignUp(companyProps)
       const company = await Company.findOne({ email: companyProps.email })
       testCompany = company
-    })
-
-    it('sign in must return company id', async () => {
-      const res = await h.companySignIn(companySigninProps)
-      expect(res.body._id).to.equal(testCompany._id.toString())
     })
 
     it('comparePassword must be valid', async () => {
@@ -126,7 +118,8 @@ describe('company authentication', () => {
     it('agent token can not get secret route', async () => {
       const agentProps = {
         email: 'agent1@test.com',
-        password: '1234'
+        password: '1234',
+        name: 'agent1'
       }
 
       const res = await h.agentSignUp(agentProps).expect(201)
