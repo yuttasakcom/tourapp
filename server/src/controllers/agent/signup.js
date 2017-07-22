@@ -29,8 +29,7 @@ module.exports = async (req, res, next) => {
     const resAgent = await agent.save()
 
     return res.status(201).send({
-      token: generateToken(resAgent),
-      _id: resAgent._id
+      token: generateToken(resAgent)
     })
   } catch (e) {
     return next(e)
