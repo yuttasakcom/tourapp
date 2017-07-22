@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 
 import MainMenu from './mainMenu'
 import Toolbar from './toolbar'
@@ -9,6 +9,12 @@ import * as actions from '../../actions'
 
 class Layout extends PureComponent {
   render() {
+    const { authenticated } = this.props
+
+    if (!authenticated) {
+      return <Redirect to="/signin" />
+    }
+
     const { hideAllGem, children } = this.props
     return (
       <div className="wrapper">
@@ -25,4 +31,8 @@ class Layout extends PureComponent {
   }
 }
 
-export default withRouter(connect(null, actions)(Layout))
+const mapStateToProps = ({ auth: { authenticated } }) => {
+  return { authenticated }
+}
+
+export default withRouter(connect(mapStateToProps, actions)(Layout))
