@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { ConnectedRouter as Router } from 'connected-react-router'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
 import SignIn from './pages/auth/SignIn'
 import SignUp from './pages/auth/SignUp'
@@ -21,6 +21,11 @@ class App extends PureComponent {
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
           <Layout>
+            <PrivateRoute
+              path="/"
+              exact
+              component={() => <Redirect to="/dashboard" />}
+            />
             <PrivateRoute path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/booking" component={Booking} />
             <PrivateRoute path="/manage-company" component={ManageCompany} />
