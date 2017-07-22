@@ -8,6 +8,7 @@ services:
       - tourapp-api
     ports:
       - '80:80'
+      - '443:443'
   tourapp-api:
     build: ./server
     image: paiboon15721/tourapp-api
