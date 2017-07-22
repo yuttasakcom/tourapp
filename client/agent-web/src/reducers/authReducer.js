@@ -9,7 +9,7 @@ import {
 
 const initialState = {
   authenticated: false,
-  _id: '',
+  user: '',
   notification: { show: false, type: null, message: null }
 }
 
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
       }
 
     case SIGN_UP_SUCCESS:
-      return { ...state, authenticated: true, _id: action.payload }
+      return { ...state, authenticated: true, user: action.payload }
 
     case SIGN_UP_FAIL:
       return {
