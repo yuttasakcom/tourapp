@@ -49,10 +49,9 @@ export const signOut = () => {
 
 export const signUp = values => async dispatch => {
   try {
-    const { data: { token, _id } } = await axios.post('/signup', values)
-    localStorage.setItem('token', token)
-    localStorage.setItem('_id', _id)
-    dispatch({ type: SIGN_UP_SUCCESS, payload: _id })
+    const { data: { token } } = await axios.post('/signup', values)
+    const user = initAuth(token)
+    dispatch({ type: SIGN_UP_SUCCESS, payload: user })
   } catch (e) {
     dispatch({
       type: SIGN_UP_FAIL,
