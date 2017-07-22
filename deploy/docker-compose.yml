@@ -7,6 +7,7 @@ services:
       - tourapp-api
     ports:
       - '80:80'
+      - '443:443'
   tourapp-api:
     image: paiboon15721/tourapp-api
     restart: always
