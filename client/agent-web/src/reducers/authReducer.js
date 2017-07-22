@@ -16,7 +16,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SIGN_IN_SUCCESS:
-      return { ...state, authenticated: true, _id: action.payload }
+      return { ...state, authenticated: true, user: action.payload }
 
     case SIGN_IN_FAIL:
       return {
