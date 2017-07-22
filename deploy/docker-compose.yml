@@ -2,12 +2,14 @@ version: '3.2'
 services:
   frontend:
     image: paiboon15721/frontend
+    restart: always
     depends_on:
       - tourapp-api
     ports:
       - '80:80'
   tourapp-api:
     image: paiboon15721/tourapp-api
+    restart: always
     depends_on:
       - redis-db
       - mongo-db
@@ -16,10 +18,12 @@ services:
       - REDIS_HOST=redis-db
   redis-db:
     image: redis:alpine
+    restart: always
     volumes:
       - redis-data:/data
   mongo-db:
     image: mongo
+    restart: always
     volumes:
       - mongo-data:/data/db
 volumes:
