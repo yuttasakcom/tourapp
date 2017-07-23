@@ -11,6 +11,7 @@ class MainMenu extends PureComponent {
         <div className="sidebar-wrapper">
           <MenuList />
         </div>
+        <div className="sidebar-background" />
       </div>
     )
   }
