@@ -59,3 +59,5 @@ export const FETCH_REQUEST_PENDINGS_SUCCESS = 'fetch_request_pendings_success'
 export const FETCH_ACCEPT_PENDINGS_SUCCESS = 'fetch_accept_pendings_success'
 export const FETCH_NOTIFICATIONS_SUCCESS = 'fetch_notifications_success'
 export const ADD_NOTIFICATION_SUCCESS = 'add_notification_success'
+
+export const TOGGLE_MENU = 'toggle_menu'
