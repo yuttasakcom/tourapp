@@ -8,6 +8,11 @@ import Socket from './Socket'
 import * as actions from '../../actions'
 
 class Layout extends PureComponent {
+  handleContentClick = () => {
+    this.props.hideAllGem()
+    this.props.closeMenu()
+  }
+
   render() {
     const { authenticated } = this.props
 
@@ -15,14 +20,14 @@ class Layout extends PureComponent {
       return <Redirect to="/signin" />
     }
 
-    const { hideAllGem, children, showMenu } = this.props
+    const { children, showMenu } = this.props
     return (
       <div className={`${showMenu ? 'nav-open ' : ''}wrapper`}>
         <Socket />
         <MainMenu />
         <div className="main-panel">
           <Toolbar />
-          <div className="content" onClick={hideAllGem}>
+          <div className="content" onClick={this.handleContentClick}>
             {children}
           </div>
         </div>
