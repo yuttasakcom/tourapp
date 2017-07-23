@@ -6,7 +6,7 @@ const logger = new winston.Logger({
       colorize: true,
       timestamp: true,
       prettyPrint: true,
-      label: 'company-api'
+      label: 'tourapp-api'
     })
   ]
 })
