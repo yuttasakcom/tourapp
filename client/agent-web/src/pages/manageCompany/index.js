@@ -18,12 +18,16 @@ class ManageCompany extends PureComponent {
     return (
       <div className="container-fluid">
         {this.renderNotification()}
-        <button
-          className="btn btn-primary pull-right"
-          onClick={this.props.openRequestCompanyModal}
-        >
-          Request Company
-        </button>
+        <div className="row">
+          <div className="col-md-12">
+            <button
+              className="btn btn-primary pull-right"
+              onClick={this.props.openRequestCompanyModal}
+            >
+              Request Company
+            </button>
+          </div>
+        </div>
         <div className="row">
           <div className="col-md-12">
             <CompanyDataTable />
