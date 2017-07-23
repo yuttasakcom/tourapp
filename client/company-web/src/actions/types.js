@@ -61,3 +61,4 @@ export const FETCH_NOTIFICATIONS_SUCCESS = 'fetch_notifications_success'
 export const ADD_NOTIFICATION_SUCCESS = 'add_notification_success'
 
 export const TOGGLE_MENU = 'toggle_menu'
+export const CLOSE_MENU = 'close_menu'
