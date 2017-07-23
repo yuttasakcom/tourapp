@@ -18,12 +18,16 @@ class ManageEmployee extends PureComponent {
     return (
       <div className="container-fluid">
         {this.renderNotification()}
-        <button
-          className="btn btn-primary pull-right"
-          onClick={this.props.openAddEmployeeModal}
-        >
-          Add
-        </button>
+        <div className="row">
+          <div className="col-md-12">
+            <button
+              className="btn btn-primary pull-right"
+              onClick={this.props.openAddEmployeeModal}
+            >
+              Add
+            </button>
+          </div>
+        </div>
         <div className="row">
           <div className="col-md-12">
             <EmployeeDataTable />
