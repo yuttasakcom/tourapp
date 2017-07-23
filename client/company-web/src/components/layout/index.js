@@ -15,9 +15,9 @@ class Layout extends PureComponent {
       return <Redirect to="/signin" />
     }
 
-    const { hideAllGem, children } = this.props
+    const { hideAllGem, children, showMenu } = this.props
     return (
-      <div className="wrapper">
+      <div className={`${showMenu ? 'nav-open ' : ''}wrapper`}>
         <Socket />
         <MainMenu />
         <div className="main-panel">
@@ -31,8 +31,8 @@ class Layout extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ auth: { authenticated } }) => {
-  return { authenticated }
+const mapStateToProps = ({ auth: { authenticated }, layout: { showMenu } }) => {
+  return { authenticated, showMenu }
 }
 
 export default withRouter(connect(mapStateToProps, actions)(Layout))
