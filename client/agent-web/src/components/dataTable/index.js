@@ -5,7 +5,9 @@ class DataTable extends PureComponent {
     return (
       <tr>
         {this.props.tableTitles.map(tableTitle =>
-          <th key={tableTitle}>{tableTitle}</th>
+          <th key={tableTitle}>
+            {tableTitle}
+          </th>
         )}
         <th style={{ textAlign: 'center' }}>Manage</th>
       </tr>
