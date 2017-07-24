@@ -6,12 +6,12 @@ class FilterLink extends PureComponent {
     return (
       <li className={active ? 'active' : ''}>
         <a
-          style={{ cursor: 'pointer' }}
+          style={{ cursor: 'pointer', paddingTop: '0px', paddingBottom: '0px' }}
           onClick={onClick}
           role="tab"
           data-toggle="tab"
         >
-          <i className="material-icons" style={style}>
+          <i className="material-icons" style={{ padding: '2px', ...style }}>
             {icon}
           </i>
           {text}
