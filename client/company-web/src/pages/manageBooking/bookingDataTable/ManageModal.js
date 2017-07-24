@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button } from 'react-bootstrap'
+import moment from 'moment'
 
 import DisplayField from './DisplayField'
 import * as actions from '../../../actions'
@@ -85,7 +86,10 @@ class ManageModal extends PureComponent {
           />
           <DisplayField label="Adult" text={booking.tourist.adult} />
           <DisplayField label="Child" text={booking.tourist.child} />
-          <DisplayField label="Date" text={booking.tourist.date} />
+          <DisplayField
+            label="Date"
+            text={moment(booking.tourist.date).format('DD/MM/YYYY HH:mm:ss')}
+          />
           <DisplayField label="Note" text={booking.tourist.note} />
         </Modal.Body>
         <Modal.Footer>
