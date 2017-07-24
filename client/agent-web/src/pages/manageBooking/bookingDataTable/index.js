@@ -1,9 +1,11 @@
 import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 
 import Card from '../../../components/Card'
 import DataTable from '../../../components/dataTable'
+import DatePicker from '../../../components/DatePicker'
 import ManageModal from './ManageModal'
 import FilterLinks from './FilterLinks'
 import * as actions from '../../../actions'
@@ -64,11 +66,23 @@ class BookingDataTable extends PureComponent {
     ]
     return (
       <Card title="Bookings" description="Manage booking">
-        <FilterLinks />
-        <DataTable
-          tableTitles={tableTitles}
-          renderTableBody={this.renderTableBody}
-        />
+        <div className="row">
+          <div className="col-md-3">
+            <DatePicker date={moment()} onDateChange={() => ''} />
+          </div>
+          <div className="col-md-9">
+            <FilterLinks />
+          </div>
+          <div
+            className="col-md-12"
+            style={{ display: 'block', overflow: 'auto', height: 400 }}
+          >
+            <DataTable
+              tableTitles={tableTitles}
+              renderTableBody={this.renderTableBody}
+            />
+          </div>
+        </div>
         <ManageModal />
       </Card>
     )
