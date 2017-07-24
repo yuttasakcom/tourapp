@@ -66,13 +66,14 @@ class BookingDataTable extends PureComponent {
     return (
       <Card title="Bookings" description="Manage booking">
         <div className="row">
-          <div className="col-md-3">
-            test
-          </div>
+          <div className="col-md-3">test</div>
           <div className="col-md-9">
             <FilterLinks />
           </div>
-          <div className="col-md-12">
+          <div
+            className="col-md-12"
+            style={{ display: 'block', overflow: 'auto', height: 400 }}
+          >
             <DataTable
               tableTitles={tableTitles}
               renderTableBody={this.renderTableBody}
