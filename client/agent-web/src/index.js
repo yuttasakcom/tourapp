@@ -14,6 +14,7 @@ import { SIGN_IN_SUCCESS } from './actions/types'
 import 'font-awesome/css/font-awesome.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './resources/css/material-dashboard.css'
+import './resources/css/index.css'
 
 moment.locale('th')
 const token = localStorage.getItem('token')
