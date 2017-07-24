@@ -12,7 +12,7 @@ class BookingForm extends PureComponent {
       <form onSubmit={handleSubmit}>
         <Modal.Body>
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <Field
                 name="name"
                 component={renderField}
@@ -20,11 +20,19 @@ class BookingForm extends PureComponent {
                 type="text"
               />
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <Field
                 name="phoneNumber"
                 component={renderField}
                 label="Phone"
+                type="text"
+              />
+            </div>
+            <div className="col-md-4">
+              <Field
+                name="email"
+                component={renderField}
+                label="Email"
                 type="text"
               />
             </div>
