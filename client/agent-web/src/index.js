@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import axios from './actions/axios'
 import jwtDecode from 'jwt-decode'
+import moment from 'moment'
+import 'moment/locale/th'
 
 import registerServiceWorker from './registerServiceWorker'
 import App from './App'
@@ -13,6 +15,7 @@ import 'font-awesome/css/font-awesome.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './resources/css/material-dashboard.css'
 
+moment.locale('th')
 const token = localStorage.getItem('token')
 
 if (token) {
