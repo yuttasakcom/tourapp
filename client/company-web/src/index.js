@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import jwtDecode from 'jwt-decode'
+import moment from 'moment'
+import 'moment/locale/th'
 
 import axios from './actions/axios'
 import registerServiceWorker from './registerServiceWorker'
@@ -14,6 +16,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './resources/css/material-dashboard.css'
 import './resources/css/index.css'
 
+moment.locale('th')
 const token = localStorage.getItem('token')
 
 if (token) {
