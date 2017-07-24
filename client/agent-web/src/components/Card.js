@@ -10,7 +10,7 @@ export default ({ title, description, children }) =>
         {description}
       </p>
     </div>
-    <div className="card-content table-responsive">
+    <div className="card-content table-responsive" style={{ height: 400 }}>
       {children}
     </div>
   </div>
