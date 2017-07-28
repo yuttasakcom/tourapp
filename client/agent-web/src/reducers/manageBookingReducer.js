@@ -14,7 +14,7 @@ const initialState = {
   bookings: {},
   selectedBooking: null,
   showManageBookingModal: false,
-  visibilityFilter: { date: moment(), status: waiting }
+  visibilityFilter: { date: moment().startOf('day'), status: waiting }
 }
 
 export default (state = initialState, action) => {
