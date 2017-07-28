@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import moment from 'moment'
 
 import {
   waiting,
@@ -9,7 +10,8 @@ import {
 } from '../actions/bookingStatus'
 import {
   FETCH_BOOKINGS_SUCCESS,
-  SET_BOOKINGS_VISIBILITY_FILTER,
+  SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
+  SET_BOOKINGS_DATE_VISIBILITY_FILTER,
   OPEN_MANAGE_BOOKING_MODAL,
   CLOSE_MANAGE_BOOKING_MODAL,
   ACCEPT_BOOKING_SUCCESS,
@@ -21,7 +23,7 @@ const initialState = {
   bookings: {},
   selectedBooking: null,
   showManageBookingModal: false,
-  visibilityFilter: waiting
+  visibilityFilter: { date: moment().startOf('day'), status: waiting }
 }
 
 export default (state = initialState, action) => {
@@ -29,8 +31,21 @@ export default (state = initialState, action) => {
     case FETCH_BOOKINGS_SUCCESS:
       return { ...state, bookings: _.mapKeys(action.payload, '_id') }
 
-    case SET_BOOKINGS_VISIBILITY_FILTER:
-      return { ...state, visibilityFilter: action.payload }
+    case SET_BOOKINGS_STATUS_VISIBILITY_FILTER:
+      return {
+        ...state,
+        visibilityFilter: { ...state.visibilityFilter, status: action.payload }
+      }
+
+    case SET_BOOKINGS_DATE_VISIBILITY_FILTER:
+      return {
+        ...state,
+        bookings: _.mapKeys(action.payload.data, '_id'),
+        visibilityFilter: {
+          ...state.visibilityFilter,
+          date: action.payload.date
+        }
+      }
 
     case OPEN_MANAGE_BOOKING_MODAL:
       if (state.bookings[action.payload].status === waiting) {
