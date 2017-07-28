@@ -28,10 +28,15 @@ export const setBookingsStatusVisibilityFilter = status => {
   }
 }
 
-export const setBookingsDateVisibilityFilter = date => {
-  return {
-    type: SET_BOOKINGS_DATE_VISIBILITY_FILTER,
-    payload: date
+export const setBookingsDateVisibilityFilter = date => async dispatch => {
+  try {
+    const { data } = await axios.get(`/bookings?date=${date}`)
+    dispatch({
+      type: SET_BOOKINGS_DATE_VISIBILITY_FILTER,
+      payload: { date, data }
+    })
+  } catch (e) {
+    console.error(e)
   }
 }
 

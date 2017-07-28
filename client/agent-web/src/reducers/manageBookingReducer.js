@@ -31,7 +31,11 @@ export default (state = initialState, action) => {
     case SET_BOOKINGS_DATE_VISIBILITY_FILTER:
       return {
         ...state,
-        visibilityFilter: { ...state.visibilityFilter, date: action.payload }
+        bookings: _.mapKeys(action.payload.data, '_id'),
+        visibilityFilter: {
+          ...state.visibilityFilter,
+          date: action.payload.date
+        }
       }
 
     case OPEN_MANAGE_BOOKING_MODAL:
