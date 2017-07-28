@@ -6,7 +6,8 @@ import {
   FETCH_BOOKINGS_SUCCESS,
   OPEN_MANAGE_BOOKING_MODAL,
   CLOSE_MANAGE_BOOKING_MODAL,
-  SET_BOOKINGS_STATUS_VISIBILITY_FILTER
+  SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
+  SET_BOOKINGS_DATE_VISIBILITY_FILTER
 } from '../actions/types'
 
 const initialState = {
@@ -25,6 +26,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         visibilityFilter: { ...state.visibilityFilter, status: action.payload }
+      }
+
+    case SET_BOOKINGS_DATE_VISIBILITY_FILTER:
+      return {
+        ...state,
+        visibilityFilter: { ...state.visibilityFilter, date: action.payload }
       }
 
     case OPEN_MANAGE_BOOKING_MODAL:
