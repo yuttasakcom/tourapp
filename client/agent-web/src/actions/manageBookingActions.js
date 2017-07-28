@@ -4,7 +4,8 @@ import {
   FETCH_BOOKINGS_SUCCESS,
   OPEN_MANAGE_BOOKING_MODAL,
   CLOSE_MANAGE_BOOKING_MODAL,
-  SET_BOOKINGS_STATUS_VISIBILITY_FILTER
+  SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
+  SET_BOOKINGS_DATE_VISIBILITY_FILTER
 } from './types'
 
 export const fetchBookings = () => async dispatch => {
@@ -20,6 +21,13 @@ export const setBookingsStatusVisibilityFilter = filter => {
   return {
     type: SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
     payload: filter
+  }
+}
+
+export const setBookingsDateVisibilityFilter = date => {
+  return {
+    type: SET_BOOKINGS_DATE_VISIBILITY_FILTER,
+    payload: date
   }
 }
 
