@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react'
-import moment from 'moment'
+import { connect } from 'react-redux'
 
 import DatePicker from '../../../components/DatePicker'
 
 class FilterDate extends PureComponent {
   render() {
+    const { date } = this.props
     return (
       <DatePicker
-        date={moment()}
+        date={date}
         isOutsideRange={() => false}
         onDateChange={() => ''}
       />
@@ -15,4 +16,8 @@ class FilterDate extends PureComponent {
   }
 }
 
-export default FilterDate
+const mapStateToProps = ({
+  manageBooking: { visibilityFilter: { date } }
+}) => ({ date })
+
+export default connect(mapStateToProps)(FilterDate)
