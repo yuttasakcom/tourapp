@@ -6,7 +6,7 @@ module.exports = (agentId, date) => {
   const ltDate = moment(gteDate).add(1, 'days')
   return Booking.find({
     agent: agentId,
-    'tourist.date': { $gte: gteDate.toDate(), $lt: ltDate.toDate() }
+    'tourist.date': { $gte: gteDate, $lt: ltDate }
   }).populate({
     path: 'company',
     select: 'email name'
