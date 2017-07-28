@@ -95,6 +95,16 @@ const validate = values => {
   } else if (isNaN(Number(values.priceChild))) {
     errors.priceChild = 'Must be a number'
   }
+  if (!values.priceAdultRecommended) {
+    errors.priceAdultRecommended = 'Required'
+  } else if (isNaN(Number(values.priceAdultRecommended))) {
+    errors.priceAdultRecommended = 'Must be a number'
+  }
+  if (!values.priceChildRecommended) {
+    errors.priceChildRecommended = 'Required'
+  } else if (isNaN(Number(values.priceChildRecommended))) {
+    errors.priceChildRecommended = 'Must be a number'
+  }
   return errors
 }
 
