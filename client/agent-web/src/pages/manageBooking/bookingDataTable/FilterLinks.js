@@ -1,3 +1,4 @@
+import { filter } from 'lodash'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
@@ -13,7 +14,8 @@ import {
 
 class FilterLinks extends PureComponent {
   render() {
-    const { status, setBookingsStatusVisibilityFilter } = this.props
+    const { status, bookings, setBookingsStatusVisibilityFilter } = this.props
+    console.log(this.props.booking)
     return (
       <ul className="nav nav-pills nav-pills-primary pull-right" role="tablist">
         <FilterLink
@@ -21,6 +23,7 @@ class FilterLinks extends PureComponent {
           text="Waiting"
           style={{ color: '#5882FA' }}
           active={status === waiting}
+          total={filter(bookings, ({ status }) => status === waiting).length}
           onClick={() => setBookingsStatusVisibilityFilter(waiting)}
         />
         <FilterLink
@@ -28,6 +31,7 @@ class FilterLinks extends PureComponent {
           text="Readed"
           style={{ color: '#0000FF' }}
           active={status === readed}
+          total={filter(bookings, ({ status }) => status === readed).length}
           onClick={() => setBookingsStatusVisibilityFilter(readed)}
         />
         <FilterLink
@@ -35,6 +39,7 @@ class FilterLinks extends PureComponent {
           text="Accepted"
           style={{ color: '#FF8000' }}
           active={status === accepted}
+          total={filter(bookings, ({ status }) => status === accepted).length}
           onClick={() => setBookingsStatusVisibilityFilter(accepted)}
         />
         <FilterLink
@@ -42,6 +47,7 @@ class FilterLinks extends PureComponent {
           text="Completed"
           style={{ color: '#3ADF00' }}
           active={status === completed}
+          total={filter(bookings, ({ status }) => status === completed).length}
           onClick={() => setBookingsStatusVisibilityFilter(completed)}
         />
         <FilterLink
@@ -49,6 +55,7 @@ class FilterLinks extends PureComponent {
           text="Rejected"
           style={{ color: '#FF0040' }}
           active={status === rejected}
+          total={filter(bookings, ({ status }) => status === rejected).length}
           onClick={() => setBookingsStatusVisibilityFilter(rejected)}
         />
       </ul>
@@ -57,10 +64,11 @@ class FilterLinks extends PureComponent {
 }
 
 const mapStateToProps = ({
-  manageBooking: { visibilityFilter: { status } }
+  manageBooking: { visibilityFilter: { status }, bookings }
 }) => {
   return {
-    status
+    status,
+    bookings
   }
 }
 
