@@ -4,7 +4,8 @@ import socket from './socket'
 import { waiting, readed, accepted, rejected, completed } from './bookingStatus'
 import {
   FETCH_BOOKINGS_SUCCESS,
-  SET_BOOKINGS_VISIBILITY_FILTER,
+  SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
+  SET_BOOKINGS_DATE_VISIBILITY_FILTER,
   OPEN_MANAGE_BOOKING_MODAL,
   CLOSE_MANAGE_BOOKING_MODAL,
   ACCEPT_BOOKING_SUCCESS,
@@ -18,19 +19,35 @@ const updateBookingStatus = async (_id, status) => {
   socket.emit('bookingStatusUpdate', data)
 }
 
-export const fetchBookings = () => async dispatch => {
+export const fetchBookings = date => async dispatch => {
+  let query = ''
+  if (date) {
+    query = `?date=${date}`
+  }
   try {
-    const { data } = await axios.get('/bookings')
+    const { data } = await axios.get(`/bookings${query}`)
     dispatch({ type: FETCH_BOOKINGS_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
   }
 }
 
-export const setBookingsVisibilityFilter = filter => {
+export const setBookingsStatusVisibilityFilter = status => {
   return {
-    type: SET_BOOKINGS_VISIBILITY_FILTER,
-    payload: filter
+    type: SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
+    payload: status
+  }
+}
+
+export const setBookingsDateVisibilityFilter = date => async dispatch => {
+  try {
+    const { data } = await axios.get(`/bookings?date=${date}`)
+    dispatch({
+      type: SET_BOOKINGS_DATE_VISIBILITY_FILTER,
+      payload: { date, data }
+    })
+  } catch (e) {
+    console.error(e)
   }
 }
 

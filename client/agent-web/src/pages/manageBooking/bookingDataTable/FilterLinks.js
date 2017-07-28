@@ -15,7 +15,6 @@ import {
 class FilterLinks extends PureComponent {
   render() {
     const { status, bookings, setBookingsStatusVisibilityFilter } = this.props
-    console.log(this.props.booking)
     return (
       <ul className="nav nav-pills nav-pills-primary pull-right" role="tablist">
         <FilterLink

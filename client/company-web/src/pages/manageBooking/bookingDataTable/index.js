@@ -5,13 +5,14 @@ import { connect } from 'react-redux'
 import Card from '../../../components/Card'
 import DataTable from '../../../components/dataTable'
 import ManageModal from './ManageModal'
+import FilterDate from './FilterDate'
 import FilterLinks from './FilterLinks'
 import * as actions from '../../../actions'
 import { waiting, readed } from '../../../actions/bookingStatus'
 
 class BookingDataTable extends PureComponent {
   componentDidMount() {
-    this.props.fetchBookings()
+    this.props.fetchBookings(this.props.date)
   }
 
   renderTableBody = () => {
@@ -66,12 +67,14 @@ class BookingDataTable extends PureComponent {
     return (
       <Card title="Bookings" description="Manage booking">
         <div className="row">
-          <div className="col-md-3">test</div>
+          <div className="col-md-3">
+            <FilterDate />
+          </div>
           <div className="col-md-9">
             <FilterLinks />
           </div>
           <div
-            className="col-md-12"
+            className="col-md-12 col-sm-12"
             style={{ display: 'block', overflow: 'auto', height: 400 }}
           >
             <DataTable
@@ -86,17 +89,18 @@ class BookingDataTable extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ booking: { bookings, visibilityFilter } }) => {
-  if (visibilityFilter === waiting) {
-    return {
-      bookings: _.filter(
-        bookings,
-        ({ status }) => status === waiting || status === readed
-      )
-    }
-  }
+const mapStateToProps = ({
+  booking: { bookings, visibilityFilter: { status, date } }
+}) => {
   return {
-    bookings: _.filter(bookings, ({ status }) => status === visibilityFilter)
+    bookings: _.filter(
+      bookings,
+      booking =>
+        status === waiting
+          ? booking.status === waiting || booking.status === readed
+          : booking.status === status
+    ),
+    date
   }
 }
 
