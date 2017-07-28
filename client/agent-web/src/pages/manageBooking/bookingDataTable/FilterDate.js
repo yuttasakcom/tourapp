@@ -5,7 +5,13 @@ import DatePicker from '../../../components/DatePicker'
 
 class FilterDate extends PureComponent {
   render() {
-    return <DatePicker date={moment()} onDateChange={() => ''} />
+    return (
+      <DatePicker
+        date={moment()}
+        isOutsideRange={() => false}
+        onDateChange={() => ''}
+      />
+    )
   }
 }
 
