@@ -34,7 +34,13 @@ class PkgDataTable extends PureComponent {
           {pkg.priceAdult.toLocaleString()}
         </td>
         <td>
+          {pkg.priceAdultRecommended.toLocaleString()}
+        </td>
+        <td>
           {pkg.priceChild.toLocaleString()}
+        </td>
+        <td>
+          {pkg.priceChildRecommended.toLocaleString()}
         </td>
         <td style={{ textAlign: 'center' }}>
           <button
@@ -55,7 +61,9 @@ class PkgDataTable extends PureComponent {
       'Company Name',
       'Company Email',
       'Adult Price',
-      'Child Price'
+      'Recommended Adult Price',
+      'Child Price',
+      'Recommended Child Price'
     ]
     return (
       <Card title="Packages" description="Select package for book">
