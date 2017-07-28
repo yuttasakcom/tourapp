@@ -17,10 +17,10 @@ export const fetchBookings = () => async dispatch => {
   }
 }
 
-export const setBookingsStatusVisibilityFilter = filter => {
+export const setBookingsStatusVisibilityFilter = status => {
   return {
     type: SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
-    payload: filter
+    payload: status
   }
 }
 
