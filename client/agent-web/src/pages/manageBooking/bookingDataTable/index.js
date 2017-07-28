@@ -73,7 +73,7 @@ class BookingDataTable extends PureComponent {
             <FilterLinks />
           </div>
           <div
-            className="col-md-12"
+            className="col-md-12 col-sm-12"
             style={{ display: 'block', overflow: 'auto', height: 400 }}
           >
             <DataTable
