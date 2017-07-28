@@ -38,9 +38,25 @@ class TourPkgForm extends PureComponent {
             </div>
             <div className="col-md-6">
               <Field
+                name="priceAdultRecommended"
+                component={renderField}
+                label="Recommended Adult Price"
+                type="text"
+              />
+            </div>
+            <div className="col-md-6">
+              <Field
                 name="priceChild"
                 component={renderField}
                 label="Child Price"
+                type="text"
+              />
+            </div>
+            <div className="col-md-6">
+              <Field
+                name="priceChildRecommended"
+                component={renderField}
+                label="Recommended Child Price"
                 type="text"
               />
             </div>
