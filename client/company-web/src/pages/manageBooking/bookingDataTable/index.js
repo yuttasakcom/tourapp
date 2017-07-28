@@ -92,16 +92,13 @@ class BookingDataTable extends PureComponent {
 const mapStateToProps = ({
   booking: { bookings, visibilityFilter: { status } }
 }) => {
-  if (status === waiting) {
-    return {
-      bookings: _.filter(
-        bookings,
-        ({ status }) => status === waiting || status === readed
-      )
-    }
-  }
   return {
-    bookings: _.filter(bookings, booking => booking.status === status)
+    bookings: _.filter(bookings, booking => {
+      if (status === waiting) {
+        return booking.status === waiting || booking.status === readed
+      }
+      return booking.status === status
+    })
   }
 }
 
