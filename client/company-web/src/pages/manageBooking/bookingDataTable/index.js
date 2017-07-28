@@ -12,7 +12,7 @@ import { waiting, readed } from '../../../actions/bookingStatus'
 
 class BookingDataTable extends PureComponent {
   componentDidMount() {
-    this.props.fetchBookings()
+    this.props.fetchBookings(this.props.date)
   }
 
   renderTableBody = () => {
@@ -90,15 +90,17 @@ class BookingDataTable extends PureComponent {
 }
 
 const mapStateToProps = ({
-  booking: { bookings, visibilityFilter: { status } }
+  booking: { bookings, visibilityFilter: { status, date } }
 }) => {
   return {
-    bookings: _.filter(bookings, booking => {
-      if (status === waiting) {
-        return booking.status === waiting || booking.status === readed
-      }
-      return booking.status === status
-    })
+    bookings: _.filter(
+      bookings,
+      booking =>
+        status === waiting
+          ? booking.status === waiting || booking.status === readed
+          : booking.status === status
+    ),
+    date
   }
 }
 
