@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Card from '../../../components/Card'
 import DataTable from '../../../components/dataTable'
 import ManageModal from './ManageModal'
+import FilterDate from './FilterDate'
 import FilterLinks from './FilterLinks'
 import * as actions from '../../../actions'
 import { waiting, readed } from '../../../actions/bookingStatus'
@@ -66,7 +67,9 @@ class BookingDataTable extends PureComponent {
     return (
       <Card title="Bookings" description="Manage booking">
         <div className="row">
-          <div className="col-md-3">test</div>
+          <div className="col-md-3">
+            <FilterDate />
+          </div>
           <div className="col-md-9">
             <FilterLinks />
           </div>
