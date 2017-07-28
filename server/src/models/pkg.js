@@ -9,10 +9,10 @@ const pkgSchema = new Schema({
   },
   name: String,
   description: String,
-  priceAdult: Number,
-  priceChild: Number,
-  priceAdultRecommended: Number,
-  printChildRecommended: Number,
+  priceAdult: { type: Number, default: 0 },
+  priceChild: { type: Number, default: 0 },
+  priceAdultRecommended: { type: Number, default: 0 },
+  printChildRecommended: { type: Number, default: 0 },
   specialPrices: [
     {
       agent: {
