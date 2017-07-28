@@ -11,7 +11,7 @@ import * as actions from '../../../actions'
 
 class BookingDataTable extends PureComponent {
   componentDidMount() {
-    this.props.fetchBookings()
+    this.props.fetchBookings(this.props.date)
   }
 
   renderTableBody = () => {
@@ -89,9 +89,10 @@ class BookingDataTable extends PureComponent {
 }
 
 const mapStateToProps = ({
-  manageBooking: { bookings, visibilityFilter: { status } }
+  manageBooking: { bookings, visibilityFilter: { status, date } }
 }) => ({
-  bookings: _.filter(bookings, booking => booking.status === status)
+  bookings: _.filter(bookings, booking => booking.status === status),
+  date
 })
 
 export default connect(mapStateToProps, actions)(BookingDataTable)

@@ -8,9 +8,13 @@ import {
   SET_BOOKINGS_DATE_VISIBILITY_FILTER
 } from './types'
 
-export const fetchBookings = () => async dispatch => {
+export const fetchBookings = date => async dispatch => {
+  let query = ''
+  if (date) {
+    query = `?date=${date}`
+  }
   try {
-    const { data } = await axios.get('/bookings')
+    const { data } = await axios.get(`/bookings${query}`)
     dispatch({ type: FETCH_BOOKINGS_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
