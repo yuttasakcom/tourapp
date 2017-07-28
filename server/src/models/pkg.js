@@ -12,7 +12,7 @@ const pkgSchema = new Schema({
   priceAdult: { type: Number, default: 0 },
   priceChild: { type: Number, default: 0 },
   priceAdultRecommended: { type: Number, default: 0 },
-  printChildRecommended: { type: Number, default: 0 },
+  priceChildRecommended: { type: Number, default: 0 },
   specialPrices: [
     {
       agent: {
