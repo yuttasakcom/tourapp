@@ -13,52 +13,54 @@ import {
 
 class FilterLinks extends PureComponent {
   render() {
-    const { visibilityFilter, setBookingsVisibilityFilter } = this.props
+    const { status, setBookingsStatusVisibilityFilter } = this.props
     return (
       <ul className="nav nav-pills nav-pills-primary pull-right" role="tablist">
         <FilterLink
           icon="alarm"
           text="Waiting"
           style={{ color: '#5882FA' }}
-          active={visibilityFilter === waiting}
-          onClick={() => setBookingsVisibilityFilter(waiting)}
+          active={status === waiting}
+          onClick={() => setBookingsStatusVisibilityFilter(waiting)}
         />
         <FilterLink
           icon="done"
           text="Readed"
           style={{ color: '#0000FF' }}
-          active={visibilityFilter === readed}
-          onClick={() => setBookingsVisibilityFilter(readed)}
+          active={status === readed}
+          onClick={() => setBookingsStatusVisibilityFilter(readed)}
         />
         <FilterLink
           icon="done_all"
           text="Accepted"
           style={{ color: '#FF8000' }}
-          active={visibilityFilter === accepted}
-          onClick={() => setBookingsVisibilityFilter(accepted)}
+          active={status === accepted}
+          onClick={() => setBookingsStatusVisibilityFilter(accepted)}
         />
         <FilterLink
           icon="check_circle"
           text="Completed"
           style={{ color: '#3ADF00' }}
-          active={visibilityFilter === completed}
-          onClick={() => setBookingsVisibilityFilter(completed)}
+          active={status === completed}
+          onClick={() => setBookingsStatusVisibilityFilter(completed)}
         />
         <FilterLink
           icon="clear"
           text="Rejected"
           style={{ color: '#FF0040' }}
-          active={visibilityFilter === rejected}
-          onClick={() => setBookingsVisibilityFilter(rejected)}
+          active={status === rejected}
+          onClick={() => setBookingsStatusVisibilityFilter(rejected)}
         />
       </ul>
     )
   }
 }
 
-const mapStateToProps = ({ manageBooking: { visibilityFilter } }) => {
+const mapStateToProps = ({
+  manageBooking: { visibilityFilter: { status } }
+}) => {
   return {
-    visibilityFilter
+    status
   }
 }
 

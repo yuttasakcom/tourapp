@@ -22,7 +22,7 @@ export const CLOSE_DELETE_EMPLOYEE_MODAL = 'close_delete_employee_modal'
 export const FETCH_BOOKINGS_SUCCESS = 'fetch_bookings_success'
 export const OPEN_MANAGE_BOOKING_MODAL = 'open_manage_booking_modal'
 export const CLOSE_MANAGE_BOOKING_MODAL = 'close_manage_booking_modal'
-export const SET_BOOKINGS_VISIBILITY_FILTER = 'set_bookings_visibility_filter'
+export const SET_BOOKINGS_STATUS_VISIBILITY_FILTER = 'set_bookings_status_visibility_filter'
 
 export const FETCH_COMPANIES_SUCCESS = 'fetch_companies_success'
 export const REQUEST_COMPANY_SUCCESS = 'request_company_success'
