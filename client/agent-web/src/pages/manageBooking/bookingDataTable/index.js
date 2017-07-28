@@ -1,18 +1,17 @@
 import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import moment from 'moment'
 
+import FilterDate from './FilterDate'
 import Card from '../../../components/Card'
 import DataTable from '../../../components/dataTable'
-import DatePicker from '../../../components/DatePicker'
 import ManageModal from './ManageModal'
 import FilterLinks from './FilterLinks'
 import * as actions from '../../../actions'
 
 class BookingDataTable extends PureComponent {
   componentDidMount() {
-    this.props.fetchBookings()
+    this.props.fetchBookings(this.props.date)
   }
 
   renderTableBody = () => {
@@ -68,13 +67,13 @@ class BookingDataTable extends PureComponent {
       <Card title="Bookings" description="Manage booking">
         <div className="row">
           <div className="col-md-3">
-            <DatePicker date={moment()} onDateChange={() => ''} />
+            <FilterDate />
           </div>
           <div className="col-md-9">
             <FilterLinks />
           </div>
           <div
-            className="col-md-12"
+            className="col-md-12 col-sm-12"
             style={{ display: 'block', overflow: 'auto', height: 400 }}
           >
             <DataTable
@@ -90,9 +89,10 @@ class BookingDataTable extends PureComponent {
 }
 
 const mapStateToProps = ({
-  manageBooking: { bookings, visibilityFilter }
+  manageBooking: { bookings, visibilityFilter: { status, date } }
 }) => ({
-  bookings: _.filter(bookings, ({ status }) => status === visibilityFilter)
+  bookings: _.filter(bookings, booking => booking.status === status),
+  date
 })
 
 export default connect(mapStateToProps, actions)(BookingDataTable)

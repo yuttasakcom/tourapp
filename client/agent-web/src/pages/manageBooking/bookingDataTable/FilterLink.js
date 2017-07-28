@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 
 class FilterLink extends PureComponent {
   render() {
-    const { icon, text, active, onClick, style } = this.props
+    const { icon, text, total, active, onClick, style } = this.props
     return (
       <li className={active ? 'active' : ''}>
         <a
@@ -11,13 +11,10 @@ class FilterLink extends PureComponent {
           role="tab"
           data-toggle="tab"
         >
-          <i
-            className="material-icons"
-            style={{ padding: '2px', ...style }}
-          >
+          <i className="material-icons" style={{ padding: '2px', ...style }}>
             {icon}
           </i>
-          {text}
+          {text} ({total})
         </a>
       </li>
     )

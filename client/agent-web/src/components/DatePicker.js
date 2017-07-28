@@ -9,9 +9,10 @@ class DatePicker extends PureComponent {
   }
 
   render() {
-    const { date, onDateChange } = this.props
+    const { date, onDateChange, isOutsideRange } = this.props
     return (
       <SingleDatePicker
+        isOutsideRange={isOutsideRange}
         date={date}
         displayFormat="DD/MM/YYYY"
         onDateChange={onDateChange}
