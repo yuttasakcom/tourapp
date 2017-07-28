@@ -10,7 +10,11 @@ class FilterDate extends PureComponent {
     const { date, setBookingsDateVisibilityFilter } = this.props
     return (
       <div className="row">
-        <Button bsStyle="warning">
+        <Button
+          bsStyle="warning"
+          onClick={() =>
+            setBookingsDateVisibilityFilter(date.subtract(1, 'days').clone())}
+        >
           {'<<<'} Prev
         </Button>
         <DatePicker
@@ -18,7 +22,13 @@ class FilterDate extends PureComponent {
           isOutsideRange={() => false}
           onDateChange={setBookingsDateVisibilityFilter}
         />
-        <Button bsStyle="info">Next >>></Button>
+        <Button
+          bsStyle="info"
+          onClick={() =>
+            setBookingsDateVisibilityFilter(date.add(1, 'days').clone())}
+        >
+          Next >>>
+        </Button>
       </div>
     )
   }
