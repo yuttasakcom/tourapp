@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react'
 import { SingleDatePicker } from 'react-dates'
 
-import 'react-dates/lib/css/_datepicker.css'
-
 class DatePicker extends PureComponent {
   state = {
     focused: false
