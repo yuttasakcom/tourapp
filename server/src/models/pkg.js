@@ -11,6 +11,8 @@ const pkgSchema = new Schema({
   description: String,
   priceAdult: Number,
   priceChild: Number,
+  priceAdultRecommended: Number,
+  printChildRecommended: Number,
   specialPrices: [
     {
       agent: {
