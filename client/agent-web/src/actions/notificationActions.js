@@ -9,7 +9,9 @@ import {
   FETCH_NOTIFICATIONS_SUCCESS,
   FETCH_ACCEPT_PENDINGS_SUCCESS,
   ADD_NOTIFICATION_SUCCESS,
-  FETCH_COMPANY_SUCCESS
+  FETCH_COMPANY_SUCCESS,
+  OPEN_VIEW_COMPANY_PROFILE_MODAL,
+  CLOSE_VIEW_COMPANY_PROFILE_MODAL
 } from './types'
 
 export const fetchCompany = ({ _id }) => async dispatch => {
@@ -60,6 +62,14 @@ export const fetchRequestPendings = () => async dispatch => {
   } catch (e) {
     console.error(e)
   }
+}
+
+export const openViewCompanyProfileModal = _id => {
+  return { type: OPEN_VIEW_COMPANY_PROFILE_MODAL, payload: _id }
+}
+
+export const closeViewCompanyProfileModal = () => {
+  return { type: CLOSE_VIEW_COMPANY_PROFILE_MODAL }
 }
 
 export const toggleNotificationGem = () => {
