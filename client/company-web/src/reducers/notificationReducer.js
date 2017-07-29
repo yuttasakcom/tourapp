@@ -44,6 +44,7 @@ export default (state = initialState, action) => {
     case ACCEPT_AGENT_SUCCESS:
       return {
         ...state,
+        showViewAgentProfileModal: false,
         acceptPendings: _.omit(state.acceptPendings, action.payload)
       }
 
@@ -56,6 +57,7 @@ export default (state = initialState, action) => {
     case REJECT_REQUEST_AGENT_SUCCESS:
       return {
         ...state,
+        showViewAgentProfileModal: false,
         acceptPendings: _.omit(state.acceptPendings, action.payload)
       }
 
