@@ -12,7 +12,9 @@ import {
   CANCEL_REQUEST_AGENT_SUCCESS,
   REJECT_REQUEST_AGENT_SUCCESS,
   ADD_NOTIFICATION_SUCCESS,
-  ACCEPT_AGENT_SUCCESS
+  ACCEPT_AGENT_SUCCESS,
+  OPEN_VIEW_COMPANY_PROFILE_MODAL,
+  CLOSE_VIEW_COMPANY_PROFILE_MODAL
 } from '../actions/types'
 
 const initialState = {
@@ -20,13 +22,25 @@ const initialState = {
   showRequestPendingGem: false,
   showAcceptPendingGem: false,
   showProfileMenu: false,
+  showViewCompanyProfileModal: false,
   requestPendings: {},
   acceptPendings: {},
+  selectedAcceptPending: null,
   notifications: []
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case OPEN_VIEW_COMPANY_PROFILE_MODAL:
+      return {
+        ...state,
+        showViewCompanyProfileModal: true,
+        selectedAcceptPending: action.payload
+      }
+
+    case CLOSE_VIEW_COMPANY_PROFILE_MODAL:
+      return { ...state, showViewCompanyProfileModal: false }
+
     case ACCEPT_AGENT_SUCCESS:
       return {
         ...state,
@@ -68,7 +82,8 @@ export default (state = initialState, action) => {
         ...state,
         notifications: [
           ...state.notifications,
-          `Book by ${action.payload.agent.name} package ${action.payload.pkg.name}`
+          `Book by ${action.payload.agent.name} package ${action.payload.pkg
+            .name}`
         ]
       }
 
