@@ -14,21 +14,35 @@ import {
   CANCEL_REQUEST_COMPANY_SUCCESS,
   REJECT_REQUEST_COMPANY_SUCCESS,
   ACCEPT_COMPANY_SUCCESS,
-  ADD_NOTIFICATION_SUCCESS
+  ADD_NOTIFICATION_SUCCESS,
+  OPEN_VIEW_COMPANY_PROFILE_MODAL,
+  CLOSE_VIEW_COMPANY_PROFILE_MODAL
 } from '../actions/types'
 
 const initialState = {
   showNotificationGem: false,
   showRequestPendingGem: false,
   showAcceptPendingGem: false,
+  showViewCompanyProfileModal: false,
   showProfileMenu: false,
   requestPendings: {},
   acceptPendings: {},
+  selectedAcceptPending: null,
   notifications: []
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case OPEN_VIEW_COMPANY_PROFILE_MODAL:
+      return {
+        ...state,
+        showViewCompanyProfileModal: true,
+        selectedAcceptPending: action.payload
+      }
+
+    case CLOSE_VIEW_COMPANY_PROFILE_MODAL:
+      return { ...state, showViewCompanyProfileModal: false }
+
     case ACCEPT_COMPANY_SUCCESS:
       return {
         ...state,
