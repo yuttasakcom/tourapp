@@ -29,8 +29,9 @@ export const SET_BOOKINGS_DATE_VISIBILITY_FILTER =
 
 export const FETCH_COMPANIES_SUCCESS = 'fetch_companies_success'
 export const FETCH_COMPANY_SUCCESS = 'fetch_company_success'
-export const OPEN_VIEW_PROFILE_MODAL = 'open_view_profile_modal'
-export const CLOSE_VIEW_PROFILE_MODAL = 'close_view_profile_modal'
+export const OPEN_VIEW_COMPANY_PROFILE_MODAL = 'open_view_company_profile_modal'
+export const CLOSE_VIEW_COMPANY_PROFILE_MODAL =
+  'close_view_company_profile_modal'
 export const REQUEST_COMPANY_SUCCESS = 'request_company_success'
 export const REQUEST_COMPANY_FAIL = 'request_company_fail'
 export const ACCEPT_COMPANY_SUCCESS = 'accept_company_success'
