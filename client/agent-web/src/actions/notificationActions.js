@@ -9,22 +9,9 @@ import {
   FETCH_NOTIFICATIONS_SUCCESS,
   FETCH_ACCEPT_PENDINGS_SUCCESS,
   ADD_NOTIFICATION_SUCCESS,
-  FETCH_COMPANY_SUCCESS,
   OPEN_VIEW_COMPANY_PROFILE_MODAL,
   CLOSE_VIEW_COMPANY_PROFILE_MODAL
 } from './types'
-
-export const fetchCompany = ({ _id }) => async dispatch => {
-  try {
-    const { data } = await axios.get(`/companies/${_id}`)
-    dispatch({
-      type: FETCH_COMPANY_SUCCESS,
-      payload: data
-    })
-  } catch (e) {
-    console.error(e)
-  }
-}
 
 export const fetchAcceptPendings = () => async dispatch => {
   try {
