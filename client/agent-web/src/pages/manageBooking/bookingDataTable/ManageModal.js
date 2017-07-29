@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Modal, Button } from 'react-bootstrap'
 import moment from 'moment'
 
-import DisplayField from './DisplayField'
+import DisplayField from '../../../components/DisplayField'
 import * as actions from '../../../actions'
 
 class ManageModal extends PureComponent {
