@@ -5,6 +5,7 @@ import AcceptPending from './AcceptPending'
 import RequestPending from './RequestPending'
 import ProfileMenu from './ProfileMenu'
 import Searchbar from './Searchbar'
+import ViewProfileModal from './ViewProfileModal'
 
 class RightZone extends PureComponent {
   render() {
@@ -17,6 +18,7 @@ class RightZone extends PureComponent {
           <ProfileMenu />
         </ul>
         <Searchbar />
+        <ViewProfileModal />
       </div>
     )
   }

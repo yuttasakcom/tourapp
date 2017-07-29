@@ -22,10 +22,24 @@ class TourPkgDataTable extends PureComponent {
 
     return _.map(pkgs, pkg =>
       <tr key={pkg._id}>
-        <td>{pkg.name}</td>
-        <td>{pkg.description}</td>
-        <td>{pkg.priceAdult.toLocaleString()}</td>
-        <td>{pkg.priceChild.toLocaleString()}</td>
+        <td>
+          {pkg.name}
+        </td>
+        <td>
+          {pkg.description}
+        </td>
+        <td>
+          {pkg.priceAdult.toLocaleString()}
+        </td>
+        <td>
+          {pkg.priceAdultRecommended.toLocaleString()}
+        </td>
+        <td>
+          {pkg.priceChild.toLocaleString()}
+        </td>
+        <td>
+          {pkg.priceChildRecommended.toLocaleString()}
+        </td>
         <td style={{ textAlign: 'center' }}>
           <button
             className="btn btn-warning btn-sm"
@@ -45,7 +59,14 @@ class TourPkgDataTable extends PureComponent {
   }
 
   render() {
-    const tableTitles = ['Name', 'Description', 'Adult Price', 'Child Price']
+    const tableTitles = [
+      'Name',
+      'Description',
+      'Adult Price',
+      'Recommended Adult Price',
+      'Child Price',
+      'Recommended Child Price'
+    ]
     return (
       <Card title="Packages" description="Manage tour packages">
         <DataTable

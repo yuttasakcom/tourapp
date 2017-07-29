@@ -22,7 +22,9 @@ module.exports = async agentId => {
       company: 1,
       name: 1,
       priceAdult: 1,
-      priceChild: 1
+      priceChild: 1,
+      priceAdultRecommended: 1,
+      priceChildRecommended: 1
     }
   ).populate({ path: 'company', select: 'email name' })
   const resolvedPricePkgs = pkgs.map(pkg => {

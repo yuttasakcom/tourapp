@@ -15,12 +15,16 @@ class AcceptPending extends PureComponent {
       acceptPendings,
       acceptAgent,
       rejectRequestAgent,
-      fetchAgents
+      fetchAgents,
+      openViewAgentProfileModal
     } = this.props
 
     return _.map(acceptPendings, acceptPending =>
       <li key={acceptPending._id} style={{ width: '200px' }}>
-        <a>
+        <a
+          style={{ cursor: 'pointer' }}
+          onClick={() => openViewAgentProfileModal(acceptPending._id)}
+        >
           {acceptPending.email}
         </a>
         <button

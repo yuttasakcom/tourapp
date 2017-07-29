@@ -15,12 +15,18 @@ class AcceptPending extends PureComponent {
       acceptPendings,
       acceptCompany,
       rejectRequestCompany,
-      fetchCompanies
+      fetchCompanies,
+      openViewCompanyProfileModal
     } = this.props
 
     return _.map(acceptPendings, acceptPending =>
-      <li key={acceptPending._id}>
-        <a>{acceptPending.email}</a>
+      <li key={acceptPending._id} style={{ width: '200px' }}>
+        <a
+          style={{ cursor: 'pointer' }}
+          onClick={() => openViewCompanyProfileModal(acceptPending._id)}
+        >
+          {acceptPending.email}
+        </a>
         <button
           className="btn btn-danger btn-sm pull-right"
           onClick={() => rejectRequestCompany(acceptPending._id)}

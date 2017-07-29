@@ -38,9 +38,25 @@ class TourPkgForm extends PureComponent {
             </div>
             <div className="col-md-6">
               <Field
+                name="priceAdultRecommended"
+                component={renderField}
+                label="Recommended Adult Price"
+                type="text"
+              />
+            </div>
+            <div className="col-md-6">
+              <Field
                 name="priceChild"
                 component={renderField}
                 label="Child Price"
+                type="text"
+              />
+            </div>
+            <div className="col-md-6">
+              <Field
+                name="priceChildRecommended"
+                component={renderField}
+                label="Recommended Child Price"
                 type="text"
               />
             </div>
@@ -78,6 +94,16 @@ const validate = values => {
     errors.priceChild = 'Required'
   } else if (isNaN(Number(values.priceChild))) {
     errors.priceChild = 'Must be a number'
+  }
+  if (!values.priceAdultRecommended) {
+    errors.priceAdultRecommended = 'Required'
+  } else if (isNaN(Number(values.priceAdultRecommended))) {
+    errors.priceAdultRecommended = 'Must be a number'
+  }
+  if (!values.priceChildRecommended) {
+    errors.priceChildRecommended = 'Required'
+  } else if (isNaN(Number(values.priceChildRecommended))) {
+    errors.priceChildRecommended = 'Must be a number'
   }
   return errors
 }
