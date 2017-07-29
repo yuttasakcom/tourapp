@@ -13,8 +13,8 @@ import {
   REJECT_REQUEST_AGENT_SUCCESS,
   ADD_NOTIFICATION_SUCCESS,
   ACCEPT_AGENT_SUCCESS,
-  OPEN_VIEW_COMPANY_PROFILE_MODAL,
-  CLOSE_VIEW_COMPANY_PROFILE_MODAL
+  OPEN_VIEW_AGENT_PROFILE_MODAL,
+  CLOSE_VIEW_AGENT_PROFILE_MODAL
 } from '../actions/types'
 
 const initialState = {
@@ -22,7 +22,7 @@ const initialState = {
   showRequestPendingGem: false,
   showAcceptPendingGem: false,
   showProfileMenu: false,
-  showViewCompanyProfileModal: false,
+  showViewAgentProfileModal: false,
   requestPendings: {},
   acceptPendings: {},
   selectedAcceptPending: null,
@@ -31,15 +31,15 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case OPEN_VIEW_COMPANY_PROFILE_MODAL:
+    case OPEN_VIEW_AGENT_PROFILE_MODAL:
       return {
         ...state,
-        showViewCompanyProfileModal: true,
+        showViewAgentProfileModal: true,
         selectedAcceptPending: action.payload
       }
 
-    case CLOSE_VIEW_COMPANY_PROFILE_MODAL:
-      return { ...state, showViewCompanyProfileModal: false }
+    case CLOSE_VIEW_AGENT_PROFILE_MODAL:
+      return { ...state, showViewAgentProfileModal: false }
 
     case ACCEPT_AGENT_SUCCESS:
       return {

@@ -6,8 +6,10 @@ export const SIGN_UP_FAIL = 'sign_up_fail'
 export const HIDE_AUTH_NOTIFICATION = 'hide_auth_notification'
 
 export const FETCH_BOOKINGS_SUCCESS = 'fetch_bookings_success'
-export const SET_BOOKINGS_STATUS_VISIBILITY_FILTER = 'set_bookings_status_visibility_filter'
-export const SET_BOOKINGS_DATE_VISIBILITY_FILTER = 'set_bookings_date_visibility_filter'
+export const SET_BOOKINGS_STATUS_VISIBILITY_FILTER =
+  'set_bookings_status_visibility_filter'
+export const SET_BOOKINGS_DATE_VISIBILITY_FILTER =
+  'set_bookings_date_visibility_filter'
 export const OPEN_MANAGE_BOOKING_MODAL = 'open_manage_booking_modal'
 export const CLOSE_MANAGE_BOOKING_MODAL = 'close_manage_booking_modal'
 export const ACCEPT_BOOKING_SUCCESS = 'accept_booking_success'
@@ -51,6 +53,8 @@ export const OFFER_SPECIAL_PRICE_SUCCESS = 'offer_special_price_success'
 export const RESET_PRICE_SUCCESS = 'reset_price_success'
 export const HIDE_AGENT_NOTIFICATION = 'hide_agent_notification'
 
+export const OPEN_VIEW_AGENT_PROFILE_MODAL = 'open_view_agent_profile_modal'
+export const CLOSE_VIEW_AGENT_PROFILE_MODAL = 'close_view_agent_profile_modal'
 export const TOGGLE_PROFILE_MENU = 'toggle_profile_menu'
 export const TOGGLE_NOTIFICATION_GEM = 'toggle_notification_gem'
 export const TOGGLE_ACCEPT_PENDING_GEM = 'toggle_accept_pending_gem'
