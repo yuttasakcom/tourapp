@@ -8,8 +8,21 @@ import {
   FETCH_REQUEST_PENDINGS_SUCCESS,
   FETCH_NOTIFICATIONS_SUCCESS,
   FETCH_ACCEPT_PENDINGS_SUCCESS,
-  ADD_NOTIFICATION_SUCCESS
+  ADD_NOTIFICATION_SUCCESS,
+  FETCH_COMPANY_SUCCESS
 } from './types'
+
+export const fetchCompany = ({ _id }) => async dispatch => {
+  try {
+    const { data } = await axios.get(`/companies/${_id}`)
+    dispatch({
+      type: FETCH_COMPANY_SUCCESS,
+      payload: data
+    })
+  } catch (e) {
+    console.error(e)
+  }
+}
 
 export const fetchAcceptPendings = () => async dispatch => {
   try {
