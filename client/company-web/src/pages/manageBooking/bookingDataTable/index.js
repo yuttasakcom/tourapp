@@ -16,43 +16,16 @@ class BookingDataTable extends PureComponent {
     this.props.fetchBookings(this.props.date)
   }
 
-  renderTableBody = () => {
-    const { bookings, openManageBookingModal } = this.props
-
-    if (!bookings) {
-      return null
-    }
-
-    return _.map(bookings, booking =>
-      <tr key={booking._id}>
-        <td>
-          {booking.agent.name}
-        </td>
-        <td>
-          {booking.agent.email}
-        </td>
-        <td>
-          {booking.pkg.name}
-        </td>
-        <td>
-          {booking.tourist.name}
-        </td>
-        <td>
-          {booking.tourist.adult}
-        </td>
-        <td>
-          {booking.tourist.child}
-        </td>
-        <td style={{ textAlign: 'center' }}>
-          <button
-            className="btn btn-info btn-sm"
-            style={{ margin: 0 }}
-            onClick={() => openManageBookingModal(booking._id, booking.status)}
-          >
-            View
-          </button>
-        </td>
-      </tr>
+  renderViewButton = (cell, row) => {
+    const { openManageBookingModal } = this.props
+    return (
+      <button
+        className="btn btn-info btn-sm"
+        style={{ margin: 0 }}
+        onClick={() => openManageBookingModal(row._id, row.status)}
+      >
+        View
+      </button>
     )
   }
 
@@ -68,24 +41,52 @@ class BookingDataTable extends PureComponent {
             <FilterLinks />
           </div>
           <div className="col-md-12 col-sm-12">
-            <BootstrapTable data={Object.values(bookings)} scrollTop="Bottom">
-              <TableHeaderColumn dataField="_id" isKey>
+            <BootstrapTable
+              data={bookings}
+              height={340}
+              exportCSV
+              search
+              scrollTop="Bottom"
+              options={{ clearSearch: true }}
+            >
+              <TableHeaderColumn hidden dataSort dataField="_id" isKey>
                 Booking ID
               </TableHeaderColumn>
-              <TableHeaderColumn dataField="agent.name">
+              <TableHeaderColumn dataSort dataField="agent.name">
                 Agent Name
               </TableHeaderColumn>
-              <TableHeaderColumn dataField="pkg.name">
+              <TableHeaderColumn dataSort dataField="pkg.name">
                 Package
               </TableHeaderColumn>
-              <TableHeaderColumn dataField="tourist.name">
+              <TableHeaderColumn dataSort dataField="tourist.name">
                 Tourist
               </TableHeaderColumn>
-              <TableHeaderColumn dataField="tourist.adult">
+              <TableHeaderColumn
+                headerAlign="right"
+                dataAlign="right"
+                width="100"
+                dataSort
+                dataField="tourist.adult"
+              >
                 Adult
               </TableHeaderColumn>
-              <TableHeaderColumn dataField="tourist.child">
+              <TableHeaderColumn
+                dataAlign="right"
+                headerAlign="right"
+                width="100"
+                dataSort
+                dataField="tourist.child"
+              >
                 Child
+              </TableHeaderColumn>
+              <TableHeaderColumn
+                width="100"
+                dataFormat={this.renderViewButton}
+                headerAlign="center"
+                dataAlign="center"
+                export={false}
+              >
+                Action
               </TableHeaderColumn>
             </BootstrapTable>
           </div>
