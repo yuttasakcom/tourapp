@@ -81,7 +81,7 @@ class Table extends PureComponent {
 }
 
 const mapStateToProps = ({
-  booking: { bookings, visibilityFilter: { status } }
+  booking: { bookings, visibilityFilter: { status, date } }
 }) => {
   return {
     bookings: filter(
@@ -90,7 +90,8 @@ const mapStateToProps = ({
         status === waiting
           ? booking.status === waiting || booking.status === readed
           : booking.status === status
-    ).map(flat)
+    ).map(flat),
+    date
   }
 }
 
