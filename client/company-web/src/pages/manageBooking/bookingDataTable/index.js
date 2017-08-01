@@ -1,9 +1,10 @@
 import _ from 'lodash'
 import React, { PureComponent } from 'react'
+import flat from 'flat'
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
 import Card from '../../../components/Card'
-import DataTable from '../../../components/dataTable'
 import ManageModal from './ManageModal'
 import FilterDate from './FilterDate'
 import FilterLinks from './FilterLinks'
@@ -56,14 +57,7 @@ class BookingDataTable extends PureComponent {
   }
 
   render() {
-    const tableTitles = [
-      'Agent Name',
-      'Agent Email',
-      'Package',
-      'Tourist',
-      'Adult',
-      'Child'
-    ]
+    const { bookings } = this.props
     return (
       <Card title="Bookings" description="Manage booking">
         <div className="row">
@@ -73,14 +67,27 @@ class BookingDataTable extends PureComponent {
           <div className="col-md-6">
             <FilterLinks />
           </div>
-          <div
-            className="col-md-12 col-sm-12"
-            style={{ display: 'block', overflow: 'auto', height: 400 }}
-          >
-            <DataTable
-              tableTitles={tableTitles}
-              renderTableBody={this.renderTableBody}
-            />
+          <div className="col-md-12 col-sm-12">
+            <BootstrapTable data={Object.values(bookings)} scrollTop="Bottom">
+              <TableHeaderColumn dataField="_id" isKey>
+                Booking ID
+              </TableHeaderColumn>
+              <TableHeaderColumn dataField="agent.name">
+                Agent Name
+              </TableHeaderColumn>
+              <TableHeaderColumn dataField="pkg.name">
+                Package
+              </TableHeaderColumn>
+              <TableHeaderColumn dataField="tourist.name">
+                Tourist
+              </TableHeaderColumn>
+              <TableHeaderColumn dataField="tourist.adult">
+                Adult
+              </TableHeaderColumn>
+              <TableHeaderColumn dataField="tourist.child">
+                Child
+              </TableHeaderColumn>
+            </BootstrapTable>
           </div>
         </div>
         <ManageModal />
@@ -99,7 +106,7 @@ const mapStateToProps = ({
         status === waiting
           ? booking.status === waiting || booking.status === readed
           : booking.status === status
-    ),
+    ).map(flat),
     date
   }
 }
