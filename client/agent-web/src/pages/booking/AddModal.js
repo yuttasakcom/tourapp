@@ -34,7 +34,7 @@ class AddModal extends PureComponent {
           </Modal.Title>
         </Modal.Header>
         <BookingForm
-          initialValues={{ date: moment() }}
+          initialValues={{ date: moment(), adult: 1, child: 0 }}
           onSubmit={this.onSubmit}
           closeModal={closeAddBookingModal}
         />
