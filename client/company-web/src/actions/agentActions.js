@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { delay } from 'lodash'
 import axios from './axios'
 import socket from './socket'
 import {
@@ -84,7 +84,7 @@ export const offerSpecialPrice = (
       type: OFFER_SPECIAL_PRICE_SUCCESS,
       payload: { _id, values, ...data }
     })
-    _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
+    delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
   }
@@ -97,7 +97,7 @@ export const resetPrice = (agentId, { _id }, callback) => async dispatch => {
     )
     dispatch({ type: RESET_PRICE_SUCCESS, payload: deleteData.data })
     callback({ _id })
-    _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
+    delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
   }
@@ -111,7 +111,7 @@ export const requestAgent = ({ _id }, callback) => async dispatch => {
       payload: { message, _id }
     })
 
-    _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
+    delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
     socket.emit('request', { _id })
     callback()
   } catch (e) {
@@ -119,7 +119,7 @@ export const requestAgent = ({ _id }, callback) => async dispatch => {
       type: REQUEST_AGENT_FAIL,
       payload: e.response.data.error
     })
-    _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
+    delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   }
 }
 
@@ -138,7 +138,7 @@ export const deleteAgent = ({ _id }) => async dispatch => {
     const { data } = await axios.delete(`/relationship/${_id}`)
     dispatch({ type: DELETE_AGENT_SUCCESS, payload: { data, _id } })
     socket.emit('deleteRelationship', { _id })
-    _.delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
+    delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
   }

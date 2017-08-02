@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { mapKeys, omit } from 'lodash'
 import {
   REQUEST_COMPANY_SUCCESS,
   REQUEST_COMPANY_FAIL,
@@ -22,7 +22,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_COMPANIES_SUCCESS:
-      return { ...state, companies: _.mapKeys(action.payload, '_id') }
+      return { ...state, companies: mapKeys(action.payload, '_id') }
 
     case REQUEST_COMPANY_SUCCESS:
       return {
@@ -49,7 +49,7 @@ export default (state = initialState, action) => {
     case DELETE_COMPANY_SUCCESS:
       return {
         ...state,
-        companies: _.omit(state.companies, action.payload._id),
+        companies: omit(state.companies, action.payload._id),
         showDeleteCompanyModal: false,
         notification: {
           show: true,

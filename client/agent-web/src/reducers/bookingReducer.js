@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { mapKeys } from 'lodash'
 import {
   FETCH_PKGS_SUCCESS,
   OPEN_ADD_BOOKING_MODAL,
@@ -17,7 +17,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_PKGS_SUCCESS:
-      return { ...state, pkgs: _.mapKeys(action.payload, '_id') }
+      return { ...state, pkgs: mapKeys(action.payload, '_id') }
 
     case OPEN_ADD_BOOKING_MODAL:
       return {

@@ -7,6 +7,8 @@ const touristSchema = new Schema({
   phoneNumber: String,
   email: String,
   hotel: String,
+  roomNumber: String,
+  address: String,
   adult: Number,
   child: Number,
   nationality: String,

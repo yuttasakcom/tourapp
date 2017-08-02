@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { mapKeys } from 'lodash'
 import {
   FETCH_EMPLOYEES_SUCCESS,
   OPEN_ADD_EMPLOYEE_MODAL,
@@ -21,7 +21,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_EMPLOYEES_SUCCESS:
-      return { ...state, employees: _.mapKeys(action.payload, '_id') }
+      return { ...state, employees: mapKeys(action.payload, '_id') }
 
     case OPEN_ADD_EMPLOYEE_MODAL:
       return { ...state, showAddEmployeeModal: true }

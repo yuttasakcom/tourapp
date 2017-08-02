@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { mapKeys, omit } from 'lodash'
 
 import * as bookingStatus from '../actions/bookingStatus'
 import {
@@ -47,32 +47,32 @@ export default (state = initialState, action) => {
       return {
         ...state,
         showViewCompanyProfileModal: false,
-        acceptPendings: _.omit(state.acceptPendings, action.payload)
+        acceptPendings: omit(state.acceptPendings, action.payload)
       }
 
     case CANCEL_REQUEST_COMPANY_SUCCESS:
       return {
         ...state,
-        requestPendings: _.omit(state.requestPendings, action.payload)
+        requestPendings: omit(state.requestPendings, action.payload)
       }
 
     case REJECT_REQUEST_COMPANY_SUCCESS:
       return {
         ...state,
         showViewCompanyProfileModal: false,
-        acceptPendings: _.omit(state.acceptPendings, action.payload)
+        acceptPendings: omit(state.acceptPendings, action.payload)
       }
 
     case FETCH_REQUEST_PENDINGS_SUCCESS:
       return {
         ...state,
-        requestPendings: _.mapKeys(action.payload, '_id')
+        requestPendings: mapKeys(action.payload, '_id')
       }
 
     case FETCH_ACCEPT_PENDINGS_SUCCESS:
       return {
         ...state,
-        acceptPendings: _.mapKeys(action.payload, '_id')
+        acceptPendings: mapKeys(action.payload, '_id')
       }
 
     case FETCH_NOTIFICATIONS_SUCCESS:

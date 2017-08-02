@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { delay } from 'lodash'
 import axios from './axios'
 import socket from './socket'
 import {
@@ -23,7 +23,7 @@ export const addBooking = bookingProps => async dispatch => {
     const { data } = await axios.post('/bookings', bookingProps)
     dispatch({ type: ADD_BOOKING_SUCCESS, payload: data })
     socket.emit('book', data)
-    _.delay(() => dispatch({ type: HIDE_BOOKING_NOTIFICATION }), 4000)
+    delay(() => dispatch({ type: HIDE_BOOKING_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
   }

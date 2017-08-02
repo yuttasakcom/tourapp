@@ -8,8 +8,6 @@ export const HIDE_AUTH_NOTIFICATION = 'hide_auth_notification'
 export const FETCH_BOOKINGS_SUCCESS = 'fetch_bookings_success'
 export const SET_BOOKINGS_STATUS_VISIBILITY_FILTER =
   'set_bookings_status_visibility_filter'
-export const SET_BOOKINGS_DATE_VISIBILITY_FILTER =
-  'set_bookings_date_visibility_filter'
 export const OPEN_MANAGE_BOOKING_MODAL = 'open_manage_booking_modal'
 export const CLOSE_MANAGE_BOOKING_MODAL = 'close_manage_booking_modal'
 export const ACCEPT_BOOKING_SUCCESS = 'accept_booking_success'
@@ -64,6 +62,8 @@ export const FETCH_REQUEST_PENDINGS_SUCCESS = 'fetch_request_pendings_success'
 export const FETCH_ACCEPT_PENDINGS_SUCCESS = 'fetch_accept_pendings_success'
 export const FETCH_NOTIFICATIONS_SUCCESS = 'fetch_notifications_success'
 export const ADD_NOTIFICATION_SUCCESS = 'add_notification_success'
+
+export const FETCH_BOOKINGS_SUMMARY_SUCCESS = 'fetch_bookings_summary_success'
 
 export const TOGGLE_MENU = 'toggle_menu'
 export const CLOSE_MENU = 'close_menu'

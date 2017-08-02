@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Button, Modal } from 'react-bootstrap'
 
+import nationality from './nationality'
 import renderField from '../../components/renderField'
 
 class BookingForm extends PureComponent {
@@ -36,11 +37,27 @@ class BookingForm extends PureComponent {
                 type="text"
               />
             </div>
-            <div className="col-md-12">
+            <div className="col-md-4">
               <Field
                 name="hotel"
                 component={renderField}
-                label="Hotel Name/Address"
+                label="Hotel"
+                type="text"
+              />
+            </div>
+            <div className="col-md-2">
+              <Field
+                name="roomNumber"
+                component={renderField}
+                label="Room Number"
+                type="text"
+              />
+            </div>
+            <div className="col-md-6">
+              <Field
+                name="address"
+                component={renderField}
+                label="Address"
                 type="text"
               />
             </div>
@@ -49,7 +66,8 @@ class BookingForm extends PureComponent {
                 name="adult"
                 component={renderField}
                 label="Adult"
-                type="text"
+                type="number"
+                min="1"
               />
             </div>
             <div className="col-md-3">
@@ -57,15 +75,17 @@ class BookingForm extends PureComponent {
                 name="child"
                 component={renderField}
                 label="Child"
-                type="text"
+                type="number"
+                min="0"
               />
             </div>
             <div className="col-md-3">
               <Field
                 name="nationality"
+                options={nationality}
                 component={renderField}
                 label="Nationality"
-                type="text"
+                type="select"
               />
             </div>
             <div className="col-md-3">
