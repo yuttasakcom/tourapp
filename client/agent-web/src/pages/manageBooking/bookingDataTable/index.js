@@ -66,10 +66,10 @@ class BookingDataTable extends PureComponent {
     return (
       <Card title="Bookings" description="Manage booking">
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-md-5">
             <FilterDate />
           </div>
-          <div className="col-md-9">
+          <div className="col-md-7">
             <FilterLinks />
           </div>
           <div
