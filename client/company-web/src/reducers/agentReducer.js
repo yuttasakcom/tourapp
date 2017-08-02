@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { mapKeys, omit } from 'lodash'
 import {
   FETCH_AGENTS_SUCCESS,
   REQUEST_AGENT_SUCCESS,
@@ -36,12 +36,12 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_AGENTS_SUCCESS:
-      return { ...state, agents: _.mapKeys(action.payload, '_id') }
+      return { ...state, agents: mapKeys(action.payload, '_id') }
 
     case FETCH_AGENT_CONTRACT_RATES_SUCCESS:
       return {
         ...state,
-        selectedAgentContractRates: _.mapKeys(action.payload, '_id')
+        selectedAgentContractRates: mapKeys(action.payload, '_id')
       }
 
     case REQUEST_AGENT_SUCCESS:
@@ -58,7 +58,7 @@ export default (state = initialState, action) => {
     case DELETE_AGENT_SUCCESS:
       return {
         ...state,
-        agents: _.omit(state.agents, action.payload._id),
+        agents: omit(state.agents, action.payload._id),
         showDeleteAgentModal: false,
         notification: {
           show: true,

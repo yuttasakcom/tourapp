@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { mapKeys, omit } from 'lodash'
 import {
   FETCH_PKGS_SUCCESS,
   ADD_PKG_SUCCESS,
@@ -25,7 +25,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_PKGS_SUCCESS:
-      return { ...state, pkgs: _.mapKeys(action.payload, '_id') }
+      return { ...state, pkgs: mapKeys(action.payload, '_id') }
 
     case ADD_PKG_SUCCESS:
       return {
@@ -55,7 +55,7 @@ export default (state = initialState, action) => {
       const { _id, data: { message } } = action.payload
       return {
         ...state,
-        pkgs: _.omit(state.pkgs, _id),
+        pkgs: omit(state.pkgs, _id),
         showDeletePkgModal: false,
         notification: {
           show: true,

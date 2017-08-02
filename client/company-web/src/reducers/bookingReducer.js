@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { mapKeys } from 'lodash'
 import moment from 'moment'
 
 import {
@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
     case FETCH_BOOKINGS_SUCCESS:
       return {
         ...state,
-        bookings: _.mapKeys(action.payload.data, '_id'),
+        bookings: mapKeys(action.payload.data, '_id'),
         visibilityFilter: {
           ...state.visibilityFilter,
           date: action.payload.date
