@@ -29,7 +29,9 @@ class ManageEmployee extends PureComponent {
                 Add
               </button>
             </div>
-            <EmployeeDataTable />
+            <div className="col-md-12">
+              <EmployeeDataTable />
+            </div>
           </div>
         </Card>
         <AddModal />

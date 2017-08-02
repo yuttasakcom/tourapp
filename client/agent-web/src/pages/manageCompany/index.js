@@ -29,7 +29,9 @@ class ManageCompany extends PureComponent {
                 Request Company
               </button>
             </div>
-            <CompanyDataTable />
+            <div className="col-md-12">
+              <CompanyDataTable />
+            </div>
           </div>
         </Card>
         <RequestModal />
