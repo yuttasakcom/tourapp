@@ -49,7 +49,8 @@ class BookingForm extends PureComponent {
                 name="adult"
                 component={renderField}
                 label="Adult"
-                type="text"
+                type="number"
+                min="1"
               />
             </div>
             <div className="col-md-3">
@@ -57,7 +58,8 @@ class BookingForm extends PureComponent {
                 name="child"
                 component={renderField}
                 label="Child"
-                type="text"
+                type="number"
+                min="0"
               />
             </div>
             <div className="col-md-3">
