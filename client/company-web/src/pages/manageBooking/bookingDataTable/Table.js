@@ -12,7 +12,7 @@ class Table extends PureComponent {
     this.props.fetchBookings(this.props.date)
   }
 
-  renderViewButton = (cell, row) => {
+  renderAction = (cell, row) => {
     const { openManageBookingModal } = this.props
     return (
       <button
@@ -36,7 +36,7 @@ class Table extends PureComponent {
         scrollTop="Bottom"
         options={{ clearSearch: true }}
       >
-        <TableHeaderColumn hidden dataSort dataField="_id" isKey>
+        <TableHeaderColumn hidden dataField="_id" isKey>
           Booking ID
         </TableHeaderColumn>
         <TableHeaderColumn dataSort dataField="agent.name">
@@ -68,7 +68,7 @@ class Table extends PureComponent {
         </TableHeaderColumn>
         <TableHeaderColumn
           width="100"
-          dataFormat={this.renderViewButton}
+          dataFormat={this.renderAction}
           headerAlign="center"
           dataAlign="center"
           export={false}
