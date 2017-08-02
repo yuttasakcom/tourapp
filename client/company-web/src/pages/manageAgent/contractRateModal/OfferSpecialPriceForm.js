@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Button, Modal } from 'react-bootstrap'
 
-import renderField from '../../components/renderField'
+import renderField from '../../../components/renderField'
 
 class OfferSpecialPriceForm extends PureComponent {
   render() {

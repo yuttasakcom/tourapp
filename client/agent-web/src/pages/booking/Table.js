@@ -1,36 +1,33 @@
-import { filter } from 'lodash'
-import React, { PureComponent } from 'react'
 import flat from 'flat'
+import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../actions'
-import { waiting, readed } from '../../../actions/bookingStatus'
+import * as actions from '../../actions'
 
 class Table extends PureComponent {
   componentDidMount() {
-    this.props.fetchBookings(this.props.date)
+    this.props.fetchPkgs()
   }
 
   renderAction = (cell, row) => {
-    const { openManageBookingModal } = this.props
+    const { openAddBookingModal } = this.props
     return (
       <button
-        className="btn btn-info btn-sm"
+        className="btn btn-primary btn-sm"
         style={{ margin: 0 }}
-        onClick={() => openManageBookingModal(row._id, row.status)}
+        onClick={() => openAddBookingModal(row._id)}
       >
-        View
+        Book
       </button>
     )
   }
 
   render() {
-    const { bookings } = this.props
+    const { pkgs } = this.props
     return (
       <BootstrapTable
-        data={bookings}
-        height={340}
+        data={pkgs}
         exportCSV
         search
         striped
@@ -41,35 +38,50 @@ class Table extends PureComponent {
         <TableHeaderColumn hidden dataField="_id" isKey>
           Booking ID
         </TableHeaderColumn>
-        <TableHeaderColumn dataSort dataField="agent.name">
-          Agent Name
+        <TableHeaderColumn dataSort dataField="name">
+          Name
         </TableHeaderColumn>
-        <TableHeaderColumn dataSort dataField="pkg.name">
-          Package
-        </TableHeaderColumn>
-        <TableHeaderColumn dataSort dataField="tourist.name">
-          Tourist
+        <TableHeaderColumn dataSort dataField="company.name">
+          Company Name
         </TableHeaderColumn>
         <TableHeaderColumn
           headerAlign="right"
           dataAlign="right"
           width="100"
           dataSort
-          dataField="tourist.adult"
+          dataField="priceAdult"
         >
-          Adult
+          Adult Price
         </TableHeaderColumn>
         <TableHeaderColumn
           dataAlign="right"
           headerAlign="right"
           width="100"
           dataSort
-          dataField="tourist.child"
+          dataField="priceAdultRecommended"
         >
-          Child
+          Adult Selling Price
         </TableHeaderColumn>
         <TableHeaderColumn
+          headerAlign="right"
+          dataAlign="right"
           width="100"
+          dataSort
+          dataField="priceChild"
+        >
+          Child Price
+        </TableHeaderColumn>
+        <TableHeaderColumn
+          dataAlign="right"
+          headerAlign="right"
+          width="100"
+          dataSort
+          dataField="priceChildRecommended"
+        >
+          Child Selling Price
+        </TableHeaderColumn>
+        <TableHeaderColumn
+          width="180"
           dataFormat={this.renderAction}
           headerAlign="center"
           dataAlign="center"
@@ -82,19 +94,8 @@ class Table extends PureComponent {
   }
 }
 
-const mapStateToProps = ({
-  booking: { bookings, visibilityFilter: { status, date } }
-}) => {
-  return {
-    bookings: filter(
-      bookings,
-      booking =>
-        status === waiting
-          ? booking.status === waiting || booking.status === readed
-          : booking.status === status
-    ).map(flat),
-    date
-  }
-}
+const mapStateToProps = ({ booking: { pkgs } }) => ({
+  pkgs: Object.values(pkgs).map(flat)
+})
 
 export default connect(mapStateToProps, actions)(Table)

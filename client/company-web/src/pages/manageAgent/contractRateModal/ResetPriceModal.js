@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button } from 'react-bootstrap'
 
-import * as actions from '../../actions'
+import * as actions from '../../../actions'
 
 class ResetPriceModal extends PureComponent {
   render() {

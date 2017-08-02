@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
+import Card from '../../components/Card'
 import EmployeeDataTable from './EmployeeDataTable'
 import AddModal from './AddModal'
 import Notification from '../../components/Notification'
@@ -18,21 +19,23 @@ class ManageEmployee extends PureComponent {
     return (
       <div className="container-fluid">
         {this.renderNotification()}
-        <div className="row">
-          <div className="col-md-12">
-            <button
-              className="btn btn-primary pull-right"
-              onClick={this.props.openAddEmployeeModal}
-            >
-              Add
-            </button>
+        <Card title="Employees" description="Manage Employees">
+          <div className="row">
+            <div className="col-md-12">
+              <button
+                className="btn btn-primary pull-right"
+                onClick={this.props.openAddEmployeeModal}
+              >
+                Add
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-md-12">
-            <EmployeeDataTable />
+          <div className="row">
+            <div className="col-md-12">
+              <EmployeeDataTable />
+            </div>
           </div>
-        </div>
+        </Card>
         <AddModal />
       </div>
     )

@@ -1,11 +1,10 @@
 import { filter } from 'lodash'
-import React, { PureComponent } from 'react'
 import flat from 'flat'
+import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
 import * as actions from '../../../actions'
-import { waiting, readed } from '../../../actions/bookingStatus'
 
 class Table extends PureComponent {
   componentDidMount() {
@@ -18,7 +17,7 @@ class Table extends PureComponent {
       <button
         className="btn btn-info btn-sm"
         style={{ margin: 0 }}
-        onClick={() => openManageBookingModal(row._id, row.status)}
+        onClick={() => openManageBookingModal(row._id)}
       >
         View
       </button>
@@ -29,8 +28,7 @@ class Table extends PureComponent {
     const { bookings } = this.props
     return (
       <BootstrapTable
-        data={bookings}
-        height={340}
+        data={Object.values(bookings)}
         exportCSV
         search
         striped
@@ -41,8 +39,8 @@ class Table extends PureComponent {
         <TableHeaderColumn hidden dataField="_id" isKey>
           Booking ID
         </TableHeaderColumn>
-        <TableHeaderColumn dataSort dataField="agent.name">
-          Agent Name
+        <TableHeaderColumn dataSort dataField="company.name">
+          Company Name
         </TableHeaderColumn>
         <TableHeaderColumn dataSort dataField="pkg.name">
           Package
@@ -69,7 +67,7 @@ class Table extends PureComponent {
           Child
         </TableHeaderColumn>
         <TableHeaderColumn
-          width="100"
+          width="180"
           dataFormat={this.renderAction}
           headerAlign="center"
           dataAlign="center"
@@ -83,18 +81,10 @@ class Table extends PureComponent {
 }
 
 const mapStateToProps = ({
-  booking: { bookings, visibilityFilter: { status, date } }
-}) => {
-  return {
-    bookings: filter(
-      bookings,
-      booking =>
-        status === waiting
-          ? booking.status === waiting || booking.status === readed
-          : booking.status === status
-    ).map(flat),
-    date
-  }
-}
+  manageBooking: { bookings, visibilityFilter: { status, date } }
+}) => ({
+  bookings: filter(bookings, booking => booking.status === status).map(flat),
+  date
+})
 
 export default connect(mapStateToProps, actions)(Table)

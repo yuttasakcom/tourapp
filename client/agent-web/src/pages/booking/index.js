@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
+import Card from '../../components/Card'
 import PkgDataTable from './PkgDataTable'
 import Notification from '../../components/Notification'
 import * as actions from '../../actions'
@@ -18,11 +19,13 @@ class Booking extends PureComponent {
       <div>
         <div className="container-fluid">
           {this.renderNotification()}
-          <div className="row">
-            <div className="col-md-12">
-              <PkgDataTable />
+          <Card title="Packages" description="Select package for book">
+            <div className="row">
+              <div className="col-md-12">
+                <PkgDataTable />
+              </div>
             </div>
-          </div>
+          </Card>
         </div>
       </div>
     )
