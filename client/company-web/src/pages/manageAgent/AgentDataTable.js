@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 
-import Card from '../../components/Card'
 import Table from './Table'
 import DeleteModal from './DeleteModal'
 import ContractRateModal from './contractRateModal'
@@ -8,11 +7,11 @@ import ContractRateModal from './contractRateModal'
 class AgentDataTable extends PureComponent {
   render() {
     return (
-      <Card title="Agents" description="Manage agents">
+      <div>
         <Table />
         <ContractRateModal />
         <DeleteModal />
-      </Card>
+      </div>
     )
   }
 }

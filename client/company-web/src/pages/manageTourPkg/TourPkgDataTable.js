@@ -8,11 +8,11 @@ import EditModal from './EditModal'
 class TourPkgDataTable extends PureComponent {
   render() {
     return (
-      <Card title="Packages" description="Manage tour packages">
+      <div>
         <Table />
         <EditModal />
         <DeleteModal />
-      </Card>
+      </div>
     )
   }
 }

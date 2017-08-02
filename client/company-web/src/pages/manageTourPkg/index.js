@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
+import Card from '../../components/Card'
 import TourPkgDataTable from './TourPkgDataTable'
 import AddModal from './AddModal'
 import Notification from '../../components/Notification'
@@ -18,21 +19,23 @@ class ManageTourPkg extends PureComponent {
     return (
       <div className="container-fluid">
         {this.renderNotification()}
-        <div className="row">
-          <div className="col-md-12">
-            <button
-              className="btn btn-primary pull-right"
-              onClick={this.props.openAddPkgModal}
-            >
-              Add
-            </button>
+        <Card title="Packages" description="Manage tour packages">
+          <div className="row">
+            <div className="col-md-12">
+              <button
+                className="btn btn-primary pull-right"
+                onClick={this.props.openAddPkgModal}
+              >
+                Add
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-md-12">
-            <TourPkgDataTable />
+          <div className="row">
+            <div className="col-md-12">
+              <TourPkgDataTable />
+            </div>
           </div>
-        </div>
+        </Card>
         <AddModal />
       </div>
     )

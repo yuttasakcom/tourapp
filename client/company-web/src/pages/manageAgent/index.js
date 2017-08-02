@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
+import Card from '../../components/Card'
 import AgentDataTable from './AgentDataTable'
 import RequestModal from './RequestModal'
 import Notification from '../../components/Notification'
@@ -18,21 +19,23 @@ class ManageAgent extends PureComponent {
     return (
       <div className="container-fluid">
         {this.renderNotification()}
-        <div className="row">
-          <div className="col-md-12">
-            <button
-              className="btn btn-primary pull-right"
-              onClick={this.props.openRequestAgentModal}
-            >
-              Request Agent
-            </button>
+        <Card title="Agents" description="Manage agents">
+          <div className="row">
+            <div className="col-md-12">
+              <button
+                className="btn btn-primary pull-right"
+                onClick={this.props.openRequestAgentModal}
+              >
+                Request Agent
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-md-12">
-            <AgentDataTable />
+          <div className="row">
+            <div className="col-md-12">
+              <AgentDataTable />
+            </div>
           </div>
-        </div>
+        </Card>
         <RequestModal />
       </div>
     )
