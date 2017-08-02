@@ -12,6 +12,7 @@ class renderField extends PureComponent {
         return (
           <input
             {...input}
+            {...this.props}
             placeholder={label}
             type={type}
             className="form-control"
