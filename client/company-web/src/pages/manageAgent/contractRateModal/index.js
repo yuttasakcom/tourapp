@@ -3,10 +3,10 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button } from 'react-bootstrap'
 
-import DataTable from '../../components/dataTable'
+import DataTable from '../../../components/dataTable'
 import OfferSpecialPriceModal from './OfferSpecialPriceModal'
 import ResetPriceModal from './ResetPriceModal'
-import * as actions from '../../actions'
+import * as actions from '../../../actions'
 
 class ContractRateModal extends PureComponent {
   renderTableBody = () => {

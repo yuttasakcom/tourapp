@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import Card from '../../components/Card'
 import Table from './Table'
 import DeleteModal from './DeleteModal'
-import ContractRateModal from './ContractRateModal'
+import ContractRateModal from './contractRateModal'
 
 class AgentDataTable extends PureComponent {
   render() {
