@@ -6,10 +6,8 @@ import * as actions from '../../../actions'
 
 class FilterDate extends PureComponent {
   render() {
-    const { date, setBookingsDateVisibilityFilter } = this.props
-    return (
-      <DateMover date={date} onDateChange={setBookingsDateVisibilityFilter} />
-    )
+    const { date, fetchBookings } = this.props
+    return <DateMover date={date} onDateChange={fetchBookings} />
   }
 }
 

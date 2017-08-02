@@ -4,22 +4,8 @@ import {
   FETCH_BOOKINGS_SUCCESS,
   OPEN_MANAGE_BOOKING_MODAL,
   CLOSE_MANAGE_BOOKING_MODAL,
-  SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
-  SET_BOOKINGS_DATE_VISIBILITY_FILTER
+  SET_BOOKINGS_STATUS_VISIBILITY_FILTER
 } from './types'
-
-export const fetchBookings = date => async dispatch => {
-  let query = ''
-  if (date) {
-    query = `?date=${date}`
-  }
-  try {
-    const { data } = await axios.get(`/bookings${query}`)
-    dispatch({ type: FETCH_BOOKINGS_SUCCESS, payload: data })
-  } catch (e) {
-    console.error(e)
-  }
-}
 
 export const setBookingsStatusVisibilityFilter = status => {
   return {
@@ -28,11 +14,11 @@ export const setBookingsStatusVisibilityFilter = status => {
   }
 }
 
-export const setBookingsDateVisibilityFilter = date => async dispatch => {
+export const fetchBookings = date => async dispatch => {
   try {
     const { data } = await axios.get(`/bookings?date=${date}`)
     dispatch({
-      type: SET_BOOKINGS_DATE_VISIBILITY_FILTER,
+      type: FETCH_BOOKINGS_SUCCESS,
       payload: { date, data }
     })
   } catch (e) {
