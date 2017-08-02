@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
+import Card from '../../components/Card'
 import CompanyDataTable from './CompanyDataTable'
 import RequestModal from './RequestModal'
 import Notification from '../../components/Notification'
@@ -18,21 +19,19 @@ class ManageCompany extends PureComponent {
     return (
       <div className="container-fluid">
         {this.renderNotification()}
-        <div className="row">
-          <div className="col-md-12">
-            <button
-              className="btn btn-primary pull-right"
-              onClick={this.props.openRequestCompanyModal}
-            >
-              Request Company
-            </button>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-12">
+        <Card title="Companies" description="Manage companies">
+          <div className="row">
+            <div className="col-md-12">
+              <button
+                className="btn btn-primary pull-right"
+                onClick={this.props.openRequestCompanyModal}
+              >
+                Request Company
+              </button>
+            </div>
             <CompanyDataTable />
           </div>
-        </div>
+        </Card>
         <RequestModal />
       </div>
     )

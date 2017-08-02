@@ -19,8 +19,8 @@ class ManageEmployee extends PureComponent {
     return (
       <div className="container-fluid">
         {this.renderNotification()}
-        <div className="row">
-          <Card title="Employees" description="Manage Employees">
+        <Card title="Employees" description="Manage Employees">
+          <div className="row">
             <div className="col-md-12">
               <button
                 className="btn btn-primary pull-right"
@@ -30,8 +30,8 @@ class ManageEmployee extends PureComponent {
               </button>
             </div>
             <EmployeeDataTable />
-          </Card>
-        </div>
+          </div>
+        </Card>
         <AddModal />
       </div>
     )

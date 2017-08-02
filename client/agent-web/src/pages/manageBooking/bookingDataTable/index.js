@@ -81,8 +81,8 @@ class BookingDataTable extends PureComponent {
               renderTableBody={this.renderTableBody}
             />
           </div>
+          <ManageModal />
         </div>
-        <ManageModal />
       </Card>
     )
   }
