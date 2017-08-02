@@ -9,7 +9,7 @@ class FilterDate extends PureComponent {
   render() {
     const { date, setBookingsDateVisibilityFilter } = this.props
     return (
-      <div className="row">
+      <div>
         <Button
           bsStyle="warning"
           onClick={() =>
