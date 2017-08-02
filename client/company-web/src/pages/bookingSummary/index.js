@@ -1,14 +1,18 @@
 import React, { PureComponent } from 'react'
 
 import Card from '../../components/Card'
-import bookingSummary from '../../resources/images/booking_summary.png'
+import FilterDate from './FilterDate'
 
 class BookingSummary extends PureComponent {
   render() {
     return (
       <div className="container-fluid">
         <Card title="Booking Summary" description="Show Booking Summary">
-          <img src={bookingSummary} alt="booking summary" />
+          <div className="row">
+            <div className="col-md-12">
+              <FilterDate />
+            </div>
+          </div>
         </Card>
       </div>
     )
