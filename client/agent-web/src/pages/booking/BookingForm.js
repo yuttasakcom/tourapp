@@ -37,11 +37,27 @@ class BookingForm extends PureComponent {
                 type="text"
               />
             </div>
-            <div className="col-md-12">
+            <div className="col-md-4">
               <Field
                 name="hotel"
                 component={renderField}
-                label="Hotel Name/Address"
+                label="Hotel"
+                type="text"
+              />
+            </div>
+            <div className="col-md-2">
+              <Field
+                name="roomNumber"
+                component={renderField}
+                label="Room Number"
+                type="text"
+              />
+            </div>
+            <div className="col-md-6">
+              <Field
+                name="address"
+                component={renderField}
+                label="Address"
                 type="text"
               />
             </div>
