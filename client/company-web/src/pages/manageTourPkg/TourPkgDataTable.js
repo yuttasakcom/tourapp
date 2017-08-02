@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 
-import Card from '../../components/Card'
 import Table from './Table'
 import DeleteModal from './DeleteModal'
 import EditModal from './EditModal'
