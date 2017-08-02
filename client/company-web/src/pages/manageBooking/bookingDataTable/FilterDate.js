@@ -9,7 +9,7 @@ class FilterDate extends PureComponent {
   render() {
     const { date, setBookingsDateVisibilityFilter } = this.props
     return (
-      <div className="row">
+      <div>
         <Button
           bsStyle="warning"
           onClick={() =>
@@ -34,8 +34,8 @@ class FilterDate extends PureComponent {
   }
 }
 
-const mapStateToProps = ({
-  booking: { visibilityFilter: { date } }
-}) => ({ date })
+const mapStateToProps = ({ booking: { visibilityFilter: { date } } }) => ({
+  date
+})
 
 export default connect(mapStateToProps, actions)(FilterDate)
