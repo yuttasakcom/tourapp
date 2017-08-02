@@ -3,7 +3,7 @@ import moment from 'moment'
 import { FETCH_BOOKINGS_SUMMARY_SUCCESS } from '../actions/types'
 
 const initialState = {
-  bookingsSummary: {},
+  bookingsSummary: [],
   visibilityFilter: { date: moment().startOf('day') }
 }
 
