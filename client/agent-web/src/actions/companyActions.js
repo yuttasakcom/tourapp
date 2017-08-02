@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { delay } from 'lodash'
 import axios from './axios'
 import socket from './socket'
 import {
@@ -32,7 +32,7 @@ export const requestCompany = ({ _id }, callback) => async dispatch => {
       type: REQUEST_COMPANY_SUCCESS,
       payload: { message, _id }
     })
-    _.delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
+    delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
     socket.emit('request', { _id })
     callback()
   } catch (e) {
@@ -40,7 +40,7 @@ export const requestCompany = ({ _id }, callback) => async dispatch => {
       type: REQUEST_COMPANY_FAIL,
       payload: e.response.data.error
     })
-    _.delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
+    delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
   }
 }
 
@@ -59,7 +59,7 @@ export const deleteCompany = ({ _id }) => async dispatch => {
     const { data } = await axios.delete(`/relationship/${_id}`)
     dispatch({ type: DELETE_COMPANY_SUCCESS, payload: { data, _id } })
     socket.emit('deleteRelationship', { _id })
-    _.delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
+    delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
   }

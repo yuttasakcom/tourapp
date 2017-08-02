@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { delay } from 'lodash'
 import jwtDecode from 'jwt-decode'
 
 import axios from './axios'
@@ -37,7 +37,7 @@ export const signIn = values => async dispatch => {
       type: SIGN_IN_FAIL,
       payload: e.response.data
     })
-    _.delay(() => dispatch({ type: HIDE_AUTH_NOTIFICATION }), 4000)
+    delay(() => dispatch({ type: HIDE_AUTH_NOTIFICATION }), 4000)
   }
 }
 
@@ -57,6 +57,6 @@ export const signUp = values => async dispatch => {
       type: SIGN_UP_FAIL,
       payload: e.response.data.error
     })
-    _.delay(() => dispatch({ type: HIDE_AUTH_NOTIFICATION }), 4000)
+    delay(() => dispatch({ type: HIDE_AUTH_NOTIFICATION }), 4000)
   }
 }
