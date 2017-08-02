@@ -7,6 +7,7 @@ import pkg from './pkgReducer'
 import agent from './agentReducer'
 import notification from './notificationReducer'
 import booking from './bookingReducer'
+import bookingSummary from './bookingSummaryReducer'
 
 export default combineReducers({
   form,
@@ -15,5 +16,6 @@ export default combineReducers({
   pkg,
   agent,
   notification,
-  booking
+  booking,
+  bookingSummary
 })
