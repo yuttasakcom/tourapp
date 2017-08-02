@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Button, Modal } from 'react-bootstrap'
 
+import nationality from './nationality'
 import renderField from '../../components/renderField'
 
 class BookingForm extends PureComponent {
@@ -65,9 +66,10 @@ class BookingForm extends PureComponent {
             <div className="col-md-3">
               <Field
                 name="nationality"
+                options={nationality}
                 component={renderField}
                 label="Nationality"
-                type="text"
+                type="select"
               />
             </div>
             <div className="col-md-3">

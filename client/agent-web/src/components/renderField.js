@@ -1,18 +1,29 @@
 import React, { PureComponent } from 'react'
+import Select from 'react-select'
+
 import DatePicker from './DatePicker'
 
 class renderField extends PureComponent {
   renderInput() {
-    const { input, label, type } = this.props
+    const { input, label, type, meta, ...rest } = this.props
     switch (type) {
+      case 'select':
+        return (
+          <Select
+            {...rest}
+            {...input}
+            onBlur={() => input.onBlur(input.value.value)}
+          />
+        )
+
       case 'date':
         return <DatePicker date={input.value} onDateChange={input.onChange} />
 
       default:
         return (
           <input
+            {...rest}
             {...input}
-            {...this.props}
             placeholder={label}
             type={type}
             className="form-control"
