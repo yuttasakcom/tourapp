@@ -38,7 +38,9 @@ class Table extends PureComponent {
         data={Object.values(pkgs)}
         exportCSV
         search
-        scrollTop="Bottom"
+        striped
+        hover
+        condensed
         options={{ clearSearch: true }}
       >
         <TableHeaderColumn hidden dataField="_id" isKey>

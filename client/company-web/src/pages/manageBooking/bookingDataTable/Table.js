@@ -33,7 +33,9 @@ class Table extends PureComponent {
         height={340}
         exportCSV
         search
-        scrollTop="Bottom"
+        striped
+        hover
+        condensed
         options={{ clearSearch: true }}
       >
         <TableHeaderColumn hidden dataField="_id" isKey>
