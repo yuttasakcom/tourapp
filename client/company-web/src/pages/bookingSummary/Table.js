@@ -11,7 +11,6 @@ class Table extends PureComponent {
 
   render() {
     const { bookingsSummary } = this.props
-    console.log(bookingsSummary)
     return (
       <BootstrapTable
         data={bookingsSummary}
@@ -22,8 +21,62 @@ class Table extends PureComponent {
         condensed
         options={{ clearSearch: true }}
       >
-        <TableHeaderColumn dataField="_id" isKey>
-          Booking ID
+        <TableHeaderColumn dataSort dataField="_id" isKey>
+          Package Name
+        </TableHeaderColumn>
+        <TableHeaderColumn
+          headerAlign="right"
+          dataAlign="right"
+          width="100"
+          dataSort
+          dataField="totalAdult"
+        >
+          Adult
+        </TableHeaderColumn>
+        <TableHeaderColumn
+          headerAlign="right"
+          dataAlign="right"
+          width="100"
+          dataSort
+          dataField="totalChild"
+        >
+          Child
+        </TableHeaderColumn>
+        <TableHeaderColumn
+          headerAlign="right"
+          dataAlign="right"
+          width="100"
+          dataSort
+          dataField="totalSeat"
+        >
+          Total Seat
+        </TableHeaderColumn>
+        <TableHeaderColumn
+          headerAlign="right"
+          dataAlign="right"
+          width="200"
+          dataSort
+          dataField="totalAdultIncome"
+        >
+          Total Adult Income
+        </TableHeaderColumn>
+        <TableHeaderColumn
+          headerAlign="right"
+          dataAlign="right"
+          width="200"
+          dataSort
+          dataField="totalChildIncome"
+        >
+          Total Child Income
+        </TableHeaderColumn>
+        <TableHeaderColumn
+          headerAlign="right"
+          dataAlign="right"
+          width="200"
+          dataSort
+          dataField="totalIncome"
+        >
+          Total Income
         </TableHeaderColumn>
       </BootstrapTable>
     )
