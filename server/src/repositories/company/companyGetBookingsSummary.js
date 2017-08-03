@@ -26,7 +26,7 @@ module.exports = (companyId, date) => {
     },
     {
       $addFields: {
-        total: { $add: ['$totalAdult', '$totalChild'] },
+        totalSeat: { $add: ['$totalAdult', '$totalChild'] },
         totalIncome: { $add: ['$totalAdultIncome', '$totalChildIncome'] }
       }
     },
