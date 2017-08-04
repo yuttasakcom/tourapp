@@ -11,6 +11,10 @@ class FilterDate extends PureComponent {
     endDate: moment().clone().add(1, 'days')
   }
 
+  componentDidMount() {
+    this.props.fetchBookingsDashboard(this.state.startDate, this.state.endDate)
+  }
+
   render() {
     const { startDate, endDate } = this.state
     const { fetchBookingsDashboard } = this.props
