@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { startCase } from 'lodash'
+import startCase from 'lodash/startCase'
 
 class Title extends PureComponent {
   render() {

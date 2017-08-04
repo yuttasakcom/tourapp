@@ -1,4 +1,5 @@
-import { mapKeys, omit } from 'lodash'
+import mapKeys from 'lodash/mapKeys'
+import omit from 'lodash/omit'
 import {
   REQUEST_COMPANY_SUCCESS,
   REQUEST_COMPANY_FAIL,

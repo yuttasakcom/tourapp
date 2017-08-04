@@ -1,4 +1,4 @@
-import { mapKeys } from 'lodash'
+import mapKeys from 'lodash/mapKeys'
 import moment from 'moment'
 
 import { waiting } from '../actions/bookingStatus'

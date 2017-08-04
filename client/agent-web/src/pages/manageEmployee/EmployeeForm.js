@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
-import { Button, Modal } from 'react-bootstrap'
+import Button from 'react-bootstrap/lib/Button'
+import Modal from 'react-bootstrap/lib/Modal'
 
 import renderField from '../../components/renderField'
 

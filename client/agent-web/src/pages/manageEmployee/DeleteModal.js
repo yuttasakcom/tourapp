@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Button } from 'react-bootstrap'
+import Button from 'react-bootstrap/lib/Button'
+import Modal from 'react-bootstrap/lib/Modal'
 
 import * as actions from '../../actions'
 
@@ -23,7 +24,9 @@ class DeleteModal extends PureComponent {
           <Modal.Title>Delete Employee</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Are you sure to delete employee {employee.name} ?</h4>
+          <h4>
+            Are you sure to delete employee {employee.name} ?
+          </h4>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeDeleteEmployeeModal}>No</Button>
