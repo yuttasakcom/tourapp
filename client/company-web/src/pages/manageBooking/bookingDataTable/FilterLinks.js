@@ -1,4 +1,4 @@
-import { filter } from 'lodash'
+import filter from 'lodash/filter'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 

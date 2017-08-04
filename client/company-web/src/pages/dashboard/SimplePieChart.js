@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { PieChart, Pie, Sector, Cell } from 'recharts'
+import { PieChart, Pie, Cell } from 'recharts'
 
 const data = [
   { name: 'Group A', value: 400 },

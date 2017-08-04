@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { startCase } from 'lodash'
+import startCase from 'lodash/startCase'
 
 class MenuItem extends PureComponent {
   render() {

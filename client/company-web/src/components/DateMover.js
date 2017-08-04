@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Button } from 'react-bootstrap'
+import Button from 'react-bootstrap/lib/Button'
 
 import DatePicker from './DatePicker'
 

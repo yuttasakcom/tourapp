@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import map from 'lodash/map'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
@@ -12,7 +12,7 @@ class RequestPending extends PureComponent {
 
   renderListItem = () => {
     const { requestPendings, cancelRequestAgent } = this.props
-    return _.map(requestPendings, requestPending =>
+    return map(requestPendings, requestPending =>
       <li key={requestPending._id} style={{ width: '200px' }}>
         <a>
           {requestPending.email}

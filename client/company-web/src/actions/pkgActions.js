@@ -1,4 +1,4 @@
-import { delay } from 'lodash'
+import delay from 'lodash/delay'
 import axios from './axios'
 import {
   FETCH_PKGS_SUCCESS,

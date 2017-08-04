@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { Modal } from 'react-bootstrap'
+import Modal from 'react-bootstrap/lib/Modal'
 
 import OfferSpecialPriceForm from './OfferSpecialPriceForm'
 import * as actions from '../../../actions'
@@ -21,7 +21,9 @@ class OfferSpecialPriceModal extends PureComponent {
     return (
       <Modal show={showModal} onHide={closeOfferSpecialPriceModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Offer Special Price {pkg.name}</Modal.Title>
+          <Modal.Title>
+            Offer Special Price {pkg.name}
+          </Modal.Title>
         </Modal.Header>
         <OfferSpecialPriceForm
           onSubmit={this.onSubmit}
