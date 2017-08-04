@@ -12,6 +12,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "qrcode.react": "^0.7.1",
+    "randomcolor": "^0.5.3",
     "react": "^15.5.4",
     "react-addons-shallow-compare": "^15.6.0",
     "react-bootstrap": "^0.31.0",
