@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 import axios from './axios'
 
 import {
@@ -15,8 +17,11 @@ export const setBookingsStatusVisibilityFilter = status => {
 }
 
 export const fetchBookings = date => async dispatch => {
+  const dateEnd = moment(date).add(1, 'days')
   try {
-    const { data } = await axios.get(`/bookings?date=${date}`)
+    const { data } = await axios.get(
+      `/bookings?dateStart=${date}&dateEnd=${dateEnd}`
+    )
     dispatch({
       type: FETCH_BOOKINGS_SUCCESS,
       payload: { date, data }
