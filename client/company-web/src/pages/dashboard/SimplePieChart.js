@@ -42,11 +42,11 @@ class SimplePieChart extends PureComponent {
       <PieChart width={800} height={400} onMouseEnter={this.onPieEnter}>
         <Pie
           data={data}
-          cx={150}
-          cy={100}
+          cx={300}
+          cy={200}
           labelLine={false}
           label={renderCustomizedLabel}
-          outerRadius={80}
+          outerRadius={150}
           fill="#8884d8"
         >
           {data.map((entry, index) =>
