@@ -30,7 +30,7 @@ class Table extends PureComponent {
     return (
       <BootstrapTable
         data={bookings}
-        height={340}
+        height={400}
         exportCSV
         search
         striped

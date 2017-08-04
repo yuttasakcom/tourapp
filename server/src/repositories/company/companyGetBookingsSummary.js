@@ -2,9 +2,9 @@ const ObjectId = require('mongoose').Types.ObjectId
 const moment = require('moment')
 const Booking = require('../../models/booking')
 
-module.exports = (companyId, date) => {
-  const gteDate = moment(parseInt(date, 10)).toDate()
-  const ltDate = moment(gteDate).add(1, 'days').toDate()
+module.exports = (companyId, dateStart, dateEnd) => {
+  const gteDate = moment(parseInt(dateStart, 10)).toDate()
+  const ltDate = moment(parseInt(dateEnd, 10)).toDate()
   return Booking.aggregate([
     {
       $match: {

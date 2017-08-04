@@ -8,6 +8,7 @@ import agent from './agentReducer'
 import notification from './notificationReducer'
 import booking from './bookingReducer'
 import bookingSummary from './bookingSummaryReducer'
+import dashboard from './dashboardReducer'
 
 export default combineReducers({
   form,
@@ -17,5 +18,6 @@ export default combineReducers({
   agent,
   notification,
   booking,
-  bookingSummary
+  bookingSummary,
+  dashboard
 })
