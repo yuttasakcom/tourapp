@@ -13,7 +13,7 @@ class Card extends PureComponent {
             {description}
           </p>
         </div>
-        <div className="card-content table-responsive" style={{ height: 500 }}>
+        <div className="card-content table-responsive">
           {children}
         </div>
       </div>

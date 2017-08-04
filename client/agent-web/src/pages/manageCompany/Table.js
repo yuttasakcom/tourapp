@@ -28,6 +28,7 @@ class Table extends PureComponent {
       <BootstrapTable
         data={Object.values(companies)}
         exportCSV
+        height={400}
         search
         striped
         hover
