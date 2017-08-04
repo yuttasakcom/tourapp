@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import map from 'lodash/map'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
@@ -19,7 +19,7 @@ class AcceptPending extends PureComponent {
       openViewAgentProfileModal
     } = this.props
 
-    return _.map(acceptPendings, acceptPending =>
+    return map(acceptPendings, acceptPending =>
       <li key={acceptPending._id} style={{ width: '200px' }}>
         <a
           style={{ cursor: 'pointer' }}

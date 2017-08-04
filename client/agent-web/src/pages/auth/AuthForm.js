@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { Link, Redirect } from 'react-router-dom'
-import { Button } from 'react-bootstrap'
+import Button from 'react-bootstrap/lib/Button'
 
 import Card from '../../components/Card'
 import Notification from '../../components/Notification'

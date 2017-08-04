@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { titleCase } from 'change-case'
+import startCase from 'lodash/startCase'
 
 class MenuItem extends PureComponent {
   render() {
@@ -10,8 +10,12 @@ class MenuItem extends PureComponent {
     return (
       <li className={path === currentPath ? 'active' : ''}>
         <Link to={path}>
-          <i className="material-icons">{icon}</i>
-          <p>{titleCase(path)}</p>
+          <i className="material-icons">
+            {icon}
+          </i>
+          <p>
+            {startCase(path)}
+          </p>
         </Link>
       </li>
     )

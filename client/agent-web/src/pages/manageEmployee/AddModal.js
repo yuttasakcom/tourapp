@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { Modal } from 'react-bootstrap'
+import Modal from 'react-bootstrap/lib/Modal'
 
 import EmployeeForm from './EmployeeForm'
 import * as actions from '../../actions'
@@ -17,7 +17,10 @@ class AddModal extends PureComponent {
         <Modal.Header closeButton>
           <Modal.Title>Add Employee</Modal.Title>
         </Modal.Header>
-        <EmployeeForm onSubmit={this.onSubmit} closeModal={closeAddEmployeeModal} />
+        <EmployeeForm
+          onSubmit={this.onSubmit}
+          closeModal={closeAddEmployeeModal}
+        />
       </Modal>
     )
   }

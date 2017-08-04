@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { Modal } from 'react-bootstrap'
+import Modal from 'react-bootstrap/lib/Modal'
 import moment from 'moment'
 
 import BookingForm from './BookingForm'

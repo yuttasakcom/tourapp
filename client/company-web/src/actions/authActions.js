@@ -1,4 +1,4 @@
-import { delay } from 'lodash'
+import delay from 'lodash/delay'
 import jwtDecode from 'jwt-decode'
 
 import axios from './axios'

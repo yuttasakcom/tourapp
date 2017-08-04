@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Button } from 'react-bootstrap'
+import Button from 'react-bootstrap/lib/Button'
+import Modal from 'react-bootstrap/lib/Modal'
 import moment from 'moment'
 
 import DisplayField from '../../../components/DisplayField'

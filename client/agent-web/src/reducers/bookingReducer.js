@@ -1,4 +1,4 @@
-import { mapKeys } from 'lodash'
+import mapKeys from 'lodash/mapKeys'
 import {
   FETCH_PKGS_SUCCESS,
   OPEN_ADD_BOOKING_MODAL,

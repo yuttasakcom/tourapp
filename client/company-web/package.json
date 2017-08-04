@@ -5,7 +5,6 @@
   "dependencies": {
     "axios": "^0.16.2",
     "bootstrap": "^3.3.7",
-    "change-case": "^3.0.1",
     "connected-react-router": "^4.2.1",
     "flat": "^4.0.0",
     "font-awesome": "^4.7.0",
@@ -21,6 +20,7 @@
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
+    "recharts": "^1.0.0-alpha.2",
     "redux": "^3.6.0",
     "redux-form": "^6.7.0",
     "redux-thunk": "^2.2.0",
