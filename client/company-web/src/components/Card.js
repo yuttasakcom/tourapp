@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 
 class Card extends PureComponent {
   render() {
-    const { title, description, children } = this.props
+    const { title, description, children, style } = this.props
     return (
       <div className="card">
         <div className="card-header" data-background-color="purple">
@@ -13,7 +13,7 @@ class Card extends PureComponent {
             {description}
           </p>
         </div>
-        <div className="card-content table-responsive">
+        <div className="card-content table-responsive" style={style}>
           {children}
         </div>
       </div>
