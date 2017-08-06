@@ -15,7 +15,7 @@ const fontDescriptors = {
 exports.printer = new PdfMakePrinter(fontDescriptors)
 exports.styles = {
   header: {
-    fontSize: 18,
+    fontSize: 24,
     bold: true,
     margin: [0, 0, 0, 10]
   },
@@ -29,7 +29,10 @@ exports.styles = {
   },
   tableHeader: {
     bold: true,
-    fontSize: 13,
+    fontSize: 16,
     color: 'black'
+  },
+  tableBody: {
+    fontSize: 14
   }
 }
