@@ -53,7 +53,8 @@ module.exports = async (req, res, next) => {
       },
       {
         text: bookingSummary._id,
-        style: 'tableBody'
+        style: 'tableBody',
+        alignment: 'left'
       },
       {
         text: bookingSummary.totalAdult,
