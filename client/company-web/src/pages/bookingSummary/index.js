@@ -27,9 +27,13 @@ class BookingSummary extends PureComponent {
                 Print
               </button>
             </div>
+          </div>
+          <div className="row">
             <div className="col-md-12">
               <FilterDate />
             </div>
+          </div>
+          <div className="row">
             <div className="col-md-12">
               <Table />
             </div>
