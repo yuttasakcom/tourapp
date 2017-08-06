@@ -1775,6 +1775,10 @@ iconv-lite@0.4.15:
   version "0.4.15"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.15.tgz#fe265a218ac6a57cfe854927e9d04c19825eddeb"
 
+iconv-lite@^0.4.18:
+  version "0.4.18"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.18.tgz#23d8656b16aae6742ac29732ea8f0336a4789cf2"
+
 ignore-by-default@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/ignore-by-default/-/ignore-by-default-1.0.1.tgz#48ca6d72f6c6a3af00a9ad4ae6876be3889e2b09"
@@ -2335,7 +2339,7 @@ lodash.restparam@^3.0.0:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/lodash.restparam/-/lodash.restparam-3.6.1.tgz#936a4e309ef330a7645ed4145986c85ae5b20805"
 
-lodash@^4.0.0, lodash@^4.14.0, lodash@^4.2.0, lodash@^4.3.0:
+lodash@^4.0.0, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -2968,6 +2972,15 @@ pdfkit@^0.8.3:
     fontkit "^1.0.0"
     linebreak "^0.3.0"
     png-js ">=0.1.0"
+
+pdfmake@^0.1.32:
+  version "0.1.32"
+  resolved "https://registry.yarnpkg.com/pdfmake/-/pdfmake-0.1.32.tgz#b9a73a8d85a13ad45aa21b43f9365950fdfb75a8"
+  dependencies:
+    iconv-lite "^0.4.18"
+    linebreak "^0.3.0"
+    lodash "^4.17.4"
+    pdfkit "^0.8.3"
 
 performance-now@^0.2.0:
   version "0.2.0"
