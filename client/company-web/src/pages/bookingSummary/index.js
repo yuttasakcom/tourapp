@@ -1,4 +1,6 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import moment from 'moment'
 
 import Table from './Table'
 import Card from '../../components/Card'
@@ -6,6 +8,12 @@ import FilterDate from './FilterDate'
 import { openReport } from '../../helpers'
 
 class BookingSummary extends PureComponent {
+  openReport = () => {
+    const { date } = this.props
+    const dateEnd = moment(date).add(1, 'days')
+    openReport(`bookingsSummary?dateStart=${date}&dateEnd=${dateEnd}`)
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -14,7 +22,7 @@ class BookingSummary extends PureComponent {
             <div className="col-md-12">
               <button
                 className="btn btn-primary pull-right"
-                onClick={async () => openReport('bookingsSummary')}
+                onClick={this.openReport}
               >
                 Print
               </button>
@@ -32,4 +40,8 @@ class BookingSummary extends PureComponent {
   }
 }
 
-export default BookingSummary
+const mapStateToProps = ({
+  bookingSummary: { visibilityFilter: { date } }
+}) => ({ date })
+
+export default connect(mapStateToProps)(BookingSummary)
