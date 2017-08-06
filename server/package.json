@@ -41,7 +41,6 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "Faker": "^0.7.2",
     "babel-eslint": "^7.2.3",
     "chai": "^3.5.0",
     "chai-as-promised": "^7.1.1",
@@ -50,6 +49,7 @@
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-mocha": "^4.9.0",
+    "faker": "^4.1.0",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
