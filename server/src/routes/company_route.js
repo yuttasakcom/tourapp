@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const passport = require('passport')
 const c = require('../controllers/company')
+const r = require('../reports/company')
 const { hasRole } = require('../middlewares')
 
 const requireSignin = passport.authenticate('local', { session: false })
@@ -31,5 +32,6 @@ router.delete('/pkgs/:pkgId/special-prices/:agentId', c.deletePkgSpecialPrice)
 router.get('/special-prices/:agentId', c.getSpecialPricesList)
 router.put('/bookings/:id', c.updateBooking)
 router.get('/bookingsSummary', c.getBookingsSummary)
+router.get('/reports/bookingsSummary', r.bookingsSummary)
 
 module.exports = router

@@ -1,0 +1,1 @@
+exports.bookingsSummary = require('./bookingsSummary')
