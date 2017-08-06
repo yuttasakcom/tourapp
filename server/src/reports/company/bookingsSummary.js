@@ -40,7 +40,11 @@ module.exports = async (req, res, next) => {
     }
   ]
   body.push(headers)
+  let sumTotalAdult = 0
+  let sumTotalChild = 0
   bookingsSummary.forEach((bookingSummary, index) => {
+    sumTotalAdult += bookingSummary.totalAdult
+    sumTotalChild += bookingSummary.totalChild
     body.push([
       {
         text: index + 1,
@@ -68,6 +72,24 @@ module.exports = async (req, res, next) => {
       }
     ])
   })
+  body.push([
+    {
+      text: 'รวมทั้งสิ้น',
+      colSpan: 2,
+      alignment: 'right',
+      fontSize: 18,
+      bold: true
+    },
+    {},
+    { text: sumTotalAdult, alignment: 'right', fontSize: 18, bold: true },
+    { text: sumTotalChild, alignment: 'right', fontSize: 18, bold: true },
+    {
+      text: sumTotalAdult + sumTotalChild,
+      alignment: 'right',
+      fontSize: 18,
+      bold: true
+    }
+  ])
   const dateString = moment(parseInt(dateStart, 10)).format('DD/MM/YYYY')
   const dd = {
     content: [
