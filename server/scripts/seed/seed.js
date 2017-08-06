@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
-const { MONGO_DB_HOST } = require('../src/config')
-const Company = require('../src/models/company')
-const Agent = require('../src/models/agent')
-const Pkg = require('../src/models/pkg')
+const { MONGO_DB_HOST } = require('../../src/config')
+const Company = require('../../src/models/company')
+const Agent = require('../../src/models/agent')
+const Pkg = require('../../src/models/pkg')
 
 const password = {
   raw: '1234',
