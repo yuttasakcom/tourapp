@@ -22,13 +22,12 @@ class Table extends PureComponent {
         condensed
         options={{ clearSearch: true }}
       >
-        <TableHeaderColumn dataSort dataField="_id" isKey>
+        <TableHeaderColumn dataSort width="600" dataField="_id" isKey>
           Package Name
         </TableHeaderColumn>
         <TableHeaderColumn
           headerAlign="right"
           dataAlign="right"
-          width="100"
           dataSort
           dataField="totalAdult"
         >
@@ -37,7 +36,6 @@ class Table extends PureComponent {
         <TableHeaderColumn
           headerAlign="right"
           dataAlign="right"
-          width="100"
           dataSort
           dataField="totalChild"
         >
@@ -46,38 +44,10 @@ class Table extends PureComponent {
         <TableHeaderColumn
           headerAlign="right"
           dataAlign="right"
-          width="100"
           dataSort
           dataField="totalSeat"
         >
           Total Seat
-        </TableHeaderColumn>
-        <TableHeaderColumn
-          headerAlign="right"
-          dataAlign="right"
-          width="200"
-          dataSort
-          dataField="totalAdultIncome"
-        >
-          Total Adult Income
-        </TableHeaderColumn>
-        <TableHeaderColumn
-          headerAlign="right"
-          dataAlign="right"
-          width="200"
-          dataSort
-          dataField="totalChildIncome"
-        >
-          Total Child Income
-        </TableHeaderColumn>
-        <TableHeaderColumn
-          headerAlign="right"
-          dataAlign="right"
-          width="200"
-          dataSort
-          dataField="totalIncome"
-        >
-          Total Income
         </TableHeaderColumn>
       </BootstrapTable>
     )
