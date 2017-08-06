@@ -30,9 +30,11 @@ exports.styles = {
   tableHeader: {
     bold: true,
     fontSize: 16,
-    color: 'black'
+    color: 'black',
+    alignment: 'center'
   },
   tableBody: {
-    fontSize: 14
+    fontSize: 14,
+    alignment: 'center'
   }
 }
