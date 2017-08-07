@@ -1,5 +1,6 @@
 const Company = require('../../src/models/company')
 const Agent = require('../../src/models/agent')
+const Pkg = require('../../src/models/pkg')
 
 const password = '$2a$10$sQRgGWOoCXEHwzfiCAsAcOVRfTi3SDMjIOcRvCd0p2MSMndyLSdjS'
 
@@ -75,7 +76,7 @@ const pkgs = [
     priceChild: 2500,
     company: company2._id
   }
-]
+].map(pkg => new Pkg(pkg))
 
 module.exports = {
   companies: [company1, company2],
