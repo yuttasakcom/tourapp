@@ -3,8 +3,8 @@ const moment = require('moment')
 const Booking = require('../../models/booking')
 
 module.exports = companyId => {
-  const gteDate = moment().toDate()
-  const ltDate = moment().clone().add(7, 'days').toDate()
+  const gteDate = moment().startOf('day').toDate()
+  const ltDate = moment().startOf('day').add(7, 'days').toDate()
   return Booking.aggregate([
     {
       $match: {
