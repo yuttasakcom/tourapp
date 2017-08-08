@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
     case FETCH_DASHBOARD_SUCCESS:
       return {
         ...state,
-        bookings: action.payload
+        dashboard: action.payload
       }
 
     default:
