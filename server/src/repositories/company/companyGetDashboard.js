@@ -1,37 +1,42 @@
-const ObjectId = require('mongoose').Types.ObjectId
 const moment = require('moment')
-const Booking = require('../../models/booking')
 
-module.exports = companyId => {
-  const gteDate = moment().startOf('day').toDate()
-  const ltDate = moment().startOf('day').add(7, 'days').toDate()
-  return Booking.aggregate([
-    {
-      $match: {
-        $and: [
-          { company: ObjectId(companyId) },
-          { 'tourist.date': { $gte: gteDate, $lt: ltDate } }
-        ]
-      }
-    },
-    {
-      $group: {
-        _id: '$pkg.name',
-        totalBooking: { $sum: 1 },
-        totalAdultIncome: { $sum: '$pkg.priceAdult' },
-        totalChildIncome: { $sum: '$pkg.priceChild' },
-        totalAdult: { $sum: '$tourist.adult' },
-        totalChild: { $sum: '$tourist.child' }
-      }
-    },
-    {
-      $addFields: {
-        totalSeat: { $add: ['$totalAdult', '$totalChild'] },
-        totalIncome: { $add: ['$totalAdultIncome', '$totalChildIncome'] }
-      }
-    },
-    {
-      $sort: { total: -1 }
-    }
+const companyGetBookingsSummary = require('./companyGetBookingsSummary')
+
+module.exports = companyId =>
+  Promise.all([
+    companyGetBookingsSummary(
+      companyId,
+      moment().startOf('d').valueOf(),
+      moment().startOf('d').add(1, 'd').valueOf()
+    ),
+    companyGetBookingsSummary(
+      companyId,
+      moment().startOf('d').add(1, 'd').valueOf(),
+      moment().startOf('d').add(2, 'd').valueOf()
+    ),
+    companyGetBookingsSummary(
+      companyId,
+      moment().startOf('d').add(2, 'd').valueOf(),
+      moment().startOf('d').add(3, 'd').valueOf()
+    ),
+    companyGetBookingsSummary(
+      companyId,
+      moment().startOf('d').add(3, 'd').valueOf(),
+      moment().startOf('d').add(4, 'd').valueOf()
+    ),
+    companyGetBookingsSummary(
+      companyId,
+      moment().startOf('d').add(4, 'd').valueOf(),
+      moment().startOf('d').add(5, 'd').valueOf()
+    ),
+    companyGetBookingsSummary(
+      companyId,
+      moment().startOf('d').add(5, 'd').valueOf(),
+      moment().startOf('d').add(6, 'd').valueOf()
+    ),
+    companyGetBookingsSummary(
+      companyId,
+      moment().startOf('d').add(6, 'd').valueOf(),
+      moment().startOf('d').add(7, 'd').valueOf()
+    )
   ])
-}
