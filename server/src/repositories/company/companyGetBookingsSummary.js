@@ -31,7 +31,7 @@ module.exports = (companyId, dateStart, dateEnd) => {
       }
     },
     {
-      $sort: { total: -1 }
+      $sort: { totalSeat: -1 }
     }
   ])
 }

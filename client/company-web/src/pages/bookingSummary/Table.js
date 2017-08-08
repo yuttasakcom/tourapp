@@ -22,8 +22,16 @@ class Table extends PureComponent {
         condensed
         options={{ clearSearch: true }}
       >
-        <TableHeaderColumn dataSort width="600" dataField="_id" isKey>
+        <TableHeaderColumn dataSort width="500" dataField="_id" isKey>
           Package Name
+        </TableHeaderColumn>
+        <TableHeaderColumn
+          headerAlign="right"
+          dataAlign="right"
+          dataSort
+          dataField="totalBooking"
+        >
+          Booking Total
         </TableHeaderColumn>
         <TableHeaderColumn
           headerAlign="right"

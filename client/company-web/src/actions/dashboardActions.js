@@ -1,16 +1,11 @@
 import axios from './axios'
-import { FETCH_BOOKINGS_DASHBOARD_SUCCESS } from './types'
+import { FETCH_DASHBOARD_SUCCESS } from './types'
 
-export const fetchBookingsDashboard = (
-  dateStart,
-  dateEnd
-) => async dispatch => {
+export const fetchDashboard = () => async dispatch => {
   try {
-    const { data } = await axios.get(
-      `/bookings?dateStart=${dateStart}&dateEnd=${dateEnd}`
-    )
+    const { data } = await axios.get('/dashboard')
     dispatch({
-      type: FETCH_BOOKINGS_DASHBOARD_SUCCESS,
+      type: FETCH_DASHBOARD_SUCCESS,
       payload: data
     })
   } catch (e) {
