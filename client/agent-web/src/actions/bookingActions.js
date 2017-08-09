@@ -1,6 +1,8 @@
 import delay from 'lodash/delay'
+
 import axios from './axios'
 import socket from './socket'
+import { openReport } from '../helpers'
 import {
   FETCH_PKGS_SUCCESS,
   OPEN_ADD_BOOKING_MODAL,
@@ -21,6 +23,7 @@ export const fetchPkgs = () => async dispatch => {
 export const addBooking = bookingProps => async dispatch => {
   try {
     const { data } = await axios.post('/bookings', bookingProps)
+    openReport(`voucher?bookingId=${data._id}`)
     dispatch({ type: ADD_BOOKING_SUCCESS, payload: data })
     socket.emit('book', data)
     delay(() => dispatch({ type: HIDE_BOOKING_NOTIFICATION }), 4000)
