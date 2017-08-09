@@ -9,8 +9,8 @@ module.exports = companyId => {
     queries.push(
       companyGetBookingsSummary(
         companyId,
-        moment().startOf('d').add(index, 'd').valueOf(),
-        moment().startOf('d').add(index + 1, 'd').valueOf()
+        moment().add(index, 'd').valueOf(),
+        moment().add(index + 1, 'd').valueOf()
       )
     )
   )
