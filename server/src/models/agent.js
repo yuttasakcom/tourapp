@@ -14,6 +14,10 @@ const agentSchema = new Schema({
     type: String,
     required: [true, 'Name is required']
   },
+  phoneNumber: {
+    type: String,
+    required: [true, 'Phone number is required']
+  },
   password: {
     type: String,
     required: [true, 'Password is required']
