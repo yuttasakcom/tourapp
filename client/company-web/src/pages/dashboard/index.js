@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 
 import Table from './Table'
 import Card from '../../components/Card'
@@ -12,10 +13,15 @@ class Dashboard extends PureComponent {
 
   renderDashboard() {
     const { bookingsSummaries } = this.props
-    return bookingsSummaries.map(bookingsSummary => {
+    return bookingsSummaries.map((bookingsSummary, index) => {
       return (
         <div className="col-md-4">
-          <Table bookingsSummary={bookingsSummary} />
+          <Table
+            description={`วันที่ ${moment()
+              .add(index, 'day')
+              .format('DD/MM/YYYY')}`}
+            bookingsSummary={bookingsSummary}
+          />
         </div>
       )
     })
