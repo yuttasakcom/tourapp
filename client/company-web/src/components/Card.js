@@ -6,7 +6,7 @@ class Card extends PureComponent {
     return (
       <div className="card">
         <div className="card-header" data-background-color="purple">
-          <h4 className="title">
+          <h4 className="title" style={{ margin: 0 }}>
             {title}
           </h4>
         </div>
