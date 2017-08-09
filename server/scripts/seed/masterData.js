@@ -27,6 +27,8 @@ const agent1 = new Agent({
   name: 'อ่าวนางทราเวล',
   phoneNumber: faker.phone.phoneNumberFormat(),
   address: '243 ม.2, ต.อ่าวนาง, อ.เมือง จ.กระบี่ 81000',
+  adminName: 'นายสมชาย ทดสอบ',
+  adminPhoneNumber: faker.phone.phoneNumberFormat(),
   password
 })
 
@@ -35,6 +37,8 @@ const agent2 = new Agent({
   name: 'ตัวแทนจำหน่าย 2',
   phoneNumber: faker.phone.phoneNumberFormat(),
   address: '243 ม.2, ต.อ่าวนาง, อ.เมือง จ.กระบี่ 81000',
+  adminName: 'นายสมพงษ์ ทดสอบ',
+  adminPhoneNumber: faker.phone.phoneNumberFormat(),
   password
 })
 
