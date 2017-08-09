@@ -72,6 +72,10 @@ class ManageModal extends PureComponent {
         </Modal.Header>
         <Modal.Body>
           <DisplayField label="Agent name" text={booking.agent.name} />
+          <DisplayField
+            label="Agent phone number"
+            text={booking.agent.phoneNumber}
+          />
           <DisplayField label="Agent email" text={booking.agent.email} />
           <DisplayField label="Package" text={booking.pkg.name} />
           <DisplayField label="Customer name" text={booking.tourist.name} />
