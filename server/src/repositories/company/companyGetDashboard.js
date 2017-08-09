@@ -1,42 +1,18 @@
 const moment = require('moment')
+const times = require('lodash/times')
 
 const companyGetBookingsSummary = require('./companyGetBookingsSummary')
 
-module.exports = companyId =>
-  Promise.all([
-    companyGetBookingsSummary(
-      companyId,
-      moment().startOf('d').valueOf(),
-      moment().startOf('d').add(1, 'd').valueOf()
-    ),
-    companyGetBookingsSummary(
-      companyId,
-      moment().startOf('d').add(1, 'd').valueOf(),
-      moment().startOf('d').add(2, 'd').valueOf()
-    ),
-    companyGetBookingsSummary(
-      companyId,
-      moment().startOf('d').add(2, 'd').valueOf(),
-      moment().startOf('d').add(3, 'd').valueOf()
-    ),
-    companyGetBookingsSummary(
-      companyId,
-      moment().startOf('d').add(3, 'd').valueOf(),
-      moment().startOf('d').add(4, 'd').valueOf()
-    ),
-    companyGetBookingsSummary(
-      companyId,
-      moment().startOf('d').add(4, 'd').valueOf(),
-      moment().startOf('d').add(5, 'd').valueOf()
-    ),
-    companyGetBookingsSummary(
-      companyId,
-      moment().startOf('d').add(5, 'd').valueOf(),
-      moment().startOf('d').add(6, 'd').valueOf()
-    ),
-    companyGetBookingsSummary(
-      companyId,
-      moment().startOf('d').add(6, 'd').valueOf(),
-      moment().startOf('d').add(7, 'd').valueOf()
+module.exports = companyId => {
+  const queries = []
+  times(9, index =>
+    queries.push(
+      companyGetBookingsSummary(
+        companyId,
+        moment().startOf('d').add(index, 'd').valueOf(),
+        moment().startOf('d').add(index + 1, 'd').valueOf()
+      )
     )
-  ])
+  )
+  return Promise.all(queries)
+}
