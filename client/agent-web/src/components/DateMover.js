@@ -9,6 +9,7 @@ class DateMover extends PureComponent {
     return (
       <div>
         <Button
+          style={{ padding: 10 }}
           bsStyle="warning"
           onClick={() => onDateChange(date.subtract(1, 'days').clone())}
         >
@@ -20,6 +21,7 @@ class DateMover extends PureComponent {
           onDateChange={onDateChange}
         />
         <Button
+          style={{ padding: 10 }}
           bsStyle="info"
           onClick={() => onDateChange(date.add(1, 'days').clone())}
         >

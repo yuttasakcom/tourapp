@@ -1,3 +1,5 @@
+const faker = require('faker')
+
 const Company = require('../../src/models/company')
 const Agent = require('../../src/models/agent')
 const Pkg = require('../../src/models/pkg')
@@ -7,24 +9,28 @@ const password = '$2a$10$sQRgGWOoCXEHwzfiCAsAcOVRfTi3SDMjIOcRvCd0p2MSMndyLSdjS'
 const company1 = new Company({
   email: 'company1@company.com',
   name: 'บริษัท ท่องเที่ยว 1 จำกัด',
+  phoneNumber: faker.phone.phoneNumberFormat(),
   password
 })
 
 const company2 = new Company({
   email: 'company2@company.com',
   name: 'บริษัท ท่องเที่ยว 2 จำกัด',
+  phoneNumber: faker.phone.phoneNumberFormat(),
   password
 })
 
 const agent1 = new Agent({
   email: 'agent1@agent.com',
   name: 'ตัวแทนจำหน่าย 1',
+  phoneNumber: faker.phone.phoneNumberFormat(),
   password
 })
 
 const agent2 = new Agent({
   email: 'agent2@agent.com',
   name: 'ตัวแทนจำหน่าย 2',
+  phoneNumber: faker.phone.phoneNumberFormat(),
   password
 })
 
