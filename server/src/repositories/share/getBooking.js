@@ -3,5 +3,5 @@ const Booking = require('../../models/booking')
 module.exports = bookingId =>
   Booking.findById(bookingId).populate(
     'agent',
-    'email name phoneNumber address'
+    'email name phoneNumber address adminName adminPhoneNumber'
   )
