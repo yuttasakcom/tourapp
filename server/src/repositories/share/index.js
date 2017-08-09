@@ -1,0 +1,1 @@
+exports.getBooking = require('./getBooking')

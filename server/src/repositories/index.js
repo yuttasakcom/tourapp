@@ -1,1 +1,6 @@
-module.exports = Object.assign({}, require('./agent'), require('./company'))
+module.exports = Object.assign(
+  {},
+  require('./agent'),
+  require('./company'),
+  require('./share')
+)
