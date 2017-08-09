@@ -4,28 +4,28 @@ const { printer, styles } = require('../pdf')
 const repo = require('../../repositories')
 
 module.exports = async (req, res, next) => {
+  const { bookingId } = req.query
+  const booking = await repo.getBooking(bookingId)
   const dd = {
     content: [
       {
-        text: 'TOUR VOUCHER',
-        fontSize: 24,
-        bold: true
-      },
-      {
         columns: [
           [
-            { text: 'อ่าวนางทราเวล', fontSize: 20, bold: true },
             {
-              text: `ที่อยู่: 320 จังหวัดกระบี่
-                     อีเมล์: paiboon@gmail.com
-                     เบอร์โทรศัพท์: 021234567`,
+              text: 'TOUR VOUCHER',
+              fontSize: 24,
+              bold: true
+            },
+            { text: booking.agent.name, fontSize: 20, bold: true },
+            {
+              text: `ที่อยู่: ${booking.agent.address}
+                     อีเมล์: ${booking.agent.email}
+                     โทรศัพท์: ${booking.agent.phoneNumber}`,
               fontSize: 16
             }
           ],
           {
-            text: 'Booking Number: 4305',
-            fontSize: 22,
-            bold: true,
+            qr: bookingId,
             alignment: 'right'
           }
         ]
@@ -67,19 +67,19 @@ module.exports = async (req, res, next) => {
             ],
             [
               {
-                text: '20/07/2017 13:00',
+                text: moment(booking.tourist.date).format('DD/MM/YYYY HH:MM'),
                 style: 'tableBody'
               },
               {
-                text: 3,
+                text: booking.tourist.adult,
                 style: 'tableBody'
               },
               {
-                text: 2,
+                text: booking.tourist.child,
                 style: 'tableBody'
               },
               {
-                text: 'ทัวร์ 4 เกาะ',
+                text: booking.pkg.name,
                 style: 'tableBody'
               }
             ]
@@ -87,7 +87,9 @@ module.exports = async (req, res, next) => {
         }
       },
       {
-        text: 'ไปรับที่: โรงแรมภูเก็ต',
+        text: `ผู้ซื้อ: ${booking.tourist.name}
+        ไปรับที่: ห้อง ${booking.tourist.roomNumber} โรงแรม ${booking.tourist
+          .hotel} อยู่ที่ ${booking.tourist.address}`,
         fontSize: 16
       },
       {
@@ -97,14 +99,15 @@ module.exports = async (req, res, next) => {
           body: [
             [
               {
-                text: `ออกโดย: นายไพบูลย์ อึ้งคงคาทอง
-                       โทรศัพท์: 024283192
-                       มือถือ: 0859979860`,
+                text: `ออกโดย: ${booking.agent.adminName}
+                       โทรศัพท์: ${booking.agent.adminPhoneNumber}`,
                 style: 'tableBody',
                 alignment: 'left'
               },
               {
-                text: '\n\nออก ณ วันที่: 13/07/17',
+                text: `\n\nออกให้ ณ วันที่: ${moment(
+                  booking._id.getTimestamp()
+                ).format('DD/MM/YYYY')}`,
                 style: 'tableBody',
                 alignment: 'right'
               }
