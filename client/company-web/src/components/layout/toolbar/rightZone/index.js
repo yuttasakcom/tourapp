@@ -17,7 +17,6 @@ class RightZone extends PureComponent {
           <Notification />
           <ProfileMenu />
         </ul>
-        <Searchbar />
         <ViewProfileModal />
       </div>
     )
