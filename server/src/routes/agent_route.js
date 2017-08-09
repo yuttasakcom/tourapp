@@ -9,7 +9,6 @@ const requireAuth = passport.authenticate('jwt', { session: false })
 
 router.post('/signup', c.signup)
 router.post('/signin', requireSignin, c.signin)
-router.get('/reports/voucher', r.voucher)
 
 router.all('*', requireAuth, hasRole('agent'))
 
@@ -26,5 +25,6 @@ router.get('/companies', c.getCompaniesList)
 router.post('/employees', c.addEmployee)
 router.post('/bookings', c.addBooking)
 router.get('/bookings', c.getBookingsList)
+router.get('/reports/voucher', r.voucher)
 
 module.exports = router
