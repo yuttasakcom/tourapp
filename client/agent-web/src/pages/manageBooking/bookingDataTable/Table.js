@@ -26,7 +26,7 @@ class Table extends PureComponent {
         <button
           className="btn btn-warning btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openReport('voucher')}
+          onClick={() => openReport(`voucher?bookingId=${row._id}`)}
         >
           Voucher
         </button>
