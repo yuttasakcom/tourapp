@@ -4,6 +4,7 @@ import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
+import { openReport } from '../../../helpers'
 import * as actions from '../../../actions'
 
 class Table extends PureComponent {
@@ -14,13 +15,22 @@ class Table extends PureComponent {
   renderAction = (cell, row) => {
     const { openManageBookingModal } = this.props
     return (
-      <button
-        className="btn btn-info btn-sm"
-        style={{ margin: 0 }}
-        onClick={() => openManageBookingModal(row._id)}
-      >
-        View
-      </button>
+      <div>
+        <button
+          className="btn btn-info btn-sm"
+          style={{ margin: 0 }}
+          onClick={() => openManageBookingModal(row._id)}
+        >
+          View
+        </button>
+        <button
+          className="btn btn-warning btn-sm"
+          style={{ margin: 0 }}
+          onClick={() => openReport(`voucher?bookingId=${row._id}`)}
+        >
+          Voucher
+        </button>
+      </div>
     )
   }
 

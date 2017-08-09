@@ -8,6 +8,7 @@ import booking from './bookingReducer'
 import manageBooking from './manageBookingReducer'
 import company from './companyReducer'
 import employee from './employeeReducer'
+import dashboard from './dashboardReducer'
 
 export default combineReducers({
   form,
@@ -17,5 +18,6 @@ export default combineReducers({
   booking,
   company,
   manageBooking,
-  employee
+  employee,
+  dashboard
 })

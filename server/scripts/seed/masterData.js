@@ -10,6 +10,7 @@ const company1 = new Company({
   email: 'company1@company.com',
   name: 'บริษัท ท่องเที่ยว 1 จำกัด',
   phoneNumber: faker.phone.phoneNumberFormat(),
+  address: '320 ซ.3 ถ.พระราม 2 แขวงบางมด เขตจอมทอง กรุงเทพฯ 10150',
   password
 })
 
@@ -17,13 +18,17 @@ const company2 = new Company({
   email: 'company2@company.com',
   name: 'บริษัท ท่องเที่ยว 2 จำกัด',
   phoneNumber: faker.phone.phoneNumberFormat(),
+  address: '243 ม.2, ต.อ่าวนาง, อ.เมือง จ.กระบี่ 81000',
   password
 })
 
 const agent1 = new Agent({
   email: 'agent1@agent.com',
-  name: 'ตัวแทนจำหน่าย 1',
+  name: 'อ่าวนางทราเวล',
   phoneNumber: faker.phone.phoneNumberFormat(),
+  address: '243 ม.2, ต.อ่าวนาง, อ.เมือง จ.กระบี่ 81000',
+  adminName: 'นายสมชาย ทดสอบ',
+  adminPhoneNumber: faker.phone.phoneNumberFormat(),
   password
 })
 
@@ -31,6 +36,9 @@ const agent2 = new Agent({
   email: 'agent2@agent.com',
   name: 'ตัวแทนจำหน่าย 2',
   phoneNumber: faker.phone.phoneNumberFormat(),
+  address: '243 ม.2, ต.อ่าวนาง, อ.เมือง จ.กระบี่ 81000',
+  adminName: 'นายสมพงษ์ ทดสอบ',
+  adminPhoneNumber: faker.phone.phoneNumberFormat(),
   password
 })
 

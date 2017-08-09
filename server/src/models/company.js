@@ -13,6 +13,10 @@ const companySchema = new Schema({
     type: String,
     required: [true, 'Name is required']
   },
+  address: {
+    type: String,
+    required: [true, 'Address is required']
+  },
   phoneNumber: {
     type: String,
     required: [true, 'Phone number is required']

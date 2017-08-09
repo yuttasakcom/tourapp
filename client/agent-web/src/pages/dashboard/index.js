@@ -1,12 +1,15 @@
 import React, { PureComponent } from 'react'
 
-import dashboard from '../../resources/images/dashboard.png'
+import Card from '../../components/Card'
+import Table from './Table'
 
 class Dashboard extends PureComponent {
   render() {
     return (
-      <div>
-        <img src={dashboard} alt="dashboard" />
+      <div className="container-fluid">
+        <Card title="Dashboard" description="Show Dashboard">
+          <Table />
+        </Card>
       </div>
     )
   }

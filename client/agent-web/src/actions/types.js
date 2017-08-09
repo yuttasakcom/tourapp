@@ -52,3 +52,5 @@ export const ADD_NOTIFICATION_SUCCESS = 'add_notification_success'
 
 export const TOGGLE_MENU = 'toggle_menu'
 export const CLOSE_MENU = 'close_menu'
+
+export const FETCH_DASHBOARD_SUCCESS = 'fetch_dashboard_success'

@@ -14,9 +14,21 @@ const agentSchema = new Schema({
     type: String,
     required: [true, 'Name is required']
   },
+  address: {
+    type: String,
+    required: [true, 'Address is required']
+  },
   phoneNumber: {
     type: String,
     required: [true, 'Phone number is required']
+  },
+  adminName: {
+    type: String,
+    required: [true, 'Admin name is required']
+  },
+  adminPhoneNumber: {
+    type: String,
+    required: [true, 'Admin phone number is required']
   },
   password: {
     type: String,
