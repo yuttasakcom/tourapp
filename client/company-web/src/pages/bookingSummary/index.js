@@ -19,18 +19,16 @@ class BookingSummary extends PureComponent {
       <div className="container-fluid">
         <Card title="Booking Summary" description="Show Booking Summary">
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-md-6 col-sm-6">
+              <FilterDate />
+            </div>
+            <div className="col-md-6 col-sm-6">
               <button
                 className="btn btn-primary pull-right"
                 onClick={this.openReport}
               >
                 Print
               </button>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-12">
-              <FilterDate />
             </div>
           </div>
           <div className="row">

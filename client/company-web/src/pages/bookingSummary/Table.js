@@ -22,7 +22,7 @@ class Table extends PureComponent {
         condensed
         options={{ clearSearch: true }}
       >
-        <TableHeaderColumn dataSort width="500" dataField="_id" isKey>
+        <TableHeaderColumn dataSort dataField="_id" isKey>
           Package Name
         </TableHeaderColumn>
         <TableHeaderColumn
