@@ -27,7 +27,11 @@ class Layout extends PureComponent {
         <MainMenu />
         <div className="main-panel">
           <Toolbar />
-          <div className="content" onClick={this.handleContentClick}>
+          <div
+            className="content"
+            style={{ marginTop: 30 }}
+            onClick={this.handleContentClick}
+          >
             {children}
           </div>
         </div>
