@@ -1,7 +1,7 @@
 import { FETCH_DASHBOARD_SUCCESS } from '../actions/types'
 
 const initialState = {
-  dashboard: []
+  bookingsSummaries: []
 }
 
 export default (state = initialState, action) => {
@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
     case FETCH_DASHBOARD_SUCCESS:
       return {
         ...state,
-        dashboard: action.payload
+        bookingsSummaries: action.payload
       }
 
     default:
