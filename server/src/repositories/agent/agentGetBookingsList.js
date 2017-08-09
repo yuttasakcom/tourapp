@@ -9,6 +9,6 @@ module.exports = (agentId, dateStart, dateEnd) => {
     'tourist.date': { $gte: gteDate, $lt: ltDate }
   }).populate({
     path: 'company',
-    select: 'email name'
+    select: 'email name phoneNumber'
   })
 }
