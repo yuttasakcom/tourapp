@@ -1,4 +1,4 @@
-import delay from 'lodash/delay'
+import { success } from 'react-notification-system-redux'
 
 import axios from './axios'
 import socket from './socket'
@@ -8,8 +8,7 @@ import {
   FETCH_HOTELS_SUCCESS,
   OPEN_ADD_BOOKING_MODAL,
   CLOSE_ADD_BOOKING_MODAL,
-  ADD_BOOKING_SUCCESS,
-  HIDE_BOOKING_NOTIFICATION
+  ADD_BOOKING_SUCCESS
 } from './types'
 
 export const fetchHotels = () => async dispatch => {
@@ -35,8 +34,13 @@ export const addBooking = bookingProps => async dispatch => {
     const { data } = await axios.post('/bookings', bookingProps)
     openReport(`voucher?bookingId=${data._id}`)
     dispatch({ type: ADD_BOOKING_SUCCESS, payload: data })
+    dispatch(
+      success({
+        title: 'แจ้งเตือน',
+        message: 'จองแพ็คเกจสำเร็จแล้ว!'
+      })
+    )
     socket.emit('book', data)
-    delay(() => dispatch({ type: HIDE_BOOKING_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
   }
