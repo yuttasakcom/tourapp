@@ -1,4 +1,5 @@
-import delay from 'lodash/delay'
+import { success, error } from 'react-notification-system-redux'
+
 import axios from './axios'
 import socket from './socket'
 import {
@@ -11,9 +12,7 @@ import {
   REJECT_REQUEST_COMPANY_SUCCESS,
   DELETE_COMPANY_SUCCESS,
   REQUEST_COMPANY_SUCCESS,
-  REQUEST_COMPANY_FAIL,
-  CANCEL_REQUEST_COMPANY_SUCCESS,
-  HIDE_COMPANY_NOTIFICATION
+  CANCEL_REQUEST_COMPANY_SUCCESS
 } from './types'
 
 export const fetchCompanies = () => async dispatch => {
@@ -29,18 +28,23 @@ export const requestCompany = ({ _id }, callback) => async dispatch => {
   try {
     const { data: { message } } = await axios.post('/request', { _id })
     dispatch({
-      type: REQUEST_COMPANY_SUCCESS,
-      payload: { message, _id }
+      type: REQUEST_COMPANY_SUCCESS
     })
-    delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
+    dispatch(
+      success({
+        title: 'แจ้งเตือน',
+        message: message
+      })
+    )
     socket.emit('request', { _id })
     callback()
   } catch (e) {
-    dispatch({
-      type: REQUEST_COMPANY_FAIL,
-      payload: e.response.data.error
-    })
-    delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
+    dispatch(
+      error({
+        title: 'แจ้งเตือน',
+        message: e.response.data.error
+      })
+    )
   }
 }
 
@@ -56,10 +60,15 @@ export const cancelRequestCompany = ({ _id }) => async dispatch => {
 
 export const deleteCompany = ({ _id }) => async dispatch => {
   try {
-    const { data } = await axios.delete(`/relationship/${_id}`)
-    dispatch({ type: DELETE_COMPANY_SUCCESS, payload: { data, _id } })
+    const { data: { message } } = await axios.delete(`/relationship/${_id}`)
+    dispatch({ type: DELETE_COMPANY_SUCCESS, payload: _id })
+    dispatch(
+      success({
+        title: 'แจ้งเตือน',
+        message: message
+      })
+    )
     socket.emit('deleteRelationship', { _id })
-    delay(() => dispatch({ type: HIDE_COMPANY_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
   }
