@@ -7,6 +7,7 @@ class Table extends PureComponent {
     return (
       <BootstrapTable
         data={bookingsSummary}
+        height={400}
         striped
         hover
         condensed
