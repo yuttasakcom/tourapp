@@ -6,8 +6,7 @@ import {
 
 const initialState = {
   authenticated: false,
-  user: '',
-  notification: { show: false, type: null, message: null }
+  user: ''
 }
 
 export default (state = initialState, action) => {
