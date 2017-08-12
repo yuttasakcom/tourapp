@@ -8,6 +8,7 @@ import * as actions from '../../actions'
 class Table extends PureComponent {
   componentDidMount() {
     this.props.fetchPkgs()
+    this.props.fetchHotels()
   }
 
   renderAction = (cell, row) => {

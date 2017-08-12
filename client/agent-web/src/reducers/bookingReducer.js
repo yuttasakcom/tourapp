@@ -1,23 +1,26 @@
 import mapKeys from 'lodash/mapKeys'
 import {
   FETCH_PKGS_SUCCESS,
+  FETCH_HOTELS_SUCCESS,
   OPEN_ADD_BOOKING_MODAL,
   CLOSE_ADD_BOOKING_MODAL,
-  ADD_BOOKING_SUCCESS,
-  HIDE_BOOKING_NOTIFICATION
+  ADD_BOOKING_SUCCESS
 } from '../actions/types'
 
 const initialState = {
   pkgs: {},
+  hotels: [],
   selectedPkg: null,
-  showAddBookingModal: false,
-  notification: { show: false, type: null, message: null }
+  showAddBookingModal: false
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_PKGS_SUCCESS:
       return { ...state, pkgs: mapKeys(action.payload, '_id') }
+
+    case FETCH_HOTELS_SUCCESS:
+      return { ...state, hotels: action.payload }
 
     case OPEN_ADD_BOOKING_MODAL:
       return {
@@ -29,22 +32,11 @@ export default (state = initialState, action) => {
     case ADD_BOOKING_SUCCESS:
       return {
         ...state,
-        showAddBookingModal: false,
-        notification: {
-          show: true,
-          type: 'success',
-          message: 'Add booking success'
-        }
+        showAddBookingModal: false
       }
 
     case CLOSE_ADD_BOOKING_MODAL:
       return { ...state, showAddBookingModal: false }
-
-    case HIDE_BOOKING_NOTIFICATION:
-      return {
-        ...state,
-        notification: { show: false }
-      }
 
     default:
       return state

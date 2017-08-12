@@ -2,22 +2,19 @@ import mapKeys from 'lodash/mapKeys'
 import omit from 'lodash/omit'
 import {
   REQUEST_COMPANY_SUCCESS,
-  REQUEST_COMPANY_FAIL,
   OPEN_DELETE_COMPANY_MODAL,
   CLOSE_DELETE_COMPANY_MODAL,
   OPEN_REQUEST_COMPANY_MODAL,
   CLOSE_REQUEST_COMPANY_MODAL,
   DELETE_COMPANY_SUCCESS,
-  FETCH_COMPANIES_SUCCESS,
-  HIDE_COMPANY_NOTIFICATION
+  FETCH_COMPANIES_SUCCESS
 } from '../actions/types'
 
 const initialState = {
   companies: {},
   selectedCompany: null,
   showRequestCompanyModal: false,
-  showDeleteCompanyModal: false,
-  notification: { show: false, type: null, message: null }
+  showDeleteCompanyModal: false
 }
 
 export default (state = initialState, action) => {
@@ -28,41 +25,14 @@ export default (state = initialState, action) => {
     case REQUEST_COMPANY_SUCCESS:
       return {
         ...state,
-        showRequestCompanyModal: false,
-        notification: {
-          show: true,
-          type: 'success',
-          message: action.payload.message
-        }
-      }
-
-    case REQUEST_COMPANY_FAIL:
-      return {
-        ...state,
-        showRequestCompanyModal: false,
-        notification: {
-          show: true,
-          type: 'danger',
-          message: action.payload
-        }
+        showRequestCompanyModal: false
       }
 
     case DELETE_COMPANY_SUCCESS:
       return {
         ...state,
-        companies: omit(state.companies, action.payload._id),
-        showDeleteCompanyModal: false,
-        notification: {
-          show: true,
-          type: 'success',
-          message: action.payload.data.message
-        }
-      }
-
-    case HIDE_COMPANY_NOTIFICATION:
-      return {
-        ...state,
-        notification: { show: false }
+        companies: omit(state.companies, action.payload),
+        showDeleteCompanyModal: false
       }
 
     case OPEN_REQUEST_COMPANY_MODAL:

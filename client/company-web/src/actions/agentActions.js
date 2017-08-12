@@ -1,4 +1,4 @@
-import delay from 'lodash/delay'
+import { success, error } from 'react-notification-system-redux'
 import axios from './axios'
 import socket from './socket'
 import {
@@ -6,13 +6,11 @@ import {
   REQUEST_AGENT_SUCCESS,
   CANCEL_REQUEST_AGENT_SUCCESS,
   REJECT_REQUEST_AGENT_SUCCESS,
-  REQUEST_AGENT_FAIL,
   DELETE_AGENT_SUCCESS,
   OPEN_REQUEST_AGENT_MODAL,
   CLOSE_REQUEST_AGENT_MODAL,
   OPEN_DELETE_AGENT_MODAL,
   CLOSE_DELETE_AGENT_MODAL,
-  HIDE_AGENT_NOTIFICATION,
   OPEN_CONTRACT_RATE_MODAL,
   CLOSE_CONTRACT_RATE_MODAL,
   OPEN_OFFER_SPECIAL_PRICE_MODAL,
@@ -76,15 +74,22 @@ export const offerSpecialPrice = (
   values
 ) => async dispatch => {
   try {
-    const { data } = await axios.post(`/pkgs/${_id}/special-prices`, {
+    const {
+      data: { message }
+    } = await axios.post(`/pkgs/${_id}/special-prices`, {
       agent: agentId,
       ...values
     })
     dispatch({
       type: OFFER_SPECIAL_PRICE_SUCCESS,
-      payload: { _id, values, ...data }
+      payload: { _id, values }
     })
-    delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
+    dispatch(
+      success({
+        title: 'แจ้งเตือน',
+        message: message
+      })
+    )
   } catch (e) {
     console.error(e)
   }
@@ -92,12 +97,17 @@ export const offerSpecialPrice = (
 
 export const resetPrice = (agentId, { _id }, callback) => async dispatch => {
   try {
-    const deleteData = await axios.delete(
+    const { data: { message } } = await axios.delete(
       `/pkgs/${_id}/special-prices/${agentId}`
     )
-    dispatch({ type: RESET_PRICE_SUCCESS, payload: deleteData.data })
+    dispatch({ type: RESET_PRICE_SUCCESS })
+    dispatch(
+      success({
+        title: 'แจ้งเตือน',
+        message: message
+      })
+    )
     callback({ _id })
-    delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
   } catch (e) {
     console.error(e)
   }
@@ -106,20 +116,22 @@ export const resetPrice = (agentId, { _id }, callback) => async dispatch => {
 export const requestAgent = ({ _id }, callback) => async dispatch => {
   try {
     const { data: { message } } = await axios.post('/request', { _id })
-    dispatch({
-      type: REQUEST_AGENT_SUCCESS,
-      payload: { message, _id }
-    })
-
-    delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
+    dispatch({ type: REQUEST_AGENT_SUCCESS })
+    dispatch(
+      success({
+        title: 'แจ้งเตือน',
+        message: message
+      })
+    )
     socket.emit('request', { _id })
     callback()
   } catch (e) {
-    dispatch({
-      type: REQUEST_AGENT_FAIL,
-      payload: e.response.data.error
-    })
-    delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
+    dispatch(
+      error({
+        title: 'แจ้งเตือน',
+        message: e.response.data.error
+      })
+    )
   }
 }
 
@@ -135,10 +147,15 @@ export const cancelRequestAgent = ({ _id }) => async dispatch => {
 
 export const deleteAgent = ({ _id }) => async dispatch => {
   try {
-    const { data } = await axios.delete(`/relationship/${_id}`)
-    dispatch({ type: DELETE_AGENT_SUCCESS, payload: { data, _id } })
+    const { data: { message } } = await axios.delete(`/relationship/${_id}`)
+    dispatch({ type: DELETE_AGENT_SUCCESS, payload: _id })
     socket.emit('deleteRelationship', { _id })
-    delay(() => dispatch({ type: HIDE_AGENT_NOTIFICATION }), 4000)
+    dispatch(
+      success({
+        title: 'แจ้งเตือน',
+        message: message
+      })
+    )
   } catch (e) {
     console.error(e)
   }

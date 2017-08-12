@@ -26,6 +26,7 @@ router.post('/employees', c.addEmployee)
 router.post('/bookings', c.addBooking)
 router.get('/bookings', c.getBookingsList)
 router.get('/dashboard', c.getDashboard)
+router.get('/hotels', c.getHotelsList)
 router.get('/reports/voucher', r.voucher)
 
 module.exports = router

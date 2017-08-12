@@ -15,7 +15,7 @@ class Dashboard extends PureComponent {
     const { bookingsSummaries } = this.props
     return bookingsSummaries.map((bookingsSummary, index) => {
       return (
-        <div className="col-md-4 col-sm-6">
+        <div key={index} className="col-md-4 col-sm-6">
           <Table
             description={`วันที่ ${moment()
               .add(index, 'day')
