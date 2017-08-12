@@ -1,9 +1,6 @@
 export const SIGN_IN_SUCCESS = 'sign_in_success'
 export const SIGN_OUT_SUCCESS = 'sign_out_success'
 export const SIGN_UP_SUCCESS = 'sign_up_success'
-export const SIGN_IN_FAIL = 'sign_in_fail'
-export const SIGN_UP_FAIL = 'sign_up_fail'
-export const HIDE_AUTH_NOTIFICATION = 'hide_auth_notification'
 
 export const FETCH_DASHBOARD_SUCCESS = 'fetch_dashboard_success'
 
@@ -27,7 +24,6 @@ export const CLOSE_EDIT_PKG_MODAL = 'close_edit_pkg_modal'
 export const EDIT_PKG_SUCCESS = 'edit_pkg_success'
 export const OPEN_DELETE_PKG_MODAL = 'open_delete_pkg_modal'
 export const CLOSE_DELETE_PKG_MODAL = 'close_delete_pkg_modal'
-export const HIDE_PKG_NOTIFICATION = 'hide_pkg_notification'
 
 export const FETCH_AGENTS_SUCCESS = 'fetch_agents_success'
 export const DELETE_AGENT_SUCCESS = 'delete_agent_success'
@@ -51,7 +47,6 @@ export const OPEN_OFFER_SPECIAL_PRICE_MODAL = 'open_offer_special_price_modal'
 export const CLOSE_OFFER_SPECIAL_PRICE_MODAL = 'close_offer_special_price_modal'
 export const OFFER_SPECIAL_PRICE_SUCCESS = 'offer_special_price_success'
 export const RESET_PRICE_SUCCESS = 'reset_price_success'
-export const HIDE_AGENT_NOTIFICATION = 'hide_agent_notification'
 
 export const OPEN_VIEW_AGENT_PROFILE_MODAL = 'open_view_agent_profile_modal'
 export const CLOSE_VIEW_AGENT_PROFILE_MODAL = 'close_view_agent_profile_modal'
