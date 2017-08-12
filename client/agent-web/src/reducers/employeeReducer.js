@@ -14,8 +14,7 @@ const initialState = {
   selectedEmployee: null,
   showAddEmployeeModal: false,
   showEditEmployeeModal: false,
-  showDeleteEmployeeModal: false,
-  notification: { show: false, type: null, message: null }
+  showDeleteEmployeeModal: false
 }
 
 export default (state = initialState, action) => {
