@@ -9,7 +9,6 @@ export const FETCH_PKGS_SUCCESS = 'fetch_pkgs_success'
 export const OPEN_ADD_BOOKING_MODAL = 'open_add_booking_modal'
 export const CLOSE_ADD_BOOKING_MODAL = 'close_add_booking_modal'
 export const ADD_BOOKING_SUCCESS = 'add_booking_success'
-export const HIDE_BOOKING_NOTIFICATION = 'hide_booking_notification'
 
 export const FETCH_EMPLOYEES_SUCCESS = 'fetch_employees_success'
 export const OPEN_ADD_EMPLOYEE_MODAL = 'open_add_employee_modal'
