@@ -3,13 +3,11 @@ import omit from 'lodash/omit'
 import {
   FETCH_AGENTS_SUCCESS,
   REQUEST_AGENT_SUCCESS,
-  REQUEST_AGENT_FAIL,
   OPEN_REQUEST_AGENT_MODAL,
   CLOSE_REQUEST_AGENT_MODAL,
   OPEN_DELETE_AGENT_MODAL,
   CLOSE_DELETE_AGENT_MODAL,
   DELETE_AGENT_SUCCESS,
-  HIDE_AGENT_NOTIFICATION,
   OPEN_CONTRACT_RATE_MODAL,
   CLOSE_CONTRACT_RATE_MODAL,
   OPEN_OFFER_SPECIAL_PRICE_MODAL,
@@ -30,8 +28,7 @@ const initialState = {
   showContractRateModal: false,
   showOfferSpecialPriceModal: false,
   showResetPriceModal: false,
-  showDeleteAgentModal: false,
-  notification: { show: false, type: null, message: null }
+  showDeleteAgentModal: false
 }
 
 export default (state = initialState, action) => {
@@ -48,24 +45,14 @@ export default (state = initialState, action) => {
     case REQUEST_AGENT_SUCCESS:
       return {
         ...state,
-        showRequestAgentModal: false,
-        notification: {
-          show: true,
-          type: 'success',
-          message: action.payload.message
-        }
+        showRequestAgentModal: false
       }
 
     case DELETE_AGENT_SUCCESS:
       return {
         ...state,
-        agents: omit(state.agents, action.payload._id),
-        showDeleteAgentModal: false,
-        notification: {
-          show: true,
-          type: 'success',
-          message: action.payload.data.message
-        }
+        agents: omit(state.agents, action.payload),
+        showDeleteAgentModal: false
       }
 
     case OFFER_SPECIAL_PRICE_SUCCESS:
@@ -75,40 +62,13 @@ export default (state = initialState, action) => {
           ...state.selectedAgentContractRates,
           [action.payload._id]: action.payload.values
         },
-        showOfferSpecialPriceModal: false,
-        notification: {
-          show: true,
-          type: 'success',
-          message: action.payload.message
-        }
+        showOfferSpecialPriceModal: false
       }
 
     case RESET_PRICE_SUCCESS:
       return {
         ...state,
-        showResetPriceModal: false,
-        notification: {
-          show: true,
-          type: 'success',
-          message: action.payload.message
-        }
-      }
-
-    case HIDE_AGENT_NOTIFICATION:
-      return {
-        ...state,
-        notification: { show: false }
-      }
-
-    case REQUEST_AGENT_FAIL:
-      return {
-        ...state,
-        showRequestAgentModal: false,
-        notification: {
-          show: true,
-          type: 'danger',
-          message: action.payload
-        }
+        showResetPriceModal: false
       }
 
     case OPEN_REQUEST_AGENT_MODAL:
