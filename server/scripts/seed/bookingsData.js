@@ -4,10 +4,11 @@ const times = require('lodash/times')
 const random = require('lodash/random')
 
 const { agents, companies, pkgs } = require('./masterData')
+const hotels = require('./hotelsData')
 
 const bookings = []
 
-times(10000, () => {
+times(1000, () => {
   bookings.push({
     agent: agents[random(1)]._id,
     company: companies[0]._id,
@@ -16,7 +17,7 @@ times(10000, () => {
       name: faker.name.findName(),
       phoneNumber: faker.phone.phoneNumberFormat(),
       email: faker.internet.email(),
-      hotel: faker.address.city(),
+      hotel: hotels[random(hotels.length - 1)].name,
       roomNumber: random(1000, 9999),
       address: faker.address.country(),
       adult: random(1, 10),
