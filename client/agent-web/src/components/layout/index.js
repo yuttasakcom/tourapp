@@ -5,7 +5,7 @@ import { withRouter, Redirect } from 'react-router-dom'
 import MainMenu from './mainMenu'
 import Toolbar from './toolbar'
 import Socket from './Socket'
-import Notification from './Notification'
+import Notification from '../Notification'
 import * as actions from '../../actions'
 
 class Layout extends PureComponent {

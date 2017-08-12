@@ -1,9 +1,6 @@
 export const SIGN_IN_SUCCESS = 'sign_in_success'
 export const SIGN_OUT_SUCCESS = 'sign_out_success'
 export const SIGN_UP_SUCCESS = 'sign_up_success'
-export const SIGN_IN_FAIL = 'sign_in_fail'
-export const SIGN_UP_FAIL = 'sign_up_fail'
-export const HIDE_AUTH_NOTIFICATION = 'hide_auth_notification'
 
 export const FETCH_PKGS_SUCCESS = 'fetch_pkgs_success'
 export const OPEN_ADD_BOOKING_MODAL = 'open_add_booking_modal'

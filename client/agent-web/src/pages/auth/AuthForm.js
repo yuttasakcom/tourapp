@@ -9,13 +9,6 @@ import Notification from '../../components/Notification'
 import renderField from '../../components/renderField'
 
 class AuthForm extends PureComponent {
-  renderNotification() {
-    const { show, type, message } = this.props.notification
-    if (show) {
-      return <Notification type={type} message={message} />
-    }
-  }
-
   renderAlternativeLink() {
     let path, text
     if (this.props.title === 'Sign Up') {
@@ -53,7 +46,7 @@ class AuthForm extends PureComponent {
     return (
       <div className="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
         <Card title={title} description={description}>
-          {this.renderNotification()}
+          <Notification />
           <form onSubmit={handleSubmit}>
             <div className="row">
               <Field

@@ -1,4 +1,4 @@
-import delay from 'lodash/delay'
+import { error } from 'react-notification-system-redux'
 import jwtDecode from 'jwt-decode'
 
 import axios from './axios'
@@ -7,9 +7,6 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_OUT_SUCCESS,
   SIGN_UP_SUCCESS,
-  SIGN_IN_FAIL,
-  SIGN_UP_FAIL,
-  HIDE_AUTH_NOTIFICATION,
   TOGGLE_PROFILE_MENU
 } from './types'
 
@@ -33,11 +30,12 @@ export const signIn = values => async dispatch => {
     const user = initAuth(token)
     dispatch({ type: SIGN_IN_SUCCESS, payload: user })
   } catch (e) {
-    dispatch({
-      type: SIGN_IN_FAIL,
-      payload: e.response.data
-    })
-    delay(() => dispatch({ type: HIDE_AUTH_NOTIFICATION }), 4000)
+    dispatch(
+      error({
+        title: 'แจ้งเตือน',
+        message: e.response.data
+      })
+    )
   }
 }
 
@@ -53,10 +51,11 @@ export const signUp = values => async dispatch => {
     const user = initAuth(token)
     dispatch({ type: SIGN_UP_SUCCESS, payload: user })
   } catch (e) {
-    dispatch({
-      type: SIGN_UP_FAIL,
-      payload: e.response.data.error
-    })
-    delay(() => dispatch({ type: HIDE_AUTH_NOTIFICATION }), 4000)
+    dispatch(
+      error({
+        title: 'แจ้งเตือน',
+        message: e.response.data.error
+      })
+    )
   }
 }
