@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
@@ -8,7 +9,14 @@ import renderField from '../../components/renderField'
 
 class BookingForm extends PureComponent {
   render() {
-    const { handleSubmit, reset, pristine, submitting, closeModal } = this.props
+    const {
+      handleSubmit,
+      reset,
+      pristine,
+      submitting,
+      closeModal,
+      hotels
+    } = this.props
 
     return (
       <form onSubmit={handleSubmit}>
@@ -42,8 +50,9 @@ class BookingForm extends PureComponent {
               <Field
                 name="hotel"
                 component={renderField}
+                options={hotels}
                 label="Hotel"
-                type="text"
+                type="select"
               />
             </div>
             <div className="col-md-2">
@@ -147,4 +156,13 @@ const validate = values => {
   return errors
 }
 
-export default reduxForm({ form: 'booking', validate })(BookingForm)
+const mapStateToProps = ({ booking: { hotels } }) => ({
+  hotels: hotels.map(hotel => ({
+    value: hotel.name,
+    label: hotel.name
+  }))
+})
+
+export default connect(mapStateToProps)(
+  reduxForm({ form: 'booking', validate })(BookingForm)
+)
