@@ -96,8 +96,8 @@ const validate = values => {
   return errors
 }
 
-const mapStateToProps = ({ auth: { notification, authenticated } }) => {
-  return { authenticated, notification }
+const mapStateToProps = ({ auth: { authenticated } }) => {
+  return { authenticated }
 }
 
 export default reduxForm({ form: 'auth', validate })(
