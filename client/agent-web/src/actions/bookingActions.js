@@ -5,11 +5,21 @@ import socket from './socket'
 import { openReport } from '../helpers'
 import {
   FETCH_PKGS_SUCCESS,
+  FETCH_HOTELS_SUCCESS,
   OPEN_ADD_BOOKING_MODAL,
   CLOSE_ADD_BOOKING_MODAL,
   ADD_BOOKING_SUCCESS,
   HIDE_BOOKING_NOTIFICATION
 } from './types'
+
+export const fetchHotels = () => async dispatch => {
+  try {
+    const { data } = await axios.get('/hotels')
+    dispatch({ type: FETCH_HOTELS_SUCCESS, payload: data })
+  } catch (e) {
+    console.error(e)
+  }
+}
 
 export const fetchPkgs = () => async dispatch => {
   try {

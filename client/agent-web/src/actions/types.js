@@ -54,3 +54,4 @@ export const TOGGLE_MENU = 'toggle_menu'
 export const CLOSE_MENU = 'close_menu'
 
 export const FETCH_DASHBOARD_SUCCESS = 'fetch_dashboard_success'
+export const FETCH_HOTELS_SUCCESS = 'fetch_hotel_success'
