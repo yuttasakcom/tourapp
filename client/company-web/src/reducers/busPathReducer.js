@@ -1,8 +1,11 @@
+import moment from 'moment'
 import mapKeys from 'lodash/mapKeys'
 import times from 'lodash/times'
-import moment from 'moment'
 import omit from 'lodash/omit'
 import map from 'lodash/map'
+import difference from 'lodash/difference'
+import pick from 'lodash/pick'
+import merge from 'lodash/merge'
 
 import {
   FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS,
@@ -36,9 +39,6 @@ export default (state = initialState, action) => {
       const addMode = state.hotelsSelects[index].values
         ? state.hotelsSelects[index].values.length < values.length
         : true
-      console.log('add', addMode)
-      console.log(index)
-      console.log(values)
       if (addMode) {
         return {
           ...state,
@@ -51,27 +51,25 @@ export default (state = initialState, action) => {
           }))
         }
       } else {
+        const removedItemsId = map(
+          difference(state.hotelsSelects[index].values, values),
+          'value'
+        )
+        const removedItemsOptions = pick(
+          state.hotelsSelects[index].options,
+          removedItemsId
+        )
         return {
           ...state,
-          hotelsSelects: {
-            ...state.hotelsSelects,
-            [action.payload.index]: {
-              options: state.hotelsSelects[action.payload.index].options,
-              values: action.payload.values
-            }
-          }
+          hotelsSelects: map(state.hotelsSelects, (hotelsSelect, i) => ({
+            options:
+              Number(i) === index
+                ? hotelsSelect.options
+                : merge(hotelsSelect.options, removedItemsOptions),
+            values: Number(i) === index ? values : hotelsSelect.values
+          }))
         }
       }
-    // return {
-    //   ...state,
-    //   hotelsSelects: {
-    //     ...state.hotelsSelects,
-    //     [action.payload.index]: {
-    //       options: state.hotelsSelects[action.payload.index].options,
-    //       values: action.payload.values
-    //     }
-    //   }
-    // }
 
     default:
       return state
