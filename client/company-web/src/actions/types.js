@@ -63,6 +63,7 @@ export const FETCH_BOOKINGS_SUMMARY_SUCCESS = 'fetch_bookings_summary_success'
 
 export const FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS =
   'fetch_bookings_hotels_summary_success'
+export const ADD_BUS_PATH = 'add_bus_path'
 
 export const TOGGLE_MENU = 'toggle_menu'
 export const CLOSE_MENU = 'close_menu'

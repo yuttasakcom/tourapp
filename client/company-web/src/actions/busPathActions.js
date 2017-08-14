@@ -1,7 +1,7 @@
 import moment from 'moment'
 
 import axios from './axios'
-import { FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS } from './types'
+import { FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS, ADD_BUS_PATH } from './types'
 
 export const fetchBookingsHotelsSummary = date => async dispatch => {
   const dateEnd = moment(date).add(1, 'days')
@@ -17,3 +17,8 @@ export const fetchBookingsHotelsSummary = date => async dispatch => {
     console.error(e)
   }
 }
+
+export const addBusPath = (value, index) => ({
+  type: ADD_BUS_PATH,
+  payload: { value, index }
+})
