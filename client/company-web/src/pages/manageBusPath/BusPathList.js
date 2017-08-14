@@ -5,12 +5,23 @@ import map from 'lodash/map'
 import BusPathItem from './BusPathItem'
 
 class BusPathList extends PureComponent {
+  handleSelectChange(value, index) {
+    console.log(index)
+    console.log(value)
+  }
+
   renderBusPathList() {
     const { hotelsOptions } = this.props
     return hotelsOptions.map((hotelsOption, index) =>
-      <BusPathItem options={hotelsOption} key={index} index={index + 1} />
+      <BusPathItem
+        options={hotelsOption}
+        key={index}
+        index={index + 1}
+        onChange={value => this.handleSelectChange(value, index)}
+      />
     )
   }
+
   render() {
     return (
       <div className="row">
