@@ -39,15 +39,28 @@ export default (state = initialState, action) => {
       console.log('add', addMode)
       console.log(index)
       console.log(values)
-      return {
-        ...state,
-        hotelsSelects: map(state.hotelsSelects, (hotelsSelect, i) => ({
-          options:
-            Number(i) === index
-              ? hotelsSelect.options
-              : omit(hotelsSelect.options, values[values.length - 1].value),
-          values: Number(i) === index ? values : hotelsSelect.values
-        }))
+      if (addMode) {
+        return {
+          ...state,
+          hotelsSelects: map(state.hotelsSelects, (hotelsSelect, i) => ({
+            options:
+              Number(i) === index
+                ? hotelsSelect.options
+                : omit(hotelsSelect.options, values[values.length - 1].value),
+            values: Number(i) === index ? values : hotelsSelect.values
+          }))
+        }
+      } else {
+        return {
+          ...state,
+          hotelsSelects: {
+            ...state.hotelsSelects,
+            [action.payload.index]: {
+              options: state.hotelsSelects[action.payload.index].options,
+              values: action.payload.values
+            }
+          }
+        }
       }
     // return {
     //   ...state,
