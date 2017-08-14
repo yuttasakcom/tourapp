@@ -31,8 +31,8 @@ router.post('/pkgs/:pkgId/special-prices', c.addPkgSpecialPrice)
 router.delete('/pkgs/:pkgId/special-prices/:agentId', c.deletePkgSpecialPrice)
 router.get('/special-prices/:agentId', c.getSpecialPricesList)
 router.put('/bookings/:id', c.updateBooking)
-router.get('/bookingsSummary', c.getBookingsSummary)
+router.get('/bookings-summary', c.getBookingsSummary)
 router.get('/dashboard', c.getDashboard)
-router.get('/reports/bookingsSummary', r.bookingsSummary)
+router.get('/reports/bookings-summary', r.bookingsSummary)
 
 module.exports = router

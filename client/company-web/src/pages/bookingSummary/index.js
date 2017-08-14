@@ -11,7 +11,7 @@ class BookingSummary extends PureComponent {
   openReport = () => {
     const { date } = this.props
     const dateEnd = moment(date).add(1, 'days')
-    openReport(`bookingsSummary?dateStart=${date}&dateEnd=${dateEnd}`)
+    openReport(`bookings-summary?dateStart=${date}&dateEnd=${dateEnd}`)
   }
 
   render() {

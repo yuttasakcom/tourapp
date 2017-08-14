@@ -8,7 +8,7 @@ export const fetchBookingsSummary = date => async dispatch => {
   const dateEnd = moment(date).add(1, 'days')
   try {
     const { data } = await axios.get(
-      `/bookingsSummary?dateStart=${date}&dateEnd=${dateEnd}`
+      `/bookings-summary?dateStart=${date}&dateEnd=${dateEnd}`
     )
     dispatch({ type: FETCH_BOOKINGS_SUMMARY_SUCCESS, payload: { data, date } })
   } catch (e) {
