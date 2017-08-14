@@ -18,8 +18,12 @@ module.exports = (companyId, dateStart, dateEnd) => {
       $group: {
         _id: '$pkg.name',
         totalBooking: { $sum: 1 },
-        totalAdultIncome: { $sum: '$pkg.priceAdult' },
-        totalChildIncome: { $sum: '$pkg.priceChild' },
+        totalAdultIncome: {
+          $sum: { $multiply: ['$pkg.priceAdult', '$tourist.adult'] }
+        },
+        totalChildIncome: {
+          $sum: { $multiply: ['$pkg.priceChild', '$tourist.child'] }
+        },
         totalAdult: { $sum: '$tourist.adult' },
         totalChild: { $sum: '$tourist.child' }
       }
