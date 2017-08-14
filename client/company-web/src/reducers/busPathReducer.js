@@ -1,6 +1,8 @@
 import mapKeys from 'lodash/mapKeys'
 import times from 'lodash/times'
 import moment from 'moment'
+import omit from 'lodash/omit'
+import map from 'lodash/map'
 
 import {
   FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS,
@@ -30,16 +32,28 @@ export default (state = initialState, action) => {
       }
 
     case ADD_BUS_PATH:
+      const { values, index } = action.payload
+      console.log(values)
       return {
         ...state,
-        hotelsSelects: {
-          ...state.hotelsSelects,
-          [action.payload.index]: {
-            options: state.hotelsSelects[action.payload.index].options,
-            values: action.payload.value
-          }
-        }
+        hotelsSelects: map(state.hotelsSelects, (hotelsSelect, i) => ({
+          options:
+            Number(i) === index
+              ? hotelsSelect.options
+              : omit(hotelsSelect.options, values[values.length - 1].value),
+          values: Number(i) === index ? values : hotelsSelect.values
+        }))
       }
+    // return {
+    //   ...state,
+    //   hotelsSelects: {
+    //     ...state.hotelsSelects,
+    //     [action.payload.index]: {
+    //       options: state.hotelsSelects[action.payload.index].options,
+    //       values: action.payload.values
+    //     }
+    //   }
+    // }
 
     default:
       return state
