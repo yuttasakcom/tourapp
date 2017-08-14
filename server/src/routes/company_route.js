@@ -32,6 +32,7 @@ router.delete('/pkgs/:pkgId/special-prices/:agentId', c.deletePkgSpecialPrice)
 router.get('/special-prices/:agentId', c.getSpecialPricesList)
 router.put('/bookings/:id', c.updateBooking)
 router.get('/bookings-summary', c.getBookingsSummary)
+router.get('/bookings-hotels-summary', c.getBookingsHotelsSummary)
 router.get('/dashboard', c.getDashboard)
 router.get('/reports/bookings-summary', r.bookingsSummary)
 
