@@ -61,5 +61,8 @@ export const ADD_NOTIFICATION_SUCCESS = 'add_notification_success'
 
 export const FETCH_BOOKINGS_SUMMARY_SUCCESS = 'fetch_bookings_summary_success'
 
+export const FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS =
+  'fetch_bookings_hotels_summary_success'
+
 export const TOGGLE_MENU = 'toggle_menu'
 export const CLOSE_MENU = 'close_menu'
