@@ -8,7 +8,7 @@ class ManageBusPath extends PureComponent {
   render() {
     return (
       <div className="container-fluid">
-        <Card title="Bus Path" style={{ height: '400px' }}>
+        <Card title="Bus Path" style={{ height: '800px' }}>
           <div className="row">
             <div className="col-md-6 col-sm-6">
               <FilterDate />
