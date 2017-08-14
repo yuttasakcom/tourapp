@@ -158,7 +158,7 @@ const validate = values => {
 
 const mapStateToProps = ({ booking: { hotels } }) => ({
   hotels: hotels.map(hotel => ({
-    value: hotel.name,
+    value: hotel._id,
     label: hotel.name
   }))
 })
