@@ -6,7 +6,7 @@ class BusPathItem extends PureComponent {
   render() {
     const { index } = this.props
     return (
-      <div className="col-lg-3 col-md-4 col-sm-6">
+      <div className="col-md-6">
         <h3>
           สายที่ {index}
         </h3>
