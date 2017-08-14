@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const employeeSchema = require('./sub_documents/employee')
+const busPathSchema = require('./sub_documents/busPath')
 
 const Schema = mongoose.Schema
 
@@ -52,7 +53,8 @@ const companySchema = new Schema({
       ref: 'Agent'
     }
   ],
-  employees: [employeeSchema]
+  employees: [employeeSchema],
+  busPaths: [busPathSchema]
 })
 
 const Company = mongoose.model('Company', companySchema)
