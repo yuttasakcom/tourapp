@@ -33,6 +33,11 @@ export default (state = initialState, action) => {
 
     case ADD_BUS_PATH:
       const { values, index } = action.payload
+      const addMode = state.hotelsSelects[index].values
+        ? state.hotelsSelects[index].values.length < values.length
+        : true
+      console.log('add', addMode)
+      console.log(index)
       console.log(values)
       return {
         ...state,
