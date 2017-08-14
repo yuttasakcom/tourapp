@@ -1,9 +1,11 @@
 import mapKeys from 'lodash/mapKeys'
+import moment from 'moment'
 
 import { FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS } from '../actions/types'
 
 const initialState = {
-  hotels: {}
+  hotels: {},
+  visibilityFilter: { date: moment().startOf('day') }
 }
 
 export default (state = initialState, action) => {
@@ -11,7 +13,8 @@ export default (state = initialState, action) => {
     case FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS:
       return {
         ...state,
-        hotels: mapKeys(action.payload.data, '_id')
+        hotels: mapKeys(action.payload.data, '_id'),
+        visibilityFilter: { date: action.payload.date }
       }
 
     default:
