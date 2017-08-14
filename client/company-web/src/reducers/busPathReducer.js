@@ -1,6 +1,11 @@
+import moment from 'moment'
 import mapKeys from 'lodash/mapKeys'
 import times from 'lodash/times'
-import moment from 'moment'
+import omit from 'lodash/omit'
+import map from 'lodash/map'
+import difference from 'lodash/difference'
+import pick from 'lodash/pick'
+import merge from 'lodash/merge'
 
 import {
   FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS,
@@ -8,10 +13,7 @@ import {
 } from '../actions/types'
 
 const initialState = {
-  hotelsSelects: {
-    options: {},
-    values: {}
-  },
+  hotelsSelects: [],
   visibilityFilter: { date: moment().startOf('day') }
 }
 
@@ -19,7 +21,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS:
       const options = mapKeys(action.payload.data, '_id')
-      const hotelsSelects = {}
+      const hotelsSelects = []
       times(8, index => {
         hotelsSelects[index] = { options, values: null }
       })
@@ -30,14 +32,39 @@ export default (state = initialState, action) => {
       }
 
     case ADD_BUS_PATH:
-      return {
-        ...state,
-        hotelsSelects: {
-          ...state.hotelsSelects,
-          [action.payload.index]: {
-            options: state.hotelsSelects[action.payload.index].options,
-            values: action.payload.value
-          }
+      const { values, index } = action.payload
+      const addMode = state.hotelsSelects[index].values
+        ? state.hotelsSelects[index].values.length < values.length
+        : true
+      if (addMode) {
+        return {
+          ...state,
+          hotelsSelects: map(state.hotelsSelects, (hotelsSelect, i) => ({
+            options:
+              Number(i) === index
+                ? hotelsSelect.options
+                : omit(hotelsSelect.options, values[values.length - 1].value),
+            values: Number(i) === index ? values : hotelsSelect.values
+          }))
+        }
+      } else {
+        const removedItemsId = map(
+          difference(state.hotelsSelects[index].values, values),
+          'value'
+        )
+        const removedItemsOptions = pick(
+          state.hotelsSelects[index].options,
+          removedItemsId
+        )
+        return {
+          ...state,
+          hotelsSelects: map(state.hotelsSelects, (hotelsSelect, i) => ({
+            options:
+              Number(i) === index
+                ? hotelsSelect.options
+                : merge(hotelsSelect.options, removedItemsOptions),
+            values: Number(i) === index ? values : hotelsSelect.values
+          }))
         }
       }
 

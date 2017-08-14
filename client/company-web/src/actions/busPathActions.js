@@ -18,7 +18,7 @@ export const fetchBookingsHotelsSummary = date => async dispatch => {
   }
 }
 
-export const addBusPath = (value, index) => ({
+export const addBusPath = (values, index) => ({
   type: ADD_BUS_PATH,
-  payload: { value, index }
+  payload: { values, index }
 })

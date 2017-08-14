@@ -14,7 +14,7 @@ class BusPathList extends PureComponent {
         value={hotelsSelect.values}
         key={index}
         index={index + 1}
-        onChange={value => addBusPath(value, index)}
+        onChange={values => addBusPath(values, index)}
       />
     )
   }
