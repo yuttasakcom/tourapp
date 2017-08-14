@@ -5,17 +5,28 @@ import map from 'lodash/map'
 import BusPathItem from './BusPathItem'
 
 class BusPathList extends PureComponent {
-  render() {
+  renderBusPathList() {
     const { hotelsOptions } = this.props
-    return <BusPathItem options={hotelsOptions} />
+    return hotelsOptions.map((hotelsOption, index) =>
+      <BusPathItem options={hotelsOption} key={index} index={index + 1} />
+    )
+  }
+  render() {
+    return (
+      <div className="row">
+        {this.renderBusPathList()}
+      </div>
+    )
   }
 }
 
-const mapStateToProps = ({ busPath }) => ({
-  hotelsOptions: map(busPath.hotels, e => ({
-    value: e._id,
-    label: `${e.name} (${e.total})`
-  }))
+const mapStateToProps = ({ busPath: { hotelsOptions } }) => ({
+  hotelsOptions: map(hotelsOptions, hotelsOption =>
+    map(hotelsOption, hotel => ({
+      value: hotel._id,
+      label: `${hotel.name} (${hotel.total})`
+    }))
+  )
 })
 
 export default connect(mapStateToProps)(BusPathList)
