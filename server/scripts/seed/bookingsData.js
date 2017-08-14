@@ -17,7 +17,7 @@ times(1000, () => {
       name: faker.name.findName(),
       phoneNumber: faker.phone.phoneNumberFormat(),
       email: faker.internet.email(),
-      hotel: hotels[random(hotels.length - 1)].name,
+      hotel: hotels[random(hotels.length - 1)]._id,
       roomNumber: random(1000, 9999),
       address: faker.address.country(),
       adult: random(1, 10),

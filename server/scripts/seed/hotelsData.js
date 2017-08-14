@@ -1,3 +1,5 @@
+const Hotel = require('../../src/models/hotel')
+
 module.exports = [
   { name: '999' },
   { name: 'กิตติกร' },
@@ -198,4 +200,4 @@ module.exports = [
   { name: 'บางเทา บีช รีสอร์ท' },
   { name: 'เดอะแมงโก้ สทีน ' },
   { name: 'รีสอร์ท แอนด์ สปา' }
-]
+].map(hotel => new Hotel(hotel))

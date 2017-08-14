@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const employeeSchema = require('./sub_documents/employee')
+const busPathSchema = require('./sub_documents/busPath')
 
 const Schema = mongoose.Schema
 
@@ -8,6 +10,10 @@ const companySchema = new Schema({
     unique: true,
     lowercase: true,
     required: [true, 'Email is required']
+  },
+  password: {
+    type: String,
+    required: [true, 'Password is required']
   },
   name: {
     type: String,
@@ -21,9 +27,13 @@ const companySchema = new Schema({
     type: String,
     required: [true, 'Phone number is required']
   },
-  password: {
+  adminName: {
     type: String,
-    required: [true, 'Password is required']
+    required: [true, 'Admin name is required']
+  },
+  adminPhoneNumber: {
+    type: String,
+    required: [true, 'Admin phone number is required']
   },
   agents: [
     {
@@ -42,7 +52,9 @@ const companySchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'Agent'
     }
-  ]
+  ],
+  employees: [employeeSchema],
+  busPaths: [busPathSchema]
 })
 
 const Company = mongoose.model('Company', companySchema)

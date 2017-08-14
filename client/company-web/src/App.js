@@ -8,6 +8,7 @@ import SignUp from './pages/auth/SignUp'
 import Dashboard from './pages/dashboard'
 import BoogkingSummary from './pages/bookingSummary'
 import ManageBooking from './pages/manageBooking'
+import ManageBusPath from './pages/manageBusPath'
 import ManageTourPkg from './pages/manageTourPkg'
 import ManageAgent from './pages/manageAgent'
 import Layout from './components/layout'
@@ -30,6 +31,7 @@ class App extends PureComponent {
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/manage-booking" component={ManageBooking} />
               <Route path="/booking-summary" component={BoogkingSummary} />
+              <Route path="/manage-bus-path" component={ManageBusPath} />
               <Route path="/manage-tour-package" component={ManageTourPkg} />
               <Route path="/manage-agent" component={ManageAgent} />
               <Route component={NoMatch} />

@@ -7,5 +7,7 @@ module.exports = (companyId, dateStart, dateEnd) => {
   return Booking.find({
     company: companyId,
     'tourist.date': { $gte: gteDate, $lt: ltDate }
-  }).populate('agent', 'email name phoneNumber')
+  })
+    .populate('agent', 'email name phoneNumber')
+    .populate('tourist.hotel', 'name')
 }

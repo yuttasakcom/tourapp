@@ -6,7 +6,10 @@ const touristSchema = new Schema({
   name: String,
   phoneNumber: String,
   email: String,
-  hotel: String,
+  hotel: {
+    type: Schema.Types.ObjectId,
+    ref: 'Hotel'
+  },
   roomNumber: String,
   address: String,
   adult: Number,

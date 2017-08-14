@@ -16,6 +16,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './resources/css/material-dashboard.css'
 import 'react-dates/lib/css/_datepicker.css'
 import 'react-bootstrap-table/css/react-bootstrap-table.css'
+import 'react-select/dist/react-select.css'
 import './resources/css/index.css'
 
 moment.locale('th')

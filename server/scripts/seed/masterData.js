@@ -11,6 +11,8 @@ const company1 = new Company({
   name: 'บริษัท ท่องเที่ยว 1 จำกัด',
   phoneNumber: faker.phone.phoneNumberFormat(),
   address: '320 ซ.3 ถ.พระราม 2 แขวงบางมด เขตจอมทอง กรุงเทพฯ 10150',
+  adminName: 'นายสมชาย ทดสอบ',
+  adminPhoneNumber: faker.phone.phoneNumberFormat(),
   password
 })
 
@@ -19,6 +21,8 @@ const company2 = new Company({
   name: 'บริษัท ท่องเที่ยว 2 จำกัด',
   phoneNumber: faker.phone.phoneNumberFormat(),
   address: '243 ม.2, ต.อ่าวนาง, อ.เมือง จ.กระบี่ 81000',
+  adminName: 'นายสมชาย ทดสอบ',
+  adminPhoneNumber: faker.phone.phoneNumberFormat(),
   password
 })
 
