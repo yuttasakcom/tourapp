@@ -3,21 +3,18 @@ import { connect } from 'react-redux'
 import map from 'lodash/map'
 
 import BusPathItem from './BusPathItem'
+import * as actions from '../../actions'
 
 class BusPathList extends PureComponent {
-  handleSelectChange(value, index) {
-    console.log(index)
-    console.log(value)
-  }
-
   renderBusPathList() {
-    const { hotelsOptions } = this.props
-    return hotelsOptions.map((hotelsOption, index) =>
+    const { hotelsSelects, addBusPath } = this.props
+    return map(hotelsSelects, (hotelsSelect, index) =>
       <BusPathItem
-        options={hotelsOption}
+        options={hotelsSelect.options}
+        value={hotelsSelect.values}
         key={index}
         index={index + 1}
-        onChange={value => this.handleSelectChange(value, index)}
+        onChange={value => addBusPath(value, index)}
       />
     )
   }
@@ -31,13 +28,14 @@ class BusPathList extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ busPath: { hotelsOptions } }) => ({
-  hotelsOptions: map(hotelsOptions, hotelsOption =>
-    map(hotelsOption, hotel => ({
+const mapStateToProps = ({ busPath: { hotelsSelects } }) => ({
+  hotelsSelects: map(hotelsSelects, hotelsSelect => ({
+    options: map(hotelsSelect.options, hotel => ({
       value: hotel._id,
       label: `${hotel.name} (${hotel.total})`
-    }))
-  )
+    })),
+    values: hotelsSelect.values
+  }))
 })
 
-export default connect(mapStateToProps)(BusPathList)
+export default connect(mapStateToProps, actions)(BusPathList)
