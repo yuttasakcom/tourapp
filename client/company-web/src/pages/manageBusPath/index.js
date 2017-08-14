@@ -14,9 +14,7 @@ class ManageBusPath extends PureComponent {
               <FilterDate />
             </div>
           </div>
-          <div className="row">
-            <BusPathList />
-          </div>
+          <BusPathList />
         </Card>
       </div>
     )
