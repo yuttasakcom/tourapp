@@ -13,10 +13,7 @@ import {
 } from '../actions/types'
 
 const initialState = {
-  hotelsSelects: {
-    options: {},
-    values: {}
-  },
+  hotelsSelects: [],
   visibilityFilter: { date: moment().startOf('day') }
 }
 
@@ -24,7 +21,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS:
       const options = mapKeys(action.payload.data, '_id')
-      const hotelsSelects = {}
+      const hotelsSelects = []
       times(8, index => {
         hotelsSelects[index] = { options, values: null }
       })
