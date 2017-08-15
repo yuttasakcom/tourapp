@@ -63,7 +63,19 @@ export const FETCH_BOOKINGS_SUMMARY_SUCCESS = 'fetch_bookings_summary_success'
 
 export const FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS =
   'fetch_bookings_hotels_summary_success'
-export const ADD_BUS_PATH = 'add_bus_path'
+export const MANAGE_BUS_PATH = 'manage_bus_path'
 
 export const TOGGLE_MENU = 'toggle_menu'
 export const CLOSE_MENU = 'close_menu'
+
+export const FETCH_BUS_PATH_HOTELS_SUCCESS = 'fetch_bus_path_hotels_success'
+export const FETCH_BUS_PATHS_SUCCESS = 'fetch_bus_paths_success'
+export const DELETE_BUS_PATH_SUCCESS = 'delete_bus_path_success'
+export const ADD_BUS_PATH_SUCCESS = 'add_bus_path_success'
+export const OPEN_ADD_BUS_PATH_MODAL = 'open_add_bus_path_modal'
+export const CLOSE_ADD_BUS_PATH_MODAL = 'close_add_bus_path_modal'
+export const OPEN_EDIT_BUS_PATH_MODAL = 'open_edit_bus_path_modal'
+export const CLOSE_EDIT_BUS_PATH_MODAL = 'close_edit_bus_path_modal'
+export const EDIT_BUS_PATH_SUCCESS = 'edit_bus_path_success'
+export const OPEN_DELETE_BUS_PATH_MODAL = 'open_delete_bus_path_modal'
+export const CLOSE_DELETE_BUS_PATH_MODAL = 'close_delete_bus_path_modal'

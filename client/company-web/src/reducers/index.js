@@ -10,6 +10,7 @@ import notification from './notificationReducer'
 import booking from './bookingReducer'
 import bookingSummary from './bookingSummaryReducer'
 import dashboard from './dashboardReducer'
+import printBusPath from './printBusPathReducer'
 import busPath from './busPathReducer'
 
 export default combineReducers({
@@ -23,5 +24,6 @@ export default combineReducers({
   booking,
   bookingSummary,
   dashboard,
+  printBusPath,
   busPath
 })

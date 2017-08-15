@@ -15,7 +15,7 @@ class FilterDate extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ busPath: { visibilityFilter: { date } } }) => ({
+const mapStateToProps = ({ printBusPath: { visibilityFilter: { date } } }) => ({
   date
 })
 

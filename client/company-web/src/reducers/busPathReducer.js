@@ -1,72 +1,81 @@
-import moment from 'moment'
 import mapKeys from 'lodash/mapKeys'
-import times from 'lodash/times'
 import omit from 'lodash/omit'
-import map from 'lodash/map'
-import difference from 'lodash/difference'
-import pick from 'lodash/pick'
-import merge from 'lodash/merge'
-
 import {
-  FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS,
-  ADD_BUS_PATH
+  FETCH_BUS_PATHS_SUCCESS,
+  FETCH_BUS_PATH_HOTELS_SUCCESS,
+  ADD_BUS_PATH_SUCCESS,
+  EDIT_BUS_PATH_SUCCESS,
+  OPEN_ADD_BUS_PATH_MODAL,
+  CLOSE_ADD_BUS_PATH_MODAL,
+  OPEN_EDIT_BUS_PATH_MODAL,
+  CLOSE_EDIT_BUS_PATH_MODAL,
+  OPEN_DELETE_BUS_PATH_MODAL,
+  CLOSE_DELETE_BUS_PATH_MODAL,
+  DELETE_BUS_PATH_SUCCESS
 } from '../actions/types'
 
 const initialState = {
-  hotelsSelects: [],
-  visibilityFilter: { date: moment().startOf('day') }
+  busPaths: {},
+  hotels: [],
+  selectedBusPath: null,
+  showAddBusPathModal: false,
+  showEditBusPathModal: false,
+  showDeleteBusPathModal: false
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS:
-      const options = mapKeys(action.payload.data, '_id')
-      const hotelsSelects = []
-      times(8, index => {
-        hotelsSelects[index] = { options, values: null }
-      })
+    case FETCH_BUS_PATH_HOTELS_SUCCESS:
+      return { ...state, hotels: action.payload }
+
+    case FETCH_BUS_PATHS_SUCCESS:
+      return { ...state, busPaths: mapKeys(action.payload, '_id') }
+
+    case ADD_BUS_PATH_SUCCESS:
       return {
         ...state,
-        hotelsSelects,
-        visibilityFilter: { date: action.payload.date }
+        showAddBusPathModal: false
       }
 
-    case ADD_BUS_PATH:
-      const { values, index } = action.payload
-      const addMode = state.hotelsSelects[index].values
-        ? state.hotelsSelects[index].values.length < values.length
-        : true
-      if (addMode) {
-        return {
-          ...state,
-          hotelsSelects: map(state.hotelsSelects, (hotelsSelect, i) => ({
-            options:
-              Number(i) === index
-                ? hotelsSelect.options
-                : omit(hotelsSelect.options, values[values.length - 1].value),
-            values: Number(i) === index ? values : hotelsSelect.values
-          }))
-        }
-      } else {
-        const removedItemsId = map(
-          difference(state.hotelsSelects[index].values, values),
-          'value'
-        )
-        const removedItemsOptions = pick(
-          state.hotelsSelects[index].options,
-          removedItemsId
-        )
-        return {
-          ...state,
-          hotelsSelects: map(state.hotelsSelects, (hotelsSelect, i) => ({
-            options:
-              Number(i) === index
-                ? hotelsSelect.options
-                : merge(hotelsSelect.options, removedItemsOptions),
-            values: Number(i) === index ? values : hotelsSelect.values
-          }))
-        }
+    case EDIT_BUS_PATH_SUCCESS:
+      return {
+        ...state,
+        busPaths: { ...state.busPaths, [action.payload._id]: action.payload },
+        showEditBusPathModal: false
       }
+
+    case DELETE_BUS_PATH_SUCCESS:
+      return {
+        ...state,
+        busPaths: omit(state.busPaths, action.payload),
+        showDeleteBusPathModal: false
+      }
+
+    case OPEN_ADD_BUS_PATH_MODAL:
+      return { ...state, showAddBusPathModal: true }
+
+    case CLOSE_ADD_BUS_PATH_MODAL:
+      return { ...state, showAddBusPathModal: false }
+
+    case OPEN_EDIT_BUS_PATH_MODAL:
+      return {
+        ...state,
+        showEditBusPathModal: true,
+        selectedBusPath: action.payload
+      }
+
+    case CLOSE_EDIT_BUS_PATH_MODAL:
+      return { ...state, showEditBusPathModal: false }
+
+    case OPEN_DELETE_BUS_PATH_MODAL:
+      return {
+        ...state,
+        showDeleteBusPathModal: true,
+        selectedBusPath: action.payload
+      }
+
+    case CLOSE_DELETE_BUS_PATH_MODAL:
+      return { ...state, showDeleteBusPathModal: false }
 
     default:
       return state
