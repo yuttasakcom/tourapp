@@ -13,8 +13,7 @@ class AddModal extends PureComponent {
 
   onSubmit = values => {
     values.hotels = map(values.hotels, 'value')
-    console.log(values)
-    // this.props.addBusPath(values)
+    this.props.addBusPath(values)
   }
 
   render() {
