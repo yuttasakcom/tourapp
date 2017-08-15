@@ -13,6 +13,14 @@ class ManageBusPath extends PureComponent {
             <div className="col-md-6 col-sm-6">
               <FilterDate />
             </div>
+            <div className="col-md-6 col-sm-6">
+              <button className="btn btn-primary pull-right" onClick={() => ''}>
+                Print
+              </button>
+              <button className="btn btn-success pull-right" onClick={() => ''}>
+                Update
+              </button>
+            </div>
           </div>
           <BusPathList />
         </Card>
