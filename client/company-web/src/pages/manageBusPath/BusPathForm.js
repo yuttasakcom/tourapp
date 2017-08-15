@@ -39,11 +39,11 @@ class BusPathForm extends PureComponent {
             </div>
             <div className="col-md-12">
               <Field
-                muti
+                multi
                 name="hotels"
                 component={renderField}
                 options={hotels}
-                label="Hotel"
+                label="Hotels"
                 type="select"
               />
             </div>
