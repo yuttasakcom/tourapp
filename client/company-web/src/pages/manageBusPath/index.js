@@ -15,7 +15,7 @@ class ManageBusPath extends PureComponent {
             <div className="col-md-12">
               <button
                 className="btn btn-primary pull-right"
-                onClick={this.props.openAddPkgModal}
+                onClick={this.props.openAddBusPathModal}
               >
                 Add
               </button>
