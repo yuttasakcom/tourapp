@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import map from 'lodash/map'
 import Modal from 'react-bootstrap/lib/Modal'
 
 import BusPathForm from './BusPathForm'
@@ -11,7 +12,9 @@ class AddModal extends PureComponent {
   }
 
   onSubmit = values => {
-    this.props.addBusPath(values)
+    values.hotels = map(values.hotels, 'value')
+    console.log(values)
+    // this.props.addBusPath(values)
   }
 
   render() {
