@@ -13,6 +13,7 @@ import {
 } from '../actions/types'
 
 const initialState = {
+  hotels: {},
   hotelsSelects: [],
   visibilityFilter: { date: moment().startOf('day') }
 }
@@ -27,6 +28,7 @@ export default (state = initialState, action) => {
       })
       return {
         ...state,
+        hotels: action.payload.data,
         hotelsSelects,
         visibilityFilter: { date: action.payload.date }
       }
