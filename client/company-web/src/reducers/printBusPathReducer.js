@@ -9,7 +9,7 @@ import merge from 'lodash/merge'
 
 import {
   FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS,
-  ADD_BUS_PATH
+  MANAGE_BUS_PATH
 } from '../actions/types'
 
 const initialState = {
@@ -33,7 +33,7 @@ export default (state = initialState, action) => {
         visibilityFilter: { date: action.payload.date }
       }
 
-    case ADD_BUS_PATH:
+    case MANAGE_BUS_PATH:
       const { values, index } = action.payload
       const addMode = state.hotelsSelects[index].values
         ? state.hotelsSelects[index].values.length < values.length
