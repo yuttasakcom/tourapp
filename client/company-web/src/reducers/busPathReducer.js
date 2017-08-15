@@ -2,6 +2,7 @@ import mapKeys from 'lodash/mapKeys'
 import omit from 'lodash/omit'
 import {
   FETCH_BUS_PATHS_SUCCESS,
+  FETCH_BUS_PATH_HOTELS_SUCCESS,
   ADD_BUS_PATH_SUCCESS,
   EDIT_BUS_PATH_SUCCESS,
   OPEN_ADD_BUS_PATH_MODAL,
@@ -15,6 +16,7 @@ import {
 
 const initialState = {
   busPaths: {},
+  hotels: [],
   selectedBusPath: null,
   showAddBusPathModal: false,
   showEditBusPathModal: false,
@@ -23,6 +25,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_BUS_PATH_HOTELS_SUCCESS:
+      return { ...state, hotels: action.payload }
+
     case FETCH_BUS_PATHS_SUCCESS:
       return { ...state, busPaths: mapKeys(action.payload, '_id') }
 
@@ -54,13 +59,21 @@ export default (state = initialState, action) => {
       return { ...state, showAddBusPathModal: false }
 
     case OPEN_EDIT_BUS_PATH_MODAL:
-      return { ...state, showEditBusPathModal: true, selectedBusPath: action.payload }
+      return {
+        ...state,
+        showEditBusPathModal: true,
+        selectedBusPath: action.payload
+      }
 
     case CLOSE_EDIT_BUS_PATH_MODAL:
       return { ...state, showEditBusPathModal: false }
 
     case OPEN_DELETE_BUS_PATH_MODAL:
-      return { ...state, showDeleteBusPathModal: true, selectedBusPath: action.payload }
+      return {
+        ...state,
+        showDeleteBusPathModal: true,
+        selectedBusPath: action.payload
+      }
 
     case CLOSE_DELETE_BUS_PATH_MODAL:
       return { ...state, showDeleteBusPathModal: false }
