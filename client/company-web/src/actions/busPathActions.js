@@ -2,6 +2,7 @@ import { success } from 'react-notification-system-redux'
 import axios from './axios'
 import {
   FETCH_BUS_PATHS_SUCCESS,
+  FETCH_BUS_PATH_HOTELS_SUCCESS,
   ADD_BUS_PATH_SUCCESS,
   EDIT_BUS_PATH_SUCCESS,
   DELETE_BUS_PATH_SUCCESS,
@@ -12,6 +13,15 @@ import {
   OPEN_DELETE_BUS_PATH_MODAL,
   CLOSE_DELETE_BUS_PATH_MODAL
 } from './types'
+
+export const fetchBusPathHotels = () => async dispatch => {
+  try {
+    const { data } = await axios.get('/hotels')
+    dispatch({ type: FETCH_BUS_PATH_HOTELS_SUCCESS, payload: data })
+  } catch (e) {
+    console.error(e)
+  }
+}
 
 export const fetchBusPaths = () => async dispatch => {
   try {

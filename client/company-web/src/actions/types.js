@@ -68,6 +68,7 @@ export const MANAGE_BUS_PATH = 'manage_bus_path'
 export const TOGGLE_MENU = 'toggle_menu'
 export const CLOSE_MENU = 'close_menu'
 
+export const FETCH_BUS_PATH_HOTELS_SUCCESS = 'fetch_bus_path_hotels_success'
 export const FETCH_BUS_PATHS_SUCCESS = 'fetch_bus_paths_success'
 export const DELETE_BUS_PATH_SUCCESS = 'delete_bus_path_success'
 export const ADD_BUS_PATH_SUCCESS = 'add_bus_path_success'
