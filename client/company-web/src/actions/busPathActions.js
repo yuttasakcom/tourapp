@@ -15,7 +15,7 @@ import {
 
 export const fetchBusPaths = () => async dispatch => {
   try {
-    const { data } = await axios.get('/busPaths')
+    const { data } = await axios.get('/bus-paths')
     dispatch({ type: FETCH_BUS_PATHS_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
@@ -24,7 +24,7 @@ export const fetchBusPaths = () => async dispatch => {
 
 export const addBusPath = values => async dispatch => {
   try {
-    const { data } = await axios.post('/busPaths', values)
+    const { data } = await axios.post('/bus-paths', values)
     dispatch({ type: ADD_BUS_PATH_SUCCESS, payload: data })
     dispatch(
       success({
@@ -39,7 +39,7 @@ export const addBusPath = values => async dispatch => {
 
 export const editBusPath = ({ _id }, values) => async dispatch => {
   try {
-    const { data } = await axios.put(`/busPaths/${_id}`, values)
+    const { data } = await axios.put(`/bus-paths/${_id}`, values)
     dispatch({ type: EDIT_BUS_PATH_SUCCESS, payload: data })
     dispatch(
       success({
@@ -54,7 +54,7 @@ export const editBusPath = ({ _id }, values) => async dispatch => {
 
 export const deleteBusPath = ({ _id }) => async dispatch => {
   try {
-    const { data: { message } } = await axios.delete(`/busPaths/${_id}`)
+    const { data: { message } } = await axios.delete(`/bus-paths/${_id}`)
     dispatch({ type: DELETE_BUS_PATH_SUCCESS, payload: _id })
     dispatch(
       success({
