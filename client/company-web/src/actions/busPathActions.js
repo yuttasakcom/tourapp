@@ -16,7 +16,7 @@ import {
 
 export const fetchBusPathHotels = () => async dispatch => {
   try {
-    const { data } = await axios.get('/hotels')
+    const { data } = await axios.get('/bus-path-hotels')
     dispatch({ type: FETCH_BUS_PATH_HOTELS_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
