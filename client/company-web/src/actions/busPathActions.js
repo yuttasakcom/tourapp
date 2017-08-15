@@ -32,9 +32,10 @@ export const fetchBusPaths = () => async dispatch => {
   }
 }
 
-export const addBusPath = values => async dispatch => {
+export const addBusPath = (values, cb) => async dispatch => {
   try {
     await axios.post('/bus-paths', values)
+    cb()
     dispatch({ type: ADD_BUS_PATH_SUCCESS })
     dispatch(
       success({
