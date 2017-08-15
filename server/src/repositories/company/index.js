@@ -23,3 +23,4 @@ exports.companyGetBookingsHotelsSummary = require('./companyGetBookingsHotelsSum
 exports.companyGetDashboard = require('./companyGetDashboard')
 exports.companyGetBusPathsList = require('./companyGetBusPathsList')
 exports.companyGetBusPathHotelsList = require('./companyGetBusPathHotelsList')
+exports.companyAddBusPath = require('./companyAddBusPath')
