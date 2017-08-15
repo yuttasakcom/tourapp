@@ -34,7 +34,6 @@ export default (state = initialState, action) => {
     case ADD_BUS_PATH_SUCCESS:
       return {
         ...state,
-        busPaths: { ...state.busPaths, [action.payload._id]: action.payload },
         showAddBusPathModal: false
       }
 

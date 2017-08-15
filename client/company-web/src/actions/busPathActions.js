@@ -34,8 +34,8 @@ export const fetchBusPaths = () => async dispatch => {
 
 export const addBusPath = values => async dispatch => {
   try {
-    const { data } = await axios.post('/bus-paths', values)
-    dispatch({ type: ADD_BUS_PATH_SUCCESS, payload: data })
+    await axios.post('/bus-paths', values)
+    dispatch({ type: ADD_BUS_PATH_SUCCESS })
     dispatch(
       success({
         title: 'แจ้งเตือน',
