@@ -6,6 +6,10 @@ import BusPathForm from './BusPathForm'
 import * as actions from '../../actions'
 
 class AddModal extends PureComponent {
+  componentDidMount() {
+    this.props.fetchBusPathHotels()
+  }
+
   onSubmit = values => {
     this.props.addBusPath(values)
   }
