@@ -28,7 +28,7 @@ class BusPathList extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ busPath: { hotelsSelects } }) => ({
+const mapStateToProps = ({ printBusPath: { hotelsSelects } }) => ({
   hotelsSelects: map(hotelsSelects, hotelsSelect => ({
     options: map(hotelsSelect.options, hotel => ({
       value: hotel._id,
