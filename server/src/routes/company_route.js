@@ -36,4 +36,6 @@ router.get('/bookings-hotels-summary', c.getBookingsHotelsSummary)
 router.get('/dashboard', c.getDashboard)
 router.get('/reports/bookings-summary', r.bookingsSummary)
 
+router.get('/bus-paths', c.getBusPathsList)
+
 module.exports = router
