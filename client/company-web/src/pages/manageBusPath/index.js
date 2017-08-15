@@ -7,6 +7,11 @@ import AddModal from './AddModal'
 import * as actions from '../../actions'
 
 class ManageBusPath extends PureComponent {
+  openAddBusPathModal = () => {
+    this.props.openAddBusPathModal()
+    this.props.fetchBusPathHotels()
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -15,7 +20,7 @@ class ManageBusPath extends PureComponent {
             <div className="col-md-12">
               <button
                 className="btn btn-primary pull-right"
-                onClick={this.props.openAddBusPathModal}
+                onClick={this.openAddBusPathModal}
               >
                 Add
               </button>
