@@ -1,13 +1,15 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/lib/Modal'
+import map from 'lodash/map'
 
 import BusPathForm from './BusPathForm'
 import * as actions from '../../actions'
 
 class EditModal extends PureComponent {
   onSubmit = values => {
-    this.props.editBusPath(this.props.busPath, values)
+    const updatedValues = { ...values, hotels: map(values.hotels, 'value') }
+    this.props.editBusPath(this.props.busPath, updatedValues)
   }
 
   render() {

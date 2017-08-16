@@ -2,14 +2,10 @@ const Company = require('../../models/company')
 
 module.exports = async (companyId, busPathProps) => {
   const company = await Company.findOneAndUpdate(
-    { _id: companyId, 'busPaths.name': { $ne: busPathProps.name } },
+    { _id: companyId, 'busPaths._id': busPathProps._id },
+    { $set: { 'busPaths.$': busPathProps } },
     {
-      $push: {
-        busPaths: busPathProps
-      }
-    },
-    {
-      projection: { busPaths: { $elemMatch: { name: busPathProps.name } } },
+      projection: { busPaths: { $elemMatch: { _id: busPathProps._id } } },
       new: true
     }
   ).populate('busPaths.hotels')

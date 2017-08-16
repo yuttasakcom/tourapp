@@ -29,15 +29,31 @@ export default (state = initialState, action) => {
       return { ...state, hotels: action.payload }
 
     case FETCH_BUS_PATHS_SUCCESS:
-      return { ...state, busPaths: mapKeys(action.payload, '_id') }
+      const busPaths = action.payload.map(busPath => {
+        busPath.hotels = busPath.hotels.map(hotel => ({
+          value: hotel._id,
+          label: hotel.name
+        }))
+        return busPath
+      })
+      return { ...state, busPaths: mapKeys(busPaths, '_id') }
 
     case ADD_BUS_PATH_SUCCESS:
+      action.payload.hotels = action.payload.hotels.map(hotel => ({
+        value: hotel._id,
+        label: hotel.name
+      }))
       return {
         ...state,
+        busPaths: { ...state.busPaths, [action.payload._id]: action.payload },
         showAddBusPathModal: false
       }
 
     case EDIT_BUS_PATH_SUCCESS:
+      action.payload.hotels = action.payload.hotels.map(hotel => ({
+        value: hotel._id,
+        label: hotel.name
+      }))
       return {
         ...state,
         busPaths: { ...state.busPaths, [action.payload._id]: action.payload },

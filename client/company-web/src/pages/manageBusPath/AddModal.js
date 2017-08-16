@@ -8,8 +8,8 @@ import * as actions from '../../actions'
 
 class AddModal extends PureComponent {
   onSubmit = values => {
-    values.hotels = map(values.hotels, 'value')
-    this.props.addBusPath(values, this.props.fetchBusPaths)
+    const updatedValues = { ...values, hotels: map(values.hotels, 'value') }
+    this.props.addBusPath(updatedValues)
   }
 
   render() {

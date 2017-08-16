@@ -9,14 +9,19 @@ class Table extends PureComponent {
     this.props.fetchBusPaths()
   }
 
+  openEditBusPathModal = busPathId => {
+    this.props.openEditBusPathModal(busPathId)
+    this.props.fetchBusPathHotels(busPathId)
+  }
+
   renderAction = (cell, row) => {
-    const { openDeleteBusPathModal, openEditBusPathModal } = this.props
+    const { openDeleteBusPathModal } = this.props
     return (
       <div>
         <button
           className="btn btn-warning btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openEditBusPathModal(row._id)}
+          onClick={() => this.openEditBusPathModal(row._id)}
         >
           Edit
         </button>
@@ -29,6 +34,10 @@ class Table extends PureComponent {
         </button>
       </div>
     )
+  }
+
+  renderHotels = (cell, row) => {
+    return row.hotels.length
   }
 
   render() {
@@ -52,6 +61,13 @@ class Table extends PureComponent {
         </TableHeaderColumn>
         <TableHeaderColumn dataSort dataField="description">
           Description
+        </TableHeaderColumn>
+        <TableHeaderColumn
+          dataSort
+          dataField="hotels"
+          dataFormat={this.renderHotels}
+        >
+          Total Hotels
         </TableHeaderColumn>
         <TableHeaderColumn
           width="180"
