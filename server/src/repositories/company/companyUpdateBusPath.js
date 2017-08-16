@@ -8,6 +8,6 @@ module.exports = async (companyId, busPathProps) => {
       projection: { busPaths: { $elemMatch: { _id: busPathProps._id } } },
       new: true
     }
-  )
+  ).populate('busPaths.hotels')
   return company ? company.busPaths[0] : null
 }
