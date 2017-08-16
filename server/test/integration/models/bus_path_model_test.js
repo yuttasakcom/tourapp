@@ -141,11 +141,14 @@ describe.only('Bus Path model', () => {
       description: 'updated des1',
       hotels: [hotel1._id, hotel2._id]
     }
-    await Company.update(
+    const updated = await Company.findOneAndUpdate(
       { _id: company2._id, 'busPaths._id': updateProps._id },
-      { $set: { 'busPaths.$': updateProps } }
+      { $set: { 'busPaths.$': updateProps } },
+      {
+        projection: { busPaths: 1 },
+        new: true
+      }
     )
-    const updated = await Company.findById(company2._id, { busPaths: 1 })
     expect(updated.busPaths.length).to.equal(2)
     expect(updated.busPaths[0].hotels.length).to.equal(2)
     expect(updated.busPaths[0].name).to.equal('updated name1')
