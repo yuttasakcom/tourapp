@@ -9,14 +9,19 @@ class Table extends PureComponent {
     this.props.fetchBusPaths()
   }
 
+  openEditBusPathModal = busPathId => {
+    this.props.openEditBusPathModal(busPathId)
+    this.props.fetchBusPathHotels()
+  }
+
   renderAction = (cell, row) => {
-    const { openDeleteBusPathModal, openEditBusPathModal } = this.props
+    const { openDeleteBusPathModal } = this.props
     return (
       <div>
         <button
           className="btn btn-warning btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openEditBusPathModal(row._id)}
+          onClick={() => this.openEditBusPathModal(row._id)}
         >
           Edit
         </button>
