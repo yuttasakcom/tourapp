@@ -40,5 +40,6 @@ router.get('/bus-paths', c.getBusPathsList)
 router.post('/bus-paths', c.addBusPath)
 router.delete('/bus-paths/:id', c.deleteBusPath)
 router.get('/bus-path-hotels', c.getBusPathHotelsList)
+router.get('/bus-path-hotels/:id', c.getBusPathHotelsList)
 
 module.exports = router

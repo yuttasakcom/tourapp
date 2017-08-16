@@ -14,9 +14,9 @@ import {
   CLOSE_DELETE_BUS_PATH_MODAL
 } from './types'
 
-export const fetchBusPathHotels = () => async dispatch => {
+export const fetchBusPathHotels = (busPathId = '') => async dispatch => {
   try {
-    const { data } = await axios.get('/bus-path-hotels')
+    const { data } = await axios.get(`/bus-path-hotels/${busPathId}`)
     dispatch({ type: FETCH_BUS_PATH_HOTELS_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)

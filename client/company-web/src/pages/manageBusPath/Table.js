@@ -11,7 +11,7 @@ class Table extends PureComponent {
 
   openEditBusPathModal = busPathId => {
     this.props.openEditBusPathModal(busPathId)
-    this.props.fetchBusPathHotels()
+    this.props.fetchBusPathHotels(busPathId)
   }
 
   renderAction = (cell, row) => {
