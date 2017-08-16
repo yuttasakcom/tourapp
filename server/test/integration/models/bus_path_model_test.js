@@ -1,3 +1,4 @@
+const { map, flatten, flow } = require('lodash/fp')
 const mongoose = require('mongoose')
 const { expect } = require('chai')
 
@@ -9,6 +10,7 @@ describe.only('Bus Path model', () => {
   let company2
   let hotel1
   let hotel2
+  let hotel3
 
   beforeEach(async () => {
     hotel1 = new Hotel({
@@ -17,6 +19,10 @@ describe.only('Bus Path model', () => {
 
     hotel2 = new Hotel({
       name: 'hotel2'
+    })
+
+    hotel3 = new Hotel({
+      name: 'hotel3'
     })
 
     company1 = new Company({
@@ -46,13 +52,14 @@ describe.only('Bus Path model', () => {
       adminName: 'admin name',
       adminPhoneNumber: 'admin phone number',
       busPaths: [
-        { name: 'name1', description: 'des1', hotels: [hotel1._id, hotel2._id] }
+        { name: 'name1', description: 'des1', hotels: [hotel1._id] },
+        { name: 'name2', description: 'des2', hotels: [hotel2._id] }
       ]
     })
 
     await Promise.all([
       Company.insertMany([company1, company2]),
-      Hotel.insertMany([hotel1, hotel2])
+      Hotel.insertMany([hotel1, hotel2, hotel3])
     ])
   })
 
@@ -113,5 +120,12 @@ describe.only('Bus Path model', () => {
     expect(nModified).to.equal(1)
     const company = await Company.findById(company1._id)
     expect(company.busPaths.length).to.equal(1)
+  })
+
+  it('get bus path hotel list must return only new', async () => {
+    const { busPaths } = await Company.findById(company2._id, { busPaths: 1 })
+    const managedHotels = flow(map('hotels'), flatten)(busPaths)
+    const hotels = await Hotel.find({ _id: { $nin: managedHotels } })
+    expect(hotels[0].name).to.equal('hotel3')
   })
 })
