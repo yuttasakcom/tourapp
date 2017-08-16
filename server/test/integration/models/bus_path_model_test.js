@@ -1,4 +1,4 @@
-const { map, flatten, flow } = require('lodash/fp')
+const { pullAllBy, map, flatten, flow } = require('lodash/fp')
 const mongoose = require('mongoose')
 const { expect } = require('chai')
 
@@ -122,10 +122,14 @@ describe.only('Bus Path model', () => {
     expect(company.busPaths.length).to.equal(1)
   })
 
-  it('get bus path hotel list must return only new', async () => {
+  it.only('get bus path hotel list must return only new', async () => {
     const { busPaths } = await Company.findById(company2._id, { busPaths: 1 })
-    const managedHotels = flow(map('hotels'), flatten)(busPaths)
+    const managedHotels = flow(
+      pullAllBy('_id')([{ _id: busPaths[0]._id }]),
+      map('hotels'),
+      flatten
+    )(busPaths)
     const hotels = await Hotel.find({ _id: { $nin: managedHotels } })
-    expect(hotels[0].name).to.equal('hotel3')
+    expect(hotels.length).to.equal(2)
   })
 })
