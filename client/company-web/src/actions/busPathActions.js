@@ -1,4 +1,4 @@
-import { success } from 'react-notification-system-redux'
+import { success, error } from 'react-notification-system-redux'
 import axios from './axios'
 import {
   FETCH_BUS_PATHS_SUCCESS,
@@ -32,11 +32,10 @@ export const fetchBusPaths = () => async dispatch => {
   }
 }
 
-export const addBusPath = (values, cb) => async dispatch => {
+export const addBusPath = values => async dispatch => {
   try {
-    await axios.post('/bus-paths', values)
-    cb()
-    dispatch({ type: ADD_BUS_PATH_SUCCESS })
+    const { data } = await axios.post('/bus-paths', values)
+    dispatch({ type: ADD_BUS_PATH_SUCCESS, payload: data })
     dispatch(
       success({
         title: 'แจ้งเตือน',
@@ -44,7 +43,12 @@ export const addBusPath = (values, cb) => async dispatch => {
       })
     )
   } catch (e) {
-    console.error(e)
+    dispatch(
+      error({
+        title: 'แจ้งเตือน',
+        message: e.response.data.error
+      })
+    )
   }
 }
 
