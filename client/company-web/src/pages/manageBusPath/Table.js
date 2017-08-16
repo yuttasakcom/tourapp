@@ -36,6 +36,10 @@ class Table extends PureComponent {
     )
   }
 
+  renderHotels = (cell, row) => {
+    return row.hotels.length
+  }
+
   render() {
     const { busPaths } = this.props
     return (
@@ -57,6 +61,13 @@ class Table extends PureComponent {
         </TableHeaderColumn>
         <TableHeaderColumn dataSort dataField="description">
           Description
+        </TableHeaderColumn>
+        <TableHeaderColumn
+          dataSort
+          dataField="hotels"
+          dataFormat={this.renderHotels}
+        >
+          Total Hotels
         </TableHeaderColumn>
         <TableHeaderColumn
           width="180"
