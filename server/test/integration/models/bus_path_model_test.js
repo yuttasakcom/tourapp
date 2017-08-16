@@ -145,11 +145,11 @@ describe.only('Bus Path model', () => {
       { _id: company2._id, 'busPaths._id': updateProps._id },
       { $set: { 'busPaths.$': updateProps } },
       {
-        projection: { busPaths: 1 },
+        projection: { busPaths: { $elemMatch: { name: 'updated name1' } } },
         new: true
       }
     )
-    expect(updated.busPaths.length).to.equal(2)
+    expect(updated.busPaths.length).to.equal(1)
     expect(updated.busPaths[0].hotels.length).to.equal(2)
     expect(updated.busPaths[0].name).to.equal('updated name1')
   })
