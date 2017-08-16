@@ -122,7 +122,7 @@ describe.only('Bus Path model', () => {
     expect(company.busPaths.length).to.equal(1)
   })
 
-  it.only('get bus path hotel list must return only new', async () => {
+  it('get bus path hotel list must return only new', async () => {
     const { busPaths } = await Company.findById(company2._id, { busPaths: 1 })
     const managedHotels = flow(
       pullAllBy('_id')([{ _id: busPaths[0]._id }]),
@@ -131,5 +131,23 @@ describe.only('Bus Path model', () => {
     )(busPaths)
     const hotels = await Hotel.find({ _id: { $nin: managedHotels } })
     expect(hotels.length).to.equal(2)
+  })
+
+  it.only('update bus path', async () => {
+    const { busPaths } = await Company.findById(company2._id, { busPaths: 1 })
+    const updateProps = {
+      _id: busPaths[0]._id,
+      name: 'updated name1',
+      description: 'updated des1',
+      hotels: [hotel1._id, hotel2._id]
+    }
+    await Company.update(
+      { _id: company2._id, 'busPaths._id': updateProps._id },
+      { $set: { 'busPaths.$': updateProps } }
+    )
+    const updated = await Company.findById(company2._id, { busPaths: 1 })
+    expect(updated.busPaths.length).to.equal(2)
+    expect(updated.busPaths[0].hotels.length).to.equal(2)
+    expect(updated.busPaths[0].name).to.equal('updated name1')
   })
 })
