@@ -38,6 +38,7 @@ router.get('/reports/bookings-summary', r.bookingsSummary)
 
 router.get('/bus-paths', c.getBusPathsList)
 router.post('/bus-paths', c.addBusPath)
+router.put('/bus-paths/:id', c.updateBusPath)
 router.delete('/bus-paths/:id', c.deleteBusPath)
 router.get('/bus-path-hotels', c.getBusPathHotelsList)
 router.get('/bus-path-hotels/:id', c.getBusPathHotelsList)
