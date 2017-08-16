@@ -102,4 +102,16 @@ describe.only('Bus Path model', () => {
     const company = await Company.findById(company1._id)
     expect(company.busPaths.length).to.equal(2)
   })
+
+  it('delete bus path by id', async () => {
+    const { busPaths } = await Company.findById(company1._id)
+    const { _id } = busPaths[0]
+    const { nModified } = await Company.update(
+      { _id: company1._id },
+      { $pull: { busPaths: { _id } } }
+    )
+    expect(nModified).to.equal(1)
+    const company = await Company.findById(company1._id)
+    expect(company.busPaths.length).to.equal(1)
+  })
 })
