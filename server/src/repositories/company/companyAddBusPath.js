@@ -1,7 +1,7 @@
 const Company = require('../../models/company')
 
-module.exports = (companyId, busPathProps) =>
-  Company.findOneAndUpdate(
+module.exports = async (companyId, busPathProps) => {
+  const company = await Company.findOneAndUpdate(
     { _id: companyId, 'busPaths.name': { $ne: busPathProps.name } },
     {
       $push: {
@@ -13,3 +13,5 @@ module.exports = (companyId, busPathProps) =>
       new: true
     }
   )
+  return company ? company.busPaths[0] : null
+}
