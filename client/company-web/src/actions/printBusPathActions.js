@@ -1,5 +1,6 @@
 import moment from 'moment'
 import { success } from 'react-notification-system-redux'
+import map from 'lodash/map'
 
 import axios from './axios'
 import {
@@ -9,7 +10,11 @@ import {
 
 export const updateBusPaths = hotelsSelects => async (dispatch, getState) => {
   const { hotelsSelects } = getState().printBusPath
-  console.log(hotelsSelects)
+  const busPathsProps = map(hotelsSelects, hotelsSelect => ({
+    busPathId: hotelsSelect.busPathId,
+    hotelIds: map(hotelsSelect.values, 'value')
+  }))
+  await axios.put('/bus-paths', busPathsProps)
   dispatch(
     success({
       title: 'แจ้งเตือน',
