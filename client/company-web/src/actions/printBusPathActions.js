@@ -12,7 +12,8 @@ export const updateBusPaths = hotelsSelects => async (dispatch, getState) => {
   const { hotelsSelects } = getState().printBusPath
   const busPathsProps = map(hotelsSelects, hotelsSelect => ({
     busPathId: hotelsSelect.busPathId,
-    hotelIds: map(hotelsSelect.values, 'value')
+    hotelIds: map(hotelsSelect.values, 'value'),
+    removedHotelIds: hotelsSelect.removedHotelIds
   }))
   await axios.put('/bus-paths', busPathsProps)
   dispatch(

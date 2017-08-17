@@ -19,17 +19,18 @@ export default (state, action) => {
             : omit(hotelsSelect.options, values[values.length - 1].value),
         values: Number(i) === index ? values : hotelsSelect.values,
         busPathId: hotelsSelect.busPathId,
-        busPathName: hotelsSelect.busPathName
+        busPathName: hotelsSelect.busPathName,
+        removedHotelIds: [...hotelsSelect.removedHotelIds]
       }))
     }
   } else {
-    const removedItemsId = map(
+    const removedHotelIds = map(
       difference(state.hotelsSelects[index].values, values),
       'value'
     )
     const removedItemsOptions = pick(
       state.hotelsSelects[index].options,
-      removedItemsId
+      removedHotelIds
     )
     return {
       ...state,
@@ -40,7 +41,11 @@ export default (state, action) => {
             : merge(hotelsSelect.options, removedItemsOptions),
         values: Number(i) === index ? values : hotelsSelect.values,
         busPathId: hotelsSelect.busPathId,
-        busPathName: hotelsSelect.busPathName
+        busPathName: hotelsSelect.busPathName,
+        removedHotelIds:
+          Number(i) === index
+            ? [...hotelsSelect.removedHotelIds, ...removedHotelIds]
+            : [...hotelsSelect.removedHotelIds]
       }))
     }
   }
