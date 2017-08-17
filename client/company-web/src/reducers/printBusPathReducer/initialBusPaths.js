@@ -28,7 +28,8 @@ export default (state, action) => {
         label: `${hotel.name} (${hotel.total})`
       })),
       busPathId: busPath._id,
-      busPathName: busPath.name
+      busPathName: busPath.name,
+      removedHotelIds: []
     }
   })
   return {
