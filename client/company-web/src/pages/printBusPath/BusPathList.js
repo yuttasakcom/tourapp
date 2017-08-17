@@ -6,10 +6,6 @@ import BusPathItem from './BusPathItem'
 import * as actions from '../../actions'
 
 class BusPathList extends PureComponent {
-  componentDidMount() {
-    this.props.fetchBusPaths()
-  }
-
   renderBusPathList() {
     const { hotelsSelects, manageBusPath } = this.props
     return map(hotelsSelects, (hotelsSelect, index) =>
