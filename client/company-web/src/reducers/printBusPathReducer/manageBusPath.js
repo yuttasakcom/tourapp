@@ -42,7 +42,10 @@ export default (state, action) => {
         values: Number(i) === index ? values : hotelsSelect.values,
         busPathId: hotelsSelect.busPathId,
         busPathName: hotelsSelect.busPathName,
-        removedHotelIds: [...hotelsSelect.removedHotelIds, ...removedHotelIds]
+        removedHotelIds:
+          Number(i) === index
+            ? [...hotelsSelect.removedHotelIds, ...removedHotelIds]
+            : [...hotelsSelect.removedHotelIds]
       }))
     }
   }
