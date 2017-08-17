@@ -11,9 +11,7 @@ class PrintBusPath extends PureComponent {
       <div className="container-fluid">
         <Card title="Bus Path" style={{ height: '800px' }}>
           <div className="row">
-            <div className="col-md-4 col-sm-4">
-              <FilterDate />
-            </div>
+            <FilterDate />
             <Information />
             <div className="col-md-4 col-sm-4">
               <button className="btn btn-primary pull-right" onClick={() => ''}>
