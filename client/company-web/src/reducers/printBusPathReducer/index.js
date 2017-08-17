@@ -1,12 +1,9 @@
 import moment from 'moment'
 import mapKeys from 'lodash/mapKeys'
 import intersectionBy from 'lodash/intersectionBy'
-import omit from 'lodash/omit'
 import map from 'lodash/map'
-import difference from 'lodash/difference'
-import pick from 'lodash/pick'
-import merge from 'lodash/merge'
 
+import manageBusPath from './manageBusPath'
 import {
   FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS,
   MANAGE_BUS_PATH
@@ -42,45 +39,7 @@ export default (state = initialState, action) => {
       }
 
     case MANAGE_BUS_PATH:
-      const { values, index } = action.payload
-      const addMode = state.hotelsSelects[index].values
-        ? state.hotelsSelects[index].values.length < values.length
-        : true
-      if (addMode) {
-        return {
-          ...state,
-          hotelsSelects: map(state.hotelsSelects, (hotelsSelect, i) => ({
-            options:
-              Number(i) === index
-                ? hotelsSelect.options
-                : omit(hotelsSelect.options, values[values.length - 1].value),
-            values: Number(i) === index ? values : hotelsSelect.values,
-            busPathId: hotelsSelect.busPahId,
-            busPathName: hotelsSelect.busPathName
-          }))
-        }
-      } else {
-        const removedItemsId = map(
-          difference(state.hotelsSelects[index].values, values),
-          'value'
-        )
-        const removedItemsOptions = pick(
-          state.hotelsSelects[index].options,
-          removedItemsId
-        )
-        return {
-          ...state,
-          hotelsSelects: map(state.hotelsSelects, (hotelsSelect, i) => ({
-            options:
-              Number(i) === index
-                ? hotelsSelect.options
-                : merge(hotelsSelect.options, removedItemsOptions),
-            values: Number(i) === index ? values : hotelsSelect.values,
-            busPathId: hotelsSelect.busPathId,
-            busPathName: hotelsSelect.busPathName
-          }))
-        }
-      }
+      return manageBusPath(state, action)
 
     default:
       return state
