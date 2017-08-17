@@ -8,14 +8,16 @@ import * as actions from '../../actions'
 class BusPathList extends PureComponent {
   renderBusPathList() {
     const { hotelsSelects, manageBusPath } = this.props
-    return map(hotelsSelects, (hotelsSelect, index) =>
-      <BusPathItem
-        options={hotelsSelect.options}
-        value={hotelsSelect.values}
-        key={index}
-        pathName={index + 1}
-        onChange={values => manageBusPath(values, index)}
-      />
+    return map(
+      hotelsSelects,
+      ({ options, values, busPathId, busPathName }, index) =>
+        <BusPathItem
+          options={options}
+          value={values}
+          key={busPathId}
+          pathName={busPathName}
+          onChange={vals => manageBusPath(vals, index)}
+        />
     )
   }
 
@@ -34,7 +36,9 @@ const mapStateToProps = ({ printBusPath: { hotelsSelects } }) => ({
       value: hotel._id,
       label: `${hotel.name} (${hotel.total})`
     })),
-    values: hotelsSelect.values
+    values: hotelsSelect.values,
+    busPathId: hotelsSelect.busPathId,
+    busPathName: hotelsSelect.busPathName
   }))
 })
 
