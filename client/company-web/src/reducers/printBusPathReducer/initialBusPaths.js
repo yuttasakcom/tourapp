@@ -8,8 +8,8 @@ export default (state, action) => {
   const hotelsSelects = map(busPaths, (busPath, index) => ({
     options,
     values: map(
-      intersectionBy(busPath.hotels, bookingsHotelsSummary, '_id'),
-      hotel => ({ value: hotel._id, label: hotel.name })
+      intersectionBy(bookingsHotelsSummary, busPath.hotels, '_id'),
+      hotel => ({ value: hotel._id, label: `${hotel.name} (${hotel.total})` })
     ),
     busPathId: busPath._id,
     busPathName: busPath.name
