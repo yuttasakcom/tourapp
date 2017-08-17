@@ -16,7 +16,7 @@ import {
 
 const initialState = {
   busPaths: {},
-  hotels: [],
+  manageBusPathHotelsSelect: [],
   selectedBusPath: null,
   showAddBusPathModal: false,
   showEditBusPathModal: false,
@@ -26,7 +26,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_BUS_PATH_HOTELS_SUCCESS:
-      return { ...state, hotels: action.payload }
+      return { ...state, manageBusPathHotelsSelect: action.payload }
 
     case FETCH_BUS_PATHS_SUCCESS:
       const busPaths = action.payload.map(busPath => {

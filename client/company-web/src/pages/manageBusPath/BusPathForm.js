@@ -75,8 +75,8 @@ const validate = values => {
   return errors
 }
 
-const mapStateToProps = ({ busPath: { hotels } }) => ({
-  hotels: hotels.map(hotel => ({
+const mapStateToProps = ({ busPath: { manageBusPathHotelsSelect } }) => ({
+  hotels: manageBusPathHotelsSelect.map(hotel => ({
     value: hotel._id,
     label: hotel.name
   }))
