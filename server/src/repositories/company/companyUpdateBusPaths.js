@@ -1,7 +1,19 @@
 const Company = require('../../models/company')
 
-module.exports = (companyId, busPathId, hotelIds) =>
-  Company.update(
+module.exports = async (
+  companyId,
+  { busPathId, hotelIds, removedHotelIds }
+) => {
+  await Company.update(
+    {
+      _id: companyId,
+      'busPaths._id': busPathId
+    },
+    {
+      $pullAll: { 'busPaths.$.hotels': removedHotelIds }
+    }
+  )
+  return Company.update(
     {
       _id: companyId,
       'busPaths._id': busPathId
@@ -10,3 +22,4 @@ module.exports = (companyId, busPathId, hotelIds) =>
       $addToSet: { 'busPaths.$.hotels': { $each: hotelIds } }
     }
   )
+}
