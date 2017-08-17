@@ -18,7 +18,7 @@ export default (state, action) => {
             ? hotelsSelect.options
             : omit(hotelsSelect.options, values[values.length - 1].value),
         values: Number(i) === index ? values : hotelsSelect.values,
-        busPathId: hotelsSelect.busPahId,
+        busPathId: hotelsSelect.busPathId,
         busPathName: hotelsSelect.busPathName
       }))
     }

@@ -133,7 +133,7 @@ describe.only('Bus Path model', () => {
     expect(hotels.length).to.equal(2)
   })
 
-  it.only('update bus path', async () => {
+  it('update bus path', async () => {
     const { busPaths } = await Company.findById(company2._id, { busPaths: 1 })
     const updateProps = {
       _id: busPaths[0]._id,
@@ -152,5 +152,33 @@ describe.only('Bus Path model', () => {
     expect(updated.busPaths.length).to.equal(1)
     expect(updated.busPaths[0].hotels.length).to.equal(2)
     expect(updated.busPaths[0].name).to.equal('updated name1')
+  })
+
+  it.only('update bus paths', async () => {
+    const { busPaths } = await Company.findById(company2._id, { busPaths: 1 })
+    expect(busPaths[0].hotels.length).to.equal(1)
+    expect(busPaths[1].hotels.length).to.equal(1)
+    const updateProps = busPaths.map(busPath => ({
+      busPathId: busPath._id,
+      hotelIds: [hotel1._id, hotel2._id, hotel3._id]
+    }))
+    const updateBusPaths = (companyId, busPathId, hotelIds) =>
+      Company.update(
+        {
+          _id: companyId,
+          'busPaths._id': busPathId
+        },
+        {
+          $addToSet: { 'busPaths.$.hotels': { $each: hotelIds } }
+        }
+      )
+    await Promise.all(
+      updateProps.map(busPath =>
+        updateBusPaths(company2._id, busPath.busPathId, busPath.hotelIds)
+      )
+    )
+    const company = await Company.findById(company2._id, { busPaths: 1 })
+    expect(company.busPaths[0].hotels.length).to.equal(3)
+    expect(company.busPaths[1].hotels.length).to.equal(3)
   })
 })

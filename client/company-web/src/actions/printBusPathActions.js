@@ -1,10 +1,27 @@
 import moment from 'moment'
+import { success } from 'react-notification-system-redux'
+import map from 'lodash/map'
 
 import axios from './axios'
 import {
   FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS,
   MANAGE_BUS_PATH
 } from './types'
+
+export const updateBusPaths = hotelsSelects => async (dispatch, getState) => {
+  const { hotelsSelects } = getState().printBusPath
+  const busPathsProps = map(hotelsSelects, hotelsSelect => ({
+    busPathId: hotelsSelect.busPathId,
+    hotelIds: map(hotelsSelect.values, 'value')
+  }))
+  await axios.put('/bus-paths', busPathsProps)
+  dispatch(
+    success({
+      title: 'แจ้งเตือน',
+      message: 'อัพเดทสายรถเรียบร้อยแล้ว!'
+    })
+  )
+}
 
 export const fetchBookingsHotelsSummaryAndBusPaths = date => async dispatch => {
   const dateEnd = moment(date).add(1, 'days')
