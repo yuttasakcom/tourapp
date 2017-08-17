@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import FilterDate from './FilterDate'
 import BusPathList from './BusPathList'
 import Information from './Information'
+import Actions from './Actions'
 import Card from '../../components/Card'
 
 class PrintBusPath extends PureComponent {
@@ -13,14 +14,7 @@ class PrintBusPath extends PureComponent {
           <div className="row">
             <FilterDate />
             <Information />
-            <div className="col-md-4 col-sm-4">
-              <button className="btn btn-primary pull-right" onClick={() => ''}>
-                Print
-              </button>
-              <button className="btn btn-success pull-right" onClick={() => ''}>
-                Update
-              </button>
-            </div>
+            <Actions />
           </div>
           <BusPathList />
         </Card>
