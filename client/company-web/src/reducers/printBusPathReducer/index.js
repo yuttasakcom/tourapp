@@ -1,6 +1,6 @@
 import moment from 'moment'
 import mapKeys from 'lodash/mapKeys'
-import times from 'lodash/times'
+import intersectionBy from 'lodash/intersectionBy'
 import omit from 'lodash/omit'
 import map from 'lodash/map'
 import difference from 'lodash/difference'
@@ -10,7 +10,7 @@ import merge from 'lodash/merge'
 import {
   FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS,
   MANAGE_BUS_PATH
-} from '../actions/types'
+} from '../../actions/types'
 
 const initialState = {
   bookingsHotelsSummary: {},
@@ -23,9 +23,16 @@ export default (state = initialState, action) => {
     case FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS:
       const { bookingsHotelsSummary, busPaths, date } = action.payload
       const options = mapKeys(bookingsHotelsSummary, '_id')
+      const myvalues = [...bookingsHotelsSummary, busPaths]
+      console.log(myvalues)
       const hotelsSelects = []
-      times(8, index => {
-        hotelsSelects[index] = { options, values: null }
+      map(busPaths, (busPath, index) => {
+        hotelsSelects.push({
+          options,
+          values: null,
+          busPathId: busPath._id,
+          busPathName: busPath.name
+        })
       })
       return {
         ...state,
@@ -47,7 +54,9 @@ export default (state = initialState, action) => {
               Number(i) === index
                 ? hotelsSelect.options
                 : omit(hotelsSelect.options, values[values.length - 1].value),
-            values: Number(i) === index ? values : hotelsSelect.values
+            values: Number(i) === index ? values : hotelsSelect.values,
+            busPathId: hotelsSelect.busPahId,
+            busPathName: hotelsSelect.busPathName
           }))
         }
       } else {
@@ -66,7 +75,9 @@ export default (state = initialState, action) => {
               Number(i) === index
                 ? hotelsSelect.options
                 : merge(hotelsSelect.options, removedItemsOptions),
-            values: Number(i) === index ? values : hotelsSelect.values
+            values: Number(i) === index ? values : hotelsSelect.values,
+            busPathId: hotelsSelect.busPathId,
+            busPathName: hotelsSelect.busPathName
           }))
         }
       }
