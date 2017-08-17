@@ -18,9 +18,9 @@ class Information extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ printBusPath: { touristHotelsSummary } }) => ({
-  totalHotels: touristHotelsSummary.length,
-  totalSeats: sumBy(touristHotelsSummary, 'total')
+const mapStateToProps = ({ printBusPath: { bookingsHotelsSummary } }) => ({
+  totalHotels: bookingsHotelsSummary.length,
+  totalSeats: sumBy(bookingsHotelsSummary, 'total')
 })
 
 export default connect(mapStateToProps)(Information)
