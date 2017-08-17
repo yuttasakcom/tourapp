@@ -23,13 +23,13 @@ export default (state, action) => {
       }))
     }
   } else {
-    const removedItemsId = map(
+    const removedItemIds = map(
       difference(state.hotelsSelects[index].values, values),
       'value'
     )
     const removedItemsOptions = pick(
       state.hotelsSelects[index].options,
-      removedItemsId
+      removedItemIds
     )
     return {
       ...state,
