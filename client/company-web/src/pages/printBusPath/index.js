@@ -1,15 +1,12 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
-import sumBy from 'lodash/sumBy'
 
 import FilterDate from './FilterDate'
 import BusPathList from './BusPathList'
+import Information from './Information'
 import Card from '../../components/Card'
 
 class PrintBusPath extends PureComponent {
   render() {
-    const { totalHotels, totalSeats } = this.props
-
     return (
       <div className="container-fluid">
         <Card title="Bus Path" style={{ height: '800px' }}>
@@ -17,14 +14,7 @@ class PrintBusPath extends PureComponent {
             <div className="col-md-4 col-sm-4">
               <FilterDate />
             </div>
-            <div style={{ marginTop: 20 }} className="col-md-4 col-sm-4">
-              <a style={{ marginRight: 10 }}>
-                จำนวนโรงแรม <span className="badge">{totalHotels}</span>
-              </a>
-              <a>
-                จำนวนผู้โดยสาร <span className="badge">{totalSeats}</span>
-              </a>
-            </div>
+            <Information />
             <div className="col-md-4 col-sm-4">
               <button className="btn btn-primary pull-right" onClick={() => ''}>
                 Print
@@ -41,9 +31,4 @@ class PrintBusPath extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ printBusPath: { hotels } }) => ({
-  totalHotels: hotels.length,
-  totalSeats: sumBy(hotels, 'total')
-})
-
-export default connect(mapStateToProps)(PrintBusPath)
+export default PrintBusPath
