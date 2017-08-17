@@ -61,8 +61,8 @@ export const ADD_NOTIFICATION_SUCCESS = 'add_notification_success'
 
 export const FETCH_BOOKINGS_SUMMARY_SUCCESS = 'fetch_bookings_summary_success'
 
-export const FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS =
-  'fetch_bookings_hotels_summary_success'
+export const FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS =
+  'fetch_bookings_hotels_summary_and_bus_paths_success'
 export const MANAGE_BUS_PATH = 'manage_bus_path'
 
 export const TOGGLE_MENU = 'toggle_menu'

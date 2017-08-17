@@ -6,14 +6,17 @@ import * as actions from '../../actions'
 
 class FilterDate extends PureComponent {
   componentDidMount() {
-    this.props.fetchBookingsHotelsSummary(this.props.date)
+    this.props.fetchBookingsHotelsSummaryAndBusPaths(this.props.date)
   }
 
   render() {
-    const { date, fetchBookingsHotelsSummary } = this.props
+    const { date, fetchBookingsHotelsSummaryAndBusPaths } = this.props
     return (
       <div className="col-md-4 col-sm-4">
-        <DateMover date={date} onDateChange={fetchBookingsHotelsSummary} />
+        <DateMover
+          date={date}
+          onDateChange={fetchBookingsHotelsSummaryAndBusPaths}
+        />
       </div>
     )
   }

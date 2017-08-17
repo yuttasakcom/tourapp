@@ -8,7 +8,7 @@ import pick from 'lodash/pick'
 import merge from 'lodash/merge'
 
 import {
-  FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS,
+  FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS,
   MANAGE_BUS_PATH
 } from '../actions/types'
 
@@ -20,17 +20,18 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_BOOKINGS_HOTELS_SUMMARY_SUCCESS:
-      const options = mapKeys(action.payload.data, '_id')
+    case FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS:
+      const { bookingsHotelsSummary, busPaths, date } = action.payload
+      const options = mapKeys(bookingsHotelsSummary, '_id')
       const hotelsSelects = []
       times(8, index => {
         hotelsSelects[index] = { options, values: null }
       })
       return {
         ...state,
-        bookingsHotelsSummary: action.payload.data,
+        bookingsHotelsSummary,
         hotelsSelects,
-        visibilityFilter: { date: action.payload.date }
+        visibilityFilter: { date }
       }
 
     case MANAGE_BUS_PATH:
