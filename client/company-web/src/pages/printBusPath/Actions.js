@@ -5,10 +5,10 @@ import * as actions from '../../actions'
 
 class Actions extends PureComponent {
   render() {
-    const { updateBusPaths } = this.props
+    const { updateBusPaths, printBusPaths } = this.props
     return (
       <div className="col-md-4 col-sm-4">
-        <button className="btn btn-primary pull-right" onClick={() => ''}>
+        <button className="btn btn-primary pull-right" onClick={printBusPaths}>
           Print
         </button>
         <button className="btn btn-success pull-right" onClick={updateBusPaths}>
