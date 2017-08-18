@@ -35,6 +35,7 @@ router.get('/bookings-summary', c.getBookingsSummary)
 router.get('/bookings-hotels-summary', c.getBookingsHotelsSummary)
 router.get('/dashboard', c.getDashboard)
 router.get('/reports/bookings-summary', r.bookingsSummary)
+router.get('/reports/bus-paths-summary/:date', r.busPathsSummary)
 
 router.get('/bus-paths', c.getBusPathsList)
 router.post('/bus-paths', c.addBusPath)

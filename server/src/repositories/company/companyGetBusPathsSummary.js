@@ -33,7 +33,7 @@ module.exports = async (companyId, date) => {
       })(busPaths)
       return tourist
     }),
-    groupBy('busPathId')
+    groupBy('busPathName')
   )(bookings)
   return busPathsSummary
 }
