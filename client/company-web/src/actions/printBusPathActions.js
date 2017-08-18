@@ -8,7 +8,7 @@ import {
   MANAGE_BUS_PATH
 } from './types'
 
-export const updateBusPaths = hotelsSelects => async (dispatch, getState) => {
+export const updateBusPaths = () => async (dispatch, getState) => {
   const { hotelsSelects } = getState().printBusPath
   const busPathsProps = map(hotelsSelects, hotelsSelect => ({
     busPathId: hotelsSelect.busPathId,
