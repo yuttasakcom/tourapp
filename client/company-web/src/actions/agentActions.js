@@ -87,7 +87,7 @@ export const offerSpecialPrice = (
     dispatch(
       success({
         title: 'แจ้งเตือน',
-        message: message
+        message
       })
     )
   } catch (e) {
@@ -104,7 +104,7 @@ export const resetPrice = (agentId, { _id }, callback) => async dispatch => {
     dispatch(
       success({
         title: 'แจ้งเตือน',
-        message: message
+        message
       })
     )
     callback({ _id })
@@ -120,7 +120,7 @@ export const requestAgent = ({ _id }, callback) => async dispatch => {
     dispatch(
       success({
         title: 'แจ้งเตือน',
-        message: message
+        message
       })
     )
     socket.emit('request', { _id })
@@ -153,7 +153,7 @@ export const deleteAgent = ({ _id }) => async dispatch => {
     dispatch(
       success({
         title: 'แจ้งเตือน',
-        message: message
+        message
       })
     )
   } catch (e) {
