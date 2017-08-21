@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import Card from '../../components/Card'
+import Card from '../../../components/Card'
 import BusPathDataTable from './BusPathDataTable'
 import AddModal from './AddModal'
-import * as actions from '../../actions'
+import * as actions from '../../../actions'
 
 class ManageBusPath extends PureComponent {
   openAddBusPathModal = () => {

@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/lib/Modal'
 import map from 'lodash/map'
 
 import BusPathForm from './BusPathForm'
-import * as actions from '../../actions'
+import * as actions from '../../../actions'
 
 class EditModal extends PureComponent {
   onSubmit = values => {

@@ -5,7 +5,7 @@ import map from 'lodash/map'
 import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
 
-import renderField from '../../components/renderField'
+import renderField from '../../../components/renderField'
 
 class BusPathForm extends PureComponent {
   render() {
