@@ -15,7 +15,7 @@ class Information extends PureComponent {
       selectedSeats
     } = this.props
     return (
-      <div style={{ marginTop: 10 }} className="col-md-4 col-sm-4">
+      <div>
         <div className="row">
           <a style={{ marginRight: 10 }}>
             โรงแรม: ทั้งหมด <span className="badge">{totalHotels}</span>

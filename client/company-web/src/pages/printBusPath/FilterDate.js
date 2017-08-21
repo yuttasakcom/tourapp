@@ -12,12 +12,10 @@ class FilterDate extends PureComponent {
   render() {
     const { date, fetchBookingsHotelsSummaryAndBusPaths } = this.props
     return (
-      <div className="col-md-4 col-sm-4">
-        <DateMover
-          date={date}
-          onDateChange={fetchBookingsHotelsSummaryAndBusPaths}
-        />
-      </div>
+      <DateMover
+        date={date}
+        onDateChange={fetchBookingsHotelsSummaryAndBusPaths}
+      />
     )
   }
 }
