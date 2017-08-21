@@ -6,6 +6,8 @@ import {
   ADD_BUS_PATH_SUCCESS,
   EDIT_BUS_PATH_SUCCESS,
   DELETE_BUS_PATH_SUCCESS,
+  OPEN_BUS_PATHS_MODAL,
+  CLOSE_BUS_PATHS_MODAL,
   OPEN_ADD_BUS_PATH_MODAL,
   CLOSE_ADD_BUS_PATH_MODAL,
   OPEN_EDIT_BUS_PATH_MODAL,
@@ -14,21 +16,37 @@ import {
   CLOSE_DELETE_BUS_PATH_MODAL
 } from './types'
 
-export const fetchBusPathHotels = (busPathId = '') => async dispatch => {
+export const fetchBusPathHotels = (busPathId = '') => async (
+  dispatch,
+  getState
+) => {
+  const { busPath: { selectedPkg } } = getState()
   try {
-    const { data } = await axios.get(`/bus-path-hotels/${busPathId}`)
+    const { data } = await axios.get(
+      `/bus-path-hotels/${busPathId}?pkgId=${selectedPkg}`
+    )
     dispatch({ type: FETCH_BUS_PATH_HOTELS_SUCCESS, payload: data })
   } catch (e) {
-    console.error(e)
+    dispatch(
+      error({
+        title: 'แจ้งเตือน',
+        message: e.message
+      })
+    )
   }
 }
 
-export const fetchBusPaths = () => async dispatch => {
+export const fetchBusPaths = pkgId => async dispatch => {
   try {
-    const { data } = await axios.get('/bus-paths')
+    const { data } = await axios.get(`/bus-paths?pkgId=${pkgId}`)
     dispatch({ type: FETCH_BUS_PATHS_SUCCESS, payload: data })
   } catch (e) {
-    console.error(e)
+    dispatch(
+      error({
+        title: 'แจ้งเตือน',
+        message: e.message
+      })
+    )
   }
 }
 
@@ -63,7 +81,12 @@ export const editBusPath = ({ _id }, values) => async dispatch => {
       })
     )
   } catch (e) {
-    console.error(e)
+    dispatch(
+      error({
+        title: 'แจ้งเตือน',
+        message: e.message
+      })
+    )
   }
 }
 
@@ -74,34 +97,42 @@ export const deleteBusPath = ({ _id }) => async dispatch => {
     dispatch(
       success({
         title: 'แจ้งเตือน',
-        message: message
+        message
       })
     )
   } catch (e) {
-    console.error(e)
+    dispatch(
+      error({
+        title: 'แจ้งเตือน',
+        message: e.message
+      })
+    )
   }
 }
 
-export const openAddBusPathModal = () => {
-  return { type: OPEN_ADD_BUS_PATH_MODAL }
-}
+export const openBusPathsModal = _id => ({
+  type: OPEN_BUS_PATHS_MODAL,
+  payload: _id
+})
 
-export const closeAddBusPathModal = () => {
-  return { type: CLOSE_ADD_BUS_PATH_MODAL }
-}
+export const closeBusPathsModal = () => ({ type: CLOSE_BUS_PATHS_MODAL })
 
-export const openEditBusPathModal = _id => {
-  return { type: OPEN_EDIT_BUS_PATH_MODAL, payload: _id }
-}
+export const openAddBusPathModal = () => ({ type: OPEN_ADD_BUS_PATH_MODAL })
 
-export const closeEditBusPathModal = () => {
-  return { type: CLOSE_EDIT_BUS_PATH_MODAL }
-}
+export const closeAddBusPathModal = () => ({ type: CLOSE_ADD_BUS_PATH_MODAL })
 
-export const openDeleteBusPathModal = _id => {
-  return { type: OPEN_DELETE_BUS_PATH_MODAL, payload: _id }
-}
+export const openEditBusPathModal = _id => ({
+  type: OPEN_EDIT_BUS_PATH_MODAL,
+  payload: _id
+})
 
-export const closeDeleteBusPathModal = () => {
-  return { type: CLOSE_DELETE_BUS_PATH_MODAL }
-}
+export const closeEditBusPathModal = () => ({ type: CLOSE_EDIT_BUS_PATH_MODAL })
+
+export const openDeleteBusPathModal = _id => ({
+  type: OPEN_DELETE_BUS_PATH_MODAL,
+  payload: _id
+})
+
+export const closeDeleteBusPathModal = () => ({
+  type: CLOSE_DELETE_BUS_PATH_MODAL
+})

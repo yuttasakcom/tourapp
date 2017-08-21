@@ -10,7 +10,7 @@ import {
 const initialState = {
   bookingsHotelsSummary: {},
   hotelsSelects: [],
-  visibilityFilter: { date: moment().startOf('day') }
+  visibilityFilter: { date: moment().startOf('day'), pkg: null }
 }
 
 export default (state = initialState, action) => {

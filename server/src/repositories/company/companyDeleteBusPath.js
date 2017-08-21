@@ -1,7 +1,3 @@
-const Company = require('../../models/company')
+const BusPath = require('../../models/busPath')
 
-module.exports = (companyId, busPathId) =>
-  Company.update(
-    { _id: companyId },
-    { $pull: { busPaths: { _id: busPathId } } }
-  )
+module.exports = busPathId => BusPath.remove({ _id: busPathId })

@@ -5,25 +5,23 @@ import DateMover from '../../components/DateMover'
 import * as actions from '../../actions'
 
 class FilterDate extends PureComponent {
-  componentDidMount() {
-    this.props.fetchBookingsHotelsSummaryAndBusPaths(this.props.date)
-  }
-
   render() {
-    const { date, fetchBookingsHotelsSummaryAndBusPaths } = this.props
+    const { date, pkg, fetchBookingsHotelsSummaryAndBusPaths } = this.props
     return (
-      <div className="col-md-4 col-sm-4">
-        <DateMover
-          date={date}
-          onDateChange={fetchBookingsHotelsSummaryAndBusPaths}
-        />
-      </div>
+      <DateMover
+        date={date}
+        onDateChange={value =>
+          fetchBookingsHotelsSummaryAndBusPaths(value, pkg)}
+      />
     )
   }
 }
 
-const mapStateToProps = ({ printBusPath: { visibilityFilter: { date } } }) => ({
-  date
+const mapStateToProps = ({
+  printBusPath: { visibilityFilter: { date, pkg } }
+}) => ({
+  date,
+  pkg
 })
 
 export default connect(mapStateToProps, actions)(FilterDate)

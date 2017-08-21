@@ -7,7 +7,7 @@ class Actions extends PureComponent {
   render() {
     const { updateBusPaths, printBusPaths } = this.props
     return (
-      <div className="col-md-4 col-sm-4">
+      <div>
         <button className="btn btn-primary pull-right" onClick={printBusPaths}>
           Print
         </button>

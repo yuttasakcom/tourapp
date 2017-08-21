@@ -6,7 +6,7 @@ import omit from 'lodash/omit'
 import difference from 'lodash/difference'
 
 export default (state, action) => {
-  const { bookingsHotelsSummary, busPaths, date } = action.payload
+  const { bookingsHotelsSummary, busPaths, date, pkg } = action.payload
   const options = mapKeys(bookingsHotelsSummary, '_id')
   const busPathsHotelIds = flatten(
     map(busPaths, busPath => map(busPath.hotels, '_id'))
@@ -36,6 +36,6 @@ export default (state, action) => {
     ...state,
     bookingsHotelsSummary,
     hotelsSelects,
-    visibilityFilter: { date }
+    visibilityFilter: { date, pkg }
   }
 }

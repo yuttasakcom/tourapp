@@ -1,8 +1,4 @@
-const Company = require('../../models/company')
+const BusPath = require('../../models/busPath')
 
-module.exports = async companyId => {
-  const { busPaths } = await Company.findById(companyId, {
-    busPaths: 1
-  }).populate('busPaths.hotels')
-  return busPaths
-}
+module.exports = (companyId, pkgId) =>
+  BusPath.find({ company: companyId, pkg: pkgId }).populate('hotels')

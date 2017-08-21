@@ -2,37 +2,22 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import Card from '../../components/Card'
-import BusPathDataTable from './BusPathDataTable'
-import AddModal from './AddModal'
+import PkgDataTable from './PkgDataTable'
+import BusPathsModal from './busPathsModal'
 import * as actions from '../../actions'
 
 class ManageBusPath extends PureComponent {
-  openAddBusPathModal = () => {
-    this.props.openAddBusPathModal()
-    this.props.fetchBusPathHotels()
-  }
-
   render() {
     return (
       <div className="container-fluid">
         <Card title="Bus Paths">
           <div className="row">
             <div className="col-md-12">
-              <button
-                className="btn btn-primary pull-right"
-                onClick={this.openAddBusPathModal}
-              >
-                Add
-              </button>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-12">
-              <BusPathDataTable />
+              <PkgDataTable />
             </div>
           </div>
         </Card>
-        <AddModal />
+        <BusPathsModal />
       </div>
     )
   }
