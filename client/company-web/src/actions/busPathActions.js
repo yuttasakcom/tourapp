@@ -91,7 +91,7 @@ export const deleteBusPath = ({ _id }) => async dispatch => {
     dispatch(
       success({
         title: 'แจ้งเตือน',
-        message: message
+        message
       })
     )
   } catch (e) {
@@ -111,26 +111,22 @@ export const openBusPathsModal = _id => ({
 
 export const closeBusPathsModal = () => ({ type: CLOSE_BUS_PATHS_MODAL })
 
-export const openAddBusPathModal = () => {
-  return { type: OPEN_ADD_BUS_PATH_MODAL }
-}
+export const openAddBusPathModal = () => ({ type: OPEN_ADD_BUS_PATH_MODAL })
 
-export const closeAddBusPathModal = () => {
-  return { type: CLOSE_ADD_BUS_PATH_MODAL }
-}
+export const closeAddBusPathModal = () => ({ type: CLOSE_ADD_BUS_PATH_MODAL })
 
-export const openEditBusPathModal = _id => {
-  return { type: OPEN_EDIT_BUS_PATH_MODAL, payload: _id }
-}
+export const openEditBusPathModal = _id => ({
+  type: OPEN_EDIT_BUS_PATH_MODAL,
+  payload: _id
+})
 
-export const closeEditBusPathModal = () => {
-  return { type: CLOSE_EDIT_BUS_PATH_MODAL }
-}
+export const closeEditBusPathModal = () => ({ type: CLOSE_EDIT_BUS_PATH_MODAL })
 
-export const openDeleteBusPathModal = _id => {
-  return { type: OPEN_DELETE_BUS_PATH_MODAL, payload: _id }
-}
+export const openDeleteBusPathModal = _id => ({
+  type: OPEN_DELETE_BUS_PATH_MODAL,
+  payload: _id
+})
 
-export const closeDeleteBusPathModal = () => {
-  return { type: CLOSE_DELETE_BUS_PATH_MODAL }
-}
+export const closeDeleteBusPathModal = () => ({
+  type: CLOSE_DELETE_BUS_PATH_MODAL
+})
