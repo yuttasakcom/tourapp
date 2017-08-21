@@ -16,9 +16,15 @@ import {
   CLOSE_DELETE_BUS_PATH_MODAL
 } from './types'
 
-export const fetchBusPathHotels = (busPathId = '') => async dispatch => {
+export const fetchBusPathHotels = (busPathId = '') => async (
+  dispatch,
+  getState
+) => {
+  const { busPath: { selectedPkg } } = getState()
   try {
-    const { data } = await axios.get(`/bus-path-hotels/${busPathId}`)
+    const { data } = await axios.get(
+      `/bus-path-hotels/${busPathId}?pkgId=${selectedPkg}`
+    )
     dispatch({ type: FETCH_BUS_PATH_HOTELS_SUCCESS, payload: data })
   } catch (e) {
     dispatch(
