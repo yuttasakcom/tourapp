@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
+import map from 'lodash/map'
 import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
 
@@ -76,7 +77,7 @@ const validate = values => {
 }
 
 const mapStateToProps = ({ busPath: { manageBusPathHotelsSelect } }) => ({
-  hotels: manageBusPathHotelsSelect.map(hotel => ({
+  hotels: map(manageBusPathHotelsSelect, hotel => ({
     value: hotel._id,
     label: hotel.name
   }))
