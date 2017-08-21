@@ -1,17 +1,11 @@
-const Company = require('../../models/company')
+const mongoose = require('mongoose')
 
-module.exports = async (companyId, busPathProps) => {
-  const company = await Company.findOneAndUpdate(
-    { _id: companyId, 'busPaths.name': { $ne: busPathProps.name } },
-    {
-      $push: {
-        busPaths: busPathProps
-      }
-    },
-    {
-      projection: { busPaths: { $elemMatch: { name: busPathProps.name } } },
-      new: true
-    }
-  ).populate('busPaths.hotels')
-  return company ? company.busPaths[0] : null
-}
+const BusPath = require('../../models/busPath')
+
+module.exports = busPathProps =>
+  BusPath.findOneAndUpdate({ _id: mongoose.Types.ObjectId() }, busPathProps, {
+    new: true,
+    upsert: true,
+    runValidators: true,
+    populate: 'hotels'
+  })
