@@ -6,6 +6,7 @@ import {
   ADD_BUS_PATH_SUCCESS,
   EDIT_BUS_PATH_SUCCESS,
   OPEN_BUS_PATHS_MODAL,
+  CLOSE_BUS_PATHS_MODAL,
   OPEN_ADD_BUS_PATH_MODAL,
   CLOSE_ADD_BUS_PATH_MODAL,
   OPEN_EDIT_BUS_PATH_MODAL,
@@ -76,6 +77,9 @@ export default (state = initialState, action) => {
         showBusPathsModal: true,
         selectedPkg: action.payload
       }
+
+    case CLOSE_BUS_PATHS_MODAL:
+      return { ...state, showBusPathsModal: false }
 
     case OPEN_ADD_BUS_PATH_MODAL:
       return { ...state, showAddBusPathModal: true }
