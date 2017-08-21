@@ -1,17 +1,14 @@
 const moment = require('moment')
 const { flow, map, includes, forEach, toString, groupBy } = require('lodash/fp')
 
-const Company = require('../../models/company')
+const BusPath = require('../../models/busPath')
 const Booking = require('../../models/booking')
 
 module.exports = async (companyId, date) => {
   const gteDate = moment(parseInt(date, 10)).startOf('d').toDate()
   const ltDate = moment(parseInt(date, 10)).add(1, 'd').startOf('d').toDate()
-  const [{ busPaths }, bookings] = await Promise.all([
-    Company.findById(companyId, {
-      busPaths: 1,
-      _id: 0
-    }),
+  const [busPaths, bookings] = await Promise.all([
+    BusPath.find({ company: companyId }),
     Booking.find(
       {
         company: companyId,
