@@ -8,7 +8,11 @@ import * as actions from '../../../actions'
 
 class AddModal extends PureComponent {
   onSubmit = values => {
-    const updatedValues = { ...values, hotels: map(values.hotels, 'value') }
+    const updatedValues = {
+      ...values,
+      hotels: map(values.hotels, 'value'),
+      pkg: this.props.selectedPkg
+    }
     this.props.addBusPath(updatedValues)
   }
 
@@ -28,8 +32,11 @@ class AddModal extends PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  showModal: state.busPath.showAddBusPathModal
+const mapStateToProps = ({
+  busPath: { showAddBusPathModal, selectedPkg }
+}) => ({
+  showModal: showAddBusPathModal,
+  selectedPkg
 })
 
 export default connect(mapStateToProps, actions)(AddModal)
