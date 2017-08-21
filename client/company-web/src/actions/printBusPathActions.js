@@ -30,16 +30,22 @@ export const updateBusPaths = () => async (dispatch, getState) => {
   )
 }
 
-export const fetchBookingsHotelsSummaryAndBusPaths = date => async dispatch => {
+export const fetchBookingsHotelsSummaryAndBusPaths = (
+  date,
+  pkg
+) => async dispatch => {
   const dateEnd = moment(date).add(1, 'days')
   try {
     const [busPaths, bookingsHotelsSummary] = await Promise.all([
-      axios.get('/bus-paths'),
-      axios.get(`/bookings-hotels-summary?dateStart=${date}&dateEnd=${dateEnd}`)
+      axios.get(`/bus-paths?pkgId=${pkg.value}`),
+      axios.get(
+        `/bookings-hotels-summary?dateStart=${date}&dateEnd=${dateEnd}&pkgId=${pkg.value}`
+      )
     ])
     dispatch({
       type: FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS,
       payload: {
+        pkg,
         date,
         busPaths: busPaths.data,
         bookingsHotelsSummary: bookingsHotelsSummary.data
