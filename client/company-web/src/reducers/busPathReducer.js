@@ -5,6 +5,7 @@ import {
   FETCH_BUS_PATH_HOTELS_SUCCESS,
   ADD_BUS_PATH_SUCCESS,
   EDIT_BUS_PATH_SUCCESS,
+  OPEN_BUS_PATHS_MODAL,
   OPEN_ADD_BUS_PATH_MODAL,
   CLOSE_ADD_BUS_PATH_MODAL,
   OPEN_EDIT_BUS_PATH_MODAL,
@@ -17,7 +18,9 @@ import {
 const initialState = {
   busPaths: {},
   manageBusPathHotelsSelect: [],
+  selectedPkg: null,
   selectedBusPath: null,
+  showBusPathsModal: false,
   showAddBusPathModal: false,
   showEditBusPathModal: false,
   showDeleteBusPathModal: false
@@ -65,6 +68,13 @@ export default (state = initialState, action) => {
         ...state,
         busPaths: omit(state.busPaths, action.payload),
         showDeleteBusPathModal: false
+      }
+
+    case OPEN_BUS_PATHS_MODAL:
+      return {
+        ...state,
+        showBusPathsModal: true,
+        selectedPkg: action.payload
       }
 
     case OPEN_ADD_BUS_PATH_MODAL:
