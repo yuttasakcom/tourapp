@@ -9,8 +9,9 @@ import * as actions from '../../../actions'
 
 class ManageBusPath extends PureComponent {
   openAddBusPathModal = () => {
-    this.props.openAddBusPathModal()
-    this.props.fetchBusPathHotels()
+    const { openAddBusPathModal, fetchBusPathHotels } = this.props
+    openAddBusPathModal()
+    fetchBusPathHotels()
   }
 
   render() {
