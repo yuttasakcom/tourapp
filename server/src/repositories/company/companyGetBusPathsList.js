@@ -1,8 +1,8 @@
 const Company = require('../../models/company')
 
-module.exports = async companyId => {
+module.exports = async (companyId, pkgId) => {
   const { busPaths } = await Company.findById(companyId, {
-    busPaths: 1
+    busPaths: { $elemMatch: { pkg: pkgId } }
   }).populate('busPaths.hotels')
   return busPaths
 }
