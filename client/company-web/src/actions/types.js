@@ -81,3 +81,4 @@ export const OPEN_DELETE_BUS_PATH_MODAL = 'open_delete_bus_path_modal'
 export const CLOSE_DELETE_BUS_PATH_MODAL = 'close_delete_bus_path_modal'
 
 export const OPEN_BUS_PATHS_MODAL = 'open_bus_paths_modal'
+export const CLOSE_BUS_PATHS_MODAL = 'close_bus_paths_modal'
