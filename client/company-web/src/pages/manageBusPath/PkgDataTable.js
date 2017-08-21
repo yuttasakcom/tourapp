@@ -28,6 +28,7 @@ class PkgDataTable extends PureComponent {
       <BootstrapTable
         data={Object.values(pkgs)}
         height={400}
+        search
         striped
         hover
         condensed
