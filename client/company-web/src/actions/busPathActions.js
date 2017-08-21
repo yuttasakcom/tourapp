@@ -30,9 +30,9 @@ export const fetchBusPathHotels = (busPathId = '') => async dispatch => {
   }
 }
 
-export const fetchBusPaths = () => async dispatch => {
+export const fetchBusPaths = pkgId => async dispatch => {
   try {
-    const { data } = await axios.get('/bus-paths')
+    const { data } = await axios.get(`/bus-paths?pkgId=${pkgId}`)
     dispatch({ type: FETCH_BUS_PATHS_SUCCESS, payload: data })
   } catch (e) {
     dispatch(

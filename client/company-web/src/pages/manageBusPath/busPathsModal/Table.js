@@ -6,7 +6,7 @@ import * as actions from '../../../actions'
 
 class Table extends PureComponent {
   componentDidMount() {
-    this.props.fetchBusPaths()
+    this.props.fetchBusPaths(this.props.selectedPkg)
   }
 
   openEditBusPathModal = busPathId => {
@@ -82,6 +82,9 @@ class Table extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ busPath: { busPaths } }) => ({ busPaths })
+const mapStateToProps = ({ busPath: { busPaths, selectedPkg } }) => ({
+  busPaths,
+  selectedPkg
+})
 
 export default connect(mapStateToProps, actions)(Table)
