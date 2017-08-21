@@ -6,6 +6,7 @@ import {
   ADD_BUS_PATH_SUCCESS,
   EDIT_BUS_PATH_SUCCESS,
   DELETE_BUS_PATH_SUCCESS,
+  OPEN_BUS_PATHS_MODAL,
   OPEN_ADD_BUS_PATH_MODAL,
   CLOSE_ADD_BUS_PATH_MODAL,
   OPEN_EDIT_BUS_PATH_MODAL,
@@ -81,6 +82,11 @@ export const deleteBusPath = ({ _id }) => async dispatch => {
     console.error(e)
   }
 }
+
+export const openBusPathsModal = _id => ({
+  type: OPEN_BUS_PATHS_MODAL,
+  payload: _id
+})
 
 export const openAddBusPathModal = () => {
   return { type: OPEN_ADD_BUS_PATH_MODAL }
