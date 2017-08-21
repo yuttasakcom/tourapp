@@ -1,13 +1,8 @@
-const Company = require('../../models/company')
+const BusPath = require('../../models/busPath')
 
-module.exports = async (companyId, busPathProps) => {
-  const company = await Company.findOneAndUpdate(
-    { _id: companyId, 'busPaths._id': busPathProps._id },
-    { $set: { 'busPaths.$': busPathProps } },
-    {
-      projection: { busPaths: { $elemMatch: { _id: busPathProps._id } } },
-      new: true
-    }
-  ).populate('busPaths.hotels')
-  return company ? company.busPaths[0] : null
-}
+module.exports = async (busPathId, busPathProps) =>
+  BusPath.findByIdAndUpdate(
+    busPathId,
+    { $set: busPathProps },
+    { new: true }
+  ).populate('hotels')
