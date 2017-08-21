@@ -21,7 +21,12 @@ export const fetchBusPathHotels = (busPathId = '') => async dispatch => {
     const { data } = await axios.get(`/bus-path-hotels/${busPathId}`)
     dispatch({ type: FETCH_BUS_PATH_HOTELS_SUCCESS, payload: data })
   } catch (e) {
-    console.error(e)
+    dispatch(
+      error({
+        title: 'แจ้งเตือน',
+        message: e.message
+      })
+    )
   }
 }
 
@@ -30,7 +35,12 @@ export const fetchBusPaths = () => async dispatch => {
     const { data } = await axios.get('/bus-paths')
     dispatch({ type: FETCH_BUS_PATHS_SUCCESS, payload: data })
   } catch (e) {
-    console.error(e)
+    dispatch(
+      error({
+        title: 'แจ้งเตือน',
+        message: e.message
+      })
+    )
   }
 }
 
@@ -65,7 +75,12 @@ export const editBusPath = ({ _id }, values) => async dispatch => {
       })
     )
   } catch (e) {
-    console.error(e)
+    dispatch(
+      error({
+        title: 'แจ้งเตือน',
+        message: e.message
+      })
+    )
   }
 }
 
@@ -80,7 +95,12 @@ export const deleteBusPath = ({ _id }) => async dispatch => {
       })
     )
   } catch (e) {
-    console.error(e)
+    dispatch(
+      error({
+        title: 'แจ้งเตือน',
+        message: e.message
+      })
+    )
   }
 }
 
