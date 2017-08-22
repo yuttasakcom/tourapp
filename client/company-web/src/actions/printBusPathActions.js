@@ -10,8 +10,8 @@ import {
 } from './types'
 
 export const printBusPaths = () => (dispatch, getState) => {
-  const { date } = getState().printBusPath.visibilityFilter
-  openReport(`bus-paths-summary/${date}`)
+  const { visibilityFilter: { date, pkg } } = getState().printBusPath
+  openReport(`bus-paths-summary/${date}?pkgId=${pkg.value}`)
 }
 
 export const updateBusPaths = () => async (dispatch, getState) => {

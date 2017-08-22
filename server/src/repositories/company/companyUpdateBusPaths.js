@@ -1,17 +1,11 @@
-const Company = require('../../models/company')
+const BusPath = require('../../models/busPath')
 
-module.exports = async (
-  companyId,
-  { busPathId, hotelIds, removedHotelIds }
-) => {
-  const find = {
-    _id: companyId,
-    'busPaths._id': busPathId
-  }
-  await Company.update(find, {
-    $pullAll: { 'busPaths.$.hotels': removedHotelIds }
+module.exports = async ({ busPathId, hotelIds, removedHotelIds }) => {
+  const find = { _id: busPathId }
+  await BusPath.update(find, {
+    $pullAll: { hotels: removedHotelIds }
   })
-  return Company.update(find, {
-    $addToSet: { 'busPaths.$.hotels': { $each: hotelIds } }
+  return BusPath.update(find, {
+    $addToSet: { hotels: { $each: hotelIds } }
   })
 }
