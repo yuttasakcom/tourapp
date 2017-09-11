@@ -1,7 +1,7 @@
 import { success } from 'react-notification-system-redux'
 
 import axios from './axios'
-import socket from './socket'
+import socket from '../socket'
 import { openAgentReport } from '../../helpers'
 import {
   AGENT_FETCH_PKGS_SUCCESS,

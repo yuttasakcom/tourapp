@@ -1,6 +1,6 @@
 import { success, error } from 'react-notification-system-redux'
 import axios from './axios'
-import socket from './socket'
+import socket from '../socket'
 import {
   COMPANY_FETCH_AGENTS_SUCCESS,
   COMPANY_REQUEST_AGENT_SUCCESS,

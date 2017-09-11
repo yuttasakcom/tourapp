@@ -1,7 +1,7 @@
 import { success, error } from 'react-notification-system-redux'
 
 import axios from './axios'
-import socket from './socket'
+import socket from '../socket'
 import {
   AGENT_OPEN_DELETE_COMPANY_MODAL,
   AGENT_CLOSE_DELETE_COMPANY_MODAL,
