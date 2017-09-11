@@ -4,17 +4,17 @@ import axios from './axios'
 import socket from './socket'
 import { openAgentReport } from '../../helpers'
 import {
-  FETCH_PKGS_SUCCESS,
-  FETCH_HOTELS_SUCCESS,
-  OPEN_ADD_BOOKING_MODAL,
-  CLOSE_ADD_BOOKING_MODAL,
-  ADD_BOOKING_SUCCESS
+  AGENT_FETCH_PKGS_SUCCESS,
+  AGENT_FETCH_HOTELS_SUCCESS,
+  AGENT_OPEN_ADD_BOOKING_MODAL,
+  AGENT_CLOSE_ADD_BOOKING_MODAL,
+  AGENT_ADD_BOOKING_SUCCESS
 } from './types'
 
 export const fetchHotels = () => async dispatch => {
   try {
     const { data } = await axios.get('/hotels')
-    dispatch({ type: FETCH_HOTELS_SUCCESS, payload: data })
+    dispatch({ type: AGENT_FETCH_HOTELS_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
   }
@@ -23,7 +23,7 @@ export const fetchHotels = () => async dispatch => {
 export const fetchPkgs = () => async dispatch => {
   try {
     const { data } = await axios.get('/pkgs')
-    dispatch({ type: FETCH_PKGS_SUCCESS, payload: data })
+    dispatch({ type: AGENT_FETCH_PKGS_SUCCESS, payload: data })
   } catch (e) {
     console.error(e)
   }
@@ -33,7 +33,7 @@ export const addBooking = bookingProps => async dispatch => {
   try {
     const { data } = await axios.post('/bookings', bookingProps)
     openAgentReport(`voucher?bookingId=${data._id}`)
-    dispatch({ type: ADD_BOOKING_SUCCESS, payload: data })
+    dispatch({ type: AGENT_ADD_BOOKING_SUCCESS, payload: data })
     dispatch(
       success({
         title: 'แจ้งเตือน',
@@ -47,9 +47,9 @@ export const addBooking = bookingProps => async dispatch => {
 }
 
 export const openAddBookingModal = _id => {
-  return { type: OPEN_ADD_BOOKING_MODAL, payload: _id }
+  return { type: AGENT_OPEN_ADD_BOOKING_MODAL, payload: _id }
 }
 
 export const closeAddBookingModal = () => {
-  return { type: CLOSE_ADD_BOOKING_MODAL }
+  return { type: AGENT_CLOSE_ADD_BOOKING_MODAL }
 }

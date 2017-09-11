@@ -1,23 +1,23 @@
 import axios from './axios'
 
 import {
-  TOGGLE_NOTIFICATION_GEM,
-  TOGGLE_ACCEPT_PENDING_GEM,
-  TOGGLE_REQUEST_PENDING_GEM,
-  HIDE_ALL_GEM,
-  FETCH_REQUEST_PENDINGS_SUCCESS,
-  FETCH_NOTIFICATIONS_SUCCESS,
-  FETCH_ACCEPT_PENDINGS_SUCCESS,
-  ADD_NOTIFICATION_SUCCESS,
-  OPEN_VIEW_COMPANY_PROFILE_MODAL,
-  CLOSE_VIEW_COMPANY_PROFILE_MODAL
+  AGENT_TOGGLE_NOTIFICATION_GEM,
+  AGENT_TOGGLE_ACCEPT_PENDING_GEM,
+  AGENT_TOGGLE_REQUEST_PENDING_GEM,
+  AGENT_HIDE_ALL_GEM,
+  AGENT_FETCH_REQUEST_PENDINGS_SUCCESS,
+  AGENT_FETCH_NOTIFICATIONS_SUCCESS,
+  AGENT_FETCH_ACCEPT_PENDINGS_SUCCESS,
+  AGENT_ADD_NOTIFICATION_SUCCESS,
+  AGENT_OPEN_VIEW_COMPANY_PROFILE_MODAL,
+  AGENT_CLOSE_VIEW_COMPANY_PROFILE_MODAL
 } from './types'
 
 export const fetchAcceptPendings = () => async dispatch => {
   try {
     const { data } = await axios.get('/accept-pendings')
     dispatch({
-      type: FETCH_ACCEPT_PENDINGS_SUCCESS,
+      type: AGENT_FETCH_ACCEPT_PENDINGS_SUCCESS,
       payload: data.acceptPendings
     })
   } catch (e) {
@@ -27,14 +27,14 @@ export const fetchAcceptPendings = () => async dispatch => {
 
 export const addNotification = booking => {
   return {
-    type: ADD_NOTIFICATION_SUCCESS,
+    type: AGENT_ADD_NOTIFICATION_SUCCESS,
     payload: booking
   }
 }
 
 export const fetchNotifications = () => {
   return {
-    type: FETCH_NOTIFICATIONS_SUCCESS,
+    type: AGENT_FETCH_NOTIFICATIONS_SUCCESS,
     payload: []
   }
 }
@@ -43,7 +43,7 @@ export const fetchRequestPendings = () => async dispatch => {
   try {
     const { data } = await axios.get('/request-pendings')
     dispatch({
-      type: FETCH_REQUEST_PENDINGS_SUCCESS,
+      type: AGENT_FETCH_REQUEST_PENDINGS_SUCCESS,
       payload: data.requestPendings
     })
   } catch (e) {
@@ -52,25 +52,25 @@ export const fetchRequestPendings = () => async dispatch => {
 }
 
 export const openViewCompanyProfileModal = _id => {
-  return { type: OPEN_VIEW_COMPANY_PROFILE_MODAL, payload: _id }
+  return { type: AGENT_OPEN_VIEW_COMPANY_PROFILE_MODAL, payload: _id }
 }
 
 export const closeViewCompanyProfileModal = () => {
-  return { type: CLOSE_VIEW_COMPANY_PROFILE_MODAL }
+  return { type: AGENT_CLOSE_VIEW_COMPANY_PROFILE_MODAL }
 }
 
 export const toggleNotificationGem = () => {
-  return { type: TOGGLE_NOTIFICATION_GEM }
+  return { type: AGENT_TOGGLE_NOTIFICATION_GEM }
 }
 
 export const toggleAcceptPendingGem = () => {
-  return { type: TOGGLE_ACCEPT_PENDING_GEM }
+  return { type: AGENT_TOGGLE_ACCEPT_PENDING_GEM }
 }
 
 export const toggleRequestPendingGem = () => {
-  return { type: TOGGLE_REQUEST_PENDING_GEM }
+  return { type: AGENT_TOGGLE_REQUEST_PENDING_GEM }
 }
 
 export const hideAllGem = () => {
-  return { type: HIDE_ALL_GEM }
+  return { type: AGENT_HIDE_ALL_GEM }
 }

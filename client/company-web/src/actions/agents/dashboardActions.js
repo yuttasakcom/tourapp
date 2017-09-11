@@ -1,11 +1,11 @@
 import axios from './axios'
-import { FETCH_DASHBOARD_SUCCESS } from './types'
+import { AGENT_FETCH_DASHBOARD_SUCCESS } from './types'
 
 export const fetchDashboard = () => async dispatch => {
   try {
     const { data } = await axios.get('/dashboard')
     dispatch({
-      type: FETCH_DASHBOARD_SUCCESS,
+      type: AGENT_FETCH_DASHBOARD_SUCCESS,
       payload: data
     })
   } catch (e) {

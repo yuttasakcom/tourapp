@@ -3,15 +3,15 @@ import moment from 'moment'
 import axios from './axios'
 
 import {
-  FETCH_BOOKINGS_SUCCESS,
-  OPEN_MANAGE_BOOKING_MODAL,
-  CLOSE_MANAGE_BOOKING_MODAL,
-  SET_BOOKINGS_STATUS_VISIBILITY_FILTER
+  AGENT_FETCH_BOOKINGS_SUCCESS,
+  AGENT_OPEN_MANAGE_BOOKING_MODAL,
+  AGENT_CLOSE_MANAGE_BOOKING_MODAL,
+  AGENT_SET_BOOKINGS_STATUS_VISIBILITY_FILTER
 } from './types'
 
 export const setBookingsStatusVisibilityFilter = status => {
   return {
-    type: SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
+    type: AGENT_SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
     payload: status
   }
 }
@@ -23,7 +23,7 @@ export const fetchBookings = date => async dispatch => {
       `/bookings?dateStart=${date}&dateEnd=${dateEnd}`
     )
     dispatch({
-      type: FETCH_BOOKINGS_SUCCESS,
+      type: AGENT_FETCH_BOOKINGS_SUCCESS,
       payload: { date, data }
     })
   } catch (e) {
@@ -33,11 +33,11 @@ export const fetchBookings = date => async dispatch => {
 
 export const openManageBookingModal = _id => {
   return {
-    type: OPEN_MANAGE_BOOKING_MODAL,
+    type: AGENT_OPEN_MANAGE_BOOKING_MODAL,
     payload: _id
   }
 }
 
 export const closeManageBookingModal = () => {
-  return { type: CLOSE_MANAGE_BOOKING_MODAL }
+  return { type: AGENT_CLOSE_MANAGE_BOOKING_MODAL }
 }

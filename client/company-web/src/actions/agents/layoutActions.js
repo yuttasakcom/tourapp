@@ -1,4 +1,4 @@
-import { TOGGLE_MENU, CLOSE_MENU } from './types'
+import { AGENT_TOGGLE_MENU, AGENT_CLOSE_MENU } from './types'
 
-export const toggleMenu = () => ({ type: TOGGLE_MENU })
-export const closeMenu = () => ({ type: CLOSE_MENU })
+export const toggleMenu = () => ({ type: AGENT_TOGGLE_MENU })
+export const closeMenu = () => ({ type: AGENT_CLOSE_MENU })
