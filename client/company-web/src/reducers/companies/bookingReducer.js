@@ -7,7 +7,7 @@ import {
   accepted,
   rejected,
   completed
-} from '../actions/bookingStatus'
+} from '../../actions/bookingStatus'
 import {
   FETCH_BOOKINGS_SUCCESS,
   SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
@@ -16,7 +16,7 @@ import {
   ACCEPT_BOOKING_SUCCESS,
   REJECT_BOOKING_SUCCESS,
   COMPLETE_BOOKING_SUCCESS
-} from '../actions/types'
+} from '../../actions/companies/types'
 
 const initialState = {
   bookings: {},

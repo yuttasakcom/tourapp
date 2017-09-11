@@ -14,7 +14,7 @@ import {
   OPEN_DELETE_BUS_PATH_MODAL,
   CLOSE_DELETE_BUS_PATH_MODAL,
   DELETE_BUS_PATH_SUCCESS
-} from '../actions/types'
+} from '../../actions/companies/types'
 
 const initialState = {
   busPaths: {},

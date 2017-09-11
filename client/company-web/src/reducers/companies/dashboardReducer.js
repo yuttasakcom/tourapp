@@ -1,4 +1,4 @@
-import { FETCH_DASHBOARD_SUCCESS } from '../actions/types'
+import { FETCH_DASHBOARD_SUCCESS } from '../../actions/companies/types'
 
 const initialState = {
   bookingsSummaries: []

@@ -16,7 +16,7 @@ import {
   ACCEPT_AGENT_SUCCESS,
   OPEN_VIEW_AGENT_PROFILE_MODAL,
   CLOSE_VIEW_AGENT_PROFILE_MODAL
-} from '../actions/types'
+} from '../../actions/companies/types'
 
 const initialState = {
   showNotificationGem: false,

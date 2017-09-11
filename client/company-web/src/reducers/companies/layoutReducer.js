@@ -1,4 +1,4 @@
-import { TOGGLE_MENU, CLOSE_MENU } from '../actions/types'
+import { TOGGLE_MENU, CLOSE_MENU } from '../../actions/companies/types'
 
 const initialState = {
   showMenu: false

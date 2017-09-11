@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-import { FETCH_BOOKINGS_SUMMARY_SUCCESS } from '../actions/types'
+import { FETCH_BOOKINGS_SUMMARY_SUCCESS } from '../../actions/companies/types'
 
 const initialState = {
   bookingsSummary: [],

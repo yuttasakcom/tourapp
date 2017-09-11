@@ -5,7 +5,7 @@ import manageBusPath from './manageBusPath'
 import {
   FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS,
   MANAGE_BUS_PATH
-} from '../../actions/types'
+} from '../../../actions/companies/types'
 
 const initialState = {
   bookingsHotelsSummary: {},

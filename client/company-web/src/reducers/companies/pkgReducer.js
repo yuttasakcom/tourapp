@@ -11,7 +11,7 @@ import {
   OPEN_DELETE_PKG_MODAL,
   CLOSE_DELETE_PKG_MODAL,
   DELETE_PKG_SUCCESS
-} from '../actions/types'
+} from '../../actions/companies/types'
 
 const initialState = {
   pkgs: {},

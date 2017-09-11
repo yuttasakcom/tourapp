@@ -17,7 +17,7 @@ import {
   OPEN_RESET_PRICE_MODAL,
   CLOSE_RESET_PRICE_MODAL,
   RESET_PRICE_SUCCESS
-} from '../actions/types'
+} from '../../actions/companies/types'
 
 const initialState = {
   agents: {},
