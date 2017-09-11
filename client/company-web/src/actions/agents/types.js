@@ -57,8 +57,5 @@ export const AGENT_FETCH_NOTIFICATIONS_SUCCESS =
   'agent_fetch_notifications_success'
 export const AGENT_ADD_NOTIFICATION_SUCCESS = 'agent_add_notification_success'
 
-export const AGENT_TOGGLE_MENU = 'agent_toggle_menu'
-export const AGENT_CLOSE_MENU = 'agent_close_menu'
-
 export const AGENT_FETCH_DASHBOARD_SUCCESS = 'agent_fetch_dashboard_success'
 export const AGENT_FETCH_HOTELS_SUCCESS = 'agent_fetch_hotel_success'
