@@ -3,10 +3,10 @@ import moment from 'moment'
 
 import { waiting } from '../../actions/bookingStatus'
 import {
-  FETCH_BOOKINGS_SUCCESS,
-  OPEN_MANAGE_BOOKING_MODAL,
-  CLOSE_MANAGE_BOOKING_MODAL,
-  SET_BOOKINGS_STATUS_VISIBILITY_FILTER
+  AGENT_FETCH_BOOKINGS_SUCCESS,
+  AGENT_OPEN_MANAGE_BOOKING_MODAL,
+  AGENT_CLOSE_MANAGE_BOOKING_MODAL,
+  AGENT_SET_BOOKINGS_STATUS_VISIBILITY_FILTER
 } from '../../actions/agents/types'
 
 const initialState = {
@@ -18,13 +18,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_BOOKINGS_STATUS_VISIBILITY_FILTER:
+    case AGENT_SET_BOOKINGS_STATUS_VISIBILITY_FILTER:
       return {
         ...state,
         visibilityFilter: { ...state.visibilityFilter, status: action.payload }
       }
 
-    case FETCH_BOOKINGS_SUCCESS:
+    case AGENT_FETCH_BOOKINGS_SUCCESS:
       return {
         ...state,
         bookings: mapKeys(action.payload.data, '_id'),
@@ -34,14 +34,14 @@ export default (state = initialState, action) => {
         }
       }
 
-    case OPEN_MANAGE_BOOKING_MODAL:
+    case AGENT_OPEN_MANAGE_BOOKING_MODAL:
       return {
         ...state,
         showManageBookingModal: true,
         selectedBooking: action.payload
       }
 
-    case CLOSE_MANAGE_BOOKING_MODAL:
+    case AGENT_CLOSE_MANAGE_BOOKING_MODAL:
       return {
         ...state,
         showManageBookingModal: false

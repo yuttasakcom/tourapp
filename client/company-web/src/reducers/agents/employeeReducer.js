@@ -1,12 +1,12 @@
 import mapKeys from 'lodash/mapKeys'
 import {
-  FETCH_EMPLOYEES_SUCCESS,
-  OPEN_ADD_EMPLOYEE_MODAL,
-  CLOSE_ADD_EMPLOYEE_MODAL,
-  OPEN_EDIT_EMPLOYEE_MODAL,
-  CLOSE_EDIT_EMPLOYEE_MODAL,
-  OPEN_DELETE_EMPLOYEE_MODAL,
-  CLOSE_DELETE_EMPLOYEE_MODAL
+  AGENT_FETCH_EMPLOYEES_SUCCESS,
+  AGENT_OPEN_ADD_EMPLOYEE_MODAL,
+  AGENT_CLOSE_ADD_EMPLOYEE_MODAL,
+  AGENT_OPEN_EDIT_EMPLOYEE_MODAL,
+  AGENT_CLOSE_EDIT_EMPLOYEE_MODAL,
+  AGENT_OPEN_DELETE_EMPLOYEE_MODAL,
+  AGENT_CLOSE_DELETE_EMPLOYEE_MODAL
 } from '../../actions/agents/types'
 
 const initialState = {
@@ -19,33 +19,33 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_EMPLOYEES_SUCCESS:
+    case AGENT_FETCH_EMPLOYEES_SUCCESS:
       return { ...state, employees: mapKeys(action.payload, '_id') }
 
-    case OPEN_ADD_EMPLOYEE_MODAL:
+    case AGENT_OPEN_ADD_EMPLOYEE_MODAL:
       return { ...state, showAddEmployeeModal: true }
 
-    case CLOSE_ADD_EMPLOYEE_MODAL:
+    case AGENT_CLOSE_ADD_EMPLOYEE_MODAL:
       return { ...state, showAddEmployeeModal: false }
 
-    case OPEN_EDIT_EMPLOYEE_MODAL:
+    case AGENT_OPEN_EDIT_EMPLOYEE_MODAL:
       return {
         ...state,
         showEditEmployeeModal: true,
         selectedEmployee: action.payload
       }
 
-    case CLOSE_EDIT_EMPLOYEE_MODAL:
+    case AGENT_CLOSE_EDIT_EMPLOYEE_MODAL:
       return { ...state, showEditEmployeeModal: false }
 
-    case OPEN_DELETE_EMPLOYEE_MODAL:
+    case AGENT_OPEN_DELETE_EMPLOYEE_MODAL:
       return {
         ...state,
         showDeleteEmployeeModal: true,
         selectedEmployee: action.payload
       }
 
-    case CLOSE_DELETE_EMPLOYEE_MODAL:
+    case AGENT_CLOSE_DELETE_EMPLOYEE_MODAL:
       return { ...state, showDeleteEmployeeModal: false }
 
     default:
