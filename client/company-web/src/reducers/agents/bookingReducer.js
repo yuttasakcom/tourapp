@@ -5,7 +5,7 @@ import {
   OPEN_ADD_BOOKING_MODAL,
   CLOSE_ADD_BOOKING_MODAL,
   ADD_BOOKING_SUCCESS
-} from '../actions/types'
+} from '../../actions/agents/types'
 
 const initialState = {
   pkgs: {},

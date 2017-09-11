@@ -7,7 +7,7 @@ import {
   CLOSE_EDIT_EMPLOYEE_MODAL,
   OPEN_DELETE_EMPLOYEE_MODAL,
   CLOSE_DELETE_EMPLOYEE_MODAL
-} from '../actions/types'
+} from '../../actions/agents/types'
 
 const initialState = {
   employees: {},

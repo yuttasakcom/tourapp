@@ -8,7 +8,7 @@ import {
   CLOSE_REQUEST_COMPANY_MODAL,
   DELETE_COMPANY_SUCCESS,
   FETCH_COMPANIES_SUCCESS
-} from '../actions/types'
+} from '../../actions/agents/types'
 
 const initialState = {
   companies: {},

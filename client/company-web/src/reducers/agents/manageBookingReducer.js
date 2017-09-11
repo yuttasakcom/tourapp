@@ -1,13 +1,13 @@
 import mapKeys from 'lodash/mapKeys'
 import moment from 'moment'
 
-import { waiting } from '../actions/bookingStatus'
+import { waiting } from '../../actions/bookingStatus'
 import {
   FETCH_BOOKINGS_SUCCESS,
   OPEN_MANAGE_BOOKING_MODAL,
   CLOSE_MANAGE_BOOKING_MODAL,
   SET_BOOKINGS_STATUS_VISIBILITY_FILTER
-} from '../actions/types'
+} from '../../actions/agents/types'
 
 const initialState = {
   bookings: {},

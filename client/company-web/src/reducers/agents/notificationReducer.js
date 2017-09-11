@@ -1,7 +1,7 @@
 import mapKeys from 'lodash/mapKeys'
 import omit from 'lodash/omit'
 
-import * as bookingStatus from '../actions/bookingStatus'
+import * as bookingStatus from '../../actions/bookingStatus'
 import {
   TOGGLE_NOTIFICATION_GEM,
   TOGGLE_ACCEPT_PENDING_GEM,
@@ -18,7 +18,7 @@ import {
   ADD_NOTIFICATION_SUCCESS,
   OPEN_VIEW_COMPANY_PROFILE_MODAL,
   CLOSE_VIEW_COMPANY_PROFILE_MODAL
-} from '../actions/types'
+} from '../../actions/agents/types'
 
 const initialState = {
   showNotificationGem: false,
