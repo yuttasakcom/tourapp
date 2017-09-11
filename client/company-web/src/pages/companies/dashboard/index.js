@@ -31,16 +31,16 @@ class Dashboard extends PureComponent {
     return (
       <div className="container-fluid">
         <Card title="Dashboard" description="Show Dashboard">
-          <div className="row">
-            {this.renderDashboard()}
-          </div>
+          <div className="row">{this.renderDashboard()}</div>
         </Card>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ dashboard: { bookingsSummaries } }) => ({
+const mapStateToProps = ({
+  company: { dashboard: { bookingsSummaries } }
+}) => ({
   bookingsSummaries
 })
 
