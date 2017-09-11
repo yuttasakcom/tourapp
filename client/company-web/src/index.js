@@ -5,11 +5,11 @@ import jwtDecode from 'jwt-decode'
 import moment from 'moment'
 import 'moment/locale/th'
 
-import axios from './actions/axios'
+import axios from './actions/companies/axios'
 import registerServiceWorker from './registerServiceWorker'
-import App from './App'
+import Apps from './apps'
 import store from './store'
-import { SIGN_IN_SUCCESS } from './actions/types'
+import { SIGN_IN_SUCCESS } from './actions/companies/types'
 
 import 'font-awesome/css/font-awesome.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -33,7 +33,7 @@ if (token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Apps />
   </Provider>,
   document.getElementById('root')
 )
