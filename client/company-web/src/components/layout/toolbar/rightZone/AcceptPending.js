@@ -19,7 +19,7 @@ class AcceptPending extends PureComponent {
       openViewAgentProfileModal
     } = this.props
 
-    return map(acceptPendings, acceptPending =>
+    return map(acceptPendings, acceptPending => (
       <li key={acceptPending._id} style={{ width: '200px' }}>
         <a
           style={{ cursor: 'pointer' }}
@@ -40,7 +40,7 @@ class AcceptPending extends PureComponent {
           Accept
         </button>
       </li>
-    )
+    ))
   }
 
   render() {
@@ -62,7 +62,7 @@ class AcceptPending extends PureComponent {
 }
 
 const mapStateToProps = ({
-  notification: { showAcceptPendingGem, acceptPendings }
+  company: { notification: { showAcceptPendingGem, acceptPendings } }
 }) => {
   return { showAcceptPendingGem, acceptPendings }
 }

@@ -50,7 +50,7 @@ class ViewProfileModal extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ notification }) => ({
+const mapStateToProps = ({ company: { notification } }) => ({
   showModal: notification.showViewAgentProfileModal,
   agent: notification.acceptPendings[notification.selectedAcceptPending]
 })

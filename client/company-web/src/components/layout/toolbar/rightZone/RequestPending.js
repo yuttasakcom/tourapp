@@ -12,11 +12,9 @@ class RequestPending extends PureComponent {
 
   renderListItem = () => {
     const { requestPendings, cancelRequestAgent } = this.props
-    return map(requestPendings, requestPending =>
+    return map(requestPendings, requestPending => (
       <li key={requestPending._id} style={{ width: '200px' }}>
-        <a>
-          {requestPending.email}
-        </a>
+        <a>{requestPending.email}</a>
         <button
           className="btn btn-danger btn-sm pull-right"
           onClick={() => cancelRequestAgent(requestPending)}
@@ -24,7 +22,7 @@ class RequestPending extends PureComponent {
           Cancel
         </button>
       </li>
-    )
+    ))
   }
 
   render() {
@@ -46,7 +44,7 @@ class RequestPending extends PureComponent {
 }
 
 const mapStateToProps = ({
-  notification: { showRequestPendingGem, requestPendings }
+  company: { notification: { showRequestPendingGem, requestPendings } }
 }) => {
   return { showRequestPendingGem, requestPendings }
 }

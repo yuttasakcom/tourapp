@@ -10,13 +10,11 @@ class Notification extends PureComponent {
   }
 
   renderListItem = () => {
-    return this.props.notifications.map((notification, index) =>
+    return this.props.notifications.map((notification, index) => (
       <li key={index}>
-        <a>
-          {notification}
-        </a>
+        <a>{notification}</a>
       </li>
-    )
+    ))
   }
 
   render() {
@@ -38,7 +36,7 @@ class Notification extends PureComponent {
 }
 
 const mapStateToProps = ({
-  notification: { showNotificationGem, notifications }
+  company: { notification: { showNotificationGem, notifications } }
 }) => {
   return { showNotificationGem, notifications }
 }

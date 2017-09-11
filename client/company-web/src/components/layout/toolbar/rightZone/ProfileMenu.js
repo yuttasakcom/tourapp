@@ -25,19 +25,13 @@ class ProfileMenu extends PureComponent {
             </a>
           </li>
           <li>
-            <a>
-              ROLE: {role}
-            </a>
+            <a>ROLE: {role}</a>
           </li>
           <li>
-            <a>
-              EMAIL: {sub}
-            </a>
+            <a>EMAIL: {sub}</a>
           </li>
           <li>
-            <a>
-              ID: {_id}
-            </a>
+            <a>ID: {_id}</a>
           </li>
           <li>
             <a style={{ cursor: 'pointer' }} onClick={signOut}>
@@ -52,7 +46,7 @@ class ProfileMenu extends PureComponent {
 
 const mapStateToProps = ({
   auth: { user },
-  notification: { showProfileMenu }
+  company: { notification: { showProfileMenu } }
 }) => {
   return { user, showProfileMenu }
 }
