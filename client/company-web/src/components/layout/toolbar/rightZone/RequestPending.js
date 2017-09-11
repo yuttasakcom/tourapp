@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import Gem from './Gem'
-import * as actions from '../../../../actions'
+import * as actions from '../../../../actions/companies'
 
 class RequestPending extends PureComponent {
   componentDidMount() {
