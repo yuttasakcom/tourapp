@@ -19,6 +19,7 @@
     "react-bootstrap-table": "^4.0.1",
     "react-dates": "^12.3.0",
     "react-dom": "^15.5.4",
+    "react-loadable": "^4.0.5",
     "react-notification-system-redux": "^1.1.4",
     "react-redux": "^5.0.5",
     "react-router-dom": "^4.1.1",
