@@ -2,7 +2,7 @@ import { success } from 'react-notification-system-redux'
 
 import axios from './axios'
 import socket from './socket'
-import { openReport } from '../helpers'
+import { openAgentReport } from '../../helpers'
 import {
   FETCH_PKGS_SUCCESS,
   FETCH_HOTELS_SUCCESS,
@@ -32,7 +32,7 @@ export const fetchPkgs = () => async dispatch => {
 export const addBooking = bookingProps => async dispatch => {
   try {
     const { data } = await axios.post('/bookings', bookingProps)
-    openReport(`voucher?bookingId=${data._id}`)
+    openAgentReport(`voucher?bookingId=${data._id}`)
     dispatch({ type: ADD_BOOKING_SUCCESS, payload: data })
     dispatch(
       success({
