@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/lib/Modal'
 
 import OfferSpecialPriceForm from './OfferSpecialPriceForm'
-import * as actions from '../../../actions'
+import * as actions from '../../../../actions/companies'
 
 class OfferSpecialPriceModal extends PureComponent {
   onSubmit = values => {

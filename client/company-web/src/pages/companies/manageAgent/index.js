@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import Card from '../../components/Card'
+import Card from '../../../components/Card'
 import AgentDataTable from './AgentDataTable'
 import RequestModal from './RequestModal'
-import * as actions from '../../actions'
+import * as actions from '../../../actions/companies'
 
 class ManageAgent extends PureComponent {
   render() {

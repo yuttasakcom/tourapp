@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../actions'
+import * as actions from '../../../../actions/companies'
 
 class Table extends PureComponent {
   renderAction = (cell, row) => {

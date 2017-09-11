@@ -3,15 +3,15 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 
 import Table from './Table'
-import Card from '../../components/Card'
+import Card from '../../../components/Card'
 import FilterDate from './FilterDate'
-import { openReport } from '../../helpers'
+import { openCompanyReport } from '../../../helpers'
 
 class BookingSummary extends PureComponent {
   openReport = () => {
     const { date } = this.props
     const dateEnd = moment(date).add(1, 'days')
-    openReport(`bookings-summary?dateStart=${date}&dateEnd=${dateEnd}`)
+    openCompanyReport(`bookings-summary?dateStart=${date}&dateEnd=${dateEnd}`)
   }
 
   render() {

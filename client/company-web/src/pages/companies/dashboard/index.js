@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 
 import Table from './Table'
-import Card from '../../components/Card'
-import * as actions from '../../actions'
+import Card from '../../../components/Card'
+import * as actions from '../../../actions/companies'
 
 class Dashboard extends PureComponent {
   componentDidMount() {

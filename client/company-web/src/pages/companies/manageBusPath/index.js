@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import Card from '../../components/Card'
+import Card from '../../../components/Card'
 import PkgDataTable from './PkgDataTable'
 import BusPathsModal from './busPathsModal'
-import * as actions from '../../actions'
+import * as actions from '../../../actions/companies'
 
 class ManageBusPath extends PureComponent {
   render() {

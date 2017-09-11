@@ -2,8 +2,8 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
 
-import MyDateRangePicker from '../../components/MyDateRangePicker'
-import * as actions from '../../actions'
+import MyDateRangePicker from '../../../components/MyDateRangePicker'
+import * as actions from '../../../actions/companies'
 
 class FilterDate extends PureComponent {
   state = {

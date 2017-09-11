@@ -4,9 +4,9 @@ import { Field, reduxForm } from 'redux-form'
 import { Link, Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/lib/Button'
 
-import Card from '../../components/Card'
-import Notification from '../../components/Notification'
-import renderField from '../../components/renderField'
+import Card from '../../../components/Card'
+import Notification from '../../../components/Notification'
+import renderField from '../../../components/renderField'
 
 class AuthForm extends PureComponent {
   renderAlternativeLink() {
@@ -21,9 +21,7 @@ class AuthForm extends PureComponent {
 
     return (
       <Link to={path}>
-        <Button bsStyle="info">
-          {text}
-        </Button>
+        <Button bsStyle="info">{text}</Button>
       </Link>
     )
   }
@@ -61,14 +59,14 @@ class AuthForm extends PureComponent {
                 label="Password"
                 type="password"
               />
-              {title === 'Sign Up'
-                ? <Field
-                    name="name"
-                    component={renderField}
-                    label="Name"
-                    type="text"
-                  />
-                : null}
+              {title === 'Sign Up' ? (
+                <Field
+                  name="name"
+                  component={renderField}
+                  label="Name"
+                  type="text"
+                />
+              ) : null}
             </div>
             <div className="row pull-right">
               <Button bsStyle="primary" type="submit" disabled={submitting}>

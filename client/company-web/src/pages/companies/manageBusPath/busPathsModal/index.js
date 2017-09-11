@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/lib/Button'
 
 import BusPathDataTable from './BusPathDataTable'
 import AddModal from './AddModal'
-import * as actions from '../../../actions'
+import * as actions from '../../../../actions/companies'
 
 class ManageBusPath extends PureComponent {
   openAddBusPathModal = () => {

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
 import Table from './Table'
-import Card from '../../../components/Card'
+import Card from '../../../../components/Card'
 import ManageModal from './ManageModal'
 import FilterDate from './FilterDate'
 import FilterLinks from './FilterLinks'

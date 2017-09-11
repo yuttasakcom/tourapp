@@ -5,7 +5,7 @@ import FilterPkg from './FilterPkg'
 import BusPathList from './BusPathList'
 import Information from './Information'
 import Actions from './Actions'
-import Card from '../../components/Card'
+import Card from '../../../components/Card'
 
 class PrintBusPath extends PureComponent {
   render() {

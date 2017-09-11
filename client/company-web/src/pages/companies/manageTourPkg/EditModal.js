@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/lib/Modal'
 
 import TourPkgForm from './TourPkgForm'
-import * as actions from '../../actions'
+import * as actions from '../../../actions/companies'
 
 class EditModal extends PureComponent {
   onSubmit = values => {

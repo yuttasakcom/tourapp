@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/lib/Modal'
 import Table from './Table'
 import OfferSpecialPriceModal from './OfferSpecialPriceModal'
 import ResetPriceModal from './ResetPriceModal'
-import * as actions from '../../../actions'
+import * as actions from '../../../../actions/companies'
 
 class ContractRateModal extends PureComponent {
   render() {

@@ -4,8 +4,8 @@ import flat from 'flat'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../actions'
-import { waiting, readed } from '../../../actions/bookingStatus'
+import * as actions from '../../../../actions/companies'
+import { waiting, readed } from '../../../../actions/bookingStatus'
 
 class Table extends PureComponent {
   componentDidMount() {

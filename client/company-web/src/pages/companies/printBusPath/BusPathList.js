@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import map from 'lodash/map'
 
 import BusPathItem from './BusPathItem'
-import * as actions from '../../actions'
+import * as actions from '../../../actions/companies'
 
 class BusPathList extends PureComponent {
   renderBusPathList() {

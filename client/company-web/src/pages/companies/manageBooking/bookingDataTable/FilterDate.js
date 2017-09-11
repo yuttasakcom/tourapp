@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import DateMover from '../../../components/DateMover'
-import * as actions from '../../../actions'
+import DateMover from '../../../../components/DateMover'
+import * as actions from '../../../../actions/companies'
 
 class FilterDate extends PureComponent {
   render() {

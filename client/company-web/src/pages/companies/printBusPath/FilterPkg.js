@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import map from 'lodash/map'
 import Select from 'react-select'
 
-import * as actions from '../../actions'
+import * as actions from '../../../actions/companies'
 
 class FilterPkg extends PureComponent {
   componentDidMount() {

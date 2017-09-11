@@ -4,8 +4,8 @@ import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
 import moment from 'moment'
 
-import DisplayField from '../../../components/DisplayField'
-import * as actions from '../../../actions'
+import DisplayField from '../../../../components/DisplayField'
+import * as actions from '../../../../actions/companies'
 import {
   waiting,
   readed,
