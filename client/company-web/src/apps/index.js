@@ -10,8 +10,10 @@ class Apps extends PureComponent {
   render() {
     return (
       <Router history={history}>
-        <Route path="/agents" exact component={AgentApp} />
-        <Route path="/companies" exact component={CompanyApp} />
+        <div>
+          <Route path="/agents" component={AgentApp} />
+          <Route path="/companies" component={CompanyApp} />
+        </div>
       </Router>
     )
   }
