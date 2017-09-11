@@ -9,7 +9,7 @@ import axios from './actions/companies/axios'
 import registerServiceWorker from './registerServiceWorker'
 import Apps from './apps'
 import store from './store'
-import { SIGN_IN_SUCCESS } from './actions/companies/types'
+import { SIGN_IN_SUCCESS } from './actions/types'
 
 import 'font-awesome/css/font-awesome.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css'

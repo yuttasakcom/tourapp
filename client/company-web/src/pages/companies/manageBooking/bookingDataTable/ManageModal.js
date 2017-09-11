@@ -11,7 +11,7 @@ import {
   readed,
   accepted,
   rejected
-} from '../../../actions/bookingStatus'
+} from '../../../../actions/bookingStatus'
 
 class ManageModal extends PureComponent {
   renderBookingAction() {
