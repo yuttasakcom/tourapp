@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/lib/Modal'
 import moment from 'moment'
 
 import BookingForm from './BookingForm'
-import * as actions from '../../actions'
+import * as actions from '../../../actions/agents'
 
 class AddModal extends PureComponent {
   onSubmit = values => {

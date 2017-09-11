@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/lib/Modal'
 
 import EmployeeForm from './EmployeeForm'
-import * as actions from '../../actions'
+import * as actions from '../../../actions/agents'
 
 class AddModal extends PureComponent {
   onSubmit = values => {

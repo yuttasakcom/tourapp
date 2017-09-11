@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
 
 import nationality from './nationality'
-import renderField from '../../components/renderField'
+import renderField from '../../../components/renderField'
 
 class BookingForm extends PureComponent {
   render() {

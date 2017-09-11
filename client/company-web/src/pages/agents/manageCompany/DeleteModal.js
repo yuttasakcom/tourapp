@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
 
-import * as actions from '../../actions'
+import * as actions from '../../../actions/agents'
 
 class DeleteModal extends PureComponent {
   render() {

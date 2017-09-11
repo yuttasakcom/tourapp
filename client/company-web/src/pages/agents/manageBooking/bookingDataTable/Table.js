@@ -4,8 +4,8 @@ import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import { openReport } from '../../../helpers'
-import * as actions from '../../../actions'
+import { openAgentReport } from '../../../../helpers'
+import * as actions from '../../../../actions/agents'
 
 class Table extends PureComponent {
   componentDidMount() {
@@ -26,7 +26,7 @@ class Table extends PureComponent {
         <button
           className="btn btn-warning btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openReport(`voucher?bookingId=${row._id}`)}
+          onClick={() => openAgentReport(`voucher?bookingId=${row._id}`)}
         >
           Voucher
         </button>

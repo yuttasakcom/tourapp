@@ -2,15 +2,15 @@ import filter from 'lodash/filter'
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import FilterLink from './FilterLink'
-import * as actions from '../../../actions'
+import FilterLink from '../../../../components/FilterLink'
+import * as actions from '../../../../actions/agents'
 import {
   waiting,
   readed,
   accepted,
   completed,
   rejected
-} from '../../../actions/bookingStatus'
+} from '../../../../actions/bookingStatus'
 
 class FilterLinks extends PureComponent {
   render() {

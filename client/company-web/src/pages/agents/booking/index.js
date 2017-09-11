@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import Card from '../../components/Card'
+import Card from '../../../components/Card'
 import PkgDataTable from './PkgDataTable'
 
 class Booking extends PureComponent {

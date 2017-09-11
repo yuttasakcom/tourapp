@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import AuthForm from './AuthForm'
-import * as actions from '../../actions'
+import * as actions from '../../../actions/agents'
 
 class SignUp extends PureComponent {
   onSubmit = values => {
