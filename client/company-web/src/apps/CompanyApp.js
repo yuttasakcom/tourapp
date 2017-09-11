@@ -20,22 +20,37 @@ class CompanyApp extends PureComponent {
     return (
       <Router history={history}>
         <Switch>
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
+          <Route path="/companies/signin" component={SignIn} />
+          <Route path="/companies/signup" component={SignUp} />
           <Layout>
             <Switch>
               <Route
-                path="/"
+                path="/companies/"
                 exact
-                component={() => <Redirect to="/dashboard" />}
+                component={() => <Redirect to="/companies/dashboard" />}
               />
-              <Route path="/dashboard" component={Dashboard} />
-              <Route path="/manage-booking" component={ManageBooking} />
-              <Route path="/booking-summary" component={BoogkingSummary} />
-              <Route path="/print-bus-path" component={PrintBusPath} />
-              <Route path="/manage-bus-path" component={ManageBusPath} />
-              <Route path="/manage-tour-package" component={ManageTourPkg} />
-              <Route path="/manage-agent" component={ManageAgent} />
+              <Route path="/companies/dashboard" component={Dashboard} />
+              <Route
+                path="/companies/manage-booking"
+                component={ManageBooking}
+              />
+              <Route
+                path="/companies/booking-summary"
+                component={BoogkingSummary}
+              />
+              <Route
+                path="/companies/print-bus-path"
+                component={PrintBusPath}
+              />
+              <Route
+                path="/companies/manage-bus-path"
+                component={ManageBusPath}
+              />
+              <Route
+                path="/companies/manage-tour-package"
+                component={ManageTourPkg}
+              />
+              <Route path="/companies/manage-agent" component={ManageAgent} />
               <Route component={NoMatch} />
             </Switch>
           </Layout>
