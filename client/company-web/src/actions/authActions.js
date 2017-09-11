@@ -1,17 +1,17 @@
 import { error } from 'react-notification-system-redux'
 import jwtDecode from 'jwt-decode'
 
-import axios from './axios'
+import axios from './companies/axios'
 
 import {
-  AGENT_SIGN_IN_SUCCESS,
-  AGENT_SIGN_OUT_SUCCESS,
-  AGENT_SIGN_UP_SUCCESS,
-  AGENT_TOGGLE_PROFILE_MENU
+  SIGN_IN_SUCCESS,
+  SIGN_OUT_SUCCESS,
+  SIGN_UP_SUCCESS,
+  TOGGLE_PROFILE_MENU
 } from './types'
 
 export const toggleProfileMenu = () => {
-  return { type: AGENT_TOGGLE_PROFILE_MENU }
+  return { type: TOGGLE_PROFILE_MENU }
 }
 
 const initAuth = token => {
@@ -25,10 +25,10 @@ export const signIn = values => async dispatch => {
   try {
     const { data: { token } } = await axios.post('/signin', {
       ...values,
-      role: 'agent'
+      role: 'company'
     })
     const user = initAuth(token)
-    dispatch({ type: AGENT_SIGN_IN_SUCCESS, payload: user })
+    dispatch({ type: SIGN_IN_SUCCESS, payload: user })
   } catch (e) {
     dispatch(
       error({
@@ -42,14 +42,14 @@ export const signIn = values => async dispatch => {
 export const signOut = () => {
   localStorage.clear()
   axios.defaults.headers.common['Authorization'] = ''
-  return { type: AGENT_SIGN_OUT_SUCCESS }
+  return { type: SIGN_OUT_SUCCESS }
 }
 
 export const signUp = values => async dispatch => {
   try {
     const { data: { token } } = await axios.post('/signup', values)
     const user = initAuth(token)
-    dispatch({ type: AGENT_SIGN_UP_SUCCESS, payload: user })
+    dispatch({ type: SIGN_UP_SUCCESS, payload: user })
   } catch (e) {
     dispatch(
       error({
