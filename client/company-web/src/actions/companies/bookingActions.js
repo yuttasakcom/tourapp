@@ -3,7 +3,7 @@ import moment from 'moment'
 import axios from './axios'
 import socket from './socket'
 
-import { waiting, readed, accepted, rejected, completed } from './bookingStatus'
+import { waiting, readed, accepted, rejected, completed } from '../bookingStatus'
 import {
   FETCH_BOOKINGS_SUCCESS,
   SET_BOOKINGS_STATUS_VISIBILITY_FILTER,

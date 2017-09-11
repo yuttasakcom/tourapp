@@ -3,7 +3,7 @@ import { success, error } from 'react-notification-system-redux'
 import map from 'lodash/map'
 
 import axios from './axios'
-import { openReport } from '../helpers'
+import { openCompanyReport } from '../../helpers'
 import {
   FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS,
   MANAGE_BUS_PATH
@@ -11,7 +11,7 @@ import {
 
 export const printBusPaths = () => (dispatch, getState) => {
   const { visibilityFilter: { date, pkg } } = getState().printBusPath
-  openReport(`bus-paths-summary/${date}?pkgId=${pkg.value}`)
+  openCompanyReport(`bus-paths-summary/${date}?pkgId=${pkg.value}`)
 }
 
 export const updateBusPaths = () => async (dispatch, getState) => {
