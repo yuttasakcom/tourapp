@@ -1,4 +1,4 @@
-import { FETCH_DASHBOARD_SUCCESS } from '../../actions/companies/types'
+import { COMPANY_FETCH_DASHBOARD_SUCCESS } from '../../actions/companies/types'
 
 const initialState = {
   bookingsSummaries: []
@@ -6,7 +6,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_DASHBOARD_SUCCESS:
+    case COMPANY_FETCH_DASHBOARD_SUCCESS:
       return {
         ...state,
         bookingsSummaries: action.payload

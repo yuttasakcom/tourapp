@@ -9,13 +9,13 @@ import {
   completed
 } from '../../actions/bookingStatus'
 import {
-  FETCH_BOOKINGS_SUCCESS,
-  SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
-  OPEN_MANAGE_BOOKING_MODAL,
-  CLOSE_MANAGE_BOOKING_MODAL,
-  ACCEPT_BOOKING_SUCCESS,
-  REJECT_BOOKING_SUCCESS,
-  COMPLETE_BOOKING_SUCCESS
+  COMPANY_FETCH_BOOKINGS_SUCCESS,
+  COMPANY_SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
+  COMPANY_OPEN_MANAGE_BOOKING_MODAL,
+  COMPANY_CLOSE_MANAGE_BOOKING_MODAL,
+  COMPANY_ACCEPT_BOOKING_SUCCESS,
+  COMPANY_REJECT_BOOKING_SUCCESS,
+  COMPANY_COMPLETE_BOOKING_SUCCESS
 } from '../../actions/companies/types'
 
 const initialState = {
@@ -27,13 +27,13 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_BOOKINGS_STATUS_VISIBILITY_FILTER:
+    case COMPANY_SET_BOOKINGS_STATUS_VISIBILITY_FILTER:
       return {
         ...state,
         visibilityFilter: { ...state.visibilityFilter, status: action.payload }
       }
 
-    case FETCH_BOOKINGS_SUCCESS:
+    case COMPANY_FETCH_BOOKINGS_SUCCESS:
       return {
         ...state,
         bookings: mapKeys(action.payload.data, '_id'),
@@ -43,7 +43,7 @@ export default (state = initialState, action) => {
         }
       }
 
-    case OPEN_MANAGE_BOOKING_MODAL:
+    case COMPANY_OPEN_MANAGE_BOOKING_MODAL:
       if (state.bookings[action.payload].status === waiting) {
         return {
           ...state,
@@ -65,7 +65,7 @@ export default (state = initialState, action) => {
         }
       }
 
-    case ACCEPT_BOOKING_SUCCESS:
+    case COMPANY_ACCEPT_BOOKING_SUCCESS:
       return {
         ...state,
         bookings: {
@@ -78,7 +78,7 @@ export default (state = initialState, action) => {
         showManageBookingModal: false
       }
 
-    case REJECT_BOOKING_SUCCESS:
+    case COMPANY_REJECT_BOOKING_SUCCESS:
       return {
         ...state,
         bookings: {
@@ -91,7 +91,7 @@ export default (state = initialState, action) => {
         showManageBookingModal: false
       }
 
-    case COMPLETE_BOOKING_SUCCESS:
+    case COMPANY_COMPLETE_BOOKING_SUCCESS:
       return {
         ...state,
         bookings: {
@@ -104,7 +104,7 @@ export default (state = initialState, action) => {
         showManageBookingModal: false
       }
 
-    case CLOSE_MANAGE_BOOKING_MODAL:
+    case COMPANY_CLOSE_MANAGE_BOOKING_MODAL:
       return { ...state, showManageBookingModal: false }
 
     default:

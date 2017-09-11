@@ -1,21 +1,21 @@
 import mapKeys from 'lodash/mapKeys'
 import omit from 'lodash/omit'
 import {
-  TOGGLE_NOTIFICATION_GEM,
-  TOGGLE_ACCEPT_PENDING_GEM,
-  TOGGLE_REQUEST_PENDING_GEM,
-  TOGGLE_PROFILE_MENU,
-  HIDE_ALL_GEM,
-  SIGN_OUT_SUCCESS,
-  FETCH_REQUEST_PENDINGS_SUCCESS,
-  FETCH_ACCEPT_PENDINGS_SUCCESS,
-  FETCH_NOTIFICATIONS_SUCCESS,
-  CANCEL_REQUEST_AGENT_SUCCESS,
-  REJECT_REQUEST_AGENT_SUCCESS,
-  ADD_NOTIFICATION_SUCCESS,
-  ACCEPT_AGENT_SUCCESS,
-  OPEN_VIEW_AGENT_PROFILE_MODAL,
-  CLOSE_VIEW_AGENT_PROFILE_MODAL
+  COMPANY_TOGGLE_NOTIFICATION_GEM,
+  COMPANY_TOGGLE_ACCEPT_PENDING_GEM,
+  COMPANY_TOGGLE_REQUEST_PENDING_GEM,
+  COMPANY_TOGGLE_PROFILE_MENU,
+  COMPANY_HIDE_ALL_GEM,
+  COMPANY_SIGN_OUT_SUCCESS,
+  COMPANY_FETCH_REQUEST_PENDINGS_SUCCESS,
+  COMPANY_FETCH_ACCEPT_PENDINGS_SUCCESS,
+  COMPANY_FETCH_NOTIFICATIONS_SUCCESS,
+  COMPANY_CANCEL_REQUEST_AGENT_SUCCESS,
+  COMPANY_REJECT_REQUEST_AGENT_SUCCESS,
+  COMPANY_ADD_NOTIFICATION_SUCCESS,
+  COMPANY_ACCEPT_AGENT_SUCCESS,
+  COMPANY_OPEN_VIEW_AGENT_PROFILE_MODAL,
+  COMPANY_CLOSE_VIEW_AGENT_PROFILE_MODAL
 } from '../../actions/companies/types'
 
 const initialState = {
@@ -32,55 +32,55 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case OPEN_VIEW_AGENT_PROFILE_MODAL:
+    case COMPANY_OPEN_VIEW_AGENT_PROFILE_MODAL:
       return {
         ...state,
         showViewAgentProfileModal: true,
         selectedAcceptPending: action.payload
       }
 
-    case CLOSE_VIEW_AGENT_PROFILE_MODAL:
+    case COMPANY_CLOSE_VIEW_AGENT_PROFILE_MODAL:
       return { ...state, showViewAgentProfileModal: false }
 
-    case ACCEPT_AGENT_SUCCESS:
+    case COMPANY_ACCEPT_AGENT_SUCCESS:
       return {
         ...state,
         showViewAgentProfileModal: false,
         acceptPendings: omit(state.acceptPendings, action.payload)
       }
 
-    case CANCEL_REQUEST_AGENT_SUCCESS:
+    case COMPANY_CANCEL_REQUEST_AGENT_SUCCESS:
       return {
         ...state,
         requestPendings: omit(state.requestPendings, action.payload)
       }
 
-    case REJECT_REQUEST_AGENT_SUCCESS:
+    case COMPANY_REJECT_REQUEST_AGENT_SUCCESS:
       return {
         ...state,
         showViewAgentProfileModal: false,
         acceptPendings: omit(state.acceptPendings, action.payload)
       }
 
-    case FETCH_REQUEST_PENDINGS_SUCCESS:
+    case COMPANY_FETCH_REQUEST_PENDINGS_SUCCESS:
       return {
         ...state,
         requestPendings: mapKeys(action.payload, '_id')
       }
 
-    case FETCH_ACCEPT_PENDINGS_SUCCESS:
+    case COMPANY_FETCH_ACCEPT_PENDINGS_SUCCESS:
       return {
         ...state,
         acceptPendings: mapKeys(action.payload, '_id')
       }
 
-    case FETCH_NOTIFICATIONS_SUCCESS:
+    case COMPANY_FETCH_NOTIFICATIONS_SUCCESS:
       return {
         ...state,
         notifications: action.payload
       }
 
-    case ADD_NOTIFICATION_SUCCESS:
+    case COMPANY_ADD_NOTIFICATION_SUCCESS:
       return {
         ...state,
         notifications: [
@@ -90,7 +90,7 @@ export default (state = initialState, action) => {
         ]
       }
 
-    case TOGGLE_NOTIFICATION_GEM:
+    case COMPANY_TOGGLE_NOTIFICATION_GEM:
       return {
         ...state,
         showNotificationGem: !state.showNotificationGem,
@@ -99,7 +99,7 @@ export default (state = initialState, action) => {
         showProfileMenu: false
       }
 
-    case TOGGLE_REQUEST_PENDING_GEM:
+    case COMPANY_TOGGLE_REQUEST_PENDING_GEM:
       return {
         ...state,
         showRequestPendingGem: !state.showRequestPendingGem,
@@ -108,7 +108,7 @@ export default (state = initialState, action) => {
         showProfileMenu: false
       }
 
-    case TOGGLE_ACCEPT_PENDING_GEM:
+    case COMPANY_TOGGLE_ACCEPT_PENDING_GEM:
       return {
         ...state,
         showAcceptPendingGem: !state.showAcceptPendingGem,
@@ -117,7 +117,7 @@ export default (state = initialState, action) => {
         showProfileMenu: false
       }
 
-    case TOGGLE_PROFILE_MENU:
+    case COMPANY_TOGGLE_PROFILE_MENU:
       return {
         ...state,
         showProfileMenu: !state.showProfileMenu,
@@ -126,7 +126,7 @@ export default (state = initialState, action) => {
         showNotificationGem: false
       }
 
-    case HIDE_ALL_GEM:
+    case COMPANY_HIDE_ALL_GEM:
       return {
         ...state,
         showNotificationGem: false,
@@ -135,7 +135,7 @@ export default (state = initialState, action) => {
         showProfileMenu: false
       }
 
-    case SIGN_OUT_SUCCESS:
+    case COMPANY_SIGN_OUT_SUCCESS:
       return {
         ...state,
         showProfileMenu: false
