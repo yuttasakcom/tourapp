@@ -35,7 +35,9 @@ class AuthForm extends PureComponent {
       authenticated,
       location
     } = this.props
-    const { from } = location.state || { from: { pathname: '/dashboard' } }
+    const { from } = location.state || {
+      from: { pathname: '/companies/dashboard' }
+    }
 
     if (authenticated) {
       return <Redirect to={from} />
