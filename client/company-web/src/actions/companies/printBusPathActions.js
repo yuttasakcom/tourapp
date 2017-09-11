@@ -5,8 +5,8 @@ import map from 'lodash/map'
 import axios from './axios'
 import { openCompanyReport } from '../../helpers'
 import {
-  FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS,
-  MANAGE_BUS_PATH
+  COMPANY_FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS,
+  COMPANY_MANAGE_BUS_PATH
 } from './types'
 
 export const printBusPaths = () => (dispatch, getState) => {
@@ -52,7 +52,7 @@ export const fetchBookingsHotelsSummaryAndBusPaths = (
       )
     ])
     dispatch({
-      type: FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS,
+      type: COMPANY_FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS,
       payload: {
         pkg,
         date,
@@ -66,6 +66,6 @@ export const fetchBookingsHotelsSummaryAndBusPaths = (
 }
 
 export const manageBusPath = (values, index) => ({
-  type: MANAGE_BUS_PATH,
+  type: COMPANY_MANAGE_BUS_PATH,
   payload: { values, index }
 })

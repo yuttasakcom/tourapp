@@ -4,14 +4,14 @@ import jwtDecode from 'jwt-decode'
 import axios from './axios'
 
 import {
-  SIGN_IN_SUCCESS,
-  SIGN_OUT_SUCCESS,
-  SIGN_UP_SUCCESS,
-  TOGGLE_PROFILE_MENU
+  COMPANY_SIGN_IN_SUCCESS,
+  COMPANY_SIGN_OUT_SUCCESS,
+  COMPANY_SIGN_UP_SUCCESS,
+  COMPANY_TOGGLE_PROFILE_MENU
 } from './types'
 
 export const toggleProfileMenu = () => {
-  return { type: TOGGLE_PROFILE_MENU }
+  return { type: COMPANY_TOGGLE_PROFILE_MENU }
 }
 
 const initAuth = token => {
@@ -28,7 +28,7 @@ export const signIn = values => async dispatch => {
       role: 'company'
     })
     const user = initAuth(token)
-    dispatch({ type: SIGN_IN_SUCCESS, payload: user })
+    dispatch({ type: COMPANY_SIGN_IN_SUCCESS, payload: user })
   } catch (e) {
     dispatch(
       error({
@@ -42,14 +42,14 @@ export const signIn = values => async dispatch => {
 export const signOut = () => {
   localStorage.clear()
   axios.defaults.headers.common['Authorization'] = ''
-  return { type: SIGN_OUT_SUCCESS }
+  return { type: COMPANY_SIGN_OUT_SUCCESS }
 }
 
 export const signUp = values => async dispatch => {
   try {
     const { data: { token } } = await axios.post('/signup', values)
     const user = initAuth(token)
-    dispatch({ type: SIGN_UP_SUCCESS, payload: user })
+    dispatch({ type: COMPANY_SIGN_UP_SUCCESS, payload: user })
   } catch (e) {
     dispatch(
       error({
