@@ -2,7 +2,7 @@ import {
   SIGN_IN_SUCCESS,
   SIGN_OUT_SUCCESS,
   SIGN_UP_SUCCESS
-} from '../../actions/agents/types'
+} from '../actions/types'
 
 const initialState = {
   authenticated: false,
