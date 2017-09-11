@@ -18,20 +18,23 @@ class AgentApp extends PureComponent {
     return (
       <Router history={history}>
         <Switch>
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
+          <Route path="/agents/signin" component={SignIn} />
+          <Route path="/agents/signup" component={SignUp} />
           <Layout>
             <Switch>
               <Route
-                path="/"
+                path="/agents/"
                 exact
-                component={() => <Redirect to="/dashboard" />}
+                component={() => <Redirect to="/agents/dashboard" />}
               />
-              <Route path="/dashboard" component={Dashboard} />
-              <Route path="/booking" component={Booking} />
-              <Route path="/manage-company" component={ManageCompany} />
-              <Route path="/manage-employee" component={ManageEmployee} />
-              <Route path="/manage-booking" component={ManageBooking} />
+              <Route path="/agents/dashboard" component={Dashboard} />
+              <Route path="/agents/booking" component={Booking} />
+              <Route path="/agents/manage-company" component={ManageCompany} />
+              <Route
+                path="/agents/manage-employee"
+                component={ManageEmployee}
+              />
+              <Route path="/agents/manage-booking" component={ManageBooking} />
               <Route component={NoMatch} />
             </Switch>
           </Layout>
