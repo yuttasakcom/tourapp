@@ -5,9 +5,10 @@ import MenuList from './MenuList'
 
 class MainMenu extends PureComponent {
   render() {
+    const { logo } = this.props
     return (
       <div className="sidebar" data-color="purple">
-        <Logo />
+        <Logo logo={logo} />
         <div className="sidebar-wrapper">
           <MenuList />
         </div>

@@ -5,7 +5,7 @@ class Logo extends PureComponent {
     return (
       <div className="logo">
         <a className="simple-text" style={{ color: '#FF0000' }}>
-          Company App
+          {this.props.logo}
         </a>
       </div>
     )

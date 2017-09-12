@@ -15,7 +15,7 @@ class Layout extends PureComponent {
   }
 
   render() {
-    const { authenticated } = this.props
+    const { authenticated, logo } = this.props
 
     if (!authenticated) {
       return <Redirect to="/signin" />
@@ -26,7 +26,7 @@ class Layout extends PureComponent {
       <div className={`${showMenu ? 'nav-open ' : ''}wrapper`}>
         <Notification />
         <Socket />
-        <MainMenu />
+        <MainMenu logo={logo} />
         <div className="main-panel">
           <Toolbar />
           <div
