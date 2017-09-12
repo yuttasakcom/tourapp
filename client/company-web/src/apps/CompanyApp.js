@@ -11,7 +11,7 @@ import PrintBusPath from '../pages/companies/printBusPath'
 import ManageBusPath from '../pages/companies/manageBusPath'
 import ManageTourPkg from '../pages/companies/manageTourPkg'
 import ManageAgent from '../pages/companies/manageAgent'
-import Layout from '../components/layout'
+import Layout from '../pages/companies/layout'
 
 class CompanyApp extends PureComponent {
   render() {
