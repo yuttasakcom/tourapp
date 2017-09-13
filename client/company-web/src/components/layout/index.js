@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 
 import MainMenu from './mainMenu'
 import Toolbar from './toolbar'
 import Notification from '../Notification'
 
-class Layout extends PureComponent {
+class Layout extends React.PureComponent {
   state = {
     showNotificationGem: false,
     showRequestPendingGem: false,
@@ -27,13 +27,25 @@ class Layout extends PureComponent {
 
   render() {
     const { logo, MenuList, children } = this.props
-    const { showMenu } = this.state
+    const {
+      showMenu,
+      showNotificationGem,
+      showRequestPendingGem,
+      showAcceptPendingGem,
+      showProfileMenu,
+      showViewAgentProfileModal
+    } = this.state
     return (
       <div className={`${showMenu ? 'nav-open ' : ''}wrapper`}>
         <Notification />
         <MainMenu logo={logo} MenuList={MenuList} />
         <div className="main-panel">
-          <Toolbar toggleMenu={() => this.setState({ showMenu: !showMenu })} />
+          <Toolbar
+            toggleMenu={() => this.setState({ showMenu: !showMenu })}
+            toggleProfileMenu={() =>
+              this.setState({ showProfileMenu: !showProfileMenu })}
+            showProfileMenu={showProfileMenu}
+          />
           <div
             className="content"
             style={{ marginTop: 30 }}
