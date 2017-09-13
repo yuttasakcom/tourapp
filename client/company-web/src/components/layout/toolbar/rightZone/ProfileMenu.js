@@ -44,11 +44,6 @@ class ProfileMenu extends PureComponent {
   }
 }
 
-const mapStateToProps = ({
-  auth: { user },
-  company: { notification: { showProfileMenu } }
-}) => {
-  return { user, showProfileMenu }
-}
+const mapStateToProps = ({ auth: { user } }) => ({ user })
 
 export default connect(mapStateToProps, actions)(ProfileMenu)
