@@ -4,7 +4,6 @@ import { withRouter, Redirect } from 'react-router-dom'
 
 import MainMenu from './mainMenu'
 import Toolbar from './toolbar'
-import Socket from './Socket'
 import Notification from '../Notification'
 import * as actions from '../../actions'
 
@@ -25,7 +24,6 @@ class Layout extends PureComponent {
     return (
       <div className={`${showMenu ? 'nav-open ' : ''}wrapper`}>
         <Notification />
-        <Socket />
         <MainMenu logo={logo} MenuList={MenuList} />
         <div className="main-panel">
           <Toolbar />
