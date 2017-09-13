@@ -8,7 +8,7 @@ class Toolbar extends PureComponent {
     return (
       <nav className="navbar navbar-transparent navbar-absolute">
         <div className="container-fluid">
-          <LeftZone />
+          <LeftZone toggleMenu={this.props.toggleMenu} />
           <RightZone />
         </div>
       </nav>

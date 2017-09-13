@@ -7,7 +7,7 @@ class LeftZone extends PureComponent {
   render() {
     return (
       <div className="navbar-header">
-        <ToggleNavigation />
+        <ToggleNavigation toggleMenu={this.props.toggleMenu} />
         <Title />
       </div>
     )
