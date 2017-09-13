@@ -3,16 +3,7 @@ import jwtDecode from 'jwt-decode'
 
 import axios from './companies/axios'
 
-import {
-  SIGN_IN_SUCCESS,
-  SIGN_OUT_SUCCESS,
-  SIGN_UP_SUCCESS,
-  TOGGLE_PROFILE_MENU
-} from './types'
-
-export const toggleProfileMenu = () => {
-  return { type: TOGGLE_PROFILE_MENU }
-}
+import { SIGN_IN_SUCCESS, SIGN_OUT_SUCCESS, SIGN_UP_SUCCESS } from './types'
 
 const initAuth = token => {
   const user = jwtDecode(token)
