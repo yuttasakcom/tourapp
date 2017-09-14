@@ -58,6 +58,8 @@ class Table extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ company: { companies } }) => ({ companies })
+const mapStateToProps = ({ agent: { company: { companies } } }) => ({
+  companies
+})
 
 export default connect(mapStateToProps, actions)(Table)
