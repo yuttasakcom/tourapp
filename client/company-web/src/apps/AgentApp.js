@@ -9,7 +9,7 @@ import Booking from '../pages/agents/booking'
 import ManageCompany from '../pages/agents/manageCompany'
 import ManageEmployee from '../pages/agents/manageEmployee'
 import ManageBooking from '../pages/agents/manageBooking'
-import Layout from '../components/layout'
+import Layout from '../pages/agents/layout'
 
 class AgentApp extends PureComponent {
   render() {
