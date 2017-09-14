@@ -7,12 +7,37 @@ import ProfileMenu from './ProfileMenu'
 import ViewProfileModal from './ViewProfileModal'
 
 class RightZone extends React.PureComponent {
+  state = {
+    showViewProfileModal: false
+  }
+
+  handleOpenViewProfileModal = acceptPendingId => {
+    this.setState({ showViewProfileModal: true })
+    this.props.openViewProfileModal(acceptPendingId)
+  }
+
   render() {
-    const { toggleProfileMenu, showProfileMenu } = this.props
+    const {
+      toggleProfileMenu,
+      showProfileMenu,
+      toggleAcceptPendingGem,
+      showAcceptPendingGem,
+      acceptPendings,
+      accept,
+      rejectRequest,
+      selectedProfile
+    } = this.props
     return (
       <div className="collapse navbar-collapse">
         <ul className="nav navbar-nav navbar-right">
-          <AcceptPending />
+          <AcceptPending
+            toggleAcceptPendingGem={toggleAcceptPendingGem}
+            showAcceptPendingGem={showAcceptPendingGem}
+            acceptPendings={acceptPendings}
+            accept={accept}
+            rejectRequest={rejectRequest}
+            openViewProfileModal={this.handleOpenViewProfileModal}
+          />
           <RequestPending />
           <Notification />
           <ProfileMenu
@@ -20,7 +45,13 @@ class RightZone extends React.PureComponent {
             showProfileMenu={showProfileMenu}
           />
         </ul>
-        <ViewProfileModal />
+        <ViewProfileModal
+          closeViewProfileModal={this.setState({ showViewProfileModal: false })}
+          showModal={this.state.showViewProfileModal}
+          profile={selectedProfile}
+          accept={accept}
+          rejectRequest={rejectRequest}
+        />
       </div>
     )
   }

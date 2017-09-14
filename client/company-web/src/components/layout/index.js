@@ -10,7 +10,6 @@ class Layout extends React.PureComponent {
     showRequestPendingGem: false,
     showAcceptPendingGem: false,
     showProfileMenu: false,
-    showViewProfileModal: false,
     showMenu: false
   }
 
@@ -20,20 +19,27 @@ class Layout extends React.PureComponent {
       showRequestPendingGem: false,
       showAcceptPendingGem: false,
       showProfileMenu: false,
-      showViewProfileModal: false,
       showMenu: false
     })
   }
 
   render() {
-    const { logo, MenuList, children } = this.props
+    const {
+      logo,
+      MenuList,
+      children,
+      acceptPendings,
+      accept,
+      rejectRequest,
+      selectedProfile,
+      openViewProfileModal
+    } = this.props
     const {
       showMenu,
       showNotificationGem,
       showRequestPendingGem,
       showAcceptPendingGem,
-      showProfileMenu,
-      showViewProfileModal
+      showProfileMenu
     } = this.state
     return (
       <div className={`${showMenu ? 'nav-open ' : ''}wrapper`}>
@@ -45,6 +51,14 @@ class Layout extends React.PureComponent {
             toggleProfileMenu={() =>
               this.setState({ showProfileMenu: !showProfileMenu })}
             showProfileMenu={showProfileMenu}
+            toggleAcceptPendingGem={() =>
+              this.setState({ showAcceptPendingGem: !showAcceptPendingGem })}
+            showAcceptPendingGem={showAcceptPendingGem}
+            acceptPendings={acceptPendings}
+            accept={accept}
+            rejectRequest={rejectRequest}
+            selectedProfile={selectedProfile}
+            openViewProfileModal={openViewProfileModal}
           />
           <div
             className="content"

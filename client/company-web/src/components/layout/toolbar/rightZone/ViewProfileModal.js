@@ -1,58 +1,44 @@
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
 
 import DisplayField from '../../../../components/DisplayField'
-import * as actions from '../../../../actions'
 
-class ViewProfileModal extends PureComponent {
+class ViewProfileModal extends React.PureComponent {
   render() {
     const {
-      closeViewAgentProfileModal,
+      closeViewProfileModal,
       showModal,
-      agent,
-      acceptAgent,
-      rejectRequestAgent,
-      fetchAgents
+      profile,
+      accept,
+      rejectRequest
     } = this.props
 
-    if (!agent) {
+    if (!profile) {
       return null
     }
 
     return (
-      <Modal show={showModal} onHide={closeViewAgentProfileModal}>
+      <Modal show={showModal} onHide={closeViewProfileModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Agent Profile</Modal.Title>
+          <Modal.Title>Profile</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <DisplayField label="Agent name" text={agent.name} />
-          <DisplayField label="Agent email" text={agent.email} />
+          <DisplayField label="name" text={profile.name} />
+          <DisplayField label="email" text={profile.email} />
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            bsStyle="info"
-            onClick={() => acceptAgent(agent._id, fetchAgents)}
-          >
+          <Button bsStyle="info" onClick={() => accept(profile._id)}>
             Accept
           </Button>
-          <Button
-            bsStyle="danger"
-            onClick={() => rejectRequestAgent(agent._id)}
-          >
+          <Button bsStyle="danger" onClick={() => rejectRequest(profile._id)}>
             Reject
           </Button>
-          <Button onClick={closeViewAgentProfileModal}>Close</Button>
+          <Button onClick={closeViewProfileModal}>Close</Button>
         </Modal.Footer>
       </Modal>
     )
   }
 }
 
-const mapStateToProps = ({ company: { notification } }) => ({
-  showModal: notification.showViewAgentProfileModal,
-  agent: notification.acceptPendings[notification.selectedAcceptPending]
-})
-
-export default connect(mapStateToProps, actions)(ViewProfileModal)
+export default ViewProfileModal

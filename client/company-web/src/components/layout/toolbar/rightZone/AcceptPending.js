@@ -1,41 +1,34 @@
 import map from 'lodash/map'
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 
 import Gem from './Gem'
-import * as actions from '../../../../actions/companies'
 
-class AcceptPending extends PureComponent {
-  componentDidMount() {
-    this.props.fetchAcceptPendings()
-  }
-
+class AcceptPending extends React.PureComponent {
   renderListItem = () => {
     const {
       acceptPendings,
-      acceptAgent,
-      rejectRequestAgent,
-      fetchAgents,
-      openViewAgentProfileModal
+      accept,
+      rejectRequest,
+      openViewProfileModal
     } = this.props
 
     return map(acceptPendings, acceptPending => (
       <li key={acceptPending._id} style={{ width: '200px' }}>
         <a
           style={{ cursor: 'pointer' }}
-          onClick={() => openViewAgentProfileModal(acceptPending._id)}
+          onClick={() => openViewProfileModal(acceptPending._id)}
         >
           {acceptPending.email}
         </a>
         <button
           className="btn btn-danger btn-sm pull-right"
-          onClick={() => rejectRequestAgent(acceptPending._id)}
+          onClick={() => rejectRequest(acceptPending._id)}
         >
           Reject
         </button>
         <button
           className="btn btn-info btn-sm pull-right"
-          onClick={() => acceptAgent(acceptPending._id, fetchAgents)}
+          onClick={() => accept(acceptPending._id)}
         >
           Accept
         </button>
@@ -61,10 +54,4 @@ class AcceptPending extends PureComponent {
   }
 }
 
-const mapStateToProps = ({
-  company: { notification: { showAcceptPendingGem, acceptPendings } }
-}) => {
-  return { showAcceptPendingGem, acceptPendings }
-}
-
-export default connect(mapStateToProps, actions)(AcceptPending)
+export default AcceptPending
