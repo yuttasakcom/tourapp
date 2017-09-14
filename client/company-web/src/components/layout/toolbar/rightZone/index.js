@@ -62,7 +62,8 @@ class RightZone extends React.PureComponent {
           />
         </ul>
         <ViewProfileModal
-          closeViewProfileModal={this.setState({ showViewProfileModal: false })}
+          closeViewProfileModal={() =>
+            this.setState({ showViewProfileModal: false })}
           showModal={this.state.showViewProfileModal}
           profile={selectedProfile}
           accept={accept}
