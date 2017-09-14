@@ -105,7 +105,7 @@ class ManageModal extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ booking }) => ({
+const mapStateToProps = ({ company: { booking } }) => ({
   showModal: booking.showManageBookingModal,
   booking: booking.bookings[booking.selectedBooking]
 })

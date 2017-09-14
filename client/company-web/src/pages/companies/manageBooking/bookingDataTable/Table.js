@@ -83,7 +83,7 @@ class Table extends PureComponent {
 }
 
 const mapStateToProps = ({
-  booking: { bookings, visibilityFilter: { status, date } }
+  company: { booking: { bookings, visibilityFilter: { status, date } } }
 }) => {
   return {
     bookings: filter(

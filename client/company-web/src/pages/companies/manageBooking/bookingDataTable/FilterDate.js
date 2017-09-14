@@ -11,7 +11,9 @@ class FilterDate extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ booking: { visibilityFilter: { date } } }) => ({
+const mapStateToProps = ({
+  company: { booking: { visibilityFilter: { date } } }
+}) => ({
   date
 })
 
