@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
-class MenuItem extends PureComponent {
+class MenuItem extends React.PureComponent {
   render() {
     const { path, icon, text, location: { pathname } } = this.props
     return (
