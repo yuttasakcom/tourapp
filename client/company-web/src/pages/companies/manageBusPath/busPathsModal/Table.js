@@ -82,7 +82,9 @@ class Table extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ busPath: { busPaths, selectedPkg } }) => ({
+const mapStateToProps = ({
+  company: { busPath: { busPaths, selectedPkg } }
+}) => ({
   busPaths,
   selectedPkg
 })

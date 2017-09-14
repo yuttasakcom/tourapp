@@ -29,7 +29,7 @@ class EditModal extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ busPath }) => ({
+const mapStateToProps = ({ company: { busPath } }) => ({
   showModal: busPath.showEditBusPathModal,
   busPath: busPath.busPaths[busPath.selectedBusPath]
 })

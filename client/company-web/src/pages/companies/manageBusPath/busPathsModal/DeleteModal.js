@@ -24,9 +24,7 @@ class DeleteModal extends PureComponent {
           <Modal.Title>Delete Bus Path</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>
-            Are you sure to delete bus path {busPath.name} ?
-          </h4>
+          <h4>Are you sure to delete bus path {busPath.name} ?</h4>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeDeleteBusPathModal}>No</Button>
@@ -39,7 +37,7 @@ class DeleteModal extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ busPath }) => ({
+const mapStateToProps = ({ company: { busPath } }) => ({
   showModal: busPath.showDeleteBusPathModal,
   busPath: busPath.busPaths[busPath.selectedBusPath]
 })

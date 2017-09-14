@@ -33,7 +33,7 @@ class AddModal extends PureComponent {
 }
 
 const mapStateToProps = ({
-  busPath: { showAddBusPathModal, selectedPkg }
+  company: { busPath: { showAddBusPathModal, selectedPkg } }
 }) => ({
   showModal: showAddBusPathModal,
   selectedPkg
