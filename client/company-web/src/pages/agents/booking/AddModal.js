@@ -43,7 +43,7 @@ class AddModal extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ booking }) => {
+const mapStateToProps = ({ agent: { booking } }) => {
   return {
     showModal: booking.showAddBookingModal,
     pkg: booking.pkgs[booking.selectedPkg]

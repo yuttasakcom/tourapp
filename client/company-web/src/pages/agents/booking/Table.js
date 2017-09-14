@@ -96,7 +96,7 @@ class Table extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ booking: { pkgs } }) => ({
+const mapStateToProps = ({ agent: { booking: { pkgs } } }) => ({
   pkgs: Object.values(pkgs).map(flat)
 })
 
