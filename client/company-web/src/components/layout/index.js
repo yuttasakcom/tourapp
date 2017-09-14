@@ -47,7 +47,11 @@ class Layout extends React.PureComponent {
     return (
       <div className={`${showMenu ? 'nav-open ' : ''}wrapper`}>
         <Notification />
-        <MainMenu logo={logo} MenuList={MenuList} />
+        <MainMenu
+          logo={logo}
+          MenuList={MenuList}
+          closeMenu={() => this.setState({ showMenu: false })}
+        />
         <div className="main-panel">
           <Toolbar
             toggleMenu={() => this.setState({ showMenu: !showMenu })}
