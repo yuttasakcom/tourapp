@@ -12,10 +12,10 @@ class AuthForm extends PureComponent {
   renderAlternativeLink() {
     let path, text
     if (this.props.title === 'Sign Up') {
-      path = '/signin'
+      path = '/companies/signin'
       text = 'Sign In'
     } else {
-      path = '/signup'
+      path = '/companies/signup'
       text = 'Sign Up'
     }
 
@@ -100,6 +100,6 @@ const mapStateToProps = ({ auth: { authenticated } }) => {
   return { authenticated }
 }
 
-export default reduxForm({ form: 'auth', validate })(
+export default reduxForm({ form: 'companyAuth', validate })(
   connect(mapStateToProps)(AuthForm)
 )
