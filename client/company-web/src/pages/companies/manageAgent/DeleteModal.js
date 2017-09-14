@@ -19,9 +19,7 @@ class DeleteModal extends PureComponent {
           <Modal.Title>Delete Agent</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>
-            Are you sure to delete agent {agent.email} ?
-          </h4>
+          <h4>Are you sure to delete agent {agent.email} ?</h4>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeDeleteAgentModal}>No</Button>
@@ -34,7 +32,7 @@ class DeleteModal extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ agent }) => ({
+const mapStateToProps = ({ company: { agent } }) => ({
   showModal: agent.showDeleteAgentModal,
   agent: agent.agents[agent.selectedAgent]
 })

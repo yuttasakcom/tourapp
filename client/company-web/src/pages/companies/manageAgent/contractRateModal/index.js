@@ -19,9 +19,7 @@ class ContractRateModal extends PureComponent {
     return (
       <Modal show={showModal} onHide={closeContractRateModal} bsSize="lg">
         <Modal.Header closeButton>
-          <Modal.Title>
-            Agent {agent.email} Contract Rate
-          </Modal.Title>
+          <Modal.Title>Agent {agent.email} Contract Rate</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Table />
@@ -36,7 +34,7 @@ class ContractRateModal extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ agent }) => {
+const mapStateToProps = ({ company: { agent } }) => {
   return {
     showModal: agent.showContractRateModal,
     agent: agent.agents[agent.selectedAgent]
