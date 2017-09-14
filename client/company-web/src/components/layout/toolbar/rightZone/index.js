@@ -27,8 +27,11 @@ class RightZone extends React.PureComponent {
       toggleRequestPendingGem,
       showRequestPendingGem,
       acceptPendings,
+      notifications,
+      requestPendings,
       accept,
       rejectRequest,
+      cancelRequest,
       selectedProfile
     } = this.props
     return (
@@ -45,10 +48,13 @@ class RightZone extends React.PureComponent {
           <RequestPending
             toggleRequestPendingGem={toggleRequestPendingGem}
             showRequestPendingGem={showRequestPendingGem}
+            requestPendings={requestPendings}
+            cancelRequest={cancelRequest}
           />
           <Notification
             toggleNotificationGem={toggleNotificationGem}
             showNotificationGem={showNotificationGem}
+            notifications={notifications}
           />
           <ProfileMenu
             toggleProfileMenu={toggleProfileMenu}

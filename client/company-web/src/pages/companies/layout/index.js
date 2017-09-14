@@ -9,6 +9,8 @@ import * as actions from '../../../actions/companies'
 class CompanyLayout extends React.PureComponent {
   componentDidMount() {
     this.props.fetchAcceptPendings()
+    this.props.fetchNotifications()
+    this.props.fetchRequestPendings()
   }
 
   handleAcceptAgent = acceptPendingId => {
@@ -20,7 +22,10 @@ class CompanyLayout extends React.PureComponent {
     const {
       children,
       acceptPendings,
+      notifications,
+      requestPendings,
       rejectRequestAgent,
+      cancelRequestAgent,
       openViewAgentProfileModal,
       selectedProfile
     } = this.props
@@ -29,8 +34,11 @@ class CompanyLayout extends React.PureComponent {
         logo="COMPANY APP"
         MenuList={MenuList}
         acceptPendings={acceptPendings}
+        notifications={notifications}
+        requestPendings={requestPendings}
         accept={this.handleAcceptAgent}
         rejectRequest={rejectRequestAgent}
+        cancelRequest={cancelRequestAgent}
         selectedProfile={selectedProfile}
         openViewProfileModal={openViewAgentProfileModal}
       >
@@ -42,9 +50,18 @@ class CompanyLayout extends React.PureComponent {
 }
 
 const mapStateToProps = ({
-  company: { notification: { acceptPendings, selectedAcceptPending } }
+  company: {
+    notification: {
+      acceptPendings,
+      notifications,
+      requestPendings,
+      selectedAcceptPending
+    }
+  }
 }) => ({
   acceptPendings,
+  notifications,
+  requestPendings,
   selectedProfile: acceptPendings[selectedAcceptPending]
 })
 

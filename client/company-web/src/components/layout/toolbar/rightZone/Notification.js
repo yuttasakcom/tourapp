@@ -1,14 +1,8 @@
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 
 import Gem from './Gem'
-import * as actions from '../../../../actions/companies'
 
-class Notification extends PureComponent {
-  componentDidMount() {
-    this.props.fetchNotifications()
-  }
-
+class Notification extends React.PureComponent {
   renderListItem = () => {
     return this.props.notifications.map((notification, index) => (
       <li key={index}>
@@ -35,10 +29,4 @@ class Notification extends PureComponent {
   }
 }
 
-const mapStateToProps = ({
-  company: { notification: { showNotificationGem, notifications } }
-}) => {
-  return { showNotificationGem, notifications }
-}
-
-export default connect(mapStateToProps, actions)(Notification)
+export default Notification

@@ -1,23 +1,17 @@
 import map from 'lodash/map'
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 
 import Gem from './Gem'
-import * as actions from '../../../../actions/companies'
 
-class RequestPending extends PureComponent {
-  componentDidMount() {
-    this.props.fetchRequestPendings()
-  }
-
+class RequestPending extends React.PureComponent {
   renderListItem = () => {
-    const { requestPendings, cancelRequestAgent } = this.props
+    const { requestPendings, cancelRequest } = this.props
     return map(requestPendings, requestPending => (
       <li key={requestPending._id} style={{ width: '200px' }}>
         <a>{requestPending.email}</a>
         <button
           className="btn btn-danger btn-sm pull-right"
-          onClick={() => cancelRequestAgent(requestPending)}
+          onClick={() => cancelRequest(requestPending)}
         >
           Cancel
         </button>
@@ -43,10 +37,4 @@ class RequestPending extends PureComponent {
   }
 }
 
-const mapStateToProps = ({
-  company: { notification: { showRequestPendingGem, requestPendings } }
-}) => {
-  return { showRequestPendingGem, requestPendings }
-}
-
-export default connect(mapStateToProps, actions)(RequestPending)
+export default RequestPending

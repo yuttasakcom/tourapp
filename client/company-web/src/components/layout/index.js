@@ -29,8 +29,11 @@ class Layout extends React.PureComponent {
       MenuList,
       children,
       acceptPendings,
+      notifications,
+      requestPendings,
       accept,
       rejectRequest,
+      cancelRequest,
       selectedProfile,
       openViewProfileModal
     } = this.props
@@ -55,6 +58,8 @@ class Layout extends React.PureComponent {
               this.setState({ showAcceptPendingGem: !showAcceptPendingGem })}
             showAcceptPendingGem={showAcceptPendingGem}
             acceptPendings={acceptPendings}
+            notifications={notifications}
+            requestPendings={requestPendings}
             accept={accept}
             rejectRequest={rejectRequest}
             selectedProfile={selectedProfile}
@@ -66,6 +71,7 @@ class Layout extends React.PureComponent {
               this.setState({
                 showRequestPendingGem: !showRequestPendingGem
               })}
+            cancelRequest={cancelRequest}
           />
           <div
             className="content"
