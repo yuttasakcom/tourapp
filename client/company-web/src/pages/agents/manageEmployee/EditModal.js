@@ -28,7 +28,7 @@ class EditModal extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ employee }) => ({
+const mapStateToProps = ({ agent: { employee } }) => ({
   showModal: employee.showEditEmployeeModal,
   employee: employee.employees[employee.selectedEmployee]
 })

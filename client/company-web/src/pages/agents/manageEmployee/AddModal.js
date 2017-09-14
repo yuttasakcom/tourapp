@@ -27,7 +27,7 @@ class AddModal extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  showModal: state.employee.showAddEmployeeModal
+  showModal: state.agent.employee.showAddEmployeeModal
 })
 
 export default connect(mapStateToProps, actions)(AddModal)
