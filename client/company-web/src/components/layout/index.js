@@ -2,7 +2,7 @@ import React from 'react'
 
 import MainMenu from './mainMenu'
 import Toolbar from './toolbar'
-import Notification from '../Notification'
+import Notification from '../../containers/Notification'
 
 class Layout extends React.PureComponent {
   state = {
