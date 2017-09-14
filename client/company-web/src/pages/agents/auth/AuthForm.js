@@ -5,7 +5,7 @@ import { Link, Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/lib/Button'
 
 import Card from '../../../components/Card'
-import Notification from '../../../components/Notification'
+import Notification from '../../../containers/Notification'
 import renderField from '../../../components/renderField'
 
 class AuthForm extends PureComponent {
@@ -35,7 +35,9 @@ class AuthForm extends PureComponent {
       authenticated,
       location
     } = this.props
-    const { from } = location.state || { from: { pathname: '/agents/dashboard' } }
+    const { from } = location.state || {
+      from: { pathname: '/agents/dashboard' }
+    }
 
     if (authenticated) {
       return <Redirect to={from} />
