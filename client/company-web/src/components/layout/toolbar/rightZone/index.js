@@ -22,6 +22,10 @@ class RightZone extends React.PureComponent {
       showProfileMenu,
       toggleAcceptPendingGem,
       showAcceptPendingGem,
+      toggleNotificationGem,
+      showNotificationGem,
+      toggleRequestPendingGem,
+      showRequestPendingGem,
       acceptPendings,
       accept,
       rejectRequest,
@@ -38,8 +42,14 @@ class RightZone extends React.PureComponent {
             rejectRequest={rejectRequest}
             openViewProfileModal={this.handleOpenViewProfileModal}
           />
-          <RequestPending />
-          <Notification />
+          <RequestPending
+            toggleRequestPendingGem={toggleRequestPendingGem}
+            showRequestPendingGem={showRequestPendingGem}
+          />
+          <Notification
+            toggleNotificationGem={toggleNotificationGem}
+            showNotificationGem={showNotificationGem}
+          />
           <ProfileMenu
             toggleProfileMenu={toggleProfileMenu}
             showProfileMenu={showProfileMenu}

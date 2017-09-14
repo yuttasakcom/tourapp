@@ -59,6 +59,13 @@ class Layout extends React.PureComponent {
             rejectRequest={rejectRequest}
             selectedProfile={selectedProfile}
             openViewProfileModal={openViewProfileModal}
+            toggleNotificationGem={() =>
+              this.setState({ showNotificationGem: !showNotificationGem })}
+            showNotificationGem={showNotificationGem}
+            toggleRequestPendingGem={() =>
+              this.setState({
+                showRequestPendingGem: !showRequestPendingGem
+              })}
           />
           <div
             className="content"

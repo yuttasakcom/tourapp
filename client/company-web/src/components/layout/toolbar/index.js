@@ -11,6 +11,10 @@ class Toolbar extends React.PureComponent {
       showProfileMenu,
       toggleAcceptPendingGem,
       showAcceptPendingGem,
+      toggleNotificationGem,
+      showNotificationGem,
+      toggleRequestPendingGem,
+      showRequestPendingGem,
       acceptPendings,
       accept,
       rejectRequest,
@@ -31,6 +35,10 @@ class Toolbar extends React.PureComponent {
             rejectRequest={rejectRequest}
             selectedProfile={selectedProfile}
             openViewProfileModal={openViewProfileModal}
+            toggleNotificationGem={toggleNotificationGem}
+            showNotificationGem={showNotificationGem}
+            toggleRequestPendingGem={toggleRequestPendingGem}
+            showRequestPendingGem={showRequestPendingGem}
           />
         </div>
       </nav>
