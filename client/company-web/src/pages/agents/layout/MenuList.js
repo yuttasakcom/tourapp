@@ -8,7 +8,11 @@ class MenuList extends React.PureComponent {
       <ul className="nav">
         <MenuItem icon="dashboard" path="/agents/dashboard" text="แดชบอร์ด" />
         <MenuItem icon="book" path="/agents/booking" text="จอง" />
-        <MenuItem icon="assignment" path="/agents/manage-booking" text="จอง" />
+        <MenuItem
+          icon="assignment"
+          path="/agents/manage-booking"
+          text="จัดการการจอง"
+        />
         <MenuItem
           icon="group"
           path="/agents/manage-employee"
