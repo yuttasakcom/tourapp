@@ -23,14 +23,10 @@ class ResetPriceModal extends PureComponent {
     return (
       <Modal show={showModal} onHide={closeResetPriceModal}>
         <Modal.Header closeButton>
-          <Modal.Title>
-            Reset Price Package {pkg.name}
-          </Modal.Title>
+          <Modal.Title>Reset Price Package {pkg.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>
-            Are you sure to reset price package {pkg.name} ?
-          </h4>
+          <h4>Are you sure to reset price package {pkg.name} ?</h4>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeResetPriceModal}>No</Button>
@@ -46,7 +42,7 @@ class ResetPriceModal extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ agent }) => ({
+const mapStateToProps = ({ company: { agent } }) => ({
   showModal: agent.showResetPriceModal,
   pkg: agent.selectedAgentContractRates[agent.selectedOfferSpecialPricePkg],
   agentId: agent.selectedAgent

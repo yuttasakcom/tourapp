@@ -74,7 +74,7 @@ class Table extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ agent }) => ({
+const mapStateToProps = ({ company: { agent } }) => ({
   contractRates: agent.selectedAgentContractRates
 })
 

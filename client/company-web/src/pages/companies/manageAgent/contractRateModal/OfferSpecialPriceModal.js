@@ -21,9 +21,7 @@ class OfferSpecialPriceModal extends PureComponent {
     return (
       <Modal show={showModal} onHide={closeOfferSpecialPriceModal}>
         <Modal.Header closeButton>
-          <Modal.Title>
-            Offer Special Price {pkg.name}
-          </Modal.Title>
+          <Modal.Title>Offer Special Price {pkg.name}</Modal.Title>
         </Modal.Header>
         <OfferSpecialPriceForm
           onSubmit={this.onSubmit}
@@ -35,7 +33,7 @@ class OfferSpecialPriceModal extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ agent }) => ({
+const mapStateToProps = ({ company: { agent } }) => ({
   showModal: agent.showOfferSpecialPriceModal,
   pkg: agent.selectedAgentContractRates[agent.selectedOfferSpecialPricePkg],
   agentId: agent.selectedAgent
