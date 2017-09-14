@@ -28,8 +28,7 @@ class FilterPkg extends PureComponent {
 }
 
 const mapStateToProps = ({
-  pkg: { pkgs },
-  printBusPath: { visibilityFilter: { date, pkg } }
+  company: { pkg: { pkgs }, printBusPath: { visibilityFilter: { date, pkg } } }
 }) => ({
   pkgs: map(pkgs, pkg => ({
     value: pkg._id,

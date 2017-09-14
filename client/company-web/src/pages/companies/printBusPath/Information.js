@@ -39,7 +39,7 @@ class Information extends PureComponent {
 }
 
 const mapStateToProps = ({
-  printBusPath: { bookingsHotelsSummary, hotelsSelects }
+  company: { printBusPath: { bookingsHotelsSummary, hotelsSelects } }
 }) => {
   const selectedHotels = flow(
     map('values'),

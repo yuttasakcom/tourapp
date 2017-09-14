@@ -8,7 +8,7 @@ import * as actions from '../../../actions/companies'
 class BusPathList extends PureComponent {
   renderBusPathList() {
     const { hotelsSelects, manageBusPath } = this.props
-    return map(hotelsSelects, ({ options, values, busPathName }, index) =>
+    return map(hotelsSelects, ({ options, values, busPathName }, index) => (
       <BusPathItem
         options={options}
         value={values}
@@ -16,19 +16,15 @@ class BusPathList extends PureComponent {
         pathName={busPathName}
         onChange={vals => manageBusPath(vals, index)}
       />
-    )
+    ))
   }
 
   render() {
-    return (
-      <div className="row">
-        {this.renderBusPathList()}
-      </div>
-    )
+    return <div className="row">{this.renderBusPathList()}</div>
   }
 }
 
-const mapStateToProps = ({ printBusPath: { hotelsSelects } }) => ({
+const mapStateToProps = ({ company: { printBusPath: { hotelsSelects } } }) => ({
   hotelsSelects: map(hotelsSelects, hotelsSelect => ({
     options: map(hotelsSelect.options, hotel => ({
       value: hotel._id,
