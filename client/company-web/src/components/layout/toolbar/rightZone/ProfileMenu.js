@@ -6,7 +6,16 @@ import * as actions from '../../../../actions'
 
 class ProfileMenu extends React.PureComponent {
   render() {
-    const { user, signOut, showProfileMenu, toggleProfileMenu } = this.props
+    const {
+      user,
+      authenticated,
+      signOut,
+      showProfileMenu,
+      toggleProfileMenu
+    } = this.props
+    if (!authenticated) {
+      return null
+    }
     const { _id, sub, role } = user
     return (
       <li className={`dropdown${showProfileMenu ? ' open' : ''}`}>
@@ -44,6 +53,9 @@ class ProfileMenu extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({ auth: { user } }) => ({ user })
+const mapStateToProps = ({ auth: { authenticated, user } }) => ({
+  authenticated,
+  user
+})
 
 export default connect(mapStateToProps, actions)(ProfileMenu)
