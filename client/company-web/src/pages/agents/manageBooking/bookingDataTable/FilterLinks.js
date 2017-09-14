@@ -63,7 +63,7 @@ class FilterLinks extends PureComponent {
 }
 
 const mapStateToProps = ({
-  manageBooking: { visibilityFilter: { status }, bookings }
+  agent: { manageBooking: { visibilityFilter: { status }, bookings } }
 }) => {
   return {
     status,

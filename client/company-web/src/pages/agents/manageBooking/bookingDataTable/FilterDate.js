@@ -12,7 +12,7 @@ class FilterDate extends PureComponent {
 }
 
 const mapStateToProps = ({
-  manageBooking: { visibilityFilter: { date } }
+  agent: { manageBooking: { visibilityFilter: { date } } }
 }) => ({ date })
 
 export default connect(mapStateToProps, actions)(FilterDate)
