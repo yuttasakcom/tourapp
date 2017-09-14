@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
 import * as actions from '../../../actions/agents'
 
-class Table extends PureComponent {
+class Table extends React.PureComponent {
   componentDidMount() {
     this.props.fetchDashboard()
   }
@@ -62,7 +62,7 @@ class Table extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ dashboard: { bookingsSummary } }) => ({
+const mapStateToProps = ({ agent: { dashboard: { bookingsSummary } } }) => ({
   bookingsSummary
 })
 
