@@ -63,7 +63,7 @@ class Table extends PureComponent {
 }
 
 const mapStateToProps = ({
-  bookingSummary: { bookingsSummary, visibilityFilter: { date } }
+  company: { bookingSummary: { bookingsSummary, visibilityFilter: { date } } }
 }) => ({ bookingsSummary, date })
 
 export default connect(mapStateToProps, actions)(Table)

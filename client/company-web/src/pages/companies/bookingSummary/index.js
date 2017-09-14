@@ -43,7 +43,7 @@ class BookingSummary extends PureComponent {
 }
 
 const mapStateToProps = ({
-  bookingSummary: { visibilityFilter: { date } }
+  company: { bookingSummary: { visibilityFilter: { date } } }
 }) => ({ date })
 
 export default connect(mapStateToProps)(BookingSummary)
