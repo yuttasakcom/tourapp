@@ -100,6 +100,6 @@ const mapStateToProps = ({ auth: { authenticated } }) => {
   return { authenticated }
 }
 
-export default reduxForm({ form: 'auth', validate })(
+export default reduxForm({ form: 'agentAuth', validate })(
   connect(mapStateToProps)(AuthForm)
 )
