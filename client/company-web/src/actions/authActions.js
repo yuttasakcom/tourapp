@@ -1,7 +1,7 @@
 import { error } from 'react-notification-system-redux'
 import jwtDecode from 'jwt-decode'
 
-import axios from './companies/axios'
+import axios from './agents/axios'
 
 import { SIGN_IN_SUCCESS, SIGN_OUT_SUCCESS, SIGN_UP_SUCCESS } from './types'
 
@@ -16,7 +16,7 @@ export const signIn = values => async dispatch => {
   try {
     const { data: { token } } = await axios.post('/signin', {
       ...values,
-      role: 'company'
+      role: 'agent'
     })
     const user = initAuth(token)
     dispatch({ type: SIGN_IN_SUCCESS, payload: user })
