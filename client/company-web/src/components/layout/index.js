@@ -10,7 +10,7 @@ class Layout extends React.PureComponent {
     showRequestPendingGem: false,
     showAcceptPendingGem: false,
     showProfileMenu: false,
-    showViewAgentProfileModal: false,
+    showViewProfileModal: false,
     showMenu: false
   }
 
@@ -20,7 +20,7 @@ class Layout extends React.PureComponent {
       showRequestPendingGem: false,
       showAcceptPendingGem: false,
       showProfileMenu: false,
-      showViewAgentProfileModal: false,
+      showViewProfileModal: false,
       showMenu: false
     })
   }
@@ -33,7 +33,7 @@ class Layout extends React.PureComponent {
       showRequestPendingGem,
       showAcceptPendingGem,
       showProfileMenu,
-      showViewAgentProfileModal
+      showViewProfileModal
     } = this.state
     return (
       <div className={`${showMenu ? 'nav-open ' : ''}wrapper`}>
