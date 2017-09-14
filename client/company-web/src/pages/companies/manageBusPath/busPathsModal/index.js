@@ -24,9 +24,7 @@ class ManageBusPath extends PureComponent {
     return (
       <Modal show={showModal} onHide={closeBusPathsModal} bsSize="lg">
         <Modal.Header closeButton>
-          <Modal.Title>
-            Bus paths for package {pkg.name}
-          </Modal.Title>
+          <Modal.Title>Bus paths for package {pkg.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="row">
@@ -55,8 +53,7 @@ class ManageBusPath extends PureComponent {
 }
 
 const mapStateToProps = ({
-  busPath: { showBusPathsModal, selectedPkg },
-  pkg: { pkgs }
+  company: { busPath: { showBusPathsModal, selectedPkg }, pkg: { pkgs } }
 }) => ({
   showModal: showBusPathsModal,
   pkg: pkgs[selectedPkg]
