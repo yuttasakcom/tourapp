@@ -1,13 +1,11 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 class MenuItem extends PureComponent {
   render() {
-    const { path, icon, currentPath, text } = this.props
-
+    const { path, icon, text, location: { pathname } } = this.props
     return (
-      <li className={path === currentPath ? 'active' : ''}>
+      <li className={path === pathname ? 'active' : ''}>
         <Link to={path}>
           <i className="material-icons">{icon}</i>
           <p>{text}</p>
@@ -17,8 +15,4 @@ class MenuItem extends PureComponent {
   }
 }
 
-const mapStateToProps = state => {
-  return { currentPath: state.router.location.pathname }
-}
-
-export default connect(mapStateToProps)(MenuItem)
+export default withRouter(MenuItem)
