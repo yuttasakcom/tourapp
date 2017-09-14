@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import { reducer as form } from 'redux-form'
 import { reducer as notifications } from 'react-notification-system-redux'
 
 import pkg from './pkgReducer'
@@ -13,7 +12,6 @@ import busPath from './busPathReducer'
 
 export default combineReducers({
   notifications,
-  form,
   pkg,
   agent,
   notification,
