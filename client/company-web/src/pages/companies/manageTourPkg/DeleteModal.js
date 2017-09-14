@@ -19,9 +19,7 @@ class DeleteModal extends PureComponent {
           <Modal.Title>Delete Tour Package</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>
-            Are you sure to delete package {pkg.name} ?
-          </h4>
+          <h4>Are you sure to delete package {pkg.name} ?</h4>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeDeletePkgModal}>No</Button>
@@ -34,7 +32,7 @@ class DeleteModal extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ pkg }) => ({
+const mapStateToProps = ({ company: { pkg } }) => ({
   showModal: pkg.showDeletePkgModal,
   pkg: pkg.pkgs[pkg.selectedPkg]
 })

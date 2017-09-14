@@ -103,6 +103,6 @@ class Table extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ pkg: { pkgs } }) => ({ pkgs })
+const mapStateToProps = ({ company: { pkg: { pkgs } } }) => ({ pkgs })
 
 export default connect(mapStateToProps, actions)(Table)

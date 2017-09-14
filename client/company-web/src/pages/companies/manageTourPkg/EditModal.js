@@ -27,7 +27,7 @@ class EditModal extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ pkg }) => ({
+const mapStateToProps = ({ company: { pkg } }) => ({
   showModal: pkg.showEditPkgModal,
   pkg: pkg.pkgs[pkg.selectedPkg]
 })
