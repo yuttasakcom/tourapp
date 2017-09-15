@@ -2,6 +2,11 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
+  "proxy": {
+    "/api/*": {
+      "target": "https://localhost:4000"
+    }
+  },
   "dependencies": {
     "axios": "^0.16.2",
     "bootstrap": "^3.3.7",
