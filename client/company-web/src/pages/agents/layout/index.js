@@ -32,6 +32,7 @@ class AgentLayout extends React.PureComponent {
     return (
       <Layout
         logo="AGENT APP"
+        title="Agent App"
         MenuList={MenuList}
         acceptPendings={acceptPendings}
         notifications={notifications}

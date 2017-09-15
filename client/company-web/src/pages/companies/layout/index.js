@@ -32,6 +32,7 @@ class CompanyLayout extends React.PureComponent {
     return (
       <Layout
         logo="COMPANY APP"
+        title="Company App"
         MenuList={MenuList}
         acceptPendings={acceptPendings}
         notifications={notifications}

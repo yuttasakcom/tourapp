@@ -1,4 +1,5 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 
 import MainMenu from './mainMenu'
 import Toolbar from './toolbar'
@@ -26,6 +27,7 @@ class Layout extends React.PureComponent {
   render() {
     const {
       logo,
+      title,
       MenuList,
       children,
       acceptPendings,
@@ -46,6 +48,9 @@ class Layout extends React.PureComponent {
     } = this.state
     return (
       <div className={`${showMenu ? 'nav-open ' : ''}wrapper`}>
+        <Helmet>
+          <title>{title}</title>
+        </Helmet>
         <Notification />
         <MainMenu
           logo={logo}
