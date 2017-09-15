@@ -10,12 +10,12 @@ import {
 } from './types'
 
 export const printBusPaths = () => (dispatch, getState) => {
-  const { visibilityFilter: { date, pkg } } = getState().printBusPath
+  const { visibilityFilter: { date, pkg } } = getState().company.printBusPath
   openCompanyReport(`bus-paths-summary/${date}?pkgId=${pkg.value}`)
 }
 
 export const updateBusPaths = () => async (dispatch, getState) => {
-  const { hotelsSelects } = getState().printBusPath
+  const { hotelsSelects } = getState().company.printBusPath
   const busPathsProps = map(hotelsSelects, hotelsSelect => ({
     busPathId: hotelsSelect.busPathId,
     hotelIds: map(hotelsSelect.values, 'value'),
