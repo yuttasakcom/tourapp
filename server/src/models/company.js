@@ -55,6 +55,4 @@ const companySchema = new Schema({
   employees: [employeeSchema]
 })
 
-const Company = mongoose.model('Company', companySchema)
-
-module.exports = Company
+mongoose.model('Company', companySchema)
