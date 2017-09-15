@@ -33,13 +33,14 @@ class AuthForm extends PureComponent {
       title,
       description,
       authenticated,
+      user,
       location
     } = this.props
     const { from } = location.state || {
       from: { pathname: '/agents/dashboard' }
     }
 
-    if (authenticated) {
+    if (authenticated && user.role === 'agent') {
       return <Redirect to={from} />
     }
 
@@ -96,9 +97,10 @@ const validate = values => {
   return errors
 }
 
-const mapStateToProps = ({ auth: { authenticated } }) => {
-  return { authenticated }
-}
+const mapStateToProps = ({ auth: { authenticated, user } }) => ({
+  authenticated,
+  user
+})
 
 export default reduxForm({ form: 'agentAuth', validate })(
   connect(mapStateToProps)(AuthForm)
