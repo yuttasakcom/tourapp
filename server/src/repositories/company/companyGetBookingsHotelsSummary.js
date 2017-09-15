@@ -1,11 +1,17 @@
-const ObjectId = require('mongoose').Types.ObjectId
+const mongoose = require('mongoose')
 const moment = require('moment')
-const Booking = require('../../models/booking')
-const Hotel = require('../../models/hotel')
+
+const ObjectId = mongoose.Types.ObjectId
+const Booking = mongoose.model('Booking')
+const Hotel = mongoose.model('Hotel')
 
 module.exports = async (companyId, pkgId, dateStart, dateEnd) => {
-  const gteDate = moment(parseInt(dateStart, 10)).startOf('d').toDate()
-  const ltDate = moment(parseInt(dateEnd, 10)).startOf('d').toDate()
+  const gteDate = moment(parseInt(dateStart, 10))
+    .startOf('d')
+    .toDate()
+  const ltDate = moment(parseInt(dateEnd, 10))
+    .startOf('d')
+    .toDate()
   const results = await Booking.aggregate([
     {
       $match: {

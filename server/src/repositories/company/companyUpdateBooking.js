@@ -1,4 +1,4 @@
-const Booking = require('../../models/booking')
+const Booking = require('mongoose').model('Booking')
 
 module.exports = (bookingId, bookingProps) =>
   Booking.findOneAndUpdate(

@@ -1,5 +1,7 @@
-const Company = require('../../models/company')
-const Agent = require('../../models/agent')
+const mongoose = require('mongoose')
+
+const Company = mongoose.model('Company')
+const Agent = mongoose.model('Agent')
 
 module.exports = (companyId, agentId) =>
   Promise.all([

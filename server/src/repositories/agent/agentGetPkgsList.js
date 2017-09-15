@@ -1,5 +1,7 @@
-const Agent = require('../../models/agent')
-const Pkg = require('../../models/pkg')
+const mongoose = require('mongoose')
+
+const Agent = mongoose.model('Agent')
+const Pkg = mongoose.model('Pkg')
 
 module.exports = async agentId => {
   const agent = await Agent.findById(agentId, {

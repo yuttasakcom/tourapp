@@ -1,13 +1,19 @@
 const moment = require('moment')
 const { flow, map, includes, forEach, toString, groupBy } = require('lodash/fp')
 const { take } = require('lodash')
+const mongoose = require('mongoose')
 
-const BusPath = require('../../models/busPath')
-const Booking = require('../../models/booking')
+const BusPath = mongoose.model('BusPath')
+const Booking = mongoose.model('Booking')
 
 module.exports = async (companyId, date, pkgId) => {
-  const gteDate = moment(parseInt(date, 10)).startOf('d').toDate()
-  const ltDate = moment(parseInt(date, 10)).add(1, 'd').startOf('d').toDate()
+  const gteDate = moment(parseInt(date, 10))
+    .startOf('d')
+    .toDate()
+  const ltDate = moment(parseInt(date, 10))
+    .add(1, 'd')
+    .startOf('d')
+    .toDate()
   const [busPaths, bookings] = await Promise.all([
     BusPath.find({
       company: companyId,
@@ -38,7 +44,6 @@ module.exports = async (companyId, date, pkgId) => {
     groupBy('busPathName')
   )(bookings)
   const booking = take(bookings)
-  console.log(booking)
   const pkgName = booking.length ? booking[0].pkg.name : 'ไม่พบรายการใดๆ'
   return { busPathsSummary, pkgName }
 }

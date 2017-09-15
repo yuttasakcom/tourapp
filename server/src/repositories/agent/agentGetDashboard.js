@@ -1,5 +1,7 @@
-const ObjectId = require('mongoose').Types.ObjectId
-const Booking = require('../../models/booking')
+const mongoose = require('mongoose')
+
+const ObjectId = mongoose.Types.ObjectId
+const Booking = mongoose.model('Booking')
 
 module.exports = agentId =>
   Booking.aggregate([

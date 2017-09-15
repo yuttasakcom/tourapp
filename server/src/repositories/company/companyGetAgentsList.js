@@ -1,4 +1,4 @@
-const Company = require('../../models/company')
+const Company = require('mongoose').model('Company')
 
 module.exports = async companyId => {
   const { agents } = await Company.findById(companyId, {

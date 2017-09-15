@@ -1,4 +1,4 @@
-const Agent = require('../../models/agent')
+const Agent = require('mongoose').model('Agent')
 
 module.exports = async (agentId, companyId) => {
   const { nModified } = await Agent.update(

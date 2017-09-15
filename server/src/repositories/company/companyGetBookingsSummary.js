@@ -1,10 +1,16 @@
-const ObjectId = require('mongoose').Types.ObjectId
+const mongoose = require('mongoose')
 const moment = require('moment')
-const Booking = require('../../models/booking')
+
+const ObjectId = mongoose.Types.ObjectId
+const Booking = mongoose.model('Booking')
 
 module.exports = (companyId, dateStart, dateEnd) => {
-  const gteDate = moment(parseInt(dateStart, 10)).startOf('d').toDate()
-  const ltDate = moment(parseInt(dateEnd, 10)).startOf('d').toDate()
+  const gteDate = moment(parseInt(dateStart, 10))
+    .startOf('d')
+    .toDate()
+  const ltDate = moment(parseInt(dateEnd, 10))
+    .startOf('d')
+    .toDate()
   return Booking.aggregate([
     {
       $match: {
