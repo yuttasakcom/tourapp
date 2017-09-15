@@ -11,6 +11,8 @@ import Apps from './apps'
 import store from './store'
 import { SIGN_IN_SUCCESS } from './actions/types'
 
+import './resources/css/material-icons.css'
+import './resources/css/roboto-font.css'
 import 'font-awesome/css/font-awesome.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './resources/css/material-dashboard.css'
