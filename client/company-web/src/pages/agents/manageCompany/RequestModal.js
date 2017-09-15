@@ -28,7 +28,7 @@ class RequestModal extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  showModal: state.company.showRequestCompanyModal
+  showModal: state.agent.company.showRequestCompanyModal
 })
 
 export default connect(mapStateToProps, actions)(RequestModal)
