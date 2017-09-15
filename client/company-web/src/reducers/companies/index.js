@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import { reducer as notifications } from 'react-notification-system-redux'
 
 import pkg from './pkgReducer'
 import agent from './agentReducer'
@@ -11,7 +10,6 @@ import printBusPath from './printBusPathReducer/index'
 import busPath from './busPathReducer'
 
 export default combineReducers({
-  notifications,
   pkg,
   agent,
   notification,
