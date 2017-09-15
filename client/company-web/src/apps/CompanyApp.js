@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
+import PrivateRoute from '../containers/PrivateRoute'
 import NoMatch from '../components/NoMatch'
 import SignIn from '../pages/companies/auth/SignIn'
 import SignUp from '../pages/companies/auth/SignUp'
@@ -21,27 +22,47 @@ class CompanyApp extends PureComponent {
         <Route path="/companies/signup" component={SignUp} />
         <Layout>
           <Switch>
-            <Route
+            <PrivateRoute
+              userRole="company"
               path="/companies"
               exact
               component={() => <Redirect to="/companies/dashboard" />}
             />
-            <Route path="/companies/dashboard" component={Dashboard} />
-            <Route path="/companies/manage-booking" component={ManageBooking} />
-            <Route
+            <PrivateRoute
+              userRole="company"
+              path="/companies/dashboard"
+              component={Dashboard}
+            />
+            <PrivateRoute
+              userRole="company"
+              path="/companies/manage-booking"
+              component={ManageBooking}
+            />
+            <PrivateRoute
+              userRole="company"
               path="/companies/booking-summary"
               component={BoogkingSummary}
             />
-            <Route path="/companies/print-bus-path" component={PrintBusPath} />
-            <Route
+            <PrivateRoute
+              userRole="company"
+              path="/companies/print-bus-path"
+              component={PrintBusPath}
+            />
+            <PrivateRoute
+              userRole="company"
               path="/companies/manage-bus-path"
               component={ManageBusPath}
             />
-            <Route
+            <PrivateRoute
+              userRole="company"
               path="/companies/manage-tour-package"
               component={ManageTourPkg}
             />
-            <Route path="/companies/manage-agent" component={ManageAgent} />
+            <PrivateRoute
+              userRole="company"
+              path="/companies/manage-agent"
+              component={ManageAgent}
+            />
             <Route component={NoMatch} />
           </Switch>
         </Layout>
