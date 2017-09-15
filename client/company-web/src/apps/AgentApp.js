@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
 import NoMatch from '../components/NoMatch'
+import PrivateRoute from '../containers/PrivateRoute'
 import SignIn from '../pages/agents/auth/SignIn'
 import SignUp from '../pages/agents/auth/SignUp'
 import Dashboard from '../pages/agents/dashboard'
@@ -19,16 +20,37 @@ class AgentApp extends PureComponent {
         <Route path="/agents/signup" component={SignUp} />
         <Layout>
           <Switch>
-            <Route
+            <PrivateRoute
+              userRole="agent"
               path="/agents"
               exact
               component={() => <Redirect to="/agents/dashboard" />}
             />
-            <Route path="/agents/dashboard" component={Dashboard} />
-            <Route path="/agents/booking" component={Booking} />
-            <Route path="/agents/manage-company" component={ManageCompany} />
-            <Route path="/agents/manage-employee" component={ManageEmployee} />
-            <Route path="/agents/manage-booking" component={ManageBooking} />
+            <PrivateRoute
+              userRole="agent"
+              path="/agents/dashboard"
+              component={Dashboard}
+            />
+            <PrivateRoute
+              userRole="agent"
+              path="/agents/booking"
+              component={Booking}
+            />
+            <PrivateRoute
+              userRole="agent"
+              path="/agents/manage-company"
+              component={ManageCompany}
+            />
+            <PrivateRoute
+              userRole="agent"
+              path="/agents/manage-employee"
+              component={ManageEmployee}
+            />
+            <PrivateRoute
+              userRole="agent"
+              path="/agents/manage-booking"
+              component={ManageBooking}
+            />
             <Route component={NoMatch} />
           </Switch>
         </Layout>
