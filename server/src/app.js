@@ -5,6 +5,7 @@ const socketIoRedis = require('socket.io-redis')
 const cors = require('cors')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const logger = require('./utils/logger')
 
 require('./models/agent')
 require('./models/booking')
@@ -45,9 +46,14 @@ app.use(bodyParser.json())
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'))
   app.use(detailLogger)
-  mongoose.connect(`mongodb://${MONGO_DB_HOST}/tourapp`, {
-    useMongoClient: true
-  })
+  mongoose
+    .connect(`mongodb://${MONGO_DB_HOST}/tourapp`, {
+      useMongoClient: true
+    })
+    .catch(err => {
+      logger.error('App starting error:', err.stack)
+      process.exit(1)
+    })
 }
 
 router(app)
