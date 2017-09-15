@@ -156,7 +156,7 @@ const validate = values => {
   return errors
 }
 
-const mapStateToProps = ({ booking: { hotels } }) => ({
+const mapStateToProps = ({ agent: { booking: { hotels } } }) => ({
   hotels: hotels.map(hotel => ({
     value: hotel._id,
     label: hotel.name
