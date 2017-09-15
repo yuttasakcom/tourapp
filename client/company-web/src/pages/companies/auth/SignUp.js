@@ -6,7 +6,7 @@ import * as actions from '../../../actions'
 
 class SignUp extends PureComponent {
   onSubmit = values => {
-    this.props.signUp(values)
+    this.props.signUp('company', values)
   }
 
   render() {
