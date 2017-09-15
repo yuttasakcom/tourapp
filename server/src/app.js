@@ -45,7 +45,9 @@ app.use(bodyParser.json())
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'))
   app.use(detailLogger)
-  mongoose.connect(`mongodb://${MONGO_DB_HOST}/tourapp`)
+  mongoose.connect(`mongodb://${MONGO_DB_HOST}/tourapp`, {
+    useMongoClient: true
+  })
 }
 
 router(app)
