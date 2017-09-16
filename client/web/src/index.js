@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import jwtDecode from 'jwt-decode'
 import moment from 'moment'
-import cookie from 'cookie'
+import cookie from 'js-cookie'
 import 'moment/locale/th'
 
 import registerServiceWorker from './registerServiceWorker'
@@ -22,7 +22,7 @@ import 'react-select/dist/react-select.css'
 import './resources/css/index.css'
 
 moment.locale('th')
-const token = cookie.parse(document.cookie).jwt
+const token = cookie.get('jwt')
 
 if (token) {
   const user = jwtDecode(token)
