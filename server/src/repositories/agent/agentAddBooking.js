@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const Booking = require('../../models/booking')
+const Booking = mongoose.model('Booking')
 
 module.exports = bookingProps =>
   Booking.findOneAndUpdate({ _id: mongoose.Types.ObjectId() }, bookingProps, {

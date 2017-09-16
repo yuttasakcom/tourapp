@@ -1,5 +1,7 @@
-const Agent = require('../../models/agent')
-const Company = require('../../models/company')
+const mongoose = require('mongoose')
+
+const Agent = mongoose.model('Agent')
+const Company = mongoose.model('Company')
 
 module.exports = async (agentId, companyId) => {
   const [{ nModified }] = await Promise.all([

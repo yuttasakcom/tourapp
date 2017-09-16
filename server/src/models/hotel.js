@@ -6,6 +6,4 @@ const hotelSchema = new Schema({
   name: String
 })
 
-const Hotel = mongoose.model('Hotel', hotelSchema)
-
-module.exports = Hotel
+mongoose.model('Hotel', hotelSchema)

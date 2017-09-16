@@ -1,3 +1,3 @@
-const Hotel = require('../../models/hotel')
+const Hotel = require('mongoose').model('Hotel')
 
 module.exports = () => Hotel.find()

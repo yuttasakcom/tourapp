@@ -1,7 +1,6 @@
 import io from 'socket.io-client'
+import cookie from 'js-cookie'
 
-import { API_BASE_URL } from '../config'
-
-export default io(API_BASE_URL, {
-  query: `token=${localStorage.getItem('token')}`
+export default io('/', {
+  query: `token=${cookie.get('jwt')}`
 })

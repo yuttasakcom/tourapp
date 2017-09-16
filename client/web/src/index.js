@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import jwtDecode from 'jwt-decode'
 import moment from 'moment'
+import cookie from 'js-cookie'
 import 'moment/locale/th'
 
-import axios from './actions/companies/axios'
 import registerServiceWorker from './registerServiceWorker'
 import Apps from './apps'
 import store from './store'
@@ -22,10 +22,9 @@ import 'react-select/dist/react-select.css'
 import './resources/css/index.css'
 
 moment.locale('th')
-const token = localStorage.getItem('token')
+const token = cookie.get('jwt')
 
 if (token) {
-  axios.defaults.headers.common['Authorization'] = token
   const user = jwtDecode(token)
   store.dispatch({
     type: SIGN_IN_SUCCESS,

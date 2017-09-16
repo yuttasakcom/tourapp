@@ -1,5 +1,7 @@
-const Agent = require('../../models/agent')
-const Company = require('../../models/company')
+const mongoose = require('mongoose')
+
+const Agent = mongoose.model('Agent')
+const Company = mongoose.model('Company')
 
 module.exports = async (companyId, agentId) => {
   const removeAgentRequestPendings = Agent.update(

@@ -1,6 +1,8 @@
 const { pullAllBy, flow, map, flatten } = require('lodash/fp')
-const Hotel = require('../../models/hotel')
-const BusPath = require('../../models/busPath')
+const mongoose = require('mongoose')
+
+const Hotel = mongoose.model('Hotel')
+const BusPath = mongoose.model('BusPath')
 
 module.exports = async (companyId, pkgId, busPathId = '') => {
   const busPaths = await BusPath.find({ company: companyId, pkg: pkgId })

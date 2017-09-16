@@ -1,13 +1,14 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local-roles')
 const passportJwt = require('passport-jwt')
-const Company = require('../models/company')
-const Agent = require('../models/agent')
+const mongoose = require('mongoose')
+
 const config = require('../config')
 const { comparePassword } = require('../helpers/authentication')
 
+const Company = mongoose.model('Company')
+const Agent = mongoose.model('Agent')
 const JwtStrategy = passportJwt.Strategy
-const ExtractJwt = passportJwt.ExtractJwt
 
 const userCollection = role => {
   switch (role) {
@@ -83,8 +84,9 @@ const localLogin = new LocalStrategy(
   }
 )
 
+const cookieExtractor = req => (req && req.cookies ? req.cookies.jwt : null)
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromHeader('authorization'),
+  jwtFromRequest: cookieExtractor,
   secretOrKey: config.secret
 }
 

@@ -25,6 +25,4 @@ const pkgSchema = new Schema({
   ]
 })
 
-const Pkg = mongoose.model('Pkg', pkgSchema)
-
-module.exports = Pkg
+mongoose.model('Pkg', pkgSchema)

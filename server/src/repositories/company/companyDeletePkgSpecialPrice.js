@@ -1,4 +1,4 @@
-const Pkg = require('../../models/pkg')
+const Pkg = require('mongoose').model('Pkg')
 
 module.exports = (pkgId, agentId) =>
   Pkg.update(

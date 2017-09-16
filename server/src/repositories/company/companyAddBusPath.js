@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const BusPath = require('../../models/busPath')
+const BusPath = mongoose.model('BusPath')
 
 module.exports = busPathProps =>
   BusPath.findOneAndUpdate({ _id: mongoose.Types.ObjectId() }, busPathProps, {

@@ -55,6 +55,4 @@ const agentSchema = new Schema({
   employees: [employeeSchema]
 })
 
-const Agent = mongoose.model('Agent', agentSchema)
-
-module.exports = Agent
+mongoose.model('Agent', agentSchema)

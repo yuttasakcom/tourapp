@@ -1,4 +1,4 @@
-const Booking = require('../../models/booking')
+const Booking = require('mongoose').model('Booking')
 const moment = require('moment')
 
 module.exports = (agentId, dateStart, dateEnd) => {

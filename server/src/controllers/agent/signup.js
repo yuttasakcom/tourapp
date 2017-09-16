@@ -28,9 +28,9 @@ module.exports = async (req, res, next) => {
     agent.password = hash
     const resAgent = await agent.save()
 
-    return res.status(201).send({
-      token: generateToken(resAgent)
-    })
+    const token = generateToken(resAgent)
+    res.cookie('jwt', token)
+    return res.status(201).send({ token })
   } catch (e) {
     return next(e)
   }

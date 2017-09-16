@@ -1,4 +1,4 @@
-const BusPath = require('../../models/busPath')
+const BusPath = require('mongoose').model('BusPath')
 
 module.exports = async ({ busPathId, hotelIds, removedHotelIds }) => {
   const find = { _id: busPathId }

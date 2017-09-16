@@ -21,6 +21,4 @@ const busPathSchema = new Schema({
   ]
 })
 
-const BusPath = mongoose.model('BusPath', busPathSchema)
-
-module.exports = BusPath
+mongoose.model('BusPath', busPathSchema)
