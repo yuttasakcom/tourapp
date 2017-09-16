@@ -15,46 +15,44 @@ import Layout from '../pages/agents/layout'
 class AgentApp extends PureComponent {
   render() {
     return (
-      <Switch>
-        <Route path="/agents/signin" component={SignIn} />
-        <Route path="/agents/signup" component={SignUp} />
-        <Layout>
-          <Switch>
-            <PrivateRoute
-              userRole="agent"
-              path="/agents"
-              exact
-              component={() => <Redirect to="/agents/dashboard" />}
-            />
-            <PrivateRoute
-              userRole="agent"
-              path="/agents/dashboard"
-              component={Dashboard}
-            />
-            <PrivateRoute
-              userRole="agent"
-              path="/agents/booking"
-              component={Booking}
-            />
-            <PrivateRoute
-              userRole="agent"
-              path="/agents/manage-company"
-              component={ManageCompany}
-            />
-            <PrivateRoute
-              userRole="agent"
-              path="/agents/manage-employee"
-              component={ManageEmployee}
-            />
-            <PrivateRoute
-              userRole="agent"
-              path="/agents/manage-booking"
-              component={ManageBooking}
-            />
-            <Route component={NoMatch} />
-          </Switch>
-        </Layout>
-      </Switch>
+      <Layout>
+        <Switch>
+          <Route path="/agents/signin" component={SignIn} />
+          <Route path="/agents/signup" component={SignUp} />
+          <PrivateRoute
+            userRole="agent"
+            path="/agents"
+            exact
+            component={() => <Redirect to="/agents/dashboard" />}
+          />
+          <PrivateRoute
+            userRole="agent"
+            path="/agents/dashboard"
+            component={Dashboard}
+          />
+          <PrivateRoute
+            userRole="agent"
+            path="/agents/booking"
+            component={Booking}
+          />
+          <PrivateRoute
+            userRole="agent"
+            path="/agents/manage-company"
+            component={ManageCompany}
+          />
+          <PrivateRoute
+            userRole="agent"
+            path="/agents/manage-employee"
+            component={ManageEmployee}
+          />
+          <PrivateRoute
+            userRole="agent"
+            path="/agents/manage-booking"
+            component={ManageBooking}
+          />
+          <Route component={NoMatch} />
+        </Switch>
+      </Layout>
     )
   }
 }

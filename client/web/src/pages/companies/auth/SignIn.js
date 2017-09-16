@@ -1,25 +1,52 @@
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 
-import AuthForm from './AuthForm'
-import * as actions from '../../../actions'
-
-class SignIn extends PureComponent {
-  onSubmit = values => {
-    this.props.signIn('company', values)
-  }
-
+class SignIn extends React.PureComponent {
   render() {
     return (
-      <AuthForm
-        location={this.props.location}
-        title="Sign In"
-        description="sign in description"
-        onSubmit={this.onSubmit}
-        initialValues={{ email: 'company1@company.com', password: '1234' }}
-      />
+      <div className="tab-pane active" id="Login">
+        <form role="form" className="form-horizontal">
+          <div className="form-group">
+            <label htmlFor="email" className="col-sm-2 control-label">
+              Email
+            </label>
+            <div className="col-sm-10">
+              <input
+                type="email"
+                className="form-control"
+                id="email1"
+                placeholder="Email"
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <label
+              htmlFor="exampleInputPassword1"
+              className="col-sm-2 control-label"
+            >
+              Password
+            </label>
+            <div className="col-sm-10">
+              <input
+                type="email"
+                className="form-control"
+                id="exampleInputPassword1"
+                placeholder="Email"
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-2" />
+            <div className="col-sm-10">
+              <button type="submit" className="btn btn-primary btn-sm">
+                Submit
+              </button>
+              <a href="javascript:;">Forgot your password?</a>
+            </div>
+          </div>
+        </form>
+      </div>
     )
   }
 }
 
-export default connect(null, actions)(SignIn)
+export default SignIn

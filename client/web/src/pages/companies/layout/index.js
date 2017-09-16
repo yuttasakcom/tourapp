@@ -8,9 +8,12 @@ import * as actions from '../../../actions/companies'
 
 class CompanyLayout extends React.PureComponent {
   componentDidMount() {
-    this.props.fetchAcceptPendings()
-    this.props.fetchNotifications()
-    this.props.fetchRequestPendings()
+    const { authenticated, user } = this.props.auth
+    if (authenticated && user.role === 'company') {
+      this.props.fetchAcceptPendings()
+      this.props.fetchNotifications()
+      this.props.fetchRequestPendings()
+    }
   }
 
   handleAcceptAgent = acceptPendingId => {
@@ -51,6 +54,7 @@ class CompanyLayout extends React.PureComponent {
 }
 
 const mapStateToProps = ({
+  auth,
   company: {
     notification: {
       acceptPendings,
@@ -60,6 +64,7 @@ const mapStateToProps = ({
     }
   }
 }) => ({
+  auth,
   acceptPendings,
   notifications,
   requestPendings,
