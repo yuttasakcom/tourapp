@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import jwtDecode from 'jwt-decode'
 import moment from 'moment'
+import cookie from 'cookie'
 import 'moment/locale/th'
 
 import axios from './actions/companies/axios'
@@ -22,7 +23,7 @@ import 'react-select/dist/react-select.css'
 import './resources/css/index.css'
 
 moment.locale('th')
-const token = localStorage.getItem('token')
+const token = cookie.parse(document.cookie).jwt
 
 if (token) {
   axios.defaults.headers.common['Authorization'] = token
