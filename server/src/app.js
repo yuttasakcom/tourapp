@@ -21,7 +21,6 @@ const mongoose = require('mongoose')
 const router = require('./routes')
 const socket = require('./socket')
 const ssl = require('./config/ssl')
-const keys = require('./config/keys')
 const { MONGO_DB_HOST, REDIS_HOST } = require('./config')
 
 const {
