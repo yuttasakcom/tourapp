@@ -1,5 +1,6 @@
 import { error } from 'react-notification-system-redux'
 import jwtDecode from 'jwt-decode'
+import cookie from 'js-cookie'
 
 import axiosAgent from './agents/axios'
 import axiosCompany from './companies/axios'
@@ -31,7 +32,7 @@ export const signIn = (role, values) => async dispatch => {
 }
 
 export const signOut = () => {
-  document.cookie = 'jwt=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'
+  cookie.remove('jwt')
   return { type: SIGN_OUT_SUCCESS }
 }
 
