@@ -45,7 +45,7 @@ class AuthForm extends PureComponent {
     }
 
     return (
-      <div className="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+      <div className="container-fluid">
         <Card title={title} description={description}>
           <Notification />
           <form onSubmit={handleSubmit}>
