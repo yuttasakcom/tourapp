@@ -1,5 +1,6 @@
 const express = require('express')
-const { createServer } = require('spdy')
+const { createServer } =
+  process.env.NODE_ENV === 'development' ? require('http') : require('spdy')
 const createIo = require('socket.io')
 const socketIoRedis = require('socket.io-redis')
 const cors = require('cors')
@@ -37,7 +38,10 @@ const corsOptions = {
 }
 
 const app = express()
-const server = createServer(ssl, app)
+const server =
+  process.env.NODE_ENV === 'development'
+    ? createServer(app)
+    : createServer(ssl, app)
 const io = createIo(server)
 io.adapter(socketIoRedis({ host: REDIS_HOST, port: 6379 }))
 
