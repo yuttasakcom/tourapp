@@ -5,15 +5,8 @@ import MenuItem from '../../../components/layout/mainMenu/MenuItem'
 
 class MenuList extends PureComponent {
   render() {
-    return !this.props.authenticated ? (
-      <ul className="nav">
-        <MenuItem
-          icon="account_circle"
-          path="/companies/signin"
-          text="สมัครสมาชิก/เข้าสู่ระบบ"
-        />
-      </ul>
-    ) : (
+    const { authenticated, user } = this.props
+    return authenticated && user.role === 'company' ? (
       <ul className="nav">
         <MenuItem
           icon="dashboard"
@@ -51,11 +44,20 @@ class MenuList extends PureComponent {
           text="จัดการตัวแทนจำหน่าย"
         />
       </ul>
+    ) : (
+      <ul className="nav">
+        <MenuItem
+          icon="account_circle"
+          path="/companies/signin"
+          text="สมัครสมาชิก/เข้าสู่ระบบ"
+        />
+      </ul>
     )
   }
 }
 
-const mapStateToProps = ({ auth: { authenticated } }) => ({
+const mapStateToProps = ({ auth: { authenticated, user } }) => ({
+  user,
   authenticated
 })
 
