@@ -1,10 +1,12 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import MenuItem from '../../../components/layout/mainMenu/MenuItem'
 
 class MenuList extends React.PureComponent {
   render() {
-    return (
+    const { authenticated, user } = this.props
+    return authenticated && user.role === 'agent' ? (
       <ul className="nav">
         <MenuItem
           icon="account_circle"
@@ -29,8 +31,21 @@ class MenuList extends React.PureComponent {
           text="จัดการบริษัท"
         />
       </ul>
+    ) : (
+      <ul className="nav">
+        <MenuItem
+          icon="account_circle"
+          path="/agents/signin"
+          text="สมัครสมาชิก/เข้าสู่ระบบ"
+        />
+      </ul>
     )
   }
 }
 
-export default MenuList
+const mapStateToProps = ({ auth: { authenticated, user } }) => ({
+  user,
+  authenticated
+})
+
+export default connect(mapStateToProps)(MenuList)
