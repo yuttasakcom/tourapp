@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 import Card from '../../../components/Card'
 import OAuth from './OAuth'
 import * as actions from '../../../actions'
 
-class SignIn extends PureComponent {
+class Auth extends React.PureComponent {
   state = {
     signIn: true
   }
@@ -170,4 +170,4 @@ class SignIn extends PureComponent {
   }
 }
 
-export default connect(null, actions)(SignIn)
+export default connect(null, actions)(Auth)
