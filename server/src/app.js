@@ -6,6 +6,7 @@ const socketIoRedis = require('socket.io-redis')
 const cors = require('cors')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
 const logger = require('./utils/logger')
 
@@ -55,6 +56,7 @@ app.use(
 )
 app.use(cors(corsOptions))
 app.use(bodyParser.json())
+app.use(cookieParser())
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'))
