@@ -3,8 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 
 import PrivateRoute from '../containers/PrivateRoute'
 import NoMatch from '../components/NoMatch'
-import SignIn from '../pages/companies/auth/SignIn'
-import SignUp from '../pages/companies/auth/SignUp'
+import Auth from '../pages/companies/auth'
 import Dashboard from '../pages/companies/dashboard'
 import BoogkingSummary from '../pages/companies/bookingSummary'
 import ManageBooking from '../pages/companies/manageBooking'
@@ -19,8 +18,7 @@ class CompanyApp extends PureComponent {
     return (
       <Layout>
         <Switch>
-          <Route path="/companies/signin" component={SignIn} />
-          <Route path="/companies/signup" component={SignUp} />
+          <Route path="/companies/signin" component={Auth} />
           <PrivateRoute
             userRole="company"
             path="/companies"
