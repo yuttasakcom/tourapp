@@ -8,11 +8,14 @@
     "seed": "node scripts/seed/index.js",
     "test:a": "npm-run-all --parallel test:i test:e test:u",
     "test:d": "cross-env NODE_ENV=test mocha --timeout 2000 --recursive test/",
-    "test:i": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/integration",
-    "test:e": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/experiment",
-    "test:u": "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/unit",
+    "test:i":
+      "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/integration",
+    "test:e":
+      "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/experiment",
+    "test:u":
+      "cross-env NODE_ENV=test nodemon --exec mocha --timeout 2000 --recursive test/unit",
     "start": "cross-env NODE_ENV=production node src/index.js",
-    "dev": "cross-env NODE_ENV=production nodemon src/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/index.js",
     "eslint": "nodemon --exec eslint src/ test/"
   },
   "author": "Paiboon Auengkongkatong",
