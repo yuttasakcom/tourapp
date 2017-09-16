@@ -5,7 +5,6 @@ import { Link, Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/lib/Button'
 
 import Card from '../../../components/Card'
-import Notification from '../../../containers/Notification'
 import renderField from '../../../components/renderField'
 
 class AuthForm extends PureComponent {
@@ -45,9 +44,8 @@ class AuthForm extends PureComponent {
     }
 
     return (
-      <div className="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+      <div className="container-fluid">
         <Card title={title} description={description}>
-          <Notification />
           <form onSubmit={handleSubmit}>
             <div className="row">
               <Field
