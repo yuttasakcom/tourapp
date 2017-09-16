@@ -7,7 +7,6 @@ const cors = require('cors')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
-const cookieSession = require('cookie-session')
 const logger = require('./utils/logger')
 
 require('./models/agent')
@@ -48,12 +47,6 @@ io.adapter(socketIoRedis({ host: REDIS_HOST, port: 6379 }))
 
 socket(io)
 
-app.use(
-  cookieSession({
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [keys.cookieKey]
-  })
-)
 app.use(cors(corsOptions))
 app.use(bodyParser.json())
 app.use(cookieParser())
