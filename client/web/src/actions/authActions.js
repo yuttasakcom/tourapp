@@ -6,19 +6,6 @@ import axiosCompany from './companies/axios'
 
 import { SIGN_IN_SUCCESS, SIGN_OUT_SUCCESS, SIGN_UP_SUCCESS } from './types'
 
-const initAuth = token => {
-  const user = jwtDecode(token)
-  let axios
-  if (user.role === 'company') {
-    axios = axiosCompany
-  } else {
-    axios = axiosAgent
-  }
-  localStorage.setItem('token', token)
-  axios.defaults.headers.common['Authorization'] = token
-  return user
-}
-
 export const signIn = (role, values) => async dispatch => {
   let axios
   if (role === 'company') {
@@ -31,7 +18,7 @@ export const signIn = (role, values) => async dispatch => {
       ...values,
       role
     })
-    const user = initAuth(token)
+    const user = jwtDecode(token)
     dispatch({ type: SIGN_IN_SUCCESS, payload: user })
   } catch (e) {
     dispatch(
@@ -44,9 +31,7 @@ export const signIn = (role, values) => async dispatch => {
 }
 
 export const signOut = () => {
-  localStorage.clear()
-  axiosAgent.defaults.headers.common['Authorization'] = ''
-  axiosCompany.defaults.headers.common['Authorization'] = ''
+  document.cookie = 'jwt=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'
   return { type: SIGN_OUT_SUCCESS }
 }
 
@@ -59,7 +44,7 @@ export const signUp = (role, values) => async dispatch => {
   }
   try {
     const { data: { token } } = await axios.post('/signup', values)
-    const user = initAuth(token)
+    const user = jwtDecode(token)
     dispatch({ type: SIGN_UP_SUCCESS, payload: user })
   } catch (e) {
     dispatch(
