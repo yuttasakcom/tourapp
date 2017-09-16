@@ -1,5 +1,6 @@
 import io from 'socket.io-client'
+import cookie from 'js-cookie'
 
 export default io('/', {
-  query: `token=${localStorage.getItem('token')}`
+  query: `token=${cookie.get('jwt')}`
 })
