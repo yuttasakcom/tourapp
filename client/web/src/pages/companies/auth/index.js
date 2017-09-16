@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import Card from '../../../components/Card'
 import OAuth from './OAuth'
+import SignIn from './SignIn'
 import * as actions from '../../../actions'
 
 class Auth extends React.PureComponent {
@@ -34,48 +35,7 @@ class Auth extends React.PureComponent {
               </li>
             </ul>
             <div className="tab-content">
-              <div className="tab-pane active" id="Login">
-                <form role="form" className="form-horizontal">
-                  <div className="form-group">
-                    <label htmlFor="email" className="col-sm-2 control-label">
-                      Email
-                    </label>
-                    <div className="col-sm-10">
-                      <input
-                        type="email"
-                        className="form-control"
-                        id="email1"
-                        placeholder="Email"
-                      />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label
-                      htmlFor="exampleInputPassword1"
-                      className="col-sm-2 control-label"
-                    >
-                      Password
-                    </label>
-                    <div className="col-sm-10">
-                      <input
-                        type="email"
-                        className="form-control"
-                        id="exampleInputPassword1"
-                        placeholder="Email"
-                      />
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-sm-2" />
-                    <div className="col-sm-10">
-                      <button type="submit" className="btn btn-primary btn-sm">
-                        Submit
-                      </button>
-                      <a href="javascript:;">Forgot your password?</a>
-                    </div>
-                  </div>
-                </form>
-              </div>
+              <SignIn />
               <div className="tab-pane" id="Registration">
                 <form role="form" className="form-horizontal">
                   <div className="form-group">
