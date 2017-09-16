@@ -7,6 +7,11 @@ class MenuList extends PureComponent {
     return (
       <ul className="nav">
         <MenuItem
+          icon="account_circle"
+          path="/companies/signin"
+          text="สมัครสมาชิก/เข้าสู่ระบบ"
+        />
+        <MenuItem
           icon="dashboard"
           path="/companies/dashboard"
           text="แดชบอร์ด"
