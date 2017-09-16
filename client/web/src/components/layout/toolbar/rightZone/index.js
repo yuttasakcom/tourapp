@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import Notification from './Notification'
 import AcceptPending from './AcceptPending'
@@ -17,6 +18,12 @@ class RightZone extends React.PureComponent {
   }
 
   render() {
+    const { authenticated } = this.props
+
+    if (!authenticated) {
+      return null
+    }
+
     const {
       toggleProfileMenu,
       showProfileMenu,
@@ -31,8 +38,8 @@ class RightZone extends React.PureComponent {
       requestPendings,
       accept,
       rejectRequest,
-      cancelRequest,
-      selectedProfile
+      selectedProfile,
+      cancelRequest
     } = this.props
     return (
       <div className="collapse navbar-collapse">
@@ -74,4 +81,6 @@ class RightZone extends React.PureComponent {
   }
 }
 
-export default RightZone
+const mapStateToProps = ({ auth: { authenticated } }) => ({ authenticated })
+
+export default connect(mapStateToProps)(RightZone)
