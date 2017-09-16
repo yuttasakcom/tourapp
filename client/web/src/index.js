@@ -6,7 +6,6 @@ import moment from 'moment'
 import cookie from 'cookie'
 import 'moment/locale/th'
 
-import axios from './actions/companies/axios'
 import registerServiceWorker from './registerServiceWorker'
 import Apps from './apps'
 import store from './store'
@@ -26,7 +25,6 @@ moment.locale('th')
 const token = cookie.parse(document.cookie).jwt
 
 if (token) {
-  axios.defaults.headers.common['Authorization'] = token
   const user = jwtDecode(token)
   store.dispatch({
     type: SIGN_IN_SUCCESS,
