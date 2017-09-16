@@ -12,10 +12,10 @@ class AuthForm extends PureComponent {
   renderAlternativeLink() {
     let path, text
     if (this.props.title === 'Sign Up') {
-      path = '/signin'
+      path = '/agents/signin'
       text = 'Sign In'
     } else {
-      path = '/signup'
+      path = '/agents/signup'
       text = 'Sign Up'
     }
 
