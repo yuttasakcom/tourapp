@@ -1,24 +1,19 @@
 import { error } from 'react-notification-system-redux'
 import jwtDecode from 'jwt-decode'
 import cookie from 'js-cookie'
-
-import axiosAgent from './agents/axios'
-import axiosCompany from './companies/axios'
+import axios from 'axios'
 
 import { SIGN_IN_SUCCESS, SIGN_OUT_SUCCESS, SIGN_UP_SUCCESS } from './types'
 
 export const signIn = (role, values) => async dispatch => {
-  let axios
-  if (role === 'company') {
-    axios = axiosCompany
-  } else {
-    axios = axiosAgent
-  }
   try {
-    const { data: { token } } = await axios.post('/signin', {
-      ...values,
-      role
-    })
+    const { data: { token } } = await axios.post(
+      `/api/${role === 'company' ? 'companies' : 'agents'}/signin`,
+      {
+        ...values,
+        role
+      }
+    )
     const user = jwtDecode(token)
     dispatch({ type: SIGN_IN_SUCCESS, payload: user })
   } catch (e) {
@@ -37,14 +32,11 @@ export const signOut = () => {
 }
 
 export const signUp = (role, values) => async dispatch => {
-  let axios
-  if (role === 'company') {
-    axios = axiosCompany
-  } else {
-    axios = axiosAgent
-  }
   try {
-    const { data: { token } } = await axios.post('/signup', values)
+    const { data: { token } } = await axios.post(
+      `/api/${role === 'company' ? 'companies' : 'agents'}/signup`,
+      values
+    )
     const user = jwtDecode(token)
     dispatch({ type: SIGN_UP_SUCCESS, payload: user })
   } catch (e) {
