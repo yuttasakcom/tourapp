@@ -3,8 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 
 import NoMatch from '../components/NoMatch'
 import PrivateRoute from '../containers/PrivateRoute'
-import SignIn from '../pages/agents/auth/SignIn'
-import SignUp from '../pages/agents/auth/SignUp'
+import Auth from '../pages/agents/auth'
 import Dashboard from '../pages/agents/dashboard'
 import Booking from '../pages/agents/booking'
 import ManageCompany from '../pages/agents/manageCompany'
@@ -17,8 +16,7 @@ class AgentApp extends PureComponent {
     return (
       <Layout>
         <Switch>
-          <Route path="/agents/signin" component={SignIn} />
-          <Route path="/agents/signup" component={SignUp} />
+          <Route path="/agents/signin" component={Auth} />
           <PrivateRoute
             userRole="agent"
             path="/agents"
