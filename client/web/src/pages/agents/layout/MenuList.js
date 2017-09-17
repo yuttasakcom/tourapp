@@ -8,11 +8,6 @@ class MenuList extends React.PureComponent {
     const { authenticated, user } = this.props
     return authenticated && user.role === 'agent' ? (
       <ul className="nav">
-        <MenuItem
-          icon="account_circle"
-          path="/agents/signin"
-          text="สมัครสมาชิก/เข้าสู่ระบบ"
-        />
         <MenuItem icon="dashboard" path="/agents/dashboard" text="แดชบอร์ด" />
         <MenuItem icon="book" path="/agents/booking" text="จอง" />
         <MenuItem
