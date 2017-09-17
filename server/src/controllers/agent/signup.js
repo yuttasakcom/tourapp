@@ -1,4 +1,4 @@
-const Agent = require('../../models/agent')
+const Agent = require('mongoose').model('Agent')
 const generateToken = require('./generateToken')
 const {
   hashPassword,

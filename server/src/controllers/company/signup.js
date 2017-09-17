@@ -1,4 +1,4 @@
-const Company = require('../../models/company')
+const Company = require('mongoose').model('Company')
 const generateToken = require('./generateToken')
 const {
   checkEmailExist,
