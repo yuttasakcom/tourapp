@@ -1,43 +1,41 @@
 import React from 'react'
+import { Field, reduxForm } from 'redux-form'
+
+import renderField from '../renderField'
 
 class SignIn extends React.PureComponent {
   render() {
-    const { active } = this.props
+    const { active, handleSubmit, submitting } = this.props
     return (
       <div className={`tab-pane${active ? ' active' : ''}`} id="Login">
-        <form role="form" className="form-horizontal">
-          <div className="form-group">
-            <label htmlFor="email" className="col-sm-2 control-label">
-              Email
-            </label>
-            <div className="col-sm-10">
-              <input
-                type="email"
-                className="form-control"
-                id="email1"
-                placeholder="Email"
-              />
-            </div>
-          </div>
-          <div className="form-group">
-            <label
-              htmlFor="exampleInputPassword1"
-              className="col-sm-2 control-label"
-            >
-              Password
-            </label>
-            <div className="col-sm-10">
-              <input
-                type="email"
-                className="form-control"
-                id="exampleInputPassword1"
-                placeholder="Email"
+        <form onSubmit={handleSubmit} className="form-horizontal">
+          <div className="row">
+            <div className="col-md-offset-1 col-md-10">
+              <Field
+                name="email"
+                component={renderField}
+                label="Email"
+                type="text"
               />
             </div>
           </div>
           <div className="row">
-            <div className="col-sm-offset-2 col-sm-10">
-              <button type="submit" className="btn btn-primary btn-sm">
+            <div className="col-md-offset-1 col-md-10">
+              <Field
+                name="password"
+                component={renderField}
+                label="Password"
+                type="password"
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-offset-1 col-sm-10">
+              <button
+                type="submit"
+                className="btn btn-primary btn-sm"
+                disabled={submitting}
+              >
                 Submit
               </button>
             </div>
@@ -48,4 +46,17 @@ class SignIn extends React.PureComponent {
   }
 }
 
-export default SignIn
+const validate = values => {
+  const errors = {}
+  if (!values.email) {
+    errors.email = 'Required'
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address'
+  }
+  if (!values.password) {
+    errors.password = 'Required'
+  }
+  return errors
+}
+
+export default reduxForm({ form: 'signIn', validate })(SignIn)
