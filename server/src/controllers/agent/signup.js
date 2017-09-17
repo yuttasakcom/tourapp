@@ -1,4 +1,4 @@
-const Agent = require('../../models/agent')
+const Agent = require('mongoose').model('Agent')
 const generateToken = require('./generateToken')
 const {
   hashPassword,
@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
   const agent = new Agent(agentProps)
   const validationErr = agent.validateSync()
   if (validationErr) {
-    const err = new Error('Must provide email and password')
+    const err = new Error('กรุณาระบุข้อมูลให้ครบ')
     err.status = 422
     return next(err)
   }

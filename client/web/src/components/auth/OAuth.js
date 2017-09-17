@@ -9,11 +9,17 @@ class OAuth extends React.PureComponent {
         </div>
         <div className="col-md-12">
           <div className="btn-group btn-group-justified">
-            <a href="#" className="btn btn-primary">
-              Facebook
-            </a>{' '}
-            <a href="#" className="btn btn-danger">
-              Google
+            <a
+              href="/api/auth/facebook"
+              className="btn btn-block btn-social btn-facebook"
+            >
+              <span className="fa fa-facebook" /> Sign in with Facebook
+            </a>
+            <a
+              href="/api/auth/google"
+              className="btn btn-block btn-social btn-google"
+            >
+              <span className="fa fa-google" /> Sign in with Google
             </a>
           </div>
         </div>

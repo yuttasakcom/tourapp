@@ -5,19 +5,19 @@ import { Redirect } from 'react-router-dom'
 import Auth from '../../../components/auth'
 import * as actions from '../../../actions'
 
-class CompanyAuth extends React.PureComponent {
+class AgentAuth extends React.PureComponent {
   onSignIn = values => {
-    this.props.signIn('company', values)
+    this.props.signIn('agent', values)
   }
 
   onSignUp = values => {
-    this.props.signUp('company', values)
+    this.props.signUp('agent', values)
   }
 
   render() {
     const { authenticated, location } = this.props
     const { from } = location.state || {
-      from: { pathname: '/companies/dashboard' }
+      from: { pathname: '/agents/dashboard' }
     }
     if (authenticated) {
       return <Redirect to={from} />
@@ -27,7 +27,7 @@ class CompanyAuth extends React.PureComponent {
 }
 
 const mapStateToProps = ({ auth: { authenticated, user } }) => ({
-  authenticated: authenticated && user.role === 'company'
+  authenticated: authenticated && user.role === 'agent'
 })
 
-export default connect(mapStateToProps, actions)(CompanyAuth)
+export default connect(mapStateToProps, actions)(AgentAuth)
