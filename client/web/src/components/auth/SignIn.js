@@ -1,5 +1,6 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { Link } from 'react-router-dom'
 
 import renderField from '../renderField'
 
@@ -38,6 +39,9 @@ class SignIn extends React.PureComponent {
               >
                 Submit
               </button>
+              <Link to="/" className="btn btn-default btn-sm">
+                Cancel
+              </Link>
             </div>
           </div>
         </form>
