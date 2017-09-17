@@ -113,6 +113,21 @@ const validate = values => {
   if (!values.password) {
     errors.password = 'Required'
   }
+  if (!values.name) {
+    errors.name = 'Required'
+  }
+  if (!values.address) {
+    errors.address = 'Required'
+  }
+  if (!values.phoneNumber) {
+    errors.phoneNumber = 'Required'
+  }
+  if (!values.adminName) {
+    errors.adminName = 'Required'
+  }
+  if (!values.adminPhoneNumber) {
+    errors.adminPhoneNumber = 'Required'
+  }
   return errors
 }
 
