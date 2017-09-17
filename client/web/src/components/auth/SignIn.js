@@ -40,7 +40,6 @@ class SignIn extends React.PureComponent {
               <button type="submit" className="btn btn-primary btn-sm">
                 Submit
               </button>
-              <a href="javascript:;">Forgot your password?</a>
             </div>
           </div>
         </form>
