@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { Link, Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/lib/Button'
@@ -31,17 +30,7 @@ class AuthForm extends PureComponent {
       submitting,
       title,
       description,
-      authenticated,
-      user,
-      location
     } = this.props
-    const { from } = location.state || {
-      from: { pathname: '/companies/dashboard' }
-    }
-
-    if (authenticated && user.role === 'company') {
-      return <Redirect to={from} />
-    }
 
     return (
       <div className="container-fluid">
@@ -95,11 +84,4 @@ const validate = values => {
   return errors
 }
 
-const mapStateToProps = ({ auth: { authenticated, user } }) => ({
-  authenticated,
-  user
-})
-
-export default reduxForm({ form: 'companyAuth', validate })(
-  connect(mapStateToProps)(AuthForm)
-)
+export default reduxForm({ form: 'companyAuth', validate })(AuthForm)
