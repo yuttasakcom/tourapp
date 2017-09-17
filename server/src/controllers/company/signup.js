@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
   const validationErr = company.validateSync()
 
   if (validationErr) {
-    const err = new Error('Must provide email and password')
+    const err = new Error('กรุณาระบุข้อมูลให้ครบ')
     err.status = 422
     return next(err)
   }
