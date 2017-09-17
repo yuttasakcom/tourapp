@@ -2,8 +2,9 @@ import React from 'react'
 
 class SignIn extends React.PureComponent {
   render() {
+    const { active } = this.props
     return (
-      <div className="tab-pane active" id="Login">
+      <div className={`tab-pane${active ? ' active' : ''}`} id="Login">
         <form role="form" className="form-horizontal">
           <div className="form-group">
             <label htmlFor="email" className="col-sm-2 control-label">

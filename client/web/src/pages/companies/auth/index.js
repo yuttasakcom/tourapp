@@ -10,13 +10,14 @@ import * as actions from '../../../actions'
 
 class Auth extends React.PureComponent {
   state = {
-    signIn: true
+    currentTab: 'signIn'
   }
   onSubmit = values => {
     this.props.signIn('company', values)
   }
 
   render() {
+    const { currentTab } = this.state
     return (
       <Card title="สมัครสมาชิก/เข้าสู่ระบบ">
         <div className="row">
@@ -24,10 +25,14 @@ class Auth extends React.PureComponent {
             className="col-md-8"
             style={{ borderRight: '1px dotted #C2C2C2', paddingRight: '30px' }}
           >
-            <Tab />
+            <Tab
+              currentTab={currentTab}
+              onSignInClick={() => this.setState({ currentTab: 'signIn' })}
+              onSignUpClick={() => this.setState({ currentTab: 'signUp' })}
+            />
             <div className="tab-content">
-              <SignIn />
-              <SignUp />
+              <SignIn active={currentTab === 'signIn'} />
+              <SignUp active={currentTab === 'signUp'} />
             </div>
             <div id="OR" className="hidden-xs">
               หรือ

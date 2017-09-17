@@ -2,8 +2,9 @@ import React from 'react'
 
 class SignUp extends React.PureComponent {
   render() {
+    const { active } = this.props
     return (
-      <div className="tab-pane" id="Registration">
+      <div className={`tab-pane${active ? ' active' : ''}`} id="Registration">
         <form role="form" className="form-horizontal">
           <div className="form-group">
             <label htmlFor="email" className="col-sm-2 control-label">
