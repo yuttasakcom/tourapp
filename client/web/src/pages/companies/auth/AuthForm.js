@@ -1,36 +1,13 @@
 import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
-import { Link, Redirect } from 'react-router-dom'
 import Button from 'react-bootstrap/lib/Button'
 
 import Card from '../../../components/Card'
 import renderField from '../../../components/renderField'
 
 class AuthForm extends PureComponent {
-  renderAlternativeLink() {
-    let path, text
-    if (this.props.title === 'Sign Up') {
-      path = '/companies/signin'
-      text = 'Sign In'
-    } else {
-      path = '/companies/signup'
-      text = 'Sign Up'
-    }
-
-    return (
-      <Link to={path}>
-        <Button bsStyle="info">{text}</Button>
-      </Link>
-    )
-  }
-
   render() {
-    const {
-      handleSubmit,
-      submitting,
-      title,
-      description,
-    } = this.props
+    const { handleSubmit, submitting, title, description } = this.props
 
     return (
       <div className="container-fluid">
@@ -62,7 +39,6 @@ class AuthForm extends PureComponent {
               <Button bsStyle="primary" type="submit" disabled={submitting}>
                 Submit
               </Button>
-              {this.renderAlternativeLink()}
             </div>
           </form>
         </Card>
