@@ -13,6 +13,7 @@ class Auth extends React.PureComponent {
 
   render() {
     const { currentTab } = this.state
+    const { onSignIn, onSignUp } = this.props
     return (
       <Card title="สมัครสมาชิก/เข้าสู่ระบบ">
         <div className="row">
@@ -26,8 +27,8 @@ class Auth extends React.PureComponent {
               onSignUpClick={() => this.setState({ currentTab: 'signUp' })}
             />
             <div className="tab-content">
-              <SignIn active={currentTab === 'signIn'} />
-              <SignUp active={currentTab === 'signUp'} />
+              <SignIn onSubmit={onSignIn} active={currentTab === 'signIn'} />
+              <SignUp onSubmit={onSignUp} active={currentTab === 'signUp'} />
             </div>
             <div id="OR" className="hidden-xs">
               หรือ
