@@ -40,6 +40,46 @@ class SignUp extends React.PureComponent {
             </div>
           </div>
           <div className="row">
+            <div className="col-md-offset-1 col-md-10">
+              <Field
+                name="address"
+                component={renderField}
+                label="Address"
+                type="text"
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-offset-1 col-md-10">
+              <Field
+                name="phoneNumber"
+                component={renderField}
+                label="Phone Number"
+                type="text"
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-offset-1 col-md-10">
+              <Field
+                name="adminName"
+                component={renderField}
+                label="Admin Name"
+                type="text"
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-offset-1 col-md-10">
+              <Field
+                name="adminPhoneNumber"
+                component={renderField}
+                label="Admin Phone Number"
+                type="text"
+              />
+            </div>
+          </div>
+          <div className="row">
             <div className="col-sm-offset-1 col-sm-10">
               <button
                 type="submit"
