@@ -7,7 +7,7 @@ class SignIn extends React.PureComponent {
   render() {
     const { active, handleSubmit, submitting } = this.props
     return (
-      <div className={`tab-pane${active ? ' active' : ''}`} id="Login">
+      <div className={`tab-pane${active ? ' active' : ''}`}>
         <form onSubmit={handleSubmit} className="form-horizontal">
           <div className="row">
             <div className="col-md-offset-1 col-md-10">
