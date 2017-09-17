@@ -1,19 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
-import Card from '../../../components/Card'
+import Card from '../Card'
 import Tab from './Tab'
 import OAuth from './OAuth'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
-import * as actions from '../../../actions'
 
 class Auth extends React.PureComponent {
   state = {
     currentTab: 'signIn'
-  }
-  onSubmit = values => {
-    this.props.signIn('company', values)
   }
 
   render() {
@@ -47,8 +42,4 @@ class Auth extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({ auth: { authenticated, user } }) => ({
-  authenticated: authenticated && user.role === 'company'
-})
-
-export default connect(mapStateToProps, actions)(Auth)
+export default Auth
