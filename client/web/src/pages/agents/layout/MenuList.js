@@ -5,8 +5,7 @@ import MenuItem from '../../../components/layout/mainMenu/MenuItem'
 
 class MenuList extends React.PureComponent {
   render() {
-    const { authenticated, user } = this.props
-    return authenticated && user.role === 'agent' ? (
+    return this.props.authenticated ? (
       <ul className="nav">
         <MenuItem icon="dashboard" path="/agents/dashboard" text="แดชบอร์ด" />
         <MenuItem icon="book" path="/agents/booking" text="จอง" />
@@ -39,8 +38,7 @@ class MenuList extends React.PureComponent {
 }
 
 const mapStateToProps = ({ auth: { authenticated, user } }) => ({
-  user,
-  authenticated
+  authenticated: authenticated && user.role === 'agent'
 })
 
 export default connect(mapStateToProps)(MenuList)
