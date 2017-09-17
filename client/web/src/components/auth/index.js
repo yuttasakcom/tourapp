@@ -47,4 +47,8 @@ class Auth extends React.PureComponent {
   }
 }
 
-export default connect(null, actions)(Auth)
+const mapStateToProps = ({ auth: { authenticated, user } }) => ({
+  authenticated: authenticated && user.role === 'company'
+})
+
+export default connect(mapStateToProps, actions)(Auth)
