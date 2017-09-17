@@ -2,7 +2,7 @@ import React from 'react'
 
 class SignUp extends React.PureComponent {
   render() {
-    const { active } = this.props
+    const { active, onCancelClick } = this.props
     return (
       <div className={`tab-pane${active ? ' active' : ''}`} id="Registration">
         <form role="form" className="form-horizontal">
@@ -74,7 +74,11 @@ class SignUp extends React.PureComponent {
               <button type="button" className="btn btn-primary btn-sm">
                 Save & Continue
               </button>
-              <button type="button" className="btn btn-default btn-sm">
+              <button
+                onClick={onCancelClick}
+                type="button"
+                className="btn btn-default btn-sm"
+              >
                 Cancel
               </button>
             </div>

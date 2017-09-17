@@ -28,7 +28,11 @@ class Auth extends React.PureComponent {
             />
             <div className="tab-content">
               <SignIn onSubmit={onSignIn} active={currentTab === 'signIn'} />
-              <SignUp onSubmit={onSignUp} active={currentTab === 'signUp'} />
+              <SignUp
+                onCancelClick={() => this.setState({ currentTab: 'signIn' })}
+                onSubmit={onSignUp}
+                active={currentTab === 'signUp'}
+              />
             </div>
             <div id="OR" className="hidden-xs">
               หรือ
