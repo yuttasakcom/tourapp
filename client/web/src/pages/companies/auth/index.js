@@ -10,6 +10,10 @@ class CompanyAuth extends React.PureComponent {
     this.props.signIn('company', values)
   }
 
+  onSignUp = values => {
+    this.props.signUp('company', values)
+  }
+
   render() {
     const { authenticated, location } = this.props
     const { from } = location.state || {
@@ -18,7 +22,7 @@ class CompanyAuth extends React.PureComponent {
     if (authenticated) {
       return <Redirect to={from} />
     }
-    return <Auth />
+    return <Auth onSignIn={this.onSignIn} onSignUp={this.onSignUp} />
   }
 }
 
