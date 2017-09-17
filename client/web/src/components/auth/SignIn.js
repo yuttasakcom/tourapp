@@ -36,8 +36,7 @@ class SignIn extends React.PureComponent {
             </div>
           </div>
           <div className="row">
-            <div className="col-sm-2" />
-            <div className="col-sm-10">
+            <div className="col-sm-offset-2 col-sm-10">
               <button type="submit" className="btn btn-primary btn-sm">
                 Submit
               </button>
