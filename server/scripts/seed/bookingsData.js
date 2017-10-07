@@ -24,8 +24,14 @@ times(1000, () => {
       child: random(0, 5),
       nationality: ['Thai', 'European', 'Chinese'][random(2)],
       date: faker.date.between(
-        moment().clone().subtract(1, 'months').format('YYYY-MM-DD'),
-        moment().clone().add(1, 'months').format('YYYY-MM-DD')
+        moment()
+          .clone()
+          .subtract(1, 'months')
+          .format('YYYY-MM-DD'),
+        moment()
+          .clone()
+          .add(1, 'months')
+          .format('YYYY-MM-DD')
       ),
       note: faker.lorem.sentence()
     },

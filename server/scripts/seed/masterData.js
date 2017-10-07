@@ -1,8 +1,9 @@
 const faker = require('faker')
+const mongoose = require('mongoose')
 
-const Company = require('../../src/models/company')
-const Agent = require('../../src/models/agent')
-const Pkg = require('../../src/models/pkg')
+const Company = mongoose.model('Company')
+const Agent = mongoose.model('Agent')
+const Pkg = mongoose.model('Pkg')
 
 const password = '$2a$10$sQRgGWOoCXEHwzfiCAsAcOVRfTi3SDMjIOcRvCd0p2MSMndyLSdjS'
 

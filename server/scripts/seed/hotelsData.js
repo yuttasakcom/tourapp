@@ -1,4 +1,4 @@
-const Hotel = require('../../src/models/hotel')
+const Hotel = require('mongoose').model('Hotel')
 
 module.exports = [
   { name: '999' },
