@@ -20,7 +20,7 @@ export const fetchBusPathHotels = (busPathId = '') => async (
   dispatch,
   getState
 ) => {
-  const { busPath: { selectedPkg } } = getState()
+  const { company: { busPath: { selectedPkg } } } = getState()
   try {
     const { data } = await axios.get(
       `/bus-path-hotels/${busPathId}?pkgId=${selectedPkg}`
