@@ -1,5 +1,6 @@
 import { take, put, call } from 'redux-saga/effects'
 import { cloneableGenerator } from 'redux-saga/utils'
+import jwtDecode from 'jwt-decode'
 import cookie from 'js-cookie'
 import axios from 'axios'
 
@@ -67,6 +68,15 @@ describe('auth', () => {
         role: action.payload.role
       })
     )
+  })
+
+  it('signin api success must be call jwtDecode with token', () => {
+    const res = {
+      data: {
+        token: 'token'
+      }
+    }
+    expect(data.signIn.next(res).value).toEqual(call(jwtDecode, res.data.token))
   })
 
   it('sign_up must be call correct signup api', () => {
