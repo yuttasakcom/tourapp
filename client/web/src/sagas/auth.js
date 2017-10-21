@@ -20,13 +20,9 @@ export function* signOut() {
 
 export default function* auth() {
   while (true) {
-    const { type, payload: { role, values } } = yield take([
-      SIGN_IN,
-      SIGN_UP,
-      SIGN_IN_SUCCESS
-    ])
-
-    if (type !== SIGN_IN_SUCCESS) {
+    const action = yield take([SIGN_IN, SIGN_UP, SIGN_IN_SUCCESS])
+    if (action.type !== SIGN_IN_SUCCESS) {
+      const { type, payload: { role, values } } = action
       try {
         const { data: { token } } = yield call(
           axios.post,
@@ -41,7 +37,7 @@ export default function* auth() {
         )
         const user = yield call(jwtDecode, token)
         yield put({ type: SIGN_IN_SUCCESS, payload: user })
-        yield signOut()
+        yield call(signOut)
       } catch (e) {
         yield put(
           error({
@@ -51,7 +47,7 @@ export default function* auth() {
         )
       }
     } else {
-      yield signOut()
+      yield call(signOut)
     }
   }
 }
