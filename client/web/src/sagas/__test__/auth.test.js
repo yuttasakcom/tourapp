@@ -95,6 +95,18 @@ describe('auth', () => {
         put({ type: SIGN_IN_SUCCESS, payload: user })
       )
     })
+
+    it('take sign_out', () => {
+      expect(data.signIn.next().value).toEqual(
+        call(signOut)
+      )
+    })
+
+    it('take auth again', () => {
+      expect(data.signIn.next().value).toEqual(
+        take([SIGN_IN, SIGN_UP, SIGN_IN_SUCCESS])
+      )
+    })
   })
 
   describe('signUp', () => {
