@@ -38,6 +38,7 @@
     "react-select": "^1.0.0-rc.10",
     "recharts": "^1.0.0-alpha.2",
     "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
     "redux-form": "^6.8.0",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
