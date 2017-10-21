@@ -10,7 +10,7 @@ import {
   SIGN_UP,
   SIGN_IN_SUCCESS,
   SIGN_OUT_SUCCESS
-} from '../actions/types'
+} from '../../actions/types'
 
 export function* signOut() {
   yield take(SIGN_OUT)
