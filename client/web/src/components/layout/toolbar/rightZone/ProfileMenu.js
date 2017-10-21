@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import QRCode from 'qrcode.react'
-import * as actions from '../../../../actions'
+import actions from '../../../../actions/authActions'
 
 class ProfileMenu extends React.PureComponent {
   render() {

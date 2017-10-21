@@ -3,15 +3,15 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import Auth from '../../../components/auth'
-import * as actions from '../../../actions'
+import actions from '../../../actions/authActions'
 
 class CompanyAuth extends React.PureComponent {
   onSignIn = values => {
-    this.props.signIn('company', values)
+    this.props.signIn({ role: 'company', values })
   }
 
   onSignUp = values => {
-    this.props.signUp('company', values)
+    this.props.signUp({ role: 'company', values })
   }
 
   render() {

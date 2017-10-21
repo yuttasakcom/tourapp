@@ -1,11 +1,7 @@
-import { SIGN_UP, SIGN_IN, SIGN_OUT } from './types'
+import { createActions } from 'redux-actions'
 
-export const signIn = (role, values) => ({
-  type: SIGN_IN,
-  payload: { role, values }
+export default createActions({
+  SIGN_IN: payload => payload,
+  SIGN_UP: payload => payload,
+  SIGN_OUT: null
 })
-export const signUp = (role, values) => ({
-  type: SIGN_UP,
-  payload: { role, values }
-})
-export const signOut = () => ({ type: SIGN_OUT })
