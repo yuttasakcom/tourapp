@@ -1,3 +1,4 @@
+import { error } from 'react-notification-system-redux'
 import { take, put, call } from 'redux-saga/effects'
 import { cloneableGenerator } from 'redux-saga/utils'
 import jwtDecode from 'jwt-decode'
@@ -97,9 +98,7 @@ describe('auth', () => {
     })
 
     it('take sign_out', () => {
-      expect(data.signIn.next().value).toEqual(
-        call(signOut)
-      )
+      expect(data.signIn.next().value).toEqual(call(signOut))
     })
 
     it('take auth again', () => {
@@ -123,6 +122,18 @@ describe('auth', () => {
           ...action.payload.values,
           role: action.payload.role
         })
+      )
+    })
+
+    it('api throw error must put error notification', () => {
+      expect(data.signUp.throw({ response: { data: 'error' } }).value).toEqual(
+        put(error({ title: 'แจ้งเตือน', message: 'error' }))
+      )
+    })
+
+    it('take auth again', () => {
+      expect(data.signUp.next().value).toEqual(
+        take([SIGN_IN, SIGN_UP, SIGN_IN_SUCCESS])
       )
     })
   })
