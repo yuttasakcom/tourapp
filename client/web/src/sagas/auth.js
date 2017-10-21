@@ -12,7 +12,7 @@ import {
   SIGN_OUT_SUCCESS
 } from '../actions/types'
 
-function* authorize({ type, role, values }) {
+export function* authorize({ type, role, values }) {
   try {
     const { data: { token } } = yield call(
       axios.post,
@@ -24,7 +24,7 @@ function* authorize({ type, role, values }) {
         role
       }
     )
-    const user = jwtDecode(token)
+    const user = yield call(jwtDecode, token)
     yield put({ type: SIGN_IN_SUCCESS, payload: user })
   } catch (e) {
     yield put(
