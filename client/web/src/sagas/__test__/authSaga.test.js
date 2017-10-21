@@ -5,8 +5,8 @@ import jwtDecode from 'jwt-decode'
 import cookie from 'js-cookie'
 import axios from 'axios'
 
-import { signOut } from '../auth'
-import auth from '../auth'
+import { signOut } from '../authSaga'
+import auth from '../authSaga'
 import {
   SIGN_IN,
   SIGN_UP,
