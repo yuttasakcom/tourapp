@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import Auth from '../../../components/auth'
-import actions from '../../../actions/authActions'
+import actions from '../../../state/ducks/actions'
 
 class CompanyAuth extends React.PureComponent {
   onSignIn = values => {
@@ -30,4 +30,4 @@ const mapStateToProps = ({ auth: { authenticated, user } }) => ({
   authenticated: authenticated && user.role === 'company'
 })
 
-export default connect(mapStateToProps, actions)(CompanyAuth)
+export default connect(mapStateToProps, actions.common.auth)(CompanyAuth)
