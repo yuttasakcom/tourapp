@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import QRCode from 'qrcode.react'
-import actions from '../../../../actions/authActions'
+import actions from '../../../../state/ducks/actions'
 
 class ProfileMenu extends React.PureComponent {
   render() {
@@ -46,4 +46,4 @@ class ProfileMenu extends React.PureComponent {
 
 const mapStateToProps = ({ auth: { user } }) => ({ user })
 
-export default connect(mapStateToProps, actions)(ProfileMenu)
+export default connect(mapStateToProps, actions.app.common.auth)(ProfileMenu)
