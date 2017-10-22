@@ -46,4 +46,4 @@ class ProfileMenu extends React.PureComponent {
 
 const mapStateToProps = ({ auth: { user } }) => ({ user })
 
-export default connect(mapStateToProps, actions.app.common.auth)(ProfileMenu)
+export default connect(mapStateToProps, actions.common.auth)(ProfileMenu)
