@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions'
 
-import { SIGN_IN_SUCCESS, SIGN_OUT_SUCCESS, SIGN_UP_SUCCESS } from './types'
+import { SIGN_IN_SUCCESS, SIGN_OUT_SUCCESS } from './types'
 
 const initialState = {
   authenticated: false,
@@ -10,11 +10,6 @@ const initialState = {
 export default handleActions(
   {
     [SIGN_IN_SUCCESS]: (state, action) => ({
-      ...state,
-      authenticated: true,
-      user: action.payload
-    }),
-    [SIGN_UP_SUCCESS]: (state, action) => ({
       ...state,
       authenticated: true,
       user: action.payload
