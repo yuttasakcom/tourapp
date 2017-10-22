@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import Auth from '../../../components/auth'
-import actions from '../../../actions/authActions'
+import actions from '../../../state/ducks/actions'
 
 class AgentAuth extends React.PureComponent {
   onSignIn = values => {
@@ -30,4 +30,4 @@ const mapStateToProps = ({ auth: { authenticated, user } }) => ({
   authenticated: authenticated && user.role === 'agent'
 })
 
-export default connect(mapStateToProps, actions)(AgentAuth)
+export default connect(mapStateToProps, actions.common.auth)(AgentAuth)
