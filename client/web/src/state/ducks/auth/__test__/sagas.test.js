@@ -5,15 +5,15 @@ import jwtDecode from 'jwt-decode'
 import cookie from 'js-cookie'
 import axios from 'axios'
 
-import { signOut } from './authSaga'
-import auth from './authSaga'
+import { signOut } from '../sagas'
+import auth from '../sagas'
 import {
   SIGN_IN,
   SIGN_UP,
   SIGN_IN_SUCCESS,
   SIGN_OUT,
   SIGN_OUT_SUCCESS
-} from '../../actions/types'
+} from '../types'
 
 describe('signOut', () => {
   const gen = signOut()
