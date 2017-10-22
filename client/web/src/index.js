@@ -9,7 +9,7 @@ import 'moment/locale/th'
 import registerServiceWorker from './registerServiceWorker'
 import Apps from './apps'
 import store from './state/store'
-import { SIGN_IN_SUCCESS } from './actions/types'
+import { SIGN_IN_SUCCESS } from './state/ducks/auth/types'
 
 import './resources/css/material-icons.css'
 import './resources/css/roboto-font.css'
