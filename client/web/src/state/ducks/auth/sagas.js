@@ -4,18 +4,13 @@ import jwtDecode from 'jwt-decode'
 import cookie from 'js-cookie'
 import { take, call, put } from 'redux-saga/effects'
 
-import {
-  SIGN_IN,
-  SIGN_OUT,
-  SIGN_UP,
-  SIGN_IN_SUCCESS,
-  SIGN_OUT_SUCCESS
-} from './types'
+import actions from '../actions'
+import { SIGN_IN, SIGN_OUT, SIGN_UP, SIGN_IN_SUCCESS } from './types'
 
 export function* signOut() {
   yield take(SIGN_OUT)
   yield call(cookie.remove, 'jwt')
-  yield put({ type: SIGN_OUT_SUCCESS })
+  yield put(actions.common.auth.signOutSuccess())
 }
 
 export default function* auth() {
@@ -36,7 +31,7 @@ export default function* auth() {
           }
         )
         const user = yield call(jwtDecode, token)
-        yield put({ type: SIGN_IN_SUCCESS, payload: user })
+        yield put(actions.common.auth.signInSuccess(user))
         yield call(signOut)
       } catch (e) {
         yield put(
