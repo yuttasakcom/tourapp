@@ -8,7 +8,6 @@ class Add extends React.PureComponent {
   }
 
   render() {
-    console.log(this.state.showModal)
     return (
       <div>
         <button
