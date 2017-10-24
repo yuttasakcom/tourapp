@@ -1,5 +1,6 @@
 const def = action => `COMPANY/BUS_PATH/${action}`
 export const SELECT_BUS_PATH = def('SELECT_BUS_PATH')
+export const SELECT_PKG = def('SELECT_PKG')
 export const FETCH_BUS_PATHS = def('FETCH_BUS_PATHS')
 export const FETCH_BUS_PATHS_SUCCESS = def('FETCH_BUS_PATHS_SUCCESS')
 export const FETCH_BUS_PATH_HOTELS = def('FETCH_BUS_PATH_HOTELS')
