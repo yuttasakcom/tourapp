@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
 
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class DeleteModal extends PureComponent {
   render() {
@@ -26,7 +26,7 @@ class DeleteModal extends PureComponent {
           <Button
             bsStyle="danger"
             onClick={() => {
-              deletePkg(pkg)
+              deletePkg(pkg._id)
               closeModal()
             }}
           >
@@ -42,4 +42,4 @@ const mapStateToProps = ({ company: { pkg } }) => ({
   pkg: pkg.pkgs[pkg.selectedPkg]
 })
 
-export default connect(mapStateToProps, actions)(DeleteModal)
+export default connect(mapStateToProps, actions.company.pkg)(DeleteModal)
