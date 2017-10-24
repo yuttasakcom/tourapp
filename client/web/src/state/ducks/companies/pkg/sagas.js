@@ -3,7 +3,7 @@ import { takeEvery, put, call, all } from 'redux-saga/effects'
 
 import axios from '../../../utils/axiosCompanies'
 import actions from '../../actions'
-import { FETCH_PKGS, ADD_PKG, EDIT_PKG } from './types'
+import { FETCH_PKGS, ADD_PKG, EDIT_PKG, DELETE_PKG } from './types'
 
 export function* watchFetchPkgs() {
   yield takeEvery(FETCH_PKGS, function*() {
@@ -66,6 +66,26 @@ export function* watchEditPkg() {
   })
 }
 
+export function* watchDeletePkg() {
+  yield takeEvery(DELETE_PKG, function*(action) {
+    try {
+      const { data: { message } } = yield call(
+        axios.delete,
+        `/pkgs/${action.payload}`
+      )
+      yield put(actions.company.pkg.deletePkgSuccess(action.payload))
+      yield put(success({ title: 'แจ้งเตือน', message }))
+    } catch (e) {
+      yield put(
+        error({
+          title: 'แจ้งเตือน',
+          message: e.response.data
+        })
+      )
+    }
+  })
+}
+
 export default function* rootSaga() {
-  yield all([watchFetchPkgs(), watchAddPkg(), watchEditPkg()])
+  yield all([watchFetchPkgs(), watchAddPkg(), watchEditPkg(), watchDeletePkg()])
 }
