@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 
-import pkg from './pkgReducer'
+import pkg from '../../state/ducks/companies/pkg/reducers'
 import agent from './agentReducer'
 import notification from './notificationReducer'
 import booking from './bookingReducer'
