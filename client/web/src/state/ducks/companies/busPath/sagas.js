@@ -54,8 +54,8 @@ export function* watchAddBusPath() {
   yield takeEvery(ADD_BUS_PATH, function*(action) {
     try {
       const { data } = yield call(axios.post, '/bus-paths', action.payload)
-      yield call(actions.company.busPath.addBusPathSuccess(data))
-      yield call(
+      yield put(actions.company.busPath.addBusPathSuccess(data))
+      yield put(
         success({
           title: 'แจ้งเตือน',
           message: 'เพิ่มเส้นทางเรียบร้อยแล้ว!'
@@ -72,10 +72,34 @@ export function* watchAddBusPath() {
   })
 }
 
+export function* watchEditBusPath() {
+  yield takeEvery(EDIT_BUS_PATH, function*(action) {
+    const { id, values } = action.payload
+    try {
+      const { data } = yield call(axios.put, `/bus-paths/${id}`, values)
+      yield put(actions.company.busPath.editBusPathSuccess(data))
+      yield put(
+        success({
+          title: 'แจ้งเตือน',
+          message: 'แก้ไขเส้นทางเรียบร้อยแล้ว!'
+        })
+      )
+    } catch (e) {
+      yield put(
+        error({
+          title: 'แจ้งเตือน',
+          message: e.message
+        })
+      )
+    }
+  })
+}
+
 export default function* rootSaga() {
   yield all([
     watchFetchBusPaths(),
     watchFetchBusPathHotels(),
-    watchAddBusPath()
+    watchAddBusPath(),
+    watchEditBusPath()
   ])
 }
