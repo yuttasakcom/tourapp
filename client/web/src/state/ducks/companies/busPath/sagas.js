@@ -73,5 +73,9 @@ export function* watchAddBusPath() {
 }
 
 export default function* rootSaga() {
-  yield all([watchFetchBusPaths(), watchAddBusPath()])
+  yield all([
+    watchFetchBusPaths(),
+    watchFetchBusPathHotels(),
+    watchAddBusPath()
+  ])
 }
