@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/lib/Modal'
 
 import TourPkgForm from '../TourPkgForm'
-import * as actions from '../../../../actions/companies'
+import actions from '../../../../state/ducks/actions'
 
 class AddModal extends PureComponent {
   onSubmit = values => {
@@ -24,4 +24,4 @@ class AddModal extends PureComponent {
   }
 }
 
-export default connect(null, actions)(AddModal)
+export default connect(null, actions.company.pkg)(AddModal)
