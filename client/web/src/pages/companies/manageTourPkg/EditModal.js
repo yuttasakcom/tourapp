@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/lib/Modal'
 
 import TourPkgForm from './TourPkgForm'
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class EditModal extends PureComponent {
   onSubmit = values => {
-    const { editPkg, closeModal } = this.props
-    editPkg(this.props.pkg, values)
+    const { editPkg, closeModal, pkg } = this.props
+    editPkg({ id: pkg._id, values })
     closeModal()
   }
 
@@ -33,4 +33,4 @@ const mapStateToProps = ({ company: { pkg } }) => ({
   pkg: pkg.pkgs[pkg.selectedPkg]
 })
 
-export default connect(mapStateToProps, actions)(EditModal)
+export default connect(mapStateToProps, actions.company.pkg)(EditModal)
