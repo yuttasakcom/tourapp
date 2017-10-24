@@ -95,11 +95,35 @@ export function* watchEditBusPath() {
   })
 }
 
+export function* watchDeleteBusPath() {
+  yield takeEvery(DELETE_BUS_PATH, function*(action) {
+    const id = action.payload
+    try {
+      const { data: { message } } = yield call(axios.delete, `/bus-paths/${id}`)
+      yield put(actions.company.busPath.deleteBusPathSuccess(id))
+      yield put(
+        success({
+          title: 'แจ้งเตือน',
+          message
+        })
+      )
+    } catch (e) {
+      yield put(
+        error({
+          title: 'แจ้งเตือน',
+          message: e.message
+        })
+      )
+    }
+  })
+}
+
 export default function* rootSaga() {
   yield all([
     watchFetchBusPaths(),
     watchFetchBusPathHotels(),
     watchAddBusPath(),
-    watchEditBusPath()
+    watchEditBusPath(),
+    watchDeleteBusPath()
   ])
 }
