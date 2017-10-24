@@ -8,7 +8,8 @@ import {
   COMPANY_OPEN_EDIT_PKG_MODAL,
   COMPANY_CLOSE_EDIT_PKG_MODAL,
   COMPANY_OPEN_DELETE_PKG_MODAL,
-  COMPANY_CLOSE_DELETE_PKG_MODAL
+  COMPANY_CLOSE_DELETE_PKG_MODAL,
+  COMPANY_SELECT_PKG
 } from './types'
 
 export const fetchPkgs = () => async dispatch => {
@@ -63,6 +64,10 @@ export const deletePkg = ({ _id }) => async dispatch => {
   } catch (e) {
     console.error(e)
   }
+}
+
+export const selectPkg = _id => {
+  return { type: COMPANY_SELECT_PKG, payload: _id }
 }
 
 export const openEditPkgModal = _id => {
