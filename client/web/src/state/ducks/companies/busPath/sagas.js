@@ -50,6 +50,28 @@ export function* watchFetchBusPathHotels() {
   })
 }
 
+export function* watchAddBusPath() {
+  yield takeEvery(ADD_BUS_PATH, function*(action) {
+    try {
+      const { data } = yield call(axios.post, '/bus-paths', action.payload)
+      yield call(actions.company.busPath.addBusPathSuccess(data))
+      yield call(
+        success({
+          title: 'แจ้งเตือน',
+          message: 'เพิ่มเส้นทางเรียบร้อยแล้ว!'
+        })
+      )
+    } catch (e) {
+      yield put(
+        error({
+          title: 'แจ้งเตือน',
+          message: e.response.data.error
+        })
+      )
+    }
+  })
+}
+
 export default function* rootSaga() {
-  yield all([watchFetchBusPaths()])
+  yield all([watchFetchBusPaths(), watchAddBusPath()])
 }
