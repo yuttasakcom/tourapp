@@ -5,8 +5,6 @@ import {
   COMPANY_ADD_PKG_SUCCESS,
   COMPANY_EDIT_PKG_SUCCESS,
   COMPANY_DELETE_PKG_SUCCESS,
-  COMPANY_OPEN_ADD_PKG_MODAL,
-  COMPANY_CLOSE_ADD_PKG_MODAL,
   COMPANY_OPEN_EDIT_PKG_MODAL,
   COMPANY_CLOSE_EDIT_PKG_MODAL,
   COMPANY_OPEN_DELETE_PKG_MODAL,
@@ -65,14 +63,6 @@ export const deletePkg = ({ _id }) => async dispatch => {
   } catch (e) {
     console.error(e)
   }
-}
-
-export const openAddPkgModal = () => {
-  return { type: COMPANY_OPEN_ADD_PKG_MODAL }
-}
-
-export const closeAddPkgModal = () => {
-  return { type: COMPANY_CLOSE_ADD_PKG_MODAL }
 }
 
 export const openEditPkgModal = _id => {
