@@ -8,6 +8,7 @@ import * as actions from '../../../../actions/companies'
 class AddModal extends PureComponent {
   onSubmit = values => {
     this.props.addPkg(values)
+    this.props.closeModal()
   }
 
   render() {
