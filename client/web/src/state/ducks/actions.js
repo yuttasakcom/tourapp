@@ -1,11 +1,14 @@
 import { createActions } from 'redux-actions'
 
-import AUTH from './auth/actions'
+import auth from './auth/actions'
+import companyPkg from './companies/pkg/actions'
 
 export default createActions({
-  COMPANY: {},
+  COMPANY: {
+    PKG: companyPkg
+  },
   AGENT: {},
   COMMON: {
-    AUTH
+    AUTH: auth
   }
 })
