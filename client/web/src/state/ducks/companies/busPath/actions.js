@@ -1,5 +1,6 @@
 export default {
   SELECT_BUS_PATH: id => id,
+  SELECT_PKG: id => id,
   FETCH_BUS_PATHS: pkgId => pkgId,
   FETCH_BUS_PATHS_SUCCESS: payload => payload,
   FETCH_BUS_PATH_HOTELS: (busPathId = '') => busPathId,
