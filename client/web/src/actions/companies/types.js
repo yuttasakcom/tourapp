@@ -1,3 +1,5 @@
+export const COMPANY_SELECT_PKG = 'company_select_pkg'
+
 export const COMPANY_SIGN_IN_SUCCESS = 'company_sign_in_success'
 export const COMPANY_SIGN_OUT_SUCCESS = 'company_sign_out_success'
 export const COMPANY_SIGN_UP_SUCCESS = 'company_sign_up_success'

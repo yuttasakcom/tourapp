@@ -8,7 +8,8 @@ import {
   COMPANY_CLOSE_EDIT_PKG_MODAL,
   COMPANY_OPEN_DELETE_PKG_MODAL,
   COMPANY_CLOSE_DELETE_PKG_MODAL,
-  COMPANY_DELETE_PKG_SUCCESS
+  COMPANY_DELETE_PKG_SUCCESS,
+  COMPANY_SELECT_PKG
 } from '../../actions/companies/types'
 
 const initialState = {
@@ -43,6 +44,9 @@ export default (state = initialState, action) => {
         pkgs: omit(state.pkgs, action.payload),
         showDeletePkgModal: false
       }
+
+    case COMPANY_SELECT_PKG:
+      return { ...state, selectedPkg: action.payload }
 
     case COMPANY_OPEN_EDIT_PKG_MODAL:
       return { ...state, showEditPkgModal: true, selectedPkg: action.payload }
