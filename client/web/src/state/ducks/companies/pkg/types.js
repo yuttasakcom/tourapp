@@ -1,6 +1,7 @@
 const def = action => `COMPANY/PKG/${action}`
 export const FETCH_PKGS = def('FETCH_PKGS')
 export const FETCH_PKGS_SUCCESS = def('FETCH_PKGS_SUCCESS')
+export const SELECT_PKG = def('SELECT_PKG')
 export const ADD_PKG = def('ADD_PKG')
 export const ADD_PKG_SUCCESS = def('ADD_PKG_SUCCESS')
 export const EDIT_PKG = def('EDIT_PKG')
