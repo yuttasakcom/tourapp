@@ -10,14 +10,14 @@ class PkgDataTable extends PureComponent {
   }
 
   renderAction = (cell, row) => {
-    const { openBusPathsModal, selectBusPath } = this.props
+    const { openBusPathsModal, selectPkg } = this.props
     return (
       <button
         className="btn btn-info btn-sm"
         style={{ margin: 0 }}
         onClick={() => {
           openBusPathsModal()
-          selectBusPath(row._id)
+          selectPkg(row._id)
         }}
       >
         Manage Bus Path
