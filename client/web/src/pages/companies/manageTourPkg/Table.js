@@ -10,20 +10,26 @@ class Table extends PureComponent {
   }
 
   renderAction = (cell, row) => {
-    const { openDeletePkgModal, openEditPkgModal } = this.props
+    const { openDeleteModal, openEditModal, selectPkg } = this.props
     return (
       <div>
         <button
           className="btn btn-warning btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openEditPkgModal(row._id)}
+          onClick={() => {
+            selectPkg(row._id)
+            openEditModal()
+          }}
         >
           Edit
         </button>
         <button
           className="btn btn-danger btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openDeletePkgModal(row._id)}
+          onClick={() => {
+            selectPkg(row._id)
+            openDeleteModal()
+          }}
         >
           Delete
         </button>

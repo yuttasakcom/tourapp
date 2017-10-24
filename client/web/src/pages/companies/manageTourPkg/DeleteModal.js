@@ -7,14 +7,14 @@ import * as actions from '../../../actions/companies'
 
 class DeleteModal extends PureComponent {
   render() {
-    const { showModal, closeDeletePkgModal, deletePkg, pkg } = this.props
+    const { showModal, closeModal, deletePkg, pkg } = this.props
 
     if (!pkg) {
       return null
     }
 
     return (
-      <Modal show={showModal} onHide={closeDeletePkgModal}>
+      <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Delete Tour Package</Modal.Title>
         </Modal.Header>
@@ -22,8 +22,14 @@ class DeleteModal extends PureComponent {
           <h4>Are you sure to delete package {pkg.name} ?</h4>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={closeDeletePkgModal}>No</Button>
-          <Button bsStyle="danger" onClick={() => deletePkg(pkg)}>
+          <Button onClick={closeModal}>No</Button>
+          <Button
+            bsStyle="danger"
+            onClick={() => {
+              deletePkg(pkg)
+              closeModal()
+            }}
+          >
             Yes
           </Button>
         </Modal.Footer>
@@ -33,7 +39,6 @@ class DeleteModal extends PureComponent {
 }
 
 const mapStateToProps = ({ company: { pkg } }) => ({
-  showModal: pkg.showDeletePkgModal,
   pkg: pkg.pkgs[pkg.selectedPkg]
 })
 
