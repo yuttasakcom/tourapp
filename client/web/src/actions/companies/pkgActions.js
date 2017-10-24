@@ -5,10 +5,6 @@ import {
   COMPANY_ADD_PKG_SUCCESS,
   COMPANY_EDIT_PKG_SUCCESS,
   COMPANY_DELETE_PKG_SUCCESS,
-  COMPANY_OPEN_EDIT_PKG_MODAL,
-  COMPANY_CLOSE_EDIT_PKG_MODAL,
-  COMPANY_OPEN_DELETE_PKG_MODAL,
-  COMPANY_CLOSE_DELETE_PKG_MODAL,
   COMPANY_SELECT_PKG
 } from './types'
 
@@ -68,20 +64,4 @@ export const deletePkg = ({ _id }) => async dispatch => {
 
 export const selectPkg = _id => {
   return { type: COMPANY_SELECT_PKG, payload: _id }
-}
-
-export const openEditPkgModal = _id => {
-  return { type: COMPANY_OPEN_EDIT_PKG_MODAL, payload: _id }
-}
-
-export const closeEditPkgModal = () => {
-  return { type: COMPANY_CLOSE_EDIT_PKG_MODAL }
-}
-
-export const openDeletePkgModal = _id => {
-  return { type: COMPANY_OPEN_DELETE_PKG_MODAL, payload: _id }
-}
-
-export const closeDeletePkgModal = () => {
-  return { type: COMPANY_CLOSE_DELETE_PKG_MODAL }
 }
