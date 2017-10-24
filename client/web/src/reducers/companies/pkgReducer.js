@@ -10,9 +10,7 @@ import {
 
 const initialState = {
   pkgs: {},
-  selectedPkg: null,
-  showEditPkgModal: false,
-  showDeletePkgModal: false
+  selectedPkg: null
 }
 
 export default (state = initialState, action) => {
@@ -23,8 +21,7 @@ export default (state = initialState, action) => {
     case COMPANY_ADD_PKG_SUCCESS:
       return {
         ...state,
-        pkgs: { ...state.pkgs, [action.payload._id]: action.payload },
-        showAddPkgModal: false
+        pkgs: { ...state.pkgs, [action.payload._id]: action.payload }
       }
 
     case COMPANY_EDIT_PKG_SUCCESS:
