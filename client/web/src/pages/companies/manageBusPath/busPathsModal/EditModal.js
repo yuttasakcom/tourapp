@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/lib/Modal'
 import map from 'lodash/map'
 
 import BusPathForm from './BusPathForm'
-import * as actions from '../../../../actions/companies'
+import actions from '../../../../state/ducks/actions'
 
 class EditModal extends PureComponent {
   onSubmit = values => {
@@ -13,15 +13,15 @@ class EditModal extends PureComponent {
   }
 
   render() {
-    const { showModal, closeEditBusPathModal, busPath } = this.props
+    const { showModal, closeModal, busPath } = this.props
     return (
-      <Modal show={showModal} onHide={closeEditBusPathModal}>
+      <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Bus Path</Modal.Title>
         </Modal.Header>
         <BusPathForm
           onSubmit={this.onSubmit}
-          closeModal={closeEditBusPathModal}
+          closeModal={closeModal}
           initialValues={busPath}
         />
       </Modal>
@@ -30,8 +30,7 @@ class EditModal extends PureComponent {
 }
 
 const mapStateToProps = ({ company: { busPath } }) => ({
-  showModal: busPath.showEditBusPathModal,
   busPath: busPath.busPaths[busPath.selectedBusPath]
 })
 
-export default connect(mapStateToProps, actions)(EditModal)
+export default connect(mapStateToProps, actions.company.busPath)(EditModal)
