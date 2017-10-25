@@ -4,7 +4,7 @@ import map from 'lodash/map'
 import Modal from 'react-bootstrap/lib/Modal'
 
 import BusPathForm from './BusPathForm'
-import * as actions from '../../../../actions/companies'
+import actions from '../../../../state/ducks/actions'
 
 class AddModal extends PureComponent {
   onSubmit = values => {
@@ -14,29 +14,24 @@ class AddModal extends PureComponent {
       pkg: this.props.selectedPkg
     }
     this.props.addBusPath(updatedValues)
+    this.props.closeModal()
   }
 
   render() {
-    const { showModal, closeAddBusPathModal } = this.props
+    const { showModal, closeModal } = this.props
     return (
-      <Modal show={showModal} onHide={closeAddBusPathModal}>
+      <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Add Bus Path</Modal.Title>
         </Modal.Header>
-        <BusPathForm
-          onSubmit={this.onSubmit}
-          closeModal={closeAddBusPathModal}
-        />
+        <BusPathForm onSubmit={this.onSubmit} closeModal={closeModal} />
       </Modal>
     )
   }
 }
 
-const mapStateToProps = ({
-  company: { busPath: { showAddBusPathModal, selectedPkg } }
-}) => ({
-  showModal: showAddBusPathModal,
+const mapStateToProps = ({ company: { busPath: { selectedPkg } } }) => ({
   selectedPkg
 })
 
-export default connect(mapStateToProps, actions)(AddModal)
+export default connect(mapStateToProps, actions.company.busPath)(AddModal)
