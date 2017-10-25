@@ -75,24 +75,3 @@ export const COMPANY_FETCH_BOOKINGS_SUMMARY_SUCCESS =
 export const COMPANY_FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS =
   'company_fetch_bookings_hotels_summary_and_bus_paths_success'
 export const COMPANY_MANAGE_BUS_PATH = 'company_manage_bus_path'
-
-export const COMPANY_FETCH_BUS_PATH_HOTELS_SUCCESS =
-  'company_fetch_bus_path_hotels_success'
-export const COMPANY_FETCH_BUS_PATHS_SUCCESS = 'company_fetch_bus_paths_success'
-export const COMPANY_DELETE_BUS_PATH_SUCCESS = 'company_delete_bus_path_success'
-export const COMPANY_ADD_BUS_PATH_SUCCESS = 'company_add_bus_path_success'
-export const COMPANY_OPEN_ADD_BUS_PATH_MODAL = 'company_open_add_bus_path_modal'
-export const COMPANY_CLOSE_ADD_BUS_PATH_MODAL =
-  'company_close_add_bus_path_modal'
-export const COMPANY_OPEN_EDIT_BUS_PATH_MODAL =
-  'company_open_edit_bus_path_modal'
-export const COMPANY_CLOSE_EDIT_BUS_PATH_MODAL =
-  'company_close_edit_bus_path_modal'
-export const COMPANY_EDIT_BUS_PATH_SUCCESS = 'company_edit_bus_path_success'
-export const COMPANY_OPEN_DELETE_BUS_PATH_MODAL =
-  'company_open_delete_bus_path_modal'
-export const COMPANY_CLOSE_DELETE_BUS_PATH_MODAL =
-  'company_close_delete_bus_path_modal'
-
-export const COMPANY_OPEN_BUS_PATHS_MODAL = 'company_open_bus_paths_modal'
-export const COMPANY_CLOSE_BUS_PATHS_MODAL = 'company_close_bus_paths_modal'
