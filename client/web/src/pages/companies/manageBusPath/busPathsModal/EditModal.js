@@ -9,7 +9,11 @@ import actions from '../../../../state/ducks/actions'
 class EditModal extends PureComponent {
   onSubmit = values => {
     const updatedValues = { ...values, hotels: map(values.hotels, 'value') }
-    this.props.editBusPath(this.props.busPath, updatedValues)
+    this.props.editBusPath({
+      id: this.props.busPath._id,
+      values: updatedValues
+    })
+    this.props.closeModal()
   }
 
   render() {
