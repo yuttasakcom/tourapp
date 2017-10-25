@@ -1,4 +1,5 @@
 const def = action => `COMPANY/PRINT_BUS_PATH/${action}`
+export const PRINT_BUS_PATH = def('PRINT_BUS_PATH')
 export const FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS = def(
   'FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS'
 )
