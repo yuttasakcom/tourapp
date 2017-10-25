@@ -7,7 +7,7 @@ import booking from './bookingReducer'
 import bookingSummary from './bookingSummaryReducer'
 import dashboard from './dashboardReducer'
 import printBusPath from './printBusPathReducer/index'
-import busPath from './busPathReducer'
+import busPath from '../../state/ducks/companies/busPath/reducers'
 
 export default combineReducers({
   pkg,
