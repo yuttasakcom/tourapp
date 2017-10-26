@@ -66,6 +66,3 @@ export const COMPANY_FETCH_NOTIFICATIONS_SUCCESS =
   'company_fetch_notifications_success'
 export const COMPANY_ADD_NOTIFICATION_SUCCESS =
   'company_add_notification_success'
-
-export const COMPANY_FETCH_BOOKINGS_SUMMARY_SUCCESS =
-  'company_fetch_bookings_summary_success'
