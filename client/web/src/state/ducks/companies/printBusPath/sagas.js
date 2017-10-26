@@ -55,7 +55,7 @@ export function* watchFetchBookingsHotelsSummaryAndBusPaths() {
       )
       return
     }
-    const dateEnd = moment(date.add(1, 'days'))
+    const dateEnd = moment(date.clone().add(1, 'days'))
     try {
       const [busPaths, bookingsHotelsSummary] = yield all([
         call(axios.get, `/bus-paths?pkgId=${pkg.value}`),
