@@ -6,7 +6,8 @@ import actions from '../../actions'
 import {
   FETCH_ACCEPT_PENDINGS,
   FETCH_NOTIFICATIONS,
-  ADD_NOTIFICATION
+  ADD_NOTIFICATION,
+  FETCH_REQUEST_PENDINGS
 } from './types'
 
 export function* watchFetchAcceptPendings() {
@@ -16,6 +17,26 @@ export function* watchFetchAcceptPendings() {
       yield put(
         actions.company.notification.fetchAcceptPendingsSuccess(
           data.acceptPendings
+        )
+      )
+    } catch (e) {
+      yield put(
+        error({
+          title: 'แจ้งเตือน',
+          message: e.response.data
+        })
+      )
+    }
+  })
+}
+
+export function* watchFetchRequestPendings() {
+  yield takeEvery(FETCH_REQUEST_PENDINGS, function*() {
+    try {
+      const { data } = yield call(axios.get, '/request-pendings')
+      yield put(
+        actions.company.notification.fetchRequestPendingsSuccess(
+          data.requestPendings
         )
       )
     } catch (e) {
@@ -46,6 +67,7 @@ export function* watchAddNotification() {
 export default function* rootSaga() {
   yield all([
     watchFetchAcceptPendings(),
+    watchFetchRequestPendings(),
     watchFetchNotifications(),
     watchAddNotification()
   ])
