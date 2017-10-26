@@ -20,7 +20,9 @@ class Table extends PureComponent {
         style={{ margin: 0 }}
         onClick={() => {
           selectBooking(row._id)
-          updateBookingStatus({ id: row._id, status: readed })
+          if (row.status === waiting) {
+            updateBookingStatus({ id: row._id, status: readed })
+          }
           openManageModal()
         }}
       >
