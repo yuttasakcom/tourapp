@@ -4,7 +4,7 @@ import moment from 'moment'
 
 import Table from './Table'
 import Card from '../../../components/Card'
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class Dashboard extends PureComponent {
   componentDidMount() {
@@ -44,4 +44,4 @@ const mapStateToProps = ({
   bookingsSummaries
 })
 
-export default connect(mapStateToProps, actions)(Dashboard)
+export default connect(mapStateToProps, actions.company.dashboard)(Dashboard)
