@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import map from 'lodash/map'
 
 import BusPathItem from './BusPathItem'
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class BusPathList extends PureComponent {
   renderBusPathList() {
@@ -14,7 +14,7 @@ class BusPathList extends PureComponent {
         value={values}
         key={index}
         pathName={busPathName}
-        onChange={vals => manageBusPath(vals, index)}
+        onChange={vals => manageBusPath({ values: vals, index })}
       />
     ))
   }
@@ -36,4 +36,6 @@ const mapStateToProps = ({ company: { printBusPath: { hotelsSelects } } }) => ({
   }))
 })
 
-export default connect(mapStateToProps, actions)(BusPathList)
+export default connect(mapStateToProps, actions.company.printBusPath)(
+  BusPathList
+)
