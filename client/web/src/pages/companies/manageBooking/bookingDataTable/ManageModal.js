@@ -5,34 +5,47 @@ import Modal from 'react-bootstrap/lib/Modal'
 import moment from 'moment'
 
 import DisplayField from '../../../../components/DisplayField'
-import * as actions from '../../../../actions/companies'
+import actions from '../../../../state/ducks/actions'
 import {
   waiting,
   readed,
   accepted,
-  rejected
-} from '../../../../actions/bookingStatus'
+  rejected,
+  completed
+} from '../../../../state/utils/bookingStatus'
 
 class ManageModal extends PureComponent {
+  updateBookingStatus = ({ id, status }) => {
+    this.props.closeManageModal()
+    this.props.updateBookingStatus({ id, status })
+  }
+
   renderBookingAction() {
-    const {
-      booking: { _id, status },
-      acceptBooking,
-      rejectBooking,
-      completeBooking
-    } = this.props
+    const { booking: { _id, status } } = this.props
     const reject = (
-      <Button key="1" onClick={() => rejectBooking(_id)} bsStyle="danger">
+      <Button
+        key="1"
+        onClick={() => this.updateBookingStatus({ id: _id, status: rejected })}
+        bsStyle="danger"
+      >
         Reject
       </Button>
     )
     const accept = (
-      <Button key="2" onClick={() => acceptBooking(_id)} bsStyle="primary">
+      <Button
+        key="2"
+        onClick={() => this.updateBookingStatus({ id: _id, status: accepted })}
+        bsStyle="primary"
+      >
         Accept
       </Button>
     )
     const complete = (
-      <Button key="3" onClick={() => completeBooking(_id)} bsStyle="info">
+      <Button
+        key="3"
+        onClick={() => this.updateBookingStatus({ id: _id, status: completed })}
+        bsStyle="info"
+      >
         Complete
       </Button>
     )
@@ -59,14 +72,14 @@ class ManageModal extends PureComponent {
   }
 
   render() {
-    const { showModal, closeManageBookingModal, booking } = this.props
+    const { showModal, closeManageModal, booking } = this.props
 
     if (!booking) {
       return null
     }
 
     return (
-      <Modal show={showModal} onHide={closeManageBookingModal}>
+      <Modal show={showModal} onHide={closeManageModal}>
         <Modal.Header closeButton>
           <Modal.Title>Booking Detail</Modal.Title>
         </Modal.Header>
@@ -97,7 +110,7 @@ class ManageModal extends PureComponent {
           <DisplayField label="Note" text={booking.tourist.note} />
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={closeManageBookingModal}>Close</Button>
+          <Button onClick={closeManageModal}>Close</Button>
           {this.renderBookingAction()}
         </Modal.Footer>
       </Modal>
@@ -106,8 +119,7 @@ class ManageModal extends PureComponent {
 }
 
 const mapStateToProps = ({ company: { booking } }) => ({
-  showModal: booking.showManageBookingModal,
   booking: booking.bookings[booking.selectedBooking]
 })
 
-export default connect(mapStateToProps, actions)(ManageModal)
+export default connect(mapStateToProps, actions.company.booking)(ManageModal)
