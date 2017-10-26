@@ -36,15 +36,6 @@ export const COMPANY_RESET_PRICE_SUCCESS = 'company_reset_price_success'
 
 export const COMPANY_OPEN_VIEW_AGENT_PROFILE_MODAL =
   'company_open_view_agent_profile_modal'
-export const COMPANY_CLOSE_VIEW_AGENT_PROFILE_MODAL =
-  'company_close_view_agent_profile_modal'
-export const COMPANY_TOGGLE_PROFILE_MENU = 'company_toggle_profile_menu'
-export const COMPANY_TOGGLE_NOTIFICATION_GEM = 'company_toggle_notification_gem'
-export const COMPANY_TOGGLE_ACCEPT_PENDING_GEM =
-  'company_toggle_accept_pending_gem'
-export const COMPANY_TOGGLE_REQUEST_PENDING_GEM =
-  'company_toggle_request_pending_gem'
-export const COMPANY_HIDE_ALL_GEM = 'company_hide_all_gem'
 export const COMPANY_FETCH_REQUEST_PENDINGS_SUCCESS =
   'company_fetch_request_pendings_success'
 export const COMPANY_FETCH_ACCEPT_PENDINGS_SUCCESS =
