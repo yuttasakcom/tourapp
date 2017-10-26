@@ -2,9 +2,10 @@ import moment from 'moment'
 import { error } from 'react-notification-system-redux'
 import { takeEvery, put, call, all } from 'redux-saga/effects'
 
+import socket from '../../../utils/socket'
 import axios from '../../../utils/axiosCompanies'
 import actions from '../../actions'
-import { FETCH_BOOKINGS } from './types'
+import { FETCH_BOOKINGS, UPDATE_BOOKING_STATUS } from './types'
 
 export function* watchFetchBookings() {
   yield takeEvery(FETCH_BOOKINGS, function*(action) {
@@ -27,6 +28,29 @@ export function* watchFetchBookings() {
   })
 }
 
+export function* watchUpdateBookingStatus() {
+  yield takeEvery(UPDATE_BOOKING_STATUS, function*(action) {
+    const { id, status } = action.payload
+    try {
+      const { data } = yield call(axios.put, `/bookings/${id}`, { status })
+      yield call(socket.emit, 'bookingStatusUpdate', {
+        ...data,
+        updatedStatus: status
+      })
+      yield put(
+        actions.company.booking.updateBookingStatusSuccess({ id, status })
+      )
+    } catch (e) {
+      yield put(
+        error({
+          title: 'แจ้งเตือน',
+          message: e.response.data
+        })
+      )
+    }
+  })
+}
+
 export default function* rootSaga() {
-  yield all([watchFetchBookings()])
+  yield all([watchFetchBookings(), watchUpdateBookingStatus()])
 }
