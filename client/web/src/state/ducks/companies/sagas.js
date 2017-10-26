@@ -4,7 +4,7 @@ import rootPkgSaga from './pkg/sagas'
 import rootBusPathSaga from './busPath/sagas'
 import rootPrintBusPathSaga from './printBusPath/sagas'
 import rootDashboardSaga from './dashboard/sagas'
-import rootBookingsSummarySaga from './bookingsSummary/sagas'
+import rootBookingSummarySaga from './bookingSummary/sagas'
 
 export default function* rootSaga() {
   yield all([
@@ -12,6 +12,6 @@ export default function* rootSaga() {
     rootBusPathSaga(),
     rootPrintBusPathSaga(),
     rootDashboardSaga(),
-    rootBookingsSummarySaga()
+    rootBookingSummarySaga()
   ])
 }
