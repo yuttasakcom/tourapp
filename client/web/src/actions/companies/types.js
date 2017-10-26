@@ -2,8 +2,6 @@ export const COMPANY_SIGN_IN_SUCCESS = 'company_sign_in_success'
 export const COMPANY_SIGN_OUT_SUCCESS = 'company_sign_out_success'
 export const COMPANY_SIGN_UP_SUCCESS = 'company_sign_up_success'
 
-export const COMPANY_FETCH_DASHBOARD_SUCCESS = 'company_fetch_dashboard_success'
-
 export const COMPANY_FETCH_BOOKINGS_SUCCESS = 'company_fetch_bookings_success'
 export const COMPANY_SET_BOOKINGS_STATUS_VISIBILITY_FILTER =
   'company_set_bookings_status_visibility_filter'
