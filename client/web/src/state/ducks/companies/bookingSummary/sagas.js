@@ -1,4 +1,4 @@
-import { takeEvery, all, call, put } from 'redux-saga/effects'
+import { takeLatest, all, call, put } from 'redux-saga/effects'
 import { error } from 'react-notification-system-redux'
 import moment from 'moment'
 
@@ -7,7 +7,7 @@ import actions from '../../actions'
 import { FETCH_BOOKING_SUMMARY } from './types'
 
 export function* watchFetchBookingsSummary() {
-  yield takeEvery(FETCH_BOOKING_SUMMARY, function*(action) {
+  yield takeLatest(FETCH_BOOKING_SUMMARY, function*(action) {
     const date = action.payload
     const dateEnd = moment(date.clone()).add(1, 'days')
     try {
