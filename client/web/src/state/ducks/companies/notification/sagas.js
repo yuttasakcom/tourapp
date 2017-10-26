@@ -3,7 +3,7 @@ import { takeEvery, put, call, all } from 'redux-saga/effects'
 
 import axios from '../../../utils/axiosCompanies'
 import actions from '../../actions'
-import { FETCH_ACCEPT_PENDINGS } from './types'
+import { FETCH_ACCEPT_PENDINGS, FETCH_NOTIFICATIONS } from './types'
 
 export function* watchFetchAcceptPendings() {
   yield takeEvery(FETCH_ACCEPT_PENDINGS, function*() {
@@ -22,6 +22,12 @@ export function* watchFetchAcceptPendings() {
         })
       )
     }
+  })
+}
+
+export function* watchFetchNotifications() {
+  yield takeEvery(FETCH_NOTIFICATIONS, function*() {
+    yield put(actions.company.notification.fetchNotificationsSuccess([]))
   })
 }
 
