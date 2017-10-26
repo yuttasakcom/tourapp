@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class Actions extends PureComponent {
   render() {
@@ -19,4 +19,4 @@ class Actions extends PureComponent {
   }
 }
 
-export default connect(null, actions)(Actions)
+export default connect(null, actions.company.printBusPaths)(Actions)
