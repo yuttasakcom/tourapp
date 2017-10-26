@@ -5,7 +5,7 @@ import agent from './agentReducer'
 import notification from './notificationReducer'
 import booking from './bookingReducer'
 import bookingSummary from './bookingSummaryReducer'
-import dashboard from './dashboardReducer'
+import dashboard from '../../state/ducks/companies/dashboard/reducers'
 import printBusPath from '../../state/ducks/companies/printBusPath/reducers'
 import busPath from '../../state/ducks/companies/busPath/reducers'
 
