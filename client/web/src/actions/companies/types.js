@@ -71,7 +71,3 @@ export const COMPANY_ADD_NOTIFICATION_SUCCESS =
 
 export const COMPANY_FETCH_BOOKINGS_SUMMARY_SUCCESS =
   'company_fetch_bookings_summary_success'
-
-export const COMPANY_FETCH_BOOKINGS_HOTELS_SUMMARY_AND_BUS_PATHS_SUCCESS =
-  'company_fetch_bookings_hotels_summary_and_bus_paths_success'
-export const COMPANY_MANAGE_BUS_PATH = 'company_manage_bus_path'
