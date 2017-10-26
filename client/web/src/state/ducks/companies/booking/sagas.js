@@ -33,10 +33,8 @@ export function* watchUpdateBookingStatus() {
     const { id, status } = action.payload
     try {
       const { data } = yield call(axios.put, `/bookings/${id}`, { status })
-      yield call(socket.emit, 'bookingStatusUpdate', {
-        ...data,
-        updatedStatus: status
-      })
+      data.updatedStatus = status
+      socket.emit('bookingStatusUpdate', data)
       yield put(
         actions.company.booking.updateBookingStatusSuccess({ id, status })
       )
