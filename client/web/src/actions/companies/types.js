@@ -2,19 +2,6 @@ export const COMPANY_SIGN_IN_SUCCESS = 'company_sign_in_success'
 export const COMPANY_SIGN_OUT_SUCCESS = 'company_sign_out_success'
 export const COMPANY_SIGN_UP_SUCCESS = 'company_sign_up_success'
 
-export const COMPANY_FETCH_BOOKINGS_SUCCESS = 'company_fetch_bookings_success'
-export const COMPANY_SET_BOOKINGS_STATUS_VISIBILITY_FILTER =
-  'company_set_bookings_status_visibility_filter'
-export const COMPANY_OPEN_MANAGE_BOOKING_MODAL =
-  'company_open_manage_booking_modal'
-export const COMPANY_CLOSE_MANAGE_BOOKING_MODAL =
-  'company_close_manage_booking_modal'
-export const COMPANY_ACCEPT_BOOKING_SUCCESS = 'company_accept_booking_success'
-export const COMPANY_REJECT_BOOKING_SUCCESS = 'company_reject_booking_success'
-export const COMPANY_COMPLETE_BOOKING_SUCCESS =
-  'company_complete_booking_success'
-export const COMPANY_BOOKING_NOTIFY = 'company_booking_notify'
-
 export const COMPANY_FETCH_AGENTS_SUCCESS = 'company_fetch_agents_success'
 export const COMPANY_DELETE_AGENT_SUCCESS = 'company_delete_agent_success'
 export const COMPANY_REQUEST_AGENT_SUCCESS = 'company_request_agent_success'
