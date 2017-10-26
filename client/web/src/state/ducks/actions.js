@@ -5,7 +5,7 @@ import companyPkg from './companies/pkg/actions'
 import companyBusPath from './companies/busPath/actions'
 import companyPrintBusPath from './companies/printBusPath/actions'
 import companyDashboard from './companies/dashboard/actions'
-import companyBookingsSummary from './companies/bookingsSummary/actions'
+import companyBookingSummary from './companies/bookingSummary/actions'
 
 export default createActions({
   COMPANY: {
@@ -13,7 +13,7 @@ export default createActions({
     BUS_PATH: companyBusPath,
     PRINT_BUS_PATH: companyPrintBusPath,
     DASHBOARD: companyDashboard,
-    BOOKINGS_SUMMARY: companyBookingsSummary
+    BOOKING_SUMMARY: companyBookingSummary
   },
   AGENT: {},
   COMMON: {

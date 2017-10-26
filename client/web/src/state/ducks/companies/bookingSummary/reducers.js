@@ -1,18 +1,18 @@
 import moment from 'moment'
 import { handleActions } from 'redux-actions'
 
-import { FETCH_BOOKINGS_SUMMARY_SUCCESS } from './types'
+import { FETCH_BOOKING_SUMMARY_SUCCESS } from './types'
 
 const initialState = {
-  bookingsSummary: [],
+  bookingSummary: [],
   visibilityFilter: { date: moment().startOf('day') }
 }
 
 export default handleActions(
   {
-    [FETCH_BOOKINGS_SUMMARY_SUCCESS]: (state, action) => ({
+    [FETCH_BOOKING_SUMMARY_SUCCESS]: (state, action) => ({
       ...state,
-      bookingsSummary: action.payload.data,
+      bookingSummary: action.payload.data,
       visibilityFilter: { date: action.payload.date }
     })
   },

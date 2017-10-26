@@ -4,10 +4,10 @@ import moment from 'moment'
 
 import axios from '../../../utils/axiosCompanies'
 import actions from '../../actions'
-import { FETCH_BOOKINGS_SUMMARY } from './types'
+import { FETCH_BOOKING_SUMMARY } from './types'
 
 export function* watchFetchBookingsSummary() {
-  yield takeEvery(FETCH_BOOKINGS_SUMMARY, function*(action) {
+  yield takeEvery(FETCH_BOOKING_SUMMARY, function*(action) {
     const date = action.payload
     const dateEnd = moment(date.clone()).add(1, 'days')
     try {
@@ -16,7 +16,7 @@ export function* watchFetchBookingsSummary() {
         `/bookings-summary?dateStart=${date}&dateEnd=${dateEnd}`
       )
       yield put(
-        actions.company.bookingSummary.fetchBookingsSummarySuccess({
+        actions.company.bookingSummary.fetchBookingSummarySuccess({
           data,
           date
         })
