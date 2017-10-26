@@ -10,6 +10,7 @@ class renderField extends PureComponent {
       case 'select':
         return (
           <Select
+            closeOnSelect={false}
             {...rest}
             {...input}
             onBlur={() => input.onBlur(input.value.value)}
@@ -40,19 +41,11 @@ class renderField extends PureComponent {
           error &&
           'has-error'}`}
       >
-        <label className="control-label">
-          {label}
-        </label>
+        <label className="control-label">{label}</label>
         {this.renderInput()}
         {touched &&
-          ((error &&
-            <span style={{ color: 'red' }}>
-              {error}
-            </span>) ||
-            (warning &&
-              <span>
-                {warning}
-              </span>))}
+          ((error && <span style={{ color: 'red' }}>{error}</span>) ||
+            (warning && <span>{warning}</span>))}
       </div>
     )
   }
