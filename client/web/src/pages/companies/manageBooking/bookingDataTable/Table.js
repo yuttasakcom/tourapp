@@ -4,8 +4,8 @@ import flat from 'flat'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../../actions/companies'
-import { waiting, readed } from '../../../../actions/bookingStatus'
+import actions from '../../../../state/ducks/actions'
+import { waiting, readed } from '../../../../state/utils/bookingStatus'
 
 class Table extends PureComponent {
   componentDidMount() {
@@ -13,12 +13,16 @@ class Table extends PureComponent {
   }
 
   renderAction = (cell, row) => {
-    const { openManageBookingModal } = this.props
+    const { openManageModal, updateBookingStatus, selectBooking } = this.props
     return (
       <button
         className="btn btn-info btn-sm"
         style={{ margin: 0 }}
-        onClick={() => openManageBookingModal(row._id, row.status)}
+        onClick={() => {
+          selectBooking(row._id)
+          updateBookingStatus({ id: row._id, status: readed })
+          openManageModal()
+        }}
       >
         View
       </button>
@@ -97,4 +101,4 @@ const mapStateToProps = ({
   }
 }
 
-export default connect(mapStateToProps, actions)(Table)
+export default connect(mapStateToProps, actions.company.booking)(Table)
