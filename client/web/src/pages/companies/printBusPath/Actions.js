@@ -19,4 +19,4 @@ class Actions extends PureComponent {
   }
 }
 
-export default connect(null, actions.company.printBusPaths)(Actions)
+export default connect(null, actions.company.printBusPath)(Actions)
