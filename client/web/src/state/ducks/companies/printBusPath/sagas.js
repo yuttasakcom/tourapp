@@ -17,7 +17,10 @@ export function* watchPrintBusPaths() {
     const { date, pkg } = yield select(
       state => state.company.printBusPath.visibilityFilter
     )
-    openCompanyReport(`bus-paths-summary/${date}?pkgId=${pkg.value}`)
+    yield call(
+      openCompanyReport,
+      `bus-paths-summary/${date}?pkgId=${pkg.value}`
+    )
   })
 }
 
