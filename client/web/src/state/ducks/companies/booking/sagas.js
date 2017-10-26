@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { error } from 'react-notification-system-redux'
-import { takeEvery, put, call, all } from 'redux-saga/effects'
+import { takeEvery, takeLatest, put, call, all } from 'redux-saga/effects'
 
 import socket from '../../../utils/socket'
 import axios from '../../../utils/axiosCompanies'
@@ -8,7 +8,7 @@ import actions from '../../actions'
 import { FETCH_BOOKINGS, UPDATE_BOOKING_STATUS } from './types'
 
 export function* watchFetchBookings() {
-  yield takeEvery(FETCH_BOOKINGS, function*(action) {
+  yield takeLatest(FETCH_BOOKINGS, function*(action) {
     const date = action.payload
     const dateEnd = moment(date.clone()).add(1, 'days')
     try {
