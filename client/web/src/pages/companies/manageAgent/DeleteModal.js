@@ -23,7 +23,13 @@ class DeleteModal extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeModal}>No</Button>
-          <Button bsStyle="danger" onClick={() => deleteAgent(agent)}>
+          <Button
+            bsStyle="danger"
+            onClick={() => {
+              deleteAgent(agent)
+              closeModal()
+            }}
+          >
             Yes
           </Button>
         </Modal.Footer>
