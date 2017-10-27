@@ -7,3 +7,6 @@ export const FETCH_AGENT_CONTRACT_RATES_SUCCESS = def(
 )
 export const REQUEST_AGENT = def('REQUEST_AGENT')
 export const SELECT_AGENT = def('SELECT_AGENT')
+export const SELECT_OFFER_SPECIAL_PRICE_PKG = def(
+  'SELECT_OFFER_SPECIAL_PRICE_PKG'
+)
