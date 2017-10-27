@@ -32,7 +32,10 @@ class ResetPriceModal extends PureComponent {
           <Button onClick={closeModal}>No</Button>
           <Button
             bsStyle="danger"
-            onClick={() => resetPrice(agentId, pkg, fetchAgentContractRates)}
+            onClick={() => {
+              resetPrice()
+              closeModal()
+            }}
           >
             Yes
           </Button>
