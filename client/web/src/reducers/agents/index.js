@@ -5,7 +5,7 @@ import booking from './bookingReducer'
 import manageBooking from './manageBookingReducer'
 import company from './companyReducer'
 import employee from './employeeReducer'
-import dashboard from './dashboardReducer'
+import dashboard from '../../state/ducks/agents/dashboard/reducers'
 
 export default combineReducers({
   notification,
