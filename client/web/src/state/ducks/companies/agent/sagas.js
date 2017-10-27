@@ -4,7 +4,11 @@ import { takeEvery, put, call, all } from 'redux-saga/effects'
 import axios from '../../../utils/axiosCompanies'
 import actions from '../../actions'
 import socket from '../../../utils/socket'
-import { FETCH_AGENTS, REQUEST_AGENT } from './types'
+import {
+  FETCH_AGENTS,
+  REQUEST_AGENT,
+  FETCH_AGENT_CONTRACT_RATES
+} from './types'
 
 export function* watchFetchAgents() {
   yield takeEvery(FETCH_AGENTS, function*() {
@@ -48,6 +52,27 @@ export function* watchRequestAgent() {
   })
 }
 
+export function* watchFetchAgentContractRates() {
+  yield takeEvery(FETCH_AGENT_CONTRACT_RATES, function*(action) {
+    const id = action.payload
+    try {
+      const { data } = yield call(axios.get, `/special-prices/${id}`)
+      yield put(actions.company.agent.fetchAgentContractRatesSuccess(data))
+    } catch (e) {
+      yield put(
+        error({
+          title: 'แจ้งเตือน',
+          message: e.response.data
+        })
+      )
+    }
+  })
+}
+
 export default function* rootSaga() {
-  yield all([watchFetchAgents(), watchRequestAgent()])
+  yield all([
+    watchFetchAgents(),
+    watchRequestAgent(),
+    watchFetchAgentContractRates()
+  ])
 }
