@@ -84,7 +84,7 @@ export function* watchOfferSpecialPrice() {
       )
       yield put(
         actions.company.agent.offerSpecialPriceSuccess({
-          _id: selectedOfferSpecialPricePkg,
+          id: selectedOfferSpecialPricePkg,
           values
         })
       )
