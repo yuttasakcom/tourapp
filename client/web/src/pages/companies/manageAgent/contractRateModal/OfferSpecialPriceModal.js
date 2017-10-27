@@ -7,8 +7,8 @@ import actions from '../../../../state/ducks/actions'
 
 class OfferSpecialPriceModal extends PureComponent {
   onSubmit = values => {
-    const { agentId, pkg, offerSpecialPrice } = this.props
-    offerSpecialPrice(agentId, pkg, values)
+    this.props.offerSpecialPrice(values)
+    this.props.closeModal()
   }
 
   render() {
