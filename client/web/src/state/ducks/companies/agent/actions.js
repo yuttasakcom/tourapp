@@ -8,5 +8,7 @@ export default {
   OFFER_SPECIAL_PRICE: null,
   OFFER_SPECIAL_PRICE_SUCCESS: payload => payload,
   RESET_PRICE: null,
-  REQUEST_AGENT: id => id
+  REQUEST_AGENT: id => id,
+  DELETE_AGENT: null,
+  DELETE_AGENT_SUCCESS: id => id
 }
