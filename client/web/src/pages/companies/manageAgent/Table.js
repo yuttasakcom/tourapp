@@ -23,7 +23,7 @@ class Table extends PureComponent {
           style={{ margin: 0 }}
           onClick={() => {
             selectAgent(row._id)
-            fetchAgentContractRates(row._id)
+            fetchAgentContractRates()
             openContractRateModal()
           }}
         >
