@@ -10,6 +10,6 @@ export default {
   ACCEPT_AGENT_SUCCESS: payload => payload,
   CANCEL_AGENT_REQUEST: id => id,
   CANCEL_AGENT_REQUEST_SUCCESS: payload => payload,
-  REJECT_AGENT_REQUEST: id => id,
-  REJECT_AGENT_REQUEST_SUCCESS: payload => payload
+  REJECT_REQUEST_AGENT: id => id,
+  REJECT_REQUEST_AGENT_SUCCESS: payload => payload
 }
