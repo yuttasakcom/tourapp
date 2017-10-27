@@ -40,5 +40,6 @@ class Socket extends PureComponent {
 
 export default connect(null, {
   ...actions.company.agent,
-  ...actions.company.notification
+  ...actions.company.notification,
+  ...actions.company.booking
 })(Socket)
