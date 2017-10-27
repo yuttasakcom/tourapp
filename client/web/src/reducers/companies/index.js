@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 
 import pkg from '../../state/ducks/companies/pkg/reducers'
-import agent from './agentReducer'
-import notification from './notificationReducer'
+import agent from '../../state/ducks/companies/agent/reducers'
+import notification from '../../state/ducks/companies/notification/reducers'
 import booking from '../../state/ducks/companies/booking/reducers'
 import bookingSummary from '../../state/ducks/companies/bookingSummary/reducers'
 import dashboard from '../../state/ducks/companies/dashboard/reducers'
