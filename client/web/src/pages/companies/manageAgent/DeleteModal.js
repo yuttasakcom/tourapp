@@ -3,18 +3,18 @@ import { connect } from 'react-redux'
 import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
 
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class DeleteModal extends PureComponent {
   render() {
-    const { showModal, closeDeleteAgentModal, deleteAgent, agent } = this.props
+    const { showModal, closeModal, deleteAgent, agent } = this.props
 
     if (!agent) {
       return null
     }
 
     return (
-      <Modal show={showModal} onHide={closeDeleteAgentModal}>
+      <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Delete Agent</Modal.Title>
         </Modal.Header>
@@ -22,7 +22,7 @@ class DeleteModal extends PureComponent {
           <h4>Are you sure to delete agent {agent.email} ?</h4>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={closeDeleteAgentModal}>No</Button>
+          <Button onClick={closeModal}>No</Button>
           <Button bsStyle="danger" onClick={() => deleteAgent(agent)}>
             Yes
           </Button>
@@ -33,8 +33,7 @@ class DeleteModal extends PureComponent {
 }
 
 const mapStateToProps = ({ company: { agent } }) => ({
-  showModal: agent.showDeleteAgentModal,
   agent: agent.agents[agent.selectedAgent]
 })
 
-export default connect(mapStateToProps, actions)(DeleteModal)
+export default connect(mapStateToProps, actions.company.agent)(DeleteModal)
