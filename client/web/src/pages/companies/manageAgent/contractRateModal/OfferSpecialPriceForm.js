@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
 import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
+import isNumber from 'lodash/isNumber'
 
 import renderField from '../../../../components/renderField'
 
@@ -53,12 +54,12 @@ const validate = values => {
   const errors = {}
   if (!values.priceAdult) {
     errors.priceAdult = 'Required'
-  } else if (isNaN(Number(values.priceAdult))) {
+  } else if (!isNumber(values.priceAdult)) {
     errors.priceAdult = 'Must be a Number'
   }
   if (!values.priceChild) {
     errors.priceChild = 'Required'
-  } else if (isNaN(Number(values.priceChild))) {
+  } else if (!isNumber(values.priceChild)) {
     errors.priceChild = 'Must be a Number'
   }
   return errors
