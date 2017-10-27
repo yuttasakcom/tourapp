@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import notification from './notificationReducer'
-import booking from './bookingReducer'
+import booking from '../../state/ducks/agents/booking/reducers'
 import manageBooking from './manageBookingReducer'
 import company from './companyReducer'
 import employee from './employeeReducer'
