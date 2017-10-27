@@ -9,7 +9,8 @@ import {
   REQUEST_AGENT,
   FETCH_AGENT_CONTRACT_RATES,
   OFFER_SPECIAL_PRICE,
-  RESET_PRICE
+  RESET_PRICE,
+  DELETE_AGENT
 } from './types'
 
 export function* watchFetchAgents() {
@@ -134,12 +135,40 @@ export function* watchResetPrice() {
   })
 }
 
+export function* watchDeleteAgent() {
+  yield takeEvery(DELETE_AGENT, function*() {
+    const { selectedAgent } = yield select(state => state.company.agent)
+    try {
+      const { data: { message } } = yield call(
+        axios.delete,
+        `/relationship/${selectedAgent}`
+      )
+      yield put(actions.company.agent.deleteAgentSuccess(selectedAgent))
+      socket.emit('deleteRelationship', { _id: selectedAgent })
+      yield put(
+        success({
+          title: 'แจ้งเตือน',
+          message
+        })
+      )
+    } catch (e) {
+      yield put(
+        error({
+          title: 'แจ้งเตือน',
+          message: e.response.data
+        })
+      )
+    }
+  })
+}
+
 export default function* rootSaga() {
   yield all([
     watchFetchAgents(),
     watchRequestAgent(),
     watchFetchAgentContractRates(),
     watchOfferSpecialPrice(),
-    watchResetPrice()
+    watchResetPrice(),
+    watchDeleteAgent()
   ])
 }
