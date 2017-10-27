@@ -5,7 +5,8 @@ import {
   FETCH_AGENTS_SUCCESS,
   SELECT_AGENT,
   FETCH_AGENT_CONTRACT_RATES_SUCCESS,
-  SELECT_OFFER_SPECIAL_PRICE_PKG
+  SELECT_OFFER_SPECIAL_PRICE_PKG,
+  OFFER_SPECIAL_PRICE_SUCCESS
 } from './types'
 
 const initialState = {
@@ -35,6 +36,14 @@ export default handleActions(
     [SELECT_OFFER_SPECIAL_PRICE_PKG]: (state, action) => ({
       ...state,
       selectedOfferSpecialPricePkg: action.payload
+    }),
+
+    [OFFER_SPECIAL_PRICE_SUCCESS]: (state, action) => ({
+      ...state,
+      selectedAgentContractRates: {
+        ...state.selectedAgentContractRates,
+        [action.payload.id]: action.payload.values
+      }
     })
   },
   initialState
