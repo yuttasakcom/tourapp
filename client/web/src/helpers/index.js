@@ -1,4 +1,3 @@
-import axiosCompany from '../actions/companies/axios'
 import axiosAgent from '../actions/agents/axios'
 
 const openPDF = data => {
@@ -8,13 +7,6 @@ const openPDF = data => {
 
   const url = window.URL.createObjectURL(blob)
   window.open(url)
-}
-
-export const openCompanyReport = async reportName => {
-  const { data } = await axiosCompany.get(`/reports/${reportName}`, {
-    responseType: 'arraybuffer'
-  })
-  openPDF(data)
 }
 
 export const openAgentReport = async reportName => {
