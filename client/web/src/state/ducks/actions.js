@@ -9,6 +9,7 @@ import companyBookingSummary from './companies/bookingSummary/actions'
 import companyBooking from './companies/booking/actions'
 import companyNotification from './companies/notification/actions'
 import companyAgent from './companies/agent/actions'
+import agentDashboard from './agents/dashboard/actions'
 
 export default createActions({
   COMPANY: {
@@ -21,7 +22,7 @@ export default createActions({
     NOTIFICATION: companyNotification,
     AGENT: companyAgent
   },
-  AGENT: {},
+  AGENT: { DASHBOARD: agentDashboard },
   COMMON: {
     AUTH: auth
   }
