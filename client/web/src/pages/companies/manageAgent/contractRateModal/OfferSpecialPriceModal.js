@@ -34,8 +34,7 @@ class OfferSpecialPriceModal extends PureComponent {
 }
 
 const mapStateToProps = ({ company: { agent } }) => ({
-  pkg: agent.selectedAgentContractRates[agent.selectedOfferSpecialPricePkg],
-  agentId: agent.selectedAgent
+  pkg: agent.selectedAgentContractRates[agent.selectedOfferSpecialPricePkg]
 })
 
 export default connect(mapStateToProps, actions.company.agent)(
