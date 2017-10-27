@@ -92,7 +92,7 @@ export function* watchRejectRequestAgent() {
     try {
       yield call(axios.delete, `/reject-request/${id}`)
       yield put(actions.company.notification.rejectRequestAgentSuccess(id))
-      socket.emit('rejectRequest', { id })
+      socket.emit('rejectRequest', { _id: id })
     } catch (e) {
       yield put(
         error({
