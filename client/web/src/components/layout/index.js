@@ -80,6 +80,7 @@ class Layout extends React.PureComponent {
               this.setState({
                 showRequestPendingGem: !showRequestPendingGem
               })}
+            showRequestPendingGem={showRequestPendingGem}
             cancelRequest={cancelRequest}
           />
           <div
