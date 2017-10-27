@@ -11,5 +11,7 @@ export default {
   CANCEL_REQUEST_AGENT: id => id,
   CANCEL_REQUEST_AGENT_SUCCESS: payload => payload,
   REJECT_REQUEST_AGENT: id => id,
-  REJECT_REQUEST_AGENT_SUCCESS: payload => payload
+  REJECT_REQUEST_AGENT_SUCCESS: payload => payload,
+  ADD_NOTIFICATION: payload => payload,
+  ADD_NOTIFICATION_SUCCESS: payload => payload,
 }
