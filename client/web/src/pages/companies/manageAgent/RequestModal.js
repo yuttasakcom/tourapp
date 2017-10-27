@@ -8,6 +8,7 @@ import actions from '../../../state/ducks/actions'
 class RequestModal extends PureComponent {
   onSubmit = values => {
     this.props.requestAgent(values._id)
+    this.props.closeModal()
   }
 
   render() {
