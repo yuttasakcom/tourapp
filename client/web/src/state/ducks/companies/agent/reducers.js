@@ -4,7 +4,8 @@ import { handleActions } from 'redux-actions'
 import {
   FETCH_AGENTS_SUCCESS,
   SELECT_AGENT,
-  FETCH_AGENT_CONTRACT_RATES_SUCCESS
+  FETCH_AGENT_CONTRACT_RATES_SUCCESS,
+  SELECT_OFFER_SPECIAL_PRICE_PKG
 } from './types'
 
 const initialState = {
@@ -29,6 +30,11 @@ export default handleActions(
     [SELECT_AGENT]: (state, action) => ({
       ...state,
       selectedAgent: action.payload
+    }),
+
+    [SELECT_OFFER_SPECIAL_PRICE_PKG]: (state, action) => ({
+      ...state,
+      selectedOfferSpecialPricePkg: action.payload
     })
   },
   initialState
