@@ -9,7 +9,8 @@ import {
   FETCH_NOTIFICATIONS,
   ADD_NOTIFICATION,
   FETCH_REQUEST_PENDINGS,
-  ACCEPT_AGENT
+  ACCEPT_AGENT,
+  REJECT_REQUEST_AGENT
 } from './types'
 
 export function* watchFetchAcceptPendings() {
@@ -85,12 +86,31 @@ export function* watchAcceptAgent() {
   })
 }
 
+export function* watchRejectRequestAgent() {
+  yield takeEvery(REJECT_REQUEST_AGENT, function*(action) {
+    const id = action.payload
+    try {
+      yield call(axios.delete, `/reject-request/${id}`)
+      yield put(actions.company.notification.rejectRequestAgentSuccess(id))
+      socket.emit('rejectRequest', { id })
+    } catch (e) {
+      yield put(
+        error({
+          title: 'แจ้งเตือน',
+          message: e.response.data
+        })
+      )
+    }
+  })
+}
+
 export default function* rootSaga() {
   yield all([
     watchFetchAcceptPendings(),
     watchFetchRequestPendings(),
     watchFetchNotifications(),
     watchAddNotification(),
-    watchAcceptAgent()
+    watchAcceptAgent(),
+    watchRejectRequestAgent()
   ])
 }
