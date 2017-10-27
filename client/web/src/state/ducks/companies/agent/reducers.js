@@ -1,4 +1,5 @@
 import mapKeys from 'lodash/mapKeys'
+import omit from 'lodash/omit'
 import { handleActions } from 'redux-actions'
 
 import {
@@ -6,7 +7,8 @@ import {
   SELECT_AGENT,
   FETCH_AGENT_CONTRACT_RATES_SUCCESS,
   SELECT_OFFER_SPECIAL_PRICE_PKG,
-  OFFER_SPECIAL_PRICE_SUCCESS
+  OFFER_SPECIAL_PRICE_SUCCESS,
+  DELETE_AGENT_SUCCESS
 } from './types'
 
 const initialState = {
@@ -44,6 +46,11 @@ export default handleActions(
         ...state.selectedAgentContractRates,
         [action.payload.id]: action.payload.values
       }
+    }),
+
+    [DELETE_AGENT_SUCCESS]: (state, action) => ({
+      ...state,
+      agents: omit(state.agents, action.payload)
     })
   },
   initialState
