@@ -2,24 +2,34 @@ import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../../actions/companies'
+import actions from '../../../../state/ducks/actions'
 
 class Table extends PureComponent {
   renderAction = (cell, row) => {
-    const { openOfferSpecialPriceModal, openResetPriceModal } = this.props
+    const {
+      openOfferSpecialPriceModal,
+      openResetPriceModal,
+      selectOfferSpecialPricePkg
+    } = this.props
     return (
       <div>
         <button
           className="btn btn-info btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openOfferSpecialPriceModal(row._id)}
+          onClick={() => {
+            selectOfferSpecialPricePkg(row._id)
+            openOfferSpecialPriceModal()
+          }}
         >
           Offer Special Price
         </button>
         <button
           className="btn btn-danger btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openResetPriceModal(row._id)}
+          onClick={() => {
+            selectOfferSpecialPricePkg(row._id)
+            openResetPriceModal()
+          }}
         >
           Reset
         </button>
@@ -78,4 +88,4 @@ const mapStateToProps = ({ company: { agent } }) => ({
   contractRates: agent.selectedAgentContractRates
 })
 
-export default connect(mapStateToProps, actions)(Table)
+export default connect(mapStateToProps, actions.company.agent)(Table)
