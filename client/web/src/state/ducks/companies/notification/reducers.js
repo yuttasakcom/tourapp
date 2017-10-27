@@ -10,7 +10,7 @@ import {
   FETCH_REQUEST_PENDINGS_SUCCESS,
   ACCEPT_AGENT_SUCCESS,
   CANCEL_AGENT_REQUEST_SUCCESS,
-  REJECT_AGENT_REQUEST_SUCCESS
+  REJECT_REQUEST_AGENT_SUCCESS
 } from './types'
 
 const initialState = {
@@ -34,7 +34,7 @@ export default handleActions(
       ...state,
       requestPendings: omit(state.requestPendings, action.payload)
     }),
-    [REJECT_AGENT_REQUEST_SUCCESS]: (state, action) => ({
+    [REJECT_REQUEST_AGENT_SUCCESS]: (state, action) => ({
       ...state,
       acceptPendings: omit(state.acceptPendings, action.payload)
     }),
