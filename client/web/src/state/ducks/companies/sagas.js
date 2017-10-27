@@ -7,6 +7,7 @@ import rootDashboardSaga from './dashboard/sagas'
 import rootBookingSummarySaga from './bookingSummary/sagas'
 import rootBookingSaga from './booking/sagas'
 import rootNotificationSaga from './notification/sagas'
+import rootAgentSaga from './agent/sagas'
 
 export default function* rootSaga() {
   yield all([
@@ -16,6 +17,7 @@ export default function* rootSaga() {
     rootDashboardSaga(),
     rootBookingSummarySaga(),
     rootBookingSaga(),
-    rootNotificationSaga()
+    rootNotificationSaga(),
+    rootAgentSaga()
   ])
 }
