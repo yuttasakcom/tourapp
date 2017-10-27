@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Layout from '../../../components/layout'
 import MenuList from './MenuList'
 import Socket from './Socket'
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class CompanyLayout extends React.PureComponent {
   componentDidMount() {
@@ -16,17 +16,13 @@ class CompanyLayout extends React.PureComponent {
     }
   }
 
-  handleAcceptAgent = acceptPendingId => {
-    const { acceptAgent, fetchAgents } = this.props
-    acceptAgent(acceptPendingId, fetchAgents)
-  }
-
   render() {
     const {
       children,
       acceptPendings,
       notifications,
       requestPendings,
+      acceptAgent,
       rejectRequestAgent,
       cancelRequestAgent,
       openViewAgentProfileModal,
@@ -40,7 +36,7 @@ class CompanyLayout extends React.PureComponent {
         acceptPendings={acceptPendings}
         notifications={notifications}
         requestPendings={requestPendings}
-        accept={this.handleAcceptAgent}
+        accept={acceptAgent}
         rejectRequest={rejectRequestAgent}
         cancelRequest={cancelRequestAgent}
         selectedProfile={selectedProfile}
@@ -71,4 +67,6 @@ const mapStateToProps = ({
   selectedProfile: acceptPendings[selectedAcceptPending]
 })
 
-export default connect(mapStateToProps, actions)(CompanyLayout)
+export default connect(mapStateToProps, actions.company.notification)(
+  CompanyLayout
+)
