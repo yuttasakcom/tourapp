@@ -7,5 +7,6 @@ export default {
   SELECT_OFFER_SPECIAL_PRICE_PKG: id => id,
   OFFER_SPECIAL_PRICE: payload => payload,
   OFFER_SPECIAL_PRICE_SUCCESS: payload => payload,
-  RESET_PRICE: null
+  RESET_PRICE: null,
+  REQUEST_AGENT: id => id
 }
