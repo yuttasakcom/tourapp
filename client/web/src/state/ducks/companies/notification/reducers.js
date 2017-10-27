@@ -9,7 +9,7 @@ import {
   ADD_NOTIFICATION_SUCCESS,
   FETCH_REQUEST_PENDINGS_SUCCESS,
   ACCEPT_AGENT_SUCCESS,
-  CANCEL_AGENT_REQUEST_SUCCESS,
+  CANCEL_REQUEST_AGENT_SUCCESS,
   REJECT_REQUEST_AGENT_SUCCESS
 } from './types'
 
@@ -30,7 +30,7 @@ export default handleActions(
       ...state,
       acceptPendings: omit(state.acceptPendings, action.payload)
     }),
-    [CANCEL_AGENT_REQUEST_SUCCESS]: (state, action) => ({
+    [CANCEL_REQUEST_AGENT_SUCCESS]: (state, action) => ({
       ...state,
       requestPendings: omit(state.requestPendings, action.payload)
     }),

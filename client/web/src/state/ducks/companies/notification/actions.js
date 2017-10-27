@@ -8,8 +8,8 @@ export default {
   FETCH_REQUEST_PENDINGS_SUCCESS: payload => payload,
   ACCEPT_AGENT: id => id,
   ACCEPT_AGENT_SUCCESS: payload => payload,
-  CANCEL_AGENT_REQUEST: id => id,
-  CANCEL_AGENT_REQUEST_SUCCESS: payload => payload,
+  CANCEL_REQUEST_AGENT: id => id,
+  CANCEL_REQUEST_AGENT_SUCCESS: payload => payload,
   REJECT_REQUEST_AGENT: id => id,
   REJECT_REQUEST_AGENT_SUCCESS: payload => payload
 }
