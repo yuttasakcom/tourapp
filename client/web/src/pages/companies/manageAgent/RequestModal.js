@@ -12,23 +12,16 @@ class RequestModal extends PureComponent {
   }
 
   render() {
-    const { showModal, closeRequestAgentModal } = this.props
+    const { showModal, closeModal } = this.props
     return (
-      <Modal show={showModal} onHide={closeRequestAgentModal}>
+      <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Request Agent</Modal.Title>
         </Modal.Header>
-        <RequestForm
-          onSubmit={this.onSubmit}
-          closeModal={closeRequestAgentModal}
-        />
+        <RequestForm onSubmit={this.onSubmit} closeModal={closeModal} />
       </Modal>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  showModal: state.company.agent.showRequestAgentModal
-})
-
-export default connect(mapStateToProps, actions)(RequestModal)
+export default connect(null, actions)(RequestModal)
