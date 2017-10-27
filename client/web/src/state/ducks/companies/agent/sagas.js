@@ -8,7 +8,8 @@ import {
   FETCH_AGENTS,
   REQUEST_AGENT,
   FETCH_AGENT_CONTRACT_RATES,
-  OFFER_SPECIAL_PRICE
+  OFFER_SPECIAL_PRICE,
+  RESET_PRICE
 } from './types'
 
 export function* watchFetchAgents() {
@@ -54,10 +55,10 @@ export function* watchRequestAgent() {
 }
 
 export function* watchFetchAgentContractRates() {
-  yield takeEvery(FETCH_AGENT_CONTRACT_RATES, function*(action) {
-    const id = action.payload
+  yield takeEvery(FETCH_AGENT_CONTRACT_RATES, function*() {
+    const { selectedAgent } = yield select(state => state.company.agent)
     try {
-      const { data } = yield call(axios.get, `/special-prices/${id}`)
+      const { data } = yield call(axios.get, `/special-prices/${selectedAgent}`)
       yield put(actions.company.agent.fetchAgentContractRatesSuccess(data))
     } catch (e) {
       yield put(
@@ -105,11 +106,40 @@ export function* watchOfferSpecialPrice() {
   })
 }
 
+export function* watchResetPrice() {
+  yield takeEvery(RESET_PRICE, function*() {
+    const { selectedAgent, selectedOfferSpecialPricePkg } = yield select(
+      state => state.company.agent
+    )
+    try {
+      const { data: { message } } = yield call(
+        axios.delete,
+        `/pkgs/${selectedOfferSpecialPricePkg}/special-prices/${selectedAgent}`
+      )
+      yield put(
+        success({
+          title: 'แจ้งเตือน',
+          message
+        })
+      )
+      yield put(actions.company.agent.fetchAgentContractRates())
+    } catch (e) {
+      yield put(
+        error({
+          title: 'แจ้งเตือน',
+          message: e.response.data
+        })
+      )
+    }
+  })
+}
+
 export default function* rootSaga() {
   yield all([
     watchFetchAgents(),
     watchRequestAgent(),
     watchFetchAgentContractRates(),
-    watchOfferSpecialPrice()
+    watchOfferSpecialPrice(),
+    watchResetPrice()
   ])
 }
