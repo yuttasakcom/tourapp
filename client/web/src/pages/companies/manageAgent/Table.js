@@ -9,27 +9,33 @@ class Table extends PureComponent {
     this.props.fetchAgents()
   }
 
-  openContractRateModal(agent) {
-    const { openContractRateModal, fetchAgentContractRates } = this.props
-    fetchAgentContractRates(agent)
-    openContractRateModal(agent._id)
-  }
-
   renderAction = (cell, row) => {
-    const { openDeleteAgentModal } = this.props
+    const {
+      openDeleteAgentModal,
+      openContractRateModal,
+      selectAgent,
+      fetchAgentContractRates
+    } = this.props
     return (
       <div>
         <button
           className="btn btn-info btn-sm"
           style={{ margin: 0 }}
-          onClick={() => this.openContractRateModal(row)}
+          onClick={() => {
+            selectAgent(row._id)
+            fetchAgentContractRates(row._id)
+            openContractRateModal()
+          }}
         >
           Contract Rate
         </button>
         <button
           className="btn btn-danger btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openDeleteAgentModal(row._id)}
+          onClick={() => {
+            selectAgent(row._id)
+            openDeleteAgentModal()
+          }}
         >
           Delete
         </button>

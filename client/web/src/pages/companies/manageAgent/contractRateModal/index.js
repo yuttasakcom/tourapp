@@ -10,14 +10,14 @@ import * as actions from '../../../../actions/companies'
 
 class ContractRateModal extends PureComponent {
   render() {
-    const { showModal, closeContractRateModal, agent } = this.props
+    const { showModal, closeModal, agent } = this.props
 
     if (!agent) {
       return null
     }
 
     return (
-      <Modal show={showModal} onHide={closeContractRateModal} bsSize="lg">
+      <Modal show={showModal} onHide={closeModal} bsSize="lg">
         <Modal.Header closeButton>
           <Modal.Title>Agent {agent.email} Contract Rate</Modal.Title>
         </Modal.Header>
@@ -25,7 +25,7 @@ class ContractRateModal extends PureComponent {
           <Table />
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={closeContractRateModal}>Close</Button>
+          <Button onClick={closeModal}>Close</Button>
         </Modal.Footer>
         <OfferSpecialPriceModal />
         <ResetPriceModal />
@@ -36,7 +36,6 @@ class ContractRateModal extends PureComponent {
 
 const mapStateToProps = ({ company: { agent } }) => {
   return {
-    showModal: agent.showContractRateModal,
     agent: agent.agents[agent.selectedAgent]
   }
 }
