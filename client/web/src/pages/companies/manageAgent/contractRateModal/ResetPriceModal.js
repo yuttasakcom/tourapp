@@ -7,14 +7,7 @@ import actions from '../../../../state/ducks/actions'
 
 class ResetPriceModal extends PureComponent {
   render() {
-    const {
-      showModal,
-      closeModal,
-      resetPrice,
-      fetchAgentContractRates,
-      pkg,
-      agentId
-    } = this.props
+    const { showModal, closeModal, resetPrice, pkg } = this.props
 
     if (!pkg) {
       return null
@@ -46,8 +39,7 @@ class ResetPriceModal extends PureComponent {
 }
 
 const mapStateToProps = ({ company: { agent } }) => ({
-  pkg: agent.selectedAgentContractRates[agent.selectedOfferSpecialPricePkg],
-  agentId: agent.selectedAgent
+  pkg: agent.selectedAgentContractRates[agent.selectedOfferSpecialPricePkg]
 })
 
 export default connect(mapStateToProps, actions.company.agent)(ResetPriceModal)
