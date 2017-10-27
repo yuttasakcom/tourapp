@@ -1,9 +1,10 @@
-import { error } from 'react-notification-system-redux'
+import { error, success } from 'react-notification-system-redux'
 import { takeEvery, put, call, all } from 'redux-saga/effects'
 
 import axios from '../../../utils/axiosCompanies'
 import actions from '../../actions'
-import { FETCH_AGENTS } from './types'
+import socket from '../../../utils/socket'
+import { FETCH_AGENTS, REQUEST_AGENT } from './types'
 
 export function* watchFetchAgents() {
   yield takeEvery(FETCH_AGENTS, function*() {
@@ -21,6 +22,32 @@ export function* watchFetchAgents() {
   })
 }
 
+export function* watchRequestAgent() {
+  yield takeEvery(REQUEST_AGENT, function*(action) {
+    const id = action.payload
+    try {
+      const { data: { message } } = yield call(axios.post, '/request', {
+        _id: id
+      })
+      yield put(
+        success({
+          title: 'แจ้งเตือน',
+          message
+        })
+      )
+      socket.emit('request', { _id: id })
+      yield put(actions.company.notification.fetchRequestPendings())
+    } catch (e) {
+      yield put(
+        error({
+          title: 'แจ้งเตือน',
+          message: e.response.data
+        })
+      )
+    }
+  })
+}
+
 export default function* rootSaga() {
-  yield all([watchFetchAgents()])
+  yield all([watchFetchAgents(), watchRequestAgent()])
 }
