@@ -10,7 +10,6 @@ class renderField extends PureComponent {
       case 'select':
         return (
           <Select
-            closeOnSelect={false}
             {...rest}
             {...input}
             onBlur={() => input.onBlur(input.value.value)}
