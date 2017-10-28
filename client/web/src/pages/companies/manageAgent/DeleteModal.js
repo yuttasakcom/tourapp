@@ -26,7 +26,7 @@ class DeleteModal extends PureComponent {
           <Button
             bsStyle="danger"
             onClick={() => {
-              deleteAgent(agent)
+              deleteAgent()
               closeModal()
             }}
           >

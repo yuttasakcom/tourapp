@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
 
-import * as actions from '../../../actions/agents'
+import actions from '../../../state/ducks/actions'
 
 class DeleteModal extends PureComponent {
   render() {
@@ -23,7 +23,13 @@ class DeleteModal extends PureComponent {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={closeModal}>No</Button>
-          <Button bsStyle="danger" onClick={() => deleteCompany(company)}>
+          <Button
+            bsStyle="danger"
+            onClick={() => {
+              deleteCompany()
+              closeModal()
+            }}
+          >
             Yes
           </Button>
         </Modal.Footer>
@@ -36,4 +42,4 @@ const mapStateToProps = ({ agent: { company } }) => ({
   company: company.companies[company.selectedCompany]
 })
 
-export default connect(mapStateToProps, actions)(DeleteModal)
+export default connect(mapStateToProps, actions.agent.company)(DeleteModal)
