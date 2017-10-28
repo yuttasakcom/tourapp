@@ -6,7 +6,8 @@ import { waiting } from '../../../utils/bookingStatus'
 import {
   FETCH_BOOKINGS_SUCCESS,
   SELECT_BOOKING,
-  SET_BOOKINGS_STATUS_VISIBILITY_FILTER
+  SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
+  SET_BOOKINGS_DATE_VISIBILITY_FILTER
 } from './types'
 
 const initialState = {
@@ -20,6 +21,11 @@ export default handleActions(
     [SET_BOOKINGS_STATUS_VISIBILITY_FILTER]: (state, action) => ({
       ...state,
       visibilityFilter: { ...state.visibilityFilter, status: action.payload }
+    }),
+
+    [SET_BOOKINGS_DATE_VISIBILITY_FILTER]: (state, action) => ({
+      ...state,
+      visibilityFilter: { ...state.visibilityFilter, date: action.payload }
     }),
 
     [FETCH_BOOKINGS_SUCCESS]: (state, action) => ({
