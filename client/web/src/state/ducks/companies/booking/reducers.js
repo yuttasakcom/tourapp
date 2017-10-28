@@ -6,6 +6,7 @@ import { waiting } from '../../../utils/bookingStatus'
 import {
   FETCH_BOOKINGS_SUCCESS,
   SET_BOOKINGS_STATUS_VISIBILITY_FILTER,
+  SET_BOOKINGS_DATE_VISIBILITY_FILTER,
   SELECT_BOOKING,
   UPDATE_BOOKING_STATUS_SUCCESS
 } from './types'
@@ -21,6 +22,11 @@ export default handleActions(
     [SET_BOOKINGS_STATUS_VISIBILITY_FILTER]: (state, action) => ({
       ...state,
       visibilityFilter: { ...state.visibilityFilter, status: action.payload }
+    }),
+
+    [SET_BOOKINGS_DATE_VISIBILITY_FILTER]: (state, action) => ({
+      ...state,
+      visibilityFilter: { ...state.visibilityFilter, date: action.payload }
     }),
 
     [SELECT_BOOKING]: (state, action) => ({
