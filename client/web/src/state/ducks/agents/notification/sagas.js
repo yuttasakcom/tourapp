@@ -128,7 +128,7 @@ export default function* rootSaga() {
     watchFetchNotifications(),
     watchAddNotification(),
     watchAcceptCompany(),
-    watchAcceptCompany(),
-    watchAcceptCompany()
+    watchRejectRequestCompany(),
+    watchCancelRequestCompany()
   ])
 }

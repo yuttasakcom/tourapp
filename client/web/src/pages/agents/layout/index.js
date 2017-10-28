@@ -17,17 +17,13 @@ class AgentLayout extends React.PureComponent {
     }
   }
 
-  handleAcceptAgent = acceptPendingId => {
-    const { acceptAgent, fetchAgents } = this.props
-    acceptAgent(acceptPendingId, fetchAgents)
-  }
-
   render() {
     const {
       children,
       acceptPendings,
       notifications,
       requestPendings,
+      acceptCompany,
       rejectRequestCompany,
       cancelRequestCompany,
       openViewCompanyProfileModal,
@@ -41,7 +37,7 @@ class AgentLayout extends React.PureComponent {
         acceptPendings={acceptPendings}
         notifications={notifications}
         requestPendings={requestPendings}
-        accept={this.handleAcceptAgent}
+        accept={acceptCompany}
         rejectRequest={rejectRequestCompany}
         cancelRequest={cancelRequestCompany}
         selectedProfile={selectedProfile}
