@@ -15,11 +15,10 @@ import actions from '../../actions'
 import { FETCH_BOOKINGS, UPDATE_BOOKING_STATUS } from './types'
 
 export function* watchFetchBookings() {
-  yield takeLatest(FETCH_BOOKINGS, function*(action) {
-    let date = action.payload
-    if (date === undefined) {
-      date = yield select(state => state.company.booking.visibilityFilter.date)
-    }
+  yield takeLatest(FETCH_BOOKINGS, function*() {
+    const date = yield select(
+      state => state.company.booking.visibilityFilter.date
+    )
     const dateEnd = moment(date.clone()).add(1, 'days')
     try {
       const { data } = yield call(

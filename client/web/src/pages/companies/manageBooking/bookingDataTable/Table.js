@@ -9,7 +9,7 @@ import { waiting, readed } from '../../../../state/utils/bookingStatus'
 
 class Table extends PureComponent {
   componentDidMount() {
-    this.props.fetchBookings(this.props.date)
+    this.props.fetchBookings()
   }
 
   renderAction = (cell, row) => {
@@ -89,7 +89,7 @@ class Table extends PureComponent {
 }
 
 const mapStateToProps = ({
-  company: { booking: { bookings, visibilityFilter: { status, date } } }
+  company: { booking: { bookings, visibilityFilter: { status } } }
 }) => {
   return {
     bookings: filter(
@@ -98,8 +98,7 @@ const mapStateToProps = ({
         status === waiting
           ? booking.status === waiting || booking.status === readed
           : booking.status === status
-    ).map(flat),
-    date
+    ).map(flat)
   }
 }
 
