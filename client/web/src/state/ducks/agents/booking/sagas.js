@@ -44,7 +44,6 @@ export function* watchAddBooking() {
     try {
       const { data } = yield call(axios.post, '/bookings', action.payload)
       yield call(openAgentReport, `voucher?bookingId=${data._id}`)
-      yield put(actions.agent.booking.addBookingSuccess(data))
       yield put(
         success({
           title: 'แจ้งเตือน',
