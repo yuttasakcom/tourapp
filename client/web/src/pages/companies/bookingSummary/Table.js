@@ -6,7 +6,7 @@ import actions from '../../../state/ducks/actions'
 
 class Table extends PureComponent {
   componentDidMount() {
-    this.props.fetchBookingSummary(this.props.date)
+    this.props.fetchBookingSummary()
   }
 
   render() {
@@ -63,7 +63,7 @@ class Table extends PureComponent {
 }
 
 const mapStateToProps = ({
-  company: { bookingSummary: { bookingSummary, visibilityFilter: { date } } }
-}) => ({ bookingSummary, date })
+  company: { bookingSummary: { bookingSummary } }
+}) => ({ bookingSummary })
 
 export default connect(mapStateToProps, actions.company.bookingSummary)(Table)
