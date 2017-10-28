@@ -10,12 +10,15 @@ class Table extends PureComponent {
   }
 
   renderAction = (cell, row) => {
-    const { openDeleteCompanyModal } = this.props
+    const { openDeleteCompanyModal, selectCompany } = this.props
     return (
       <button
         className="btn btn-danger btn-sm"
         style={{ margin: 0 }}
-        onClick={() => openDeleteCompanyModal(row._id)}
+        onClick={() => {
+          selectCompany(row._id)
+          openDeleteCompanyModal()
+        }}
       >
         Delete
       </button>
