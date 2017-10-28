@@ -12,8 +12,7 @@ export default handleActions(
   {
     [FETCH_BOOKING_SUMMARY_SUCCESS]: (state, action) => ({
       ...state,
-      bookingSummary: action.payload.data,
-      visibilityFilter: { date: action.payload.date }
+      bookingSummary: action.payload
     })
   },
   initialState
