@@ -1,0 +1,13 @@
+const def = action => `COMPANY/BUS_PATH/${action}`
+export const SELECT_BUS_PATH = def('SELECT_BUS_PATH')
+export const SELECT_PKG = def('SELECT_PKG')
+export const FETCH_BUS_PATHS = def('FETCH_BUS_PATHS')
+export const FETCH_BUS_PATHS_SUCCESS = def('FETCH_BUS_PATHS_SUCCESS')
+export const FETCH_BUS_PATH_HOTELS = def('FETCH_BUS_PATH_HOTELS')
+export const FETCH_BUS_PATH_HOTELS_SUCCESS = def('FETCH_BUS_PATH_HOTELS_SUCCESS')
+export const ADD_BUS_PATH = def('ADD_BUS_PATH')
+export const ADD_BUS_PATH_SUCCESS = def('ADD_BUS_PATH_SUCCESS')
+export const EDIT_BUS_PATH = def('EDIT_BUS_PATH')
+export const EDIT_BUS_PATH_SUCCESS = def('EDIT_BUS_PATH_SUCCESS')
+export const DELETE_BUS_PATH = def('DELETE_BUS_PATH')
+export const DELETE_BUS_PATH_SUCCESS = def('DELETE_BUS_PATH_SUCCESS')

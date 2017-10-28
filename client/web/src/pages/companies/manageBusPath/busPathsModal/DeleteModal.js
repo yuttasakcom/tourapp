@@ -3,23 +3,18 @@ import { connect } from 'react-redux'
 import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
 
-import * as actions from '../../../../actions/companies'
+import actions from '../../../../state/ducks/actions'
 
 class DeleteModal extends PureComponent {
   render() {
-    const {
-      showModal,
-      closeDeleteBusPathModal,
-      deleteBusPath,
-      busPath
-    } = this.props
+    const { showModal, closeModal, deleteBusPath, busPath } = this.props
 
     if (!busPath) {
       return null
     }
 
     return (
-      <Modal show={showModal} onHide={closeDeleteBusPathModal}>
+      <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Delete Bus Path</Modal.Title>
         </Modal.Header>
@@ -27,8 +22,14 @@ class DeleteModal extends PureComponent {
           <h4>Are you sure to delete bus path {busPath.name} ?</h4>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={closeDeleteBusPathModal}>No</Button>
-          <Button bsStyle="danger" onClick={() => deleteBusPath(busPath)}>
+          <Button onClick={closeModal}>No</Button>
+          <Button
+            bsStyle="danger"
+            onClick={() => {
+              deleteBusPath(busPath._id)
+              closeModal()
+            }}
+          >
             Yes
           </Button>
         </Modal.Footer>
@@ -38,8 +39,7 @@ class DeleteModal extends PureComponent {
 }
 
 const mapStateToProps = ({ company: { busPath } }) => ({
-  showModal: busPath.showDeleteBusPathModal,
   busPath: busPath.busPaths[busPath.selectedBusPath]
 })
 
-export default connect(mapStateToProps, actions)(DeleteModal)
+export default connect(mapStateToProps, actions.company.busPath)(DeleteModal)

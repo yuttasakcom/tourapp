@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import map from 'lodash/map'
 import Select from 'react-select'
 
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class FilterPkg extends PureComponent {
   componentDidMount() {
@@ -20,7 +20,8 @@ class FilterPkg extends PureComponent {
     return (
       <Select
         options={pkgs}
-        onChange={value => fetchBookingsHotelsSummaryAndBusPaths(date, value)}
+        onChange={value =>
+          fetchBookingsHotelsSummaryAndBusPaths({ date, pkg: value })}
         value={pkg}
       />
     )
@@ -38,4 +39,7 @@ const mapStateToProps = ({
   pkg
 })
 
-export default connect(mapStateToProps, actions)(FilterPkg)
+export default connect(mapStateToProps, {
+  ...actions.company.pkg,
+  ...actions.company.printBusPath
+})(FilterPkg)

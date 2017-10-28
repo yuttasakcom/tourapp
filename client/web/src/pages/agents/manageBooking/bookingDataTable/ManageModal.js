@@ -9,14 +9,14 @@ import * as actions from '../../../../actions/agents'
 
 class ManageModal extends PureComponent {
   render() {
-    const { showModal, closeManageBookingModal, booking } = this.props
+    const { showModal, closeModal, booking } = this.props
 
     if (!booking) {
       return null
     }
 
     return (
-      <Modal show={showModal} onHide={closeManageBookingModal}>
+      <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Booking Detail</Modal.Title>
         </Modal.Header>
@@ -47,7 +47,7 @@ class ManageModal extends PureComponent {
           <DisplayField label="Note" text={booking.tourist.note} />
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={closeManageBookingModal}>Close</Button>
+          <Button onClick={closeModal}>Close</Button>
         </Modal.Footer>
       </Modal>
     )
@@ -55,7 +55,6 @@ class ManageModal extends PureComponent {
 }
 
 const mapStateToProps = ({ agent: { manageBooking } }) => ({
-  showModal: manageBooking.showManageBookingModal,
   booking: manageBooking.bookings[manageBooking.selectedBooking]
 })
 

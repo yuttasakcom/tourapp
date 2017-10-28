@@ -2,7 +2,7 @@ import { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import socket from '../../../actions/socket'
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class Socket extends PureComponent {
   componentDidMount() {
@@ -38,4 +38,8 @@ class Socket extends PureComponent {
   }
 }
 
-export default connect(null, actions)(Socket)
+export default connect(null, {
+  ...actions.company.agent,
+  ...actions.company.notification,
+  ...actions.company.booking
+})(Socket)

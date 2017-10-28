@@ -40,19 +40,11 @@ class renderField extends PureComponent {
           error &&
           'has-error'}`}
       >
-        <label className="control-label">
-          {label}
-        </label>
+        <label className="control-label">{label}</label>
         {this.renderInput()}
         {touched &&
-          ((error &&
-            <span style={{ color: 'red' }}>
-              {error}
-            </span>) ||
-            (warning &&
-              <span>
-                {warning}
-              </span>))}
+          ((error && <span style={{ color: 'red' }}>{error}</span>) ||
+            (warning && <span>{warning}</span>))}
       </div>
     )
   }

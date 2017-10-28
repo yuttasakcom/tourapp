@@ -5,12 +5,12 @@ import moment from 'moment'
 import Table from './Table'
 import Card from '../../../components/Card'
 import FilterDate from './FilterDate'
-import { openCompanyReport } from '../../../helpers'
+import { openCompanyReport } from '../../../state/utils'
 
 class BookingSummary extends PureComponent {
   openReport = () => {
     const { date } = this.props
-    const dateEnd = moment(date).add(1, 'days')
+    const dateEnd = moment(date.clone()).add(1, 'days')
     openCompanyReport(`bookings-summary?dateStart=${date}&dateEnd=${dateEnd}`)
   }
 

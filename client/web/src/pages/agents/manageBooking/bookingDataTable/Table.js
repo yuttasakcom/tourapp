@@ -4,22 +4,25 @@ import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import { openAgentReport } from '../../../../helpers'
-import * as actions from '../../../../actions/agents'
+import { openAgentReport } from '../../../../state/utils'
+import actions from '../../../../state/ducks/actions'
 
 class Table extends PureComponent {
   componentDidMount() {
-    this.props.fetchBookings(this.props.date)
+    this.props.fetchBookings()
   }
 
   renderAction = (cell, row) => {
-    const { openManageBookingModal } = this.props
+    const { openManageBookingModal, selectBooking } = this.props
     return (
       <div>
         <button
           className="btn btn-info btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openManageBookingModal(row._id)}
+          onClick={() => {
+            selectBooking(row._id)
+            openManageBookingModal()
+          }}
         >
           View
         </button>
@@ -92,10 +95,9 @@ class Table extends PureComponent {
 }
 
 const mapStateToProps = ({
-  agent: { manageBooking: { bookings, visibilityFilter: { status, date } } }
+  agent: { manageBooking: { bookings, visibilityFilter: { status } } }
 }) => ({
-  bookings: filter(bookings, booking => booking.status === status).map(flat),
-  date
+  bookings: filter(bookings, booking => booking.status === status).map(flat)
 })
 
-export default connect(mapStateToProps, actions)(Table)
+export default connect(mapStateToProps, actions.agent.manageBooking)(Table)

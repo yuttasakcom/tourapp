@@ -3,23 +3,18 @@ import { connect } from 'react-redux'
 import Button from 'react-bootstrap/lib/Button'
 import Modal from 'react-bootstrap/lib/Modal'
 
-import * as actions from '../../../actions/agents'
+import actions from '../../../state/ducks/actions'
 
 class DeleteModal extends PureComponent {
   render() {
-    const {
-      showModal,
-      closeDeleteEmployeeModal,
-      deleteEmployee,
-      employee
-    } = this.props
+    const { showModal, closeModal, deleteEmployee, employee } = this.props
 
     if (!employee) {
       return null
     }
 
     return (
-      <Modal show={showModal} onHide={closeDeleteEmployeeModal}>
+      <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Delete Employee</Modal.Title>
         </Modal.Header>
@@ -27,8 +22,14 @@ class DeleteModal extends PureComponent {
           <h4>Are you sure to delete employee {employee.name} ?</h4>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={closeDeleteEmployeeModal}>No</Button>
-          <Button bsStyle="danger" onClick={() => deleteEmployee(employee)}>
+          <Button onClick={closeModal}>No</Button>
+          <Button
+            bsStyle="danger"
+            onClick={() => {
+              deleteEmployee(employee)
+              closeModal()
+            }}
+          >
             Yes
           </Button>
         </Modal.Footer>
@@ -38,8 +39,7 @@ class DeleteModal extends PureComponent {
 }
 
 const mapStateToProps = ({ agent: { employee } }) => ({
-  showModal: employee.showDeleteEmployeeModal,
   employee: employee.employees[employee.selectedEmployee]
 })
 
-export default connect(mapStateToProps, actions)(DeleteModal)
+export default connect(mapStateToProps, actions.agent.employee)(DeleteModal)

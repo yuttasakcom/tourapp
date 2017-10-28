@@ -3,29 +3,29 @@ import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/lib/Modal'
 
 import OfferSpecialPriceForm from './OfferSpecialPriceForm'
-import * as actions from '../../../../actions/companies'
+import actions from '../../../../state/ducks/actions'
 
 class OfferSpecialPriceModal extends PureComponent {
   onSubmit = values => {
-    const { agentId, pkg, offerSpecialPrice } = this.props
-    offerSpecialPrice(agentId, pkg, values)
+    this.props.offerSpecialPrice(values)
+    this.props.closeModal()
   }
 
   render() {
-    const { showModal, closeOfferSpecialPriceModal, pkg } = this.props
+    const { showModal, closeModal, pkg } = this.props
 
     if (!pkg) {
       return null
     }
 
     return (
-      <Modal show={showModal} onHide={closeOfferSpecialPriceModal}>
+      <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Offer Special Price {pkg.name}</Modal.Title>
         </Modal.Header>
         <OfferSpecialPriceForm
           onSubmit={this.onSubmit}
-          closeModal={closeOfferSpecialPriceModal}
+          closeModal={closeModal}
           initialValues={pkg}
         />
       </Modal>
@@ -34,9 +34,9 @@ class OfferSpecialPriceModal extends PureComponent {
 }
 
 const mapStateToProps = ({ company: { agent } }) => ({
-  showModal: agent.showOfferSpecialPriceModal,
-  pkg: agent.selectedAgentContractRates[agent.selectedOfferSpecialPricePkg],
-  agentId: agent.selectedAgent
+  pkg: agent.selectedAgentContractRates[agent.selectedOfferSpecialPricePkg]
 })
 
-export default connect(mapStateToProps, actions)(OfferSpecialPriceModal)
+export default connect(mapStateToProps, actions.company.agent)(
+  OfferSpecialPriceModal
+)

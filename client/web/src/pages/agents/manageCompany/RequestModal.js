@@ -3,32 +3,25 @@ import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/lib/Modal'
 
 import RequestForm from './RequestForm'
-import * as actions from '../../../actions/agents'
+import actions from '../../../state/ducks/actions'
 
 class RequestModal extends PureComponent {
   onSubmit = values => {
-    const { requestCompany, fetchRequestPendings } = this.props
-    requestCompany(values, fetchRequestPendings)
+    this.props.requestCompany(values._id)
+    this.props.closeModal()
   }
 
   render() {
-    const { showModal, closeRequestCompanyModal } = this.props
+    const { showModal, closeModal } = this.props
     return (
-      <Modal show={showModal} onHide={closeRequestCompanyModal}>
+      <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Request Company</Modal.Title>
         </Modal.Header>
-        <RequestForm
-          onSubmit={this.onSubmit}
-          closeModal={closeRequestCompanyModal}
-        />
+        <RequestForm onSubmit={this.onSubmit} closeModal={closeModal} />
       </Modal>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  showModal: state.agent.company.showRequestCompanyModal
-})
-
-export default connect(mapStateToProps, actions)(RequestModal)
+export default connect(null, actions.agent.company)(RequestModal)

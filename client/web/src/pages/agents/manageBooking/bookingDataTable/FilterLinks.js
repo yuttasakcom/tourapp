@@ -3,14 +3,14 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import FilterLink from '../../../../components/FilterLink'
-import * as actions from '../../../../actions/agents'
+import actions from '../../../../state/ducks/actions'
 import {
   waiting,
   readed,
   accepted,
   completed,
   rejected
-} from '../../../../actions/bookingStatus'
+} from '../../../../state/utils/bookingStatus'
 
 class FilterLinks extends PureComponent {
   render() {
@@ -71,4 +71,6 @@ const mapStateToProps = ({
   }
 }
 
-export default connect(mapStateToProps, actions)(FilterLinks)
+export default connect(mapStateToProps, actions.agent.manageBooking)(
+  FilterLinks
+)

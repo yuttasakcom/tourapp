@@ -2,12 +2,20 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import DateMover from '../../../../components/DateMover'
-import * as actions from '../../../../actions/companies'
+import actions from '../../../../state/ducks/actions'
 
 class FilterDate extends PureComponent {
   render() {
-    const { date, fetchBookings } = this.props
-    return <DateMover date={date} onDateChange={fetchBookings} />
+    const { date, fetchBookings, setBookingsDateVisibilityFilter } = this.props
+    return (
+      <DateMover
+        date={date}
+        onDateChange={date => {
+          setBookingsDateVisibilityFilter(date)
+          fetchBookings()
+        }}
+      />
+    )
   }
 }
 
@@ -17,4 +25,4 @@ const mapStateToProps = ({
   date
 })
 
-export default connect(mapStateToProps, actions)(FilterDate)
+export default connect(mapStateToProps, actions.company.booking)(FilterDate)

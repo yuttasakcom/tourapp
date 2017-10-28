@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../actions/agents'
+import actions from '../../../state/ducks/actions'
 
 class Table extends PureComponent {
   componentDidMount() {
@@ -10,12 +10,15 @@ class Table extends PureComponent {
   }
 
   renderAction = (cell, row) => {
-    const { openDeleteCompanyModal } = this.props
+    const { openDeleteCompanyModal, selectCompany } = this.props
     return (
       <button
         className="btn btn-danger btn-sm"
         style={{ margin: 0 }}
-        onClick={() => openDeleteCompanyModal(row._id)}
+        onClick={() => {
+          selectCompany(row._id)
+          openDeleteCompanyModal()
+        }}
       >
         Delete
       </button>
@@ -62,4 +65,4 @@ const mapStateToProps = ({ agent: { company: { companies } } }) => ({
   companies
 })
 
-export default connect(mapStateToProps, actions)(Table)
+export default connect(mapStateToProps, actions.agent.company)(Table)

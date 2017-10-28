@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import DateMover from '../../../components/DateMover'
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class FilterDate extends PureComponent {
   render() {
@@ -11,7 +11,7 @@ class FilterDate extends PureComponent {
       <DateMover
         date={date}
         onDateChange={value =>
-          fetchBookingsHotelsSummaryAndBusPaths(value, pkg)}
+          fetchBookingsHotelsSummaryAndBusPaths({ date: value, pkg })}
       />
     )
   }
@@ -24,4 +24,6 @@ const mapStateToProps = ({
   pkg
 })
 
-export default connect(mapStateToProps, actions)(FilterDate)
+export default connect(mapStateToProps, actions.company.printBusPath)(
+  FilterDate
+)

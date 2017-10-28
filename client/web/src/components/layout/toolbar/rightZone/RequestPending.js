@@ -11,7 +11,7 @@ class RequestPending extends React.PureComponent {
         <a>{requestPending.email}</a>
         <button
           className="btn btn-danger btn-sm pull-right"
-          onClick={() => cancelRequest(requestPending)}
+          onClick={() => cancelRequest(requestPending._id)}
         >
           Cancel
         </button>

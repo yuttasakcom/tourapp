@@ -13,8 +13,8 @@ class RightZone extends React.PureComponent {
   }
 
   handleOpenViewProfileModal = acceptPendingId => {
+    this.props.selectAcceptPending(acceptPendingId)
     this.setState({ showViewProfileModal: true })
-    this.props.openViewProfileModal(acceptPendingId)
   }
 
   render() {

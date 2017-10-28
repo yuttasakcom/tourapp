@@ -1,12 +1,14 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
 
 import Card from '../../../components/Card'
 import AgentDataTable from './AgentDataTable'
 import RequestModal from './RequestModal'
-import * as actions from '../../../actions/companies'
 
 class ManageAgent extends PureComponent {
+  state = {
+    showRequestAgentModal: false
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -15,7 +17,7 @@ class ManageAgent extends PureComponent {
             <div className="col-md-12">
               <button
                 className="btn btn-primary pull-right"
-                onClick={this.props.openRequestAgentModal}
+                onClick={() => this.setState({ showRequestAgentModal: true })}
               >
                 Request Agent
               </button>
@@ -27,10 +29,13 @@ class ManageAgent extends PureComponent {
             </div>
           </div>
         </Card>
-        <RequestModal />
+        <RequestModal
+          showModal={this.state.showRequestAgentModal}
+          closeModal={() => this.setState({ showRequestAgentModal: false })}
+        />
       </div>
     )
   }
 }
 
-export default connect(null, actions)(ManageAgent)
+export default ManageAgent

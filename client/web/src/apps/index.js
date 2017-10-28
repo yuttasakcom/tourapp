@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { ConnectedRouter as Router } from 'connected-react-router'
 import { Route } from 'react-router-dom'
 
-import { history } from '../store'
+import { history } from '../state/store'
 import Landing from '../pages/landing'
 import AgentApp from './AgentApp'
 import CompanyApp from './CompanyApp'

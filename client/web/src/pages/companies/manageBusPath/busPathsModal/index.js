@@ -1,28 +1,31 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/lib/Modal'
 import Button from 'react-bootstrap/lib/Button'
 
 import BusPathDataTable from './BusPathDataTable'
 import AddModal from './AddModal'
-import * as actions from '../../../../actions/companies'
+import actions from '../../../../state/ducks/actions'
 
-class ManageBusPath extends PureComponent {
+class ManageBusPath extends React.PureComponent {
+  state = {
+    showAddBusPathModal: false
+  }
+
   openAddBusPathModal = () => {
-    const { openAddBusPathModal, fetchBusPathHotels } = this.props
-    openAddBusPathModal()
-    fetchBusPathHotels()
+    this.setState({ showAddBusPathModal: true })
+    this.props.fetchBusPathHotels()
   }
 
   render() {
-    const { showModal, closeBusPathsModal, pkg } = this.props
+    const { showModal, closeModal, pkg } = this.props
 
     if (!pkg) {
       return null
     }
 
     return (
-      <Modal show={showModal} onHide={closeBusPathsModal} bsSize="lg">
+      <Modal show={showModal} onHide={closeModal} bsSize="lg">
         <Modal.Header closeButton>
           <Modal.Title>Bus paths for package {pkg.name}</Modal.Title>
         </Modal.Header>
@@ -44,19 +47,21 @@ class ManageBusPath extends PureComponent {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={closeBusPathsModal}>Close</Button>
+          <Button onClick={closeModal}>Close</Button>
         </Modal.Footer>
-        <AddModal />
+        <AddModal
+          showModal={this.state.showAddBusPathModal}
+          closeModal={() => this.setState({ showAddBusPathModal: false })}
+        />
       </Modal>
     )
   }
 }
 
 const mapStateToProps = ({
-  company: { busPath: { showBusPathsModal, selectedPkg }, pkg: { pkgs } }
+  company: { busPath: { selectedPkg }, pkg: { pkgs } }
 }) => ({
-  showModal: showBusPathsModal,
   pkg: pkgs[selectedPkg]
 })
 
-export default connect(mapStateToProps, actions)(ManageBusPath)
+export default connect(mapStateToProps, actions.company.busPath)(ManageBusPath)

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/lib/Modal'
 
 import EmployeeForm from './EmployeeForm'
-import * as actions from '../../../actions/agents'
+import actions from '../../../state/ducks/actions'
 
 class AddModal extends PureComponent {
   onSubmit = values => {
@@ -11,23 +11,16 @@ class AddModal extends PureComponent {
   }
 
   render() {
-    const { showModal, closeAddEmployeeModal } = this.props
+    const { showModal, closeModal } = this.props
     return (
-      <Modal show={showModal} onHide={closeAddEmployeeModal}>
+      <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Add Employee</Modal.Title>
         </Modal.Header>
-        <EmployeeForm
-          onSubmit={this.onSubmit}
-          closeModal={closeAddEmployeeModal}
-        />
+        <EmployeeForm onSubmit={this.onSubmit} closeModal={closeModal} />
       </Modal>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  showModal: state.agent.employee.showAddEmployeeModal
-})
-
-export default connect(mapStateToProps, actions)(AddModal)
+export default connect(null, actions.agent.employee)(AddModal)

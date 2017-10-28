@@ -22,7 +22,7 @@ class Toolbar extends React.PureComponent {
       rejectRequest,
       cancelRequest,
       selectedProfile,
-      openViewProfileModal
+      selectAcceptPending
     } = this.props
     return (
       <nav className="navbar navbar-transparent navbar-absolute">
@@ -39,7 +39,7 @@ class Toolbar extends React.PureComponent {
             accept={accept}
             rejectRequest={rejectRequest}
             selectedProfile={selectedProfile}
-            openViewProfileModal={openViewProfileModal}
+            selectAcceptPending={selectAcceptPending}
             toggleNotificationGem={toggleNotificationGem}
             showNotificationGem={showNotificationGem}
             toggleRequestPendingGem={toggleRequestPendingGem}

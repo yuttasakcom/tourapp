@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class PkgDataTable extends PureComponent {
   componentDidMount() {
@@ -10,12 +10,15 @@ class PkgDataTable extends PureComponent {
   }
 
   renderAction = (cell, row) => {
-    const { openBusPathsModal } = this.props
+    const { openBusPathsModal, selectPkg } = this.props
     return (
       <button
         className="btn btn-info btn-sm"
         style={{ margin: 0 }}
-        onClick={() => openBusPathsModal(row._id)}
+        onClick={() => {
+          openBusPathsModal()
+          selectPkg(row._id)
+        }}
       >
         Manage Bus Path
       </button>
@@ -59,4 +62,7 @@ class PkgDataTable extends PureComponent {
 
 const mapStateToProps = ({ company: { pkg: { pkgs } } }) => ({ pkgs })
 
-export default connect(mapStateToProps, actions)(PkgDataTable)
+export default connect(mapStateToProps, {
+  ...actions.company.pkg,
+  ...actions.company.busPath
+})(PkgDataTable)

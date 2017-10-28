@@ -1,12 +1,14 @@
-import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 
 import Card from '../../../components/Card'
 import CompanyDataTable from './CompanyDataTable'
 import RequestModal from './RequestModal'
-import * as actions from '../../../actions/agents'
 
-class ManageCompany extends PureComponent {
+class ManageCompany extends React.PureComponent {
+  state = {
+    showRequestCompanyModal: false
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -15,7 +17,7 @@ class ManageCompany extends PureComponent {
             <div className="col-md-12">
               <button
                 className="btn btn-primary pull-right"
-                onClick={this.props.openRequestCompanyModal}
+                onClick={() => this.setState({ showRequestCompanyModal: true })}
               >
                 Request Company
               </button>
@@ -27,10 +29,13 @@ class ManageCompany extends PureComponent {
             </div>
           </div>
         </Card>
-        <RequestModal />
+        <RequestModal
+          showModal={this.state.showRequestCompanyModal}
+          closeModal={() => this.setState({ showRequestCompanyModal: false })}
+        />
       </div>
     )
   }
 }
 
-export default connect(null, actions)(ManageCompany)
+export default ManageCompany

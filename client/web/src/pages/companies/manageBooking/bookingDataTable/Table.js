@@ -4,21 +4,27 @@ import flat from 'flat'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../../actions/companies'
-import { waiting, readed } from '../../../../actions/bookingStatus'
+import actions from '../../../../state/ducks/actions'
+import { waiting, readed } from '../../../../state/utils/bookingStatus'
 
 class Table extends PureComponent {
   componentDidMount() {
-    this.props.fetchBookings(this.props.date)
+    this.props.fetchBookings()
   }
 
   renderAction = (cell, row) => {
-    const { openManageBookingModal } = this.props
+    const { openManageModal, updateBookingStatus, selectBooking } = this.props
     return (
       <button
         className="btn btn-info btn-sm"
         style={{ margin: 0 }}
-        onClick={() => openManageBookingModal(row._id, row.status)}
+        onClick={() => {
+          selectBooking(row._id)
+          if (row.status === waiting) {
+            updateBookingStatus({ id: row._id, status: readed })
+          }
+          openManageModal()
+        }}
       >
         View
       </button>
@@ -83,7 +89,7 @@ class Table extends PureComponent {
 }
 
 const mapStateToProps = ({
-  company: { booking: { bookings, visibilityFilter: { status, date } } }
+  company: { booking: { bookings, visibilityFilter: { status } } }
 }) => {
   return {
     bookings: filter(
@@ -92,9 +98,8 @@ const mapStateToProps = ({
         status === waiting
           ? booking.status === waiting || booking.status === readed
           : booking.status === status
-    ).map(flat),
-    date
+    ).map(flat)
   }
 }
 
-export default connect(mapStateToProps, actions)(Table)
+export default connect(mapStateToProps, actions.company.booking)(Table)

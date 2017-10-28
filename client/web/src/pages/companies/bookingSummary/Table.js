@@ -2,18 +2,18 @@ import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class Table extends PureComponent {
   componentDidMount() {
-    this.props.fetchBookingsSummary(this.props.date)
+    this.props.fetchBookingSummary()
   }
 
   render() {
-    const { bookingsSummary } = this.props
+    const { bookingSummary } = this.props
     return (
       <BootstrapTable
-        data={bookingsSummary}
+        data={bookingSummary}
         exportCSV
         height={400}
         search
@@ -63,7 +63,7 @@ class Table extends PureComponent {
 }
 
 const mapStateToProps = ({
-  company: { bookingSummary: { bookingsSummary, visibilityFilter: { date } } }
-}) => ({ bookingsSummary, date })
+  company: { bookingSummary: { bookingSummary } }
+}) => ({ bookingSummary })
 
-export default connect(mapStateToProps, actions)(Table)
+export default connect(mapStateToProps, actions.company.bookingSummary)(Table)

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../../actions/companies'
+import actions from '../../../../state/ducks/actions'
 
 class Table extends PureComponent {
   componentDidMount() {
@@ -10,12 +10,17 @@ class Table extends PureComponent {
   }
 
   openEditBusPathModal = busPathId => {
-    this.props.openEditBusPathModal(busPathId)
+    this.props.selectBusPath(busPathId)
     this.props.fetchBusPathHotels(busPathId)
+    this.props.openEditBusPathModal()
+  }
+
+  openDeleteBusPathModal = busPathId => {
+    this.props.selectBusPath(busPathId)
+    this.props.openDeleteBusPathModal()
   }
 
   renderAction = (cell, row) => {
-    const { openDeleteBusPathModal } = this.props
     return (
       <div>
         <button
@@ -28,7 +33,7 @@ class Table extends PureComponent {
         <button
           className="btn btn-danger btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openDeleteBusPathModal(row._id)}
+          onClick={() => this.openDeleteBusPathModal(row._id)}
         >
           Delete
         </button>
@@ -89,4 +94,4 @@ const mapStateToProps = ({
   selectedPkg
 })
 
-export default connect(mapStateToProps, actions)(Table)
+export default connect(mapStateToProps, actions.company.busPath)(Table)

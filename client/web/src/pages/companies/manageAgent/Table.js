@@ -2,34 +2,40 @@ import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class Table extends PureComponent {
   componentDidMount() {
     this.props.fetchAgents()
   }
 
-  openContractRateModal(agent) {
-    const { openContractRateModal, fetchAgentContractRates } = this.props
-    fetchAgentContractRates(agent)
-    openContractRateModal(agent._id)
-  }
-
   renderAction = (cell, row) => {
-    const { openDeleteAgentModal } = this.props
+    const {
+      openDeleteAgentModal,
+      openContractRateModal,
+      selectAgent,
+      fetchAgentContractRates
+    } = this.props
     return (
       <div>
         <button
           className="btn btn-info btn-sm"
           style={{ margin: 0 }}
-          onClick={() => this.openContractRateModal(row)}
+          onClick={() => {
+            selectAgent(row._id)
+            fetchAgentContractRates()
+            openContractRateModal()
+          }}
         >
           Contract Rate
         </button>
         <button
           className="btn btn-danger btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openDeleteAgentModal(row._id)}
+          onClick={() => {
+            selectAgent(row._id)
+            openDeleteAgentModal()
+          }}
         >
           Delete
         </button>
@@ -75,4 +81,4 @@ class Table extends PureComponent {
 
 const mapStateToProps = ({ company: { agent: { agents } } }) => ({ agents })
 
-export default connect(mapStateToProps, actions)(Table)
+export default connect(mapStateToProps, actions.company.agent)(Table)

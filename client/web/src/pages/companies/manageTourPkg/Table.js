@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../actions/companies'
+import actions from '../../../state/ducks/actions'
 
 class Table extends PureComponent {
   componentDidMount() {
@@ -10,20 +10,26 @@ class Table extends PureComponent {
   }
 
   renderAction = (cell, row) => {
-    const { openDeletePkgModal, openEditPkgModal } = this.props
+    const { openDeleteModal, openEditModal, selectPkg } = this.props
     return (
       <div>
         <button
           className="btn btn-warning btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openEditPkgModal(row._id)}
+          onClick={() => {
+            selectPkg(row._id)
+            openEditModal()
+          }}
         >
           Edit
         </button>
         <button
           className="btn btn-danger btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openDeletePkgModal(row._id)}
+          onClick={() => {
+            selectPkg(row._id)
+            openDeleteModal()
+          }}
         >
           Delete
         </button>
@@ -105,4 +111,4 @@ class Table extends PureComponent {
 
 const mapStateToProps = ({ company: { pkg: { pkgs } } }) => ({ pkgs })
 
-export default connect(mapStateToProps, actions)(Table)
+export default connect(mapStateToProps, actions.company.pkg)(Table)

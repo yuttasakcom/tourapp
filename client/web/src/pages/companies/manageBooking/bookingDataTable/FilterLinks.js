@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
 import FilterLink from '../../../../components/FilterLink'
-import * as actions from '../../../../actions/companies'
+import actions from '../../../../state/ducks/actions'
 import {
   waiting,
   readed,
@@ -68,4 +68,4 @@ const mapStateToProps = ({
   }
 }
 
-export default connect(mapStateToProps, actions)(FilterLinks)
+export default connect(mapStateToProps, actions.company.booking)(FilterLinks)
