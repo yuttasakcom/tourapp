@@ -4,12 +4,12 @@ import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import { openAgentReport } from '../../../../helpers'
-import * as actions from '../../../../actions/agents'
+import { openAgentReport } from '../../../../state/utils'
+import actions from '../../../../state/ducks/actions'
 
 class Table extends PureComponent {
   componentDidMount() {
-    this.props.fetchBookings(this.props.date)
+    this.props.fetchBookings()
   }
 
   renderAction = (cell, row) => {
@@ -92,10 +92,9 @@ class Table extends PureComponent {
 }
 
 const mapStateToProps = ({
-  agent: { manageBooking: { bookings, visibilityFilter: { status, date } } }
+  agent: { manageBooking: { bookings, visibilityFilter: { status } } }
 }) => ({
-  bookings: filter(bookings, booking => booking.status === status).map(flat),
-  date
+  bookings: filter(bookings, booking => booking.status === status).map(flat)
 })
 
-export default connect(mapStateToProps, actions)(Table)
+export default connect(mapStateToProps, actions.agent.manageBooking)(Table)
