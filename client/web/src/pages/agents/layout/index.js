@@ -26,7 +26,7 @@ class AgentLayout extends React.PureComponent {
       acceptCompany,
       rejectRequestCompany,
       cancelRequestCompany,
-      openViewCompanyProfileModal,
+      selectAcceptPending,
       selectedProfile
     } = this.props
     return (
@@ -41,7 +41,7 @@ class AgentLayout extends React.PureComponent {
         rejectRequest={rejectRequestCompany}
         cancelRequest={cancelRequestCompany}
         selectedProfile={selectedProfile}
-        openViewProfileModal={openViewCompanyProfileModal}
+        selectAcceptPending={selectAcceptPending}
       >
         <Socket />
         {children}
