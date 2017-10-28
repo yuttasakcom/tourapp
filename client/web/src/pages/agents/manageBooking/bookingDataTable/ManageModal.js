@@ -5,7 +5,6 @@ import Modal from 'react-bootstrap/lib/Modal'
 import moment from 'moment'
 
 import DisplayField from '../../../../components/DisplayField'
-import * as actions from '../../../../actions/agents'
 
 class ManageModal extends PureComponent {
   render() {
@@ -58,4 +57,4 @@ const mapStateToProps = ({ agent: { manageBooking } }) => ({
   booking: manageBooking.bookings[manageBooking.selectedBooking]
 })
 
-export default connect(mapStateToProps, actions)(ManageModal)
+export default connect(mapStateToProps)(ManageModal)

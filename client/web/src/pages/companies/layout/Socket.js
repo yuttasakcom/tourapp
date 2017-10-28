@@ -1,7 +1,7 @@
 import { PureComponent } from 'react'
 import { connect } from 'react-redux'
 
-import socket from '../../../actions/socket'
+import socket from '../../../state/utils/socket'
 import actions from '../../../state/ducks/actions'
 
 class Socket extends PureComponent {
