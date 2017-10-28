@@ -10,7 +10,7 @@ import {
   accepted,
   completed,
   rejected
-} from '../../../../actions/bookingStatus'
+} from '../../../../state/utils/bookingStatus'
 
 class FilterLinks extends PureComponent {
   render() {
