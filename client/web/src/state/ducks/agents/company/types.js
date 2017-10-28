@@ -1,0 +1,7 @@
+const def = action => `AGENT/COMPANY/${action}`
+export const FETCH_COMPANIES = def('FETCH_COMPANIES')
+export const FETCH_COMPANIES_SUCCESS = def('FETCH_COMPANIES_SUCCESS')
+export const REQUEST_COMPANY = def('REQUEST_COMPANY')
+export const SELECT_COMPANY = def('SELECT_COMPANY')
+export const DELETE_COMPANY = def('DELETE_COMPANY')
+export const DELETE_COMPANY_SUCCESS = def('DELETE_COMPANY_SUCCESS')
