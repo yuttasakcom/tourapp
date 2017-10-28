@@ -1,12 +1,14 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
 
 import Card from '../../../components/Card'
 import EmployeeDataTable from './EmployeeDataTable'
 import AddModal from './AddModal'
-import * as actions from '../../../actions/agents'
 
 class ManageEmployee extends PureComponent {
+  state = {
+    showAddEmployeeModal: false
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -15,7 +17,7 @@ class ManageEmployee extends PureComponent {
             <div className="col-md-12">
               <button
                 className="btn btn-primary pull-right"
-                onClick={this.props.openAddEmployeeModal}
+                onClick={() => this.setState({ showAddEmployeeModal: true })}
               >
                 Add
               </button>
@@ -27,10 +29,13 @@ class ManageEmployee extends PureComponent {
             </div>
           </div>
         </Card>
-        <AddModal />
+        <AddModal
+          showModal={this.state.showAddEmployeeModal}
+          closeModal={() => this.setState({ showAddEmployeeModal: false })}
+        />
       </div>
     )
   }
 }
 
-export default connect(null, actions)(ManageEmployee)
+export default ManageEmployee
