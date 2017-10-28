@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import Layout from '../../../components/layout'
 import MenuList from './MenuList'
 import Socket from './Socket'
-import * as actions from '../../../actions/agents'
+
+import actions from '../../../state/ducks/actions'
 
 class AgentLayout extends React.PureComponent {
   componentDidMount() {
@@ -71,4 +72,4 @@ const mapStateToProps = ({
   selectedProfile: acceptPendings[selectedAcceptPending]
 })
 
-export default connect(mapStateToProps, actions)(AgentLayout)
+export default connect(mapStateToProps, actions.agent.notification)(AgentLayout)
