@@ -1,14 +1,16 @@
 import moment from 'moment'
 import { error } from 'react-notification-system-redux'
-import { takeEvery, put, all, call } from 'redux-saga/effects'
+import { takeEvery, put, all, call, select } from 'redux-saga/effects'
 
 import axios from '../../../utils/axiosAgents'
 import actions from '../../actions'
 import { FETCH_BOOKINGS } from './types'
 
 export function* watchFetchBookings() {
-  yield takeEvery(FETCH_BOOKINGS, function*(action) {
-    const date = action.payload
+  yield takeEvery(FETCH_BOOKINGS, function*() {
+    const date = yield select(
+      state => state.agent.manageBooking.visibilityFilter.date
+    )
     const dateEnd = moment(date.clone()).add(1, 'days')
     try {
       const { data } = yield call(
