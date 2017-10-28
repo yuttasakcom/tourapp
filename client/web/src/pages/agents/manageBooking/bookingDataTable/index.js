@@ -7,6 +7,10 @@ import ManageModal from './ManageModal'
 import FilterLinks from './FilterLinks'
 
 class BookingDataTable extends PureComponent {
+  state = {
+    showManageBookingModal: false
+  }
+
   render() {
     return (
       <Card title="Bookings" description="Manage booking">
@@ -18,9 +22,15 @@ class BookingDataTable extends PureComponent {
             <FilterLinks />
           </div>
           <div className="col-md-12 col-sm-12">
-            <Table />
+            <Table
+              openManageBookingModal={() =>
+                this.setState({ showManageBookingModal: true })}
+            />
           </div>
-          <ManageModal />
+          <ManageModal
+            showModal={this.state.showManageBookingModal}
+            closeModal={() => this.setState({ showManageBookingModal: false })}
+          />
         </div>
       </Card>
     )

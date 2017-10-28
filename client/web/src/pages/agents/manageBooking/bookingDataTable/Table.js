@@ -13,13 +13,16 @@ class Table extends PureComponent {
   }
 
   renderAction = (cell, row) => {
-    const { openManageBookingModal } = this.props
+    const { openManageBookingModal, selectBooking } = this.props
     return (
       <div>
         <button
           className="btn btn-info btn-sm"
           style={{ margin: 0 }}
-          onClick={() => openManageBookingModal(row._id)}
+          onClick={() => {
+            selectBooking(row._id)
+            openManageBookingModal()
+          }}
         >
           View
         </button>
