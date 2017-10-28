@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/lib/Modal'
 
 import RequestForm from './RequestForm'
-import * as actions from '../../../actions/agents'
+import actions from '../../../state/ducks/actions'
 
 class RequestModal extends PureComponent {
   onSubmit = values => {
-    const { requestCompany, fetchRequestPendings } = this.props
-    requestCompany(values, fetchRequestPendings)
+    this.props.requestCompany(values._id)
+    this.props.closeModal()
   }
 
   render() {
@@ -24,4 +24,4 @@ class RequestModal extends PureComponent {
   }
 }
 
-export default connect(null, actions)(RequestModal)
+export default connect(null, actions.agent.company)(RequestModal)
