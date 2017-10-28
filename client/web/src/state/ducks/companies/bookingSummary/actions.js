@@ -1,4 +1,5 @@
 export default {
   FETCH_BOOKING_SUMMARY: null,
-  FETCH_BOOKING_SUMMARY_SUCCESS: payload => payload
+  FETCH_BOOKING_SUMMARY_SUCCESS: payload => payload,
+  SET_BOOKING_SUMMARY_DATE_VISIBILITY_FILTER: date => date
 }
