@@ -6,7 +6,7 @@ import axios from '../../../utils/axiosCompanies'
 import actions from '../../actions'
 import { FETCH_BOOKING_SUMMARY } from './types'
 
-export function* watchFetchBookingsSummary() {
+export function* watchFetchBookingSummary() {
   yield takeLatest(FETCH_BOOKING_SUMMARY, function*() {
     const date = yield select(
       state => state.agent.bookingSummary.visibilityFilter.date
@@ -35,5 +35,5 @@ export function* watchFetchBookingsSummary() {
 }
 
 export default function* rootSaga() {
-  yield all([watchFetchBookingsSummary()])
+  yield all([watchFetchBookingSummary()])
 }
