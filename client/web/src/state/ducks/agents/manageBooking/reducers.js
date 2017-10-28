@@ -30,11 +30,7 @@ export default handleActions(
 
     [FETCH_BOOKINGS_SUCCESS]: (state, action) => ({
       ...state,
-      bookings: mapKeys(action.payload.data, '_id'),
-      visibilityFilter: {
-        ...state.visibilityFilter,
-        date: action.payload.date
-      }
+      bookings: mapKeys(action.payload, '_id')
     }),
 
     [SELECT_BOOKING]: (state, action) => ({

@@ -17,9 +17,7 @@ export function* watchFetchBookings() {
         axios.get,
         `/bookings?dateStart=${date}&dateEnd=${dateEnd}`
       )
-      yield put(
-        actions.agent.manageBooking.fetchBookingsSuccess({ date, data })
-      )
+      yield put(actions.agent.manageBooking.fetchBookingsSuccess(data))
     } catch (e) {
       yield put(
         error({
