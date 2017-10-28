@@ -6,8 +6,20 @@ import actions from '../../../state/ducks/actions'
 
 class FilterDate extends PureComponent {
   render() {
-    const { date, fetchBookingSummary } = this.props
-    return <DateMover date={date} onDateChange={fetchBookingSummary} />
+    const {
+      date,
+      fetchBookingSummary,
+      setBookingSummaryDateVisibilityFilter
+    } = this.props
+    return (
+      <DateMover
+        date={date}
+        onDateChange={date => {
+          setBookingSummaryDateVisibilityFilter(date)
+          fetchBookingSummary()
+        }}
+      />
+    )
   }
 }
 
