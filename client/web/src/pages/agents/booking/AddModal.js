@@ -4,17 +4,18 @@ import Modal from 'react-bootstrap/lib/Modal'
 import moment from 'moment'
 
 import BookingForm from './BookingForm'
-import * as actions from '../../../actions/agents'
+import actions from '../../../state/ducks/actions'
 
 class AddModal extends PureComponent {
   onSubmit = values => {
-    const { addBooking, pkg } = this.props
+    const { addBooking, pkg, closeModal } = this.props
     const bookingProps = {
       company: pkg.company._id,
       pkg,
       tourist: values
     }
     addBooking(bookingProps)
+    closeModal()
   }
 
   render() {
@@ -49,4 +50,4 @@ const mapStateToProps = ({ agent: { booking } }) => {
   }
 }
 
-export default connect(mapStateToProps, actions)(AddModal)
+export default connect(mapStateToProps, actions.agent.booking)(AddModal)
