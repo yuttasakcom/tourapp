@@ -9,7 +9,7 @@ import { FETCH_BOOKING_SUMMARY } from './types'
 export function* watchFetchBookingSummary() {
   yield takeLatest(FETCH_BOOKING_SUMMARY, function*() {
     const date = yield select(
-      state => state.agent.bookingSummary.visibilityFilter.date
+      state => state.company.bookingSummary.visibilityFilter.date
     )
     const dateEnd = moment(date.clone()).add(1, 'days')
     try {
