@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table'
 import { connect } from 'react-redux'
 
-import * as actions from '../../../actions/agents'
+import actions from '../../../state/ducks/actions'
 
 class Table extends PureComponent {
   componentDidMount() {
@@ -100,4 +100,4 @@ const mapStateToProps = ({ agent: { booking: { pkgs } } }) => ({
   pkgs: Object.values(pkgs).map(flat)
 })
 
-export default connect(mapStateToProps, actions)(Table)
+export default connect(mapStateToProps, actions.agent.booking)(Table)
