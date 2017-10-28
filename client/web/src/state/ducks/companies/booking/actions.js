@@ -1,5 +1,5 @@
 export default {
-  SET_BOOKINGS_STATUS_VISIBILITY_FILTER: state => state,
+  SET_BOOKINGS_STATUS_VISIBILITY_FILTER: status => status,
   FETCH_BOOKINGS: null,
   FETCH_BOOKINGS_SUCCESS: payload => payload,
   UPDATE_BOOKING_STATUS: payload => payload,
