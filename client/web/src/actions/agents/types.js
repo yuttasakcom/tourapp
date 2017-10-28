@@ -2,16 +2,6 @@ export const AGENT_SIGN_IN_SUCCESS = 'agent_sign_in_success'
 export const AGENT_SIGN_OUT_SUCCESS = 'agent_sign_out_success'
 export const AGENT_SIGN_UP_SUCCESS = 'agent_sign_up_success'
 
-export const AGENT_FETCH_EMPLOYEES_SUCCESS = 'agent_fetch_employees_success'
-export const AGENT_OPEN_ADD_EMPLOYEE_MODAL = 'agent_open_add_employee_modal'
-export const AGENT_CLOSE_ADD_EMPLOYEE_MODAL = 'agent_close_add_employee_modal'
-export const AGENT_OPEN_EDIT_EMPLOYEE_MODAL = 'agent_open_edit_employee_modal'
-export const AGENT_CLOSE_EDIT_EMPLOYEE_MODAL = 'agent_close_edit_employee_modal'
-export const AGENT_OPEN_DELETE_EMPLOYEE_MODAL =
-  'agent_open_delete_employee_modal'
-export const AGENT_CLOSE_DELETE_EMPLOYEE_MODAL =
-  'agent_close_delete_employee_modal'
-
 export const AGENT_FETCH_BOOKINGS_SUCCESS = 'agent_fetch_bookings_success'
 export const AGENT_OPEN_MANAGE_BOOKING_MODAL = 'agent_open_manage_booking_modal'
 export const AGENT_CLOSE_MANAGE_BOOKING_MODAL =
