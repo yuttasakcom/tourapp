@@ -4,13 +4,39 @@ import { takeEvery, put, call, all, select } from 'redux-saga/effects'
 import axios from '../../../utils/axiosAgents'
 import socket from '../../../utils/socket'
 import actions from '../../actions'
-import { FETCH_COMPANIES, DELETE_COMPANY } from './types'
+import { FETCH_COMPANIES, DELETE_COMPANY, REQUEST_COMPANY } from './types'
 
 export function* watchFetchCompanies() {
   yield takeEvery(FETCH_COMPANIES, function*() {
     try {
       const { data } = yield call(axios.get, '/companies')
       yield put(actions.agent.company.fetchCompaniesSuccess(data))
+    } catch (e) {
+      yield put(
+        error({
+          title: 'แจ้งเตือน',
+          message: e.response.data
+        })
+      )
+    }
+  })
+}
+
+export function* watchRequestCompany() {
+  yield takeEvery(REQUEST_COMPANY, function*(action) {
+    const id = action.payload
+    try {
+      const { data: { message } } = yield call(axios.post, '/request', {
+        _id: id
+      })
+      yield put(
+        success({
+          title: 'แจ้งเตือน',
+          message
+        })
+      )
+      socket.emit('request', { _id: id })
+      yield put(actions.agent.notification.fetchRequestPendings())
     } catch (e) {
       yield put(
         error({
@@ -49,5 +75,9 @@ export function* watchDeleteCompany() {
   })
 }
 export default function* rootSaga() {
-  yield all([watchFetchCompanies(), watchDeleteCompany()])
+  yield all([
+    watchFetchCompanies(),
+    watchDeleteCompany(),
+    watchRequestCompany()
+  ])
 }
