@@ -12,12 +12,15 @@ class Table extends PureComponent {
   }
 
   renderAction = (cell, row) => {
-    const { openAddBookingModal } = this.props
+    const { openAddBookingModal, selectPkg } = this.props
     return (
       <button
         className="btn btn-primary btn-sm"
         style={{ margin: 0 }}
-        onClick={() => openAddBookingModal(row._id)}
+        onClick={() => {
+          selectPkg(row._id)
+          openAddBookingModal()
+        }}
       >
         Book
       </button>

@@ -18,14 +18,14 @@ class AddModal extends PureComponent {
   }
 
   render() {
-    const { showModal, closeAddBookingModal, pkg } = this.props
+    const { showModal, closeModal, pkg } = this.props
 
     if (!pkg) {
       return null
     }
 
     return (
-      <Modal show={showModal} onHide={closeAddBookingModal} bsSize="lg">
+      <Modal show={showModal} onHide={closeModal} bsSize="lg">
         <Modal.Header closeButton>
           <Modal.Title>
             Add Booking Detail
@@ -36,7 +36,7 @@ class AddModal extends PureComponent {
         <BookingForm
           initialValues={{ date: moment(), adult: 1, child: 0 }}
           onSubmit={this.onSubmit}
-          closeModal={closeAddBookingModal}
+          closeModal={closeModal}
         />
       </Modal>
     )
@@ -45,7 +45,6 @@ class AddModal extends PureComponent {
 
 const mapStateToProps = ({ agent: { booking } }) => {
   return {
-    showModal: booking.showAddBookingModal,
     pkg: booking.pkgs[booking.selectedPkg]
   }
 }
